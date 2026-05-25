@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Geist:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#c4c7c7",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb4a8",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-background": "#e5e2e1",
+                    "secondary-fixed": "#ffe088",
+                    "inverse-primary": "#5f5e5e",
+                    "surface-container-low": "#1c1b1b",
+                    "on-tertiary-container": "#dd4332",
+                    "primary": "#c9c6c5",
+                    "outline-variant": "#444748",
+                    "on-surface": "#e5e2e1",
+                    "primary-container": "#0d0d0d",
+                    "surface": "#131313",
+                    "outline": "#8e9192",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-container-highest": "#353535",
+                    "secondary-container": "#af8d11",
+                    "on-tertiary": "#690000",
+                    "surface-tint": "#c9c6c5",
+                    "surface-container-high": "#2a2a2a",
+                    "surface-bright": "#393939",
+                    "on-primary": "#313030",
+                    "surface-variant": "#353535",
+                    "surface-dim": "#131313",
+                    "primary-fixed-dim": "#c9c6c5",
+                    "surface-container": "#20201f",
+                    "primary-fixed": "#e5e2e1",
+                    "on-secondary-container": "#342800",
+                    "tertiary-container": "#250000",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-secondary-fixed": "#241a00",
+                    "tertiary-fixed": "#ffdad4",
+                    "on-error": "#690005",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary": "#e9c349",
+                    "on-tertiary-fixed-variant": "#920703",
+                    "tertiary": "#ffb4a8",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#410000",
+                    "on-primary-fixed-variant": "#474646",
+                    "on-primary-fixed": "#1c1b1b",
+                    "on-secondary": "#3c2f00",
+                    "inverse-on-surface": "#313030",
+                    "background": "#131313",
+                    "error-container": "#93000a",
+                    "on-primary-container": "#7c7a7a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-unit": "0.5rem",
+                    "margin-mobile": "1.5rem",
+                    "section-gap": "8rem",
+                    "margin-desktop": "5rem",
+                    "gutter": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "nav-link": ["Hanken Grotesk"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-xl": ["Playfair Display"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-caps": ["Geist"]
+            },
+            "fontSize": {
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "nav-link": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #0d0d0d;
+            color: #e5e2e1;
+        }
+        .ink-texture {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .glass-nav {
+            background: rgba(19, 19, 19, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 15px rgba(233, 195, 73, 0.3);
+        }
+        .pain-gradient {
+            background: linear-gradient(90deg, #e9c349 0%, #8B0000 100%);
+        }
+    </style>
+<style data-woa-desktop-nav-css="1">
+/* Work of Art — unified desktop nav dropdown */
+[data-woa-desktop-nav="1"] details.woa-desktop-dd > summary {
+  list-style: none;
+}
+[data-woa-desktop-nav="1"] details.woa-desktop-dd > summary::-webkit-details-marker {
+  display: none;
+}
+[data-woa-desktop-nav="1"] .woa-dd-panel {
+  position: absolute;
+  left: 0;
+  margin-top: 2px;
+  min-width: 14rem;
+  max-width: min(90vw, 22rem);
+  max-height: min(70vh, 24rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 100;
+  border: 1px solid rgba(68, 71, 72, 0.65);
+  background: rgba(19, 19, 19, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.52);
+}
+
+</style><style data-woa-desktop-nav-css="1">
+/* Work of Art — unified desktop nav dropdown */
+[data-woa-desktop-nav="1"] details.woa-desktop-dd > summary {
+  list-style: none;
+}
+[data-woa-desktop-nav="1"] details.woa-desktop-dd > summary::-webkit-details-marker {
+  display: none;
+}
+[data-woa-desktop-nav="1"] .woa-dd-panel {
+  position: absolute;
+  left: 0;
+  margin-top: 2px;
+  min-width: 14rem;
+  max-width: min(90vw, 22rem);
+  max-height: min(70vh, 24rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 100;
+  border: 1px solid rgba(68, 71, 72, 0.65);
+  background: rgba(19, 19, 19, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.52);
+}
+
+</style><style data-woa-mnav-style="1">
+
+/* Work of Art — mobile nav (inject_mobile_hamburger_nav.py) — narrow rail + larger type */
+html.woa-mnav-lock,
+html.woa-mnav-lock body {
+  overflow: hidden !important;
+  touch-action: none;
+}
+.woa-mnav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 60;
+}
+.woa-mnav-panel {
+  box-sizing: border-box;
+  position: fixed;
+  left: auto;
+  right: 0;
+  top: 0;
+  width: 6rem;
+  max-width: 96px;
+  z-index: 70;
+  max-height: min(88vh, 560px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-left: 1px solid rgba(68, 71, 72, 0.5);
+  border-bottom: 1px solid rgba(68, 71, 72, 0.5);
+  border-bottom-left-radius: 0.75rem;
+  background: rgba(19, 19, 19, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: -10px 14px 36px rgba(0, 0, 0, 0.42);
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.woa-mnav-inner {
+  padding: 4.85rem 0.4rem 0.75rem;
+}
+
+.woa-mnav-panel a,
+.woa-mnav-panel summary {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.woa-mnav-panel details.mobile-guides-dd > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.woa-mnav-panel details.mobile-guides-dd > summary::-webkit-details-marker {
+  display: none;
+}
+
+.woa-mnav-panel details.mobile-guides-dd .guides-sub {
+  padding: 0.25rem 0 0;
+  margin: 0;
+  border-bottom: 1px solid rgba(68, 71, 72, 0.35);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
+}
+
+</style></head>
+<body class="font-body-md text-body-md overflow-x-hidden ink-texture">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-margin-desktop h-20 glass-nav border-b border-outline-variant" data-woa-mnav-done="1" data-woa-top-shell="1">
+<div class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">Work of Art</div>
+<div class="hidden md:flex flex-wrap justify-end items-center gap-1 xl:gap-2" data-woa-desktop-nav="1"><a class="text-nav-link font-nav-link text-on-surface-variant hover:text-secondary transition-colors px-2 py-2 min-h-[40px] flex items-center whitespace-nowrap text-[15px] md:text-[16px] font-semibold tracking-tight" href="/#gallery">Artists</a><a class="text-nav-link font-nav-link text-on-surface-variant hover:text-secondary transition-colors px-2 py-2 min-h-[40px] flex items-center whitespace-nowrap text-[15px] md:text-[16px] font-semibold tracking-tight" href="/#piercing">Piercing</a><details aria-label="Guides submenu" class="relative z-[70] woa-desktop-dd"><summary class="text-nav-link font-nav-link text-on-surface-variant hover:text-secondary transition-colors px-2 py-2 min-h-[40px] flex items-center whitespace-nowrap text-[15px] md:text-[16px] font-semibold tracking-tight cursor-pointer select-none list-none">Guides</summary><div class="woa-dd-panel rounded-sm py-2"><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/">best fine line tattoos in vegas ultimate auth…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/best_piercing_shop_las_vegas_updated_jewelry_standards/">best piercing shop las vegas updated jewelry…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/best_tattoo_styles_for_sleeves_large_scale_project_hub/">best tattoo styles for sleeves large scale pr…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/fine_line_tattoos_las_vegas_master_authority_guide/">fine line tattoos las vegas master authority…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/how_much_do_tattoos_cost_in_las_vegas_authority_guide/">how much do tattoos cost in las vegas authori…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/how_to_choose_a_tattoo_artist_master_selection_guide_2/">how to choose a tattoo artist master selectio…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/jay_jay_artist_portfolio_authentic_masterpieces/">jay jay artist portfolio authentic masterpiec…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/large_scale_projects_variant_a_authentic_art_rotation/">large scale projects variant a authentic art…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/realism_tattoos_las_vegas_master_authority_guide/">realism tattoos las vegas master authority gu…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/review_funnel_google_authority_hub/">review funnel google authority hub</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/reviews_vault_100_verified_masterpieces/">reviews vault 100 verified masterpieces</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">tattoo healing in desert climate expert after…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/tattoo_pain_chart_placement_sensitivity_guide/">tattoo pain chart placement sensitivity guide</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/tattoo_shop_near_the_strip_geo_seo_optimized/">tattoo shop near the strip geo seo optimized</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/tattoo_shop_near_the_strip_nap_corrected/">tattoo shop near the strip nap corrected</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison/">vegas tattoo shop vs cheap strip tattoo ultim…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/">vegas tattoo shop vs cheap strip tattoo what…</a><a class="block px-3 py-2 text-[13px] leading-snug text-on-surface hover:text-secondary transition-colors" href="/walk_in_tattoos_las_vegas_authority_guide/">walk in tattoos las vegas authority guide</a></div></details><a class="text-nav-link font-nav-link text-on-surface-variant hover:text-secondary transition-colors px-2 py-2 min-h-[40px] flex items-center whitespace-nowrap text-[15px] md:text-[16px] font-semibold tracking-tight" href="/merchandise/">Merchandise</a><a class="text-nav-link font-nav-link text-on-surface-variant hover:text-secondary transition-colors px-2 py-2 min-h-[40px] flex items-center whitespace-nowrap text-[15px] md:text-[16px] font-semibold tracking-tight" href="/#faq">Reviews</a><a class="text-nav-link font-nav-link text-on-surface-variant hover:text-secondary transition-colors px-2 py-2 min-h-[40px] flex items-center whitespace-nowrap text-[15px] md:text-[16px] font-semibold tracking-tight" href="/appointments/">Appointments</a></div>
+<button aria-controls="wf4c6effbe1_panel" aria-expanded="false" aria-label="Open navigation menu" class="md:!hidden inline-flex items-center justify-center rounded-sm p-3 -mr-2 text-on-surface-variant hover:text-secondary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background shrink-0 touch-manipulation" data-mobile-nav-toggle="1" data-overlay-for="wf4c6effbe1_ov" type="button"><span aria-hidden="true" class="material-symbols-outlined text-3xl woa-menu-icon-open leading-none">menu</span><span aria-hidden="true" class="material-symbols-outlined text-3xl woa-menu-icon-close hidden leading-none">close</span></button><button class="bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest glow-hover transition-all active:scale-95">
+            Book Now
+        </button>
+</nav><div aria-hidden="true" class="woa-mnav-overlay md:!hidden hidden" data-overlay="1" hidden="" id="wf4c6effbe1_ov" style="display:none"></div><div aria-label="Primary" class="woa-mnav-panel md:hidden hidden" data-woa-mobile-panel="1" hidden="" id="wf4c6effbe1_panel" role="navigation" style="display:none"><div class="woa-mnav-inner"><a class="block py-2.5 text-[17px] leading-snug font-semibold text-on-surface tracking-normal border-b border-outline-variant hover:text-secondary transition-colors woa-mnav-mobile-link" href="/#gallery">Artists</a><a class="block py-2.5 text-[17px] leading-snug font-semibold text-on-surface tracking-normal border-b border-outline-variant hover:text-secondary transition-colors woa-mnav-mobile-link" href="/#piercing">Piercing</a><details class="mobile-guides-dd border-b border-outline-variant pb-1"><summary class="block py-2.5 text-[17px] leading-snug font-semibold text-on-surface tracking-normal border-b border-outline-variant hover:text-secondary transition-colors woa-mnav-mobile-link text-secondary">Guides</summary><div class="guides-sub"><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/">best fine line tattoos in vegas ultimate auth…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/best_piercing_shop_las_vegas_updated_jewelry_standards/">best piercing shop las vegas updated jewelry…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/best_tattoo_styles_for_sleeves_large_scale_project_hub/">best tattoo styles for sleeves large scale pr…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/fine_line_tattoos_las_vegas_master_authority_guide/">fine line tattoos las vegas master authority…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/how_much_do_tattoos_cost_in_las_vegas_authority_guide/">how much do tattoos cost in las vegas authori…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/how_to_choose_a_tattoo_artist_master_selection_guide_2/">how to choose a tattoo artist master selectio…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/jay_jay_artist_portfolio_authentic_masterpieces/">jay jay artist portfolio authentic masterpiec…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/large_scale_projects_variant_a_authentic_art_rotation/">large scale projects variant a authentic art…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/realism_tattoos_las_vegas_master_authority_guide/">realism tattoos las vegas master authority gu…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/review_funnel_google_authority_hub/">review funnel google authority hub</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/reviews_vault_100_verified_masterpieces/">reviews vault 100 verified masterpieces</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">tattoo healing in desert climate expert after…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/tattoo_pain_chart_placement_sensitivity_guide/">tattoo pain chart placement sensitivity guide</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/tattoo_shop_near_the_strip_geo_seo_optimized/">tattoo shop near the strip geo seo optimized</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/tattoo_shop_near_the_strip_nap_corrected/">tattoo shop near the strip nap corrected</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison/">vegas tattoo shop vs cheap strip tattoo ultim…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/">vegas tattoo shop vs cheap strip tattoo what…</a><a class="block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 transition-colors woa-mnav-mobile-link" href="/walk_in_tattoos_las_vegas_authority_guide/">walk in tattoos las vegas authority guide</a></div></details><a class="block py-2.5 text-[17px] leading-snug font-semibold text-on-surface tracking-normal border-b border-outline-variant hover:text-secondary transition-colors woa-mnav-mobile-link" href="/merchandise/">Merchandise</a><a class="block py-2.5 text-[17px] leading-snug font-semibold text-on-surface tracking-normal border-b border-outline-variant hover:text-secondary transition-colors woa-mnav-mobile-link" href="/#faq">Reviews</a><a class="block py-2.5 text-[17px] leading-snug font-semibold text-on-surface tracking-normal border-b border-outline-variant hover:text-secondary transition-colors woa-mnav-mobile-link" href="/appointments/">Appointments</a></div></div>
+<main class="pt-32 pb-section-gap">
+<!-- Hero Section -->
+<header class="max-w-7xl mx-auto px-6 md:px-margin-desktop mb-24">
+<div class="flex flex-col md:flex-row gap-12 items-end">
+<div class="flex-1">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-4 block">Scientific Guide</span>
+<h1 class="font-headline-xl text-headline-xl mb-6">The Definitive <br/><span class="text-secondary italic">Tattoo Pain Chart</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                        An authoritative analysis of dermal sensitivity, nerve density, and pain management strategies for the modern collector. Precision artistry meets biological understanding.
+                    </p>
+</div>
+<div class="w-full md:w-1/3 flex flex-col gap-4 border-l border-outline-variant pl-8 py-2">
+<div class="text-on-surface-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+<span class="font-label-caps text-label-caps">Clinically Informed</span>
+</div>
+<div class="text-on-surface-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">history_edu</span>
+<span class="font-label-caps text-label-caps">15+ Years Experience</span>
+</div>
+<div class="text-on-surface-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">precision_manufacturing</span>
+<span class="font-label-caps text-label-caps">Modern Equipment</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Grid -->
+<article class="max-w-7xl mx-auto px-6 md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Left Content Column -->
+<div class="lg:col-span-8 space-y-16">
+<!-- Section: Biology of Pain -->
+<section>
+<h2 class="font-headline-md text-headline-md mb-8 flex items-center gap-4">
+<span class="w-12 h-px bg-secondary"></span>
+                            The Neurobiology of Ink
+                        </h2>
+<div class="space-y-6 text-on-surface-variant leading-loose">
+<p>
+                                Understanding tattoo pain requires a dive into the human integumentary system. The skin consists of three primary layers: the epidermis, the dermis, and the hypodermis. Tattoo needles must bypass the epidermis to deposit ink into the dermis at a depth of approximately 1.5mm to 2mm.
+                            </p>
+<p>
+                                This process activates <strong>nociceptors</strong>—specialized sensory receptors responsible for sending signals to the spinal cord and brain. The intensity of this signal is dictated by three primary factors: <strong>Nerve Density</strong>, <strong>Bone Proximity</strong>, and <strong>Skin Thickness</strong>. Areas like the sternum or shins provide little "buffering" for the bone, causing the vibration of the machine to resonate through the skeletal structure, which the brain interprets as higher-intensity pain.
+                            </p>
+</div>
+</section>
+<!-- Section: Interactive/Visual Pain Diagram -->
+<section class="bg-surface-container-low p-8 md:p-12 border border-outline-variant relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-4">Sensation Mapping</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-12">Hierarchical Pain Intensity Scale (1-10)</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-6">
+<div class="group">
+<div class="flex justify-between mb-2">
+<span class="font-label-caps text-label-caps text-secondary">Level 1-3: Low Intensity</span>
+<span class="text-on-surface-variant">Outer Arm, Thighs</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest">
+<div class="h-full bg-secondary w-1/3 transition-all duration-1000"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between mb-2">
+<span class="font-label-caps text-label-caps text-secondary">Level 4-6: Moderate</span>
+<span class="text-on-surface-variant">Shoulders, Forearm, Calves</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest">
+<div class="h-full bg-secondary w-1/2 transition-all duration-1000"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between mb-2">
+<span class="font-label-caps text-label-caps text-secondary">Level 7-9: Severe</span>
+<span class="text-on-surface-variant">Ribs, Sternum, Knees</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest">
+<div class="h-full bg-secondary w-4/5 transition-all duration-1000"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between mb-2">
+<span class="font-label-caps text-label-caps text-error">Level 10: Extreme</span>
+<span class="text-on-surface-variant">Armpits, Groin, Spine</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest">
+<div class="h-full bg-error w-full transition-all duration-1000"></div>
+</div>
+</div>
+</div>
+<div class="relative aspect-square bg-surface-container-high flex items-center justify-center p-4 border border-outline-variant">
+<img alt="A highly detailed anatomical medical diagram showing the human nervous system in a cinematic…, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover opacity-80" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4P_J2aZuv2o7a1L3xFdarF8QbHCGe2ZrWs9QFwfNSw5vrqteQJrNsQBv9tshJcQGgeCR74KqD1xfStkkNSF-I38a8fBGCmSnbwKn5JsECsDWPKyg7ua5O_O_6rOA8cuJX-7aQ01ZhEjTlDJ7oWQfiZJJxBdKMdGW4ot97MF4Ogjdu1cXcQ7RcKAMcYL3bZDlAxbnqMtjz0wlQlaA-OtBF5Wo-M_NtAC-DHNfwI0P5Hv5MRRFFgcAH9cnaGNZyUjuqWnbHVpF9ZIVb"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Session Management -->
+<section>
+<h2 class="font-headline-md text-headline-md mb-8">Endurance &amp; Session Management</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="p-6 border border-outline-variant bg-surface-container-lowest">
+<h4 class="font-label-caps text-label-caps text-secondary mb-4">The Adrenaline Window</h4>
+<p class="text-on-surface-variant leading-relaxed">
+                                    Most clients experience a 'honeymoon phase' where natural endorphins mask the initial trauma. This typically lasts 2-3 hours. Planning sessions within this window can significantly improve the experience.
+                                </p>
+</div>
+<div class="p-6 border border-outline-variant bg-surface-container-lowest">
+<h4 class="font-label-caps text-label-caps text-secondary mb-4">Hydration &amp; Glucose</h4>
+<p class="text-on-surface-variant leading-relaxed">
+                                    Low blood sugar is the leading cause of fainting and heightened pain sensitivity. A high-protein meal 2 hours prior and consistent glucose intake during breaks is mandatory for long sessions.
+                                </p>
+</div>
+</div>
+</section>
+<!-- Long Article Text Continuation -->
+<section class="prose prose-invert max-w-none text-on-surface-variant space-y-6 leading-loose">
+<h3 class="font-headline-md text-headline-md text-on-surface mt-12">Expert Tips for Managing Sensation</h3>
+<p>
+                            At Work of Art, we prioritize the psychological aspect of pain management as much as the technical. The <strong>"Vagus Nerve Response"</strong> can be regulated through controlled diaphragmatic breathing. By focusing on a long, slow exhale, you signal to your parasympathetic nervous system that you are safe, naturally lowering your heart rate and cortisol levels.
+                        </p>
+<p>
+                            Many collectors also find success with topical anesthetics. However, these must be applied with professional guidance. Some lidocaine-based creams can alter the texture of the skin, making it "spongy" and difficult for the artist to saturate properly. We recommend specific medical-grade options that preserve skin integrity while providing significant relief for high-sensitivity zones.
+                        </p>
+</section>
+</div>
+<!-- Right Sidebar Column -->
+<aside class="lg:col-span-4 space-y-8">
+<div class="sticky top-28 space-y-8">
+<!-- Trust Signals Card -->
+<div class="bg-surface-container p-8 border border-outline-variant">
+<h3 class="font-label-caps text-label-caps text-secondary mb-6 tracking-widest uppercase">Why Trust Us?</h3>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary">medical_services</span>
+<div>
+<p class="font-bold">Medical Grade Safety</p>
+<p class="text-sm text-on-surface-variant">Hospital-level sterilization and safety protocols.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary">palette</span>
+<div>
+<p class="font-bold">Elite Artistry</p>
+<p class="text-sm text-on-surface-variant">Award-winning specialists in every style.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary">psychology</span>
+<div>
+<p class="font-bold">Client Empathy</p>
+<p class="text-sm text-on-surface-variant">Tailored sessions for your pain tolerance.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- CTA Card -->
+<div class="bg-secondary p-8 text-on-secondary relative group overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">ink_highlighter</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4 leading-tight">Ready for your masterpiece?</h3>
+<p class="font-body-md mb-8 opacity-90">Book a consultation with our experts to discuss your design and placement strategy.</p>
+<button class="w-full bg-on-secondary text-secondary py-4 font-label-caps text-label-caps uppercase tracking-widest border border-on-secondary hover:bg-transparent hover:text-on-secondary transition-all">
+                                Schedule Consultation
+                            </button>
+</div>
+<!-- Newsletter/Update -->
+<div class="p-6 border border-outline-variant border-dashed">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4">Stay Informed</p>
+<div class="flex">
+<input class="bg-transparent border-0 border-b border-outline w-full focus:ring-0 focus:border-secondary text-sm" placeholder="Email Address" type="email"/>
+<button class="text-secondary p-2"><span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</article>
+<!-- Gallery / Visual Interlude -->
+<section class="mt-section-gap max-w-7xl mx-auto px-6 md:px-margin-desktop">
+<h2 class="font-headline-md text-headline-md mb-12 text-center">Precision in Every Placement</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="relative aspect-[3/4] overflow-hidden group">
+<img alt="A high-contrast black and grey photograph of a detailed tattoo being applied to a person's upper…, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMYQoRp6nfnYRVYAVJIvs5mbpzu4X0YQQ8606D2RVoaGSTUL6pUO7FpCtSttHLlu_gwcMweO46GNqeTsfBxAFHapuwL5AiGYQUzEK0B068dEGJoTEnlTNSdSexczvo38ljge9S2cYZykCbjpDM76GXJ0Rcn4lZagyBafXbEYiifGu__WmcSy3LCpdrg9tWz7JXsXc_6sNd5jwbMmQizkEdb8nWzBuq-dqmgwRaxKlDOi5WjbEzLYpnUQLXWdtYoNX09FDvlcD-P1b7"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-white border border-white px-6 py-2">View Sleeve Portfolio</span>
+</div>
+</div>
+<div class="relative aspect-[3/4] overflow-hidden group">
+<img alt="Close up of a minimalist line-work tattoo on a wrist, shot in a high-end photography style. The…, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMK0yTYVk17isExgGG-r8NKBGX7vluMyzaTzS3cX48OsxO-tCl_88EMq6-iPKHS6prjppzU6aNw0jtRGBRArFPjUcyVF78D3MQ5z1QRNp4V2bacDWEeRjuMUDtTxwHcn4CZf_QM9cVk8lWeCgXEWvYS3qEHp0Si7sJ-BZP1UjVjEEVV3eyRHsqWfddztns5OVF3Cw4OSpptc_fAgPnC6PG6elZRPCFKMc4i-XF6To1I19EkZNkV_4nCROTTjJvUEanrnLhul2vqCPD"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-white border border-white px-6 py-2">View Minimalist Works</span>
+</div>
+</div>
+<div class="relative aspect-[3/4] overflow-hidden group">
+<img alt="A dramatic wide shot of a professional tattoo artist working on a client's back piece in a…, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-buSJ6muKdKAJL5MB-26I1KQMuv8qqbCr9uOHfY57BgLH5973bXVP2rxQdC1Vo5b3wHa_NvptNhezU2WH9NsrYHlU6NcKhr9AaDCHKufAJXUNgaKoDNxzWeXD7r8UkniY-krBkOp-nKpgpCaUCLOl1MfBAIsIZbN_TzgscFSBUfn8KE2nWYuuXgcPM6dIZ-g73Kxwn1tpvQjCMMLCZi3v5qYY2-qlRkaD5Kmkld0yOMWSS5aKolxEidQTL67iCsZhBEyivrtVMfQX"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-white border border-white px-6 py-2">View Back Pieces</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-6 md:px-margin-desktop bg-surface-container-lowest border-t border-outline-variant">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-gutter">
+<div class="flex-1">
+<div class="font-headline-lg text-headline-lg text-on-surface mb-4">Work of Art</div>
+<p class="text-on-surface-variant max-w-sm">Premier Tattoo &amp; Piercing Studio in the heart of Las Vegas. Where technical excellence meets elite artistry.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-12 md:gap-24">
+<div class="space-y-4">
+<h5 class="font-label-caps text-label-caps text-secondary uppercase">Information</h5>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline decoration-secondary transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline decoration-secondary transition-all" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline decoration-secondary transition-all" href="#">Studio Rules</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline decoration-secondary transition-all" href="#">Safety</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-label-caps text-label-caps text-secondary uppercase">Connect</h5>
+<div class="flex gap-4">
+<a class="w-10 h-10 border border-outline-variant flex items-center justify-center hover:border-secondary hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">public</span>
+</a>
+<a class="w-10 h-10 border border-outline-variant flex items-center justify-center hover:border-secondary hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">alternate_email</span>
+</a>
+<a class="w-10 h-10 border border-outline-variant flex items-center justify-center hover:border-secondary hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-24 pt-8 border-t border-outline-variant/30 text-center md:text-left">
+<p class="font-label-caps text-label-caps text-on-surface-variant/50">© 2024 Work of Art Tattoo &amp; Piercing | 725-224-1240</p>
+</div>
+</footer>
+<!-- Sticky Booking Bar (Mobile Only) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full glass-nav p-4 flex items-center justify-between z-50 border-t border-outline-variant">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-secondary">Expert Care</span>
+<span class="font-bold text-sm uppercase">Book Artist</span>
+</div>
+<button class="bg-[#8B0000] text-white px-6 py-2 font-label-caps text-label-caps uppercase glow-hover">
+            Appointment
+        </button>
+</div>
+
+<script data-woa-img-load-repair="1" type="text/javascript">(function(){
+window.addEventListener("error",function(e){
+var t=e.target;
+if(!t||t.tagName!=="IMG"||!t.getAttribute||t.getAttribute("data-woa-retry-done"))return;
+var s=t.src||"";
+if(s.indexOf("googleusercontent")<0&&s.indexOf("googleapis.com")<0)return;
+if(s.indexOf("woa-retry=")>=0)return;
+t.setAttribute("data-woa-retry-done","1");
+var i=s.indexOf("?");
+var base=i<0?s:s.slice(0,i);
+t.src=base+"?woa-retry="+Date.now();
+},true);
+})();</script>
+<script data-woa-mnav-script="1" type="text/javascript">(function() {
+'use strict';
+var KEY = '__woaMnavDone';
+if (window[KEY]) return;
+window[KEY] = true;
+
+function closeAll(openEl) {
+  document.querySelectorAll('[data-mobile-nav-toggle][aria-expanded="true"]').forEach(function(btn) {
+    if (openEl && btn === openEl) return;
+    setOpen(btn, false);
+  });
+}
+
+function findBits(btn) {
+  var pid = btn.getAttribute('aria-controls');
+  if (!pid) return null;
+  var panel = document.getElementById(pid);
+  if (!panel) return null;
+  var overlayId = btn.getAttribute('data-overlay-for');
+  var overlay = overlayId ? document.getElementById(overlayId) : null;
+  return {panel: panel, overlay: overlay};
+}
+
+function setOpen(btn, open) {
+  var bits = findBits(btn);
+  if (!bits) return;
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.setAttribute('aria-label', open ? 'Close menu' : 'Open navigation menu');
+  bits.panel.hidden = !open;
+  bits.panel.classList.toggle('hidden', !open);
+  bits.panel.style.display = open ? 'block' : 'none';
+  if (bits.overlay) {
+    bits.overlay.hidden = !open;
+    bits.overlay.style.display = open ? 'block' : 'none';
+    bits.overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+  }
+  var openIcon = btn.querySelector('.woa-menu-icon-open');
+  var closeIcon = btn.querySelector('.woa-menu-icon-close');
+  if (openIcon) openIcon.classList.toggle('hidden', open);
+  if (closeIcon) closeIcon.classList.toggle('hidden', !open);
+  document.documentElement.classList.toggle('woa-mnav-lock', !!open);
+}
+
+document.addEventListener('click', function(e) {
+  var inPanel = e.target.closest('.woa-mnav-panel');
+  if (inPanel && e.target.closest('details.mobile-guides-dd > summary')) {
+    return;
+  }
+  var mobilink = e.target.closest('.woa-mnav-mobile-link');
+  if (mobilink) {
+    document.querySelectorAll('[data-mobile-nav-toggle][aria-expanded="true"]').forEach(function(btn2) {
+      setOpen(btn2, false);
+    });
+    return;
+  }
+  var btn = e.target.closest('[data-mobile-nav-toggle]');
+  if (btn && btn.closest('[data-woa-top-shell]')) {
+    e.preventDefault();
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    closeAll(btn);
+    setOpen(btn, !expanded);
+    return;
+  }
+  var over = e.target.closest('.woa-mnav-overlay');
+  if (over) {
+    var forBtn = document.querySelector('[data-overlay-for="' + over.id + '"]');
+    if (forBtn) setOpen(forBtn, false);
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeAll(null);
+});
+
+var mq = window.matchMedia('(min-width: 768px)');
+function onWide() {
+  if (mq.matches) closeAll(null);
+}
+if (mq.addEventListener) mq.addEventListener('change', onWide);
+else mq.addListener(onWide);
+})();
+</script></body></html>
