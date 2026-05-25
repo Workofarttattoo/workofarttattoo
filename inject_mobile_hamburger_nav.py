@@ -440,7 +440,7 @@ def find_book_cta(shell):
 def fill_mobile_navigation(inner: object, soup: BeautifulSoup, nav_strip) -> None:
     """Flatten desktop strip into mobile drawer: top links + Guides accordion."""
 
-    bold_labels = frozenset({"guides"})
+    bold_labels = frozenset({"guides", "artists"})
 
     def link_classes(label: str) -> list[str]:
         base = MOB_LINK_V3_MAIN.split()
@@ -462,15 +462,21 @@ def fill_mobile_navigation(inner: object, soup: BeautifulSoup, nav_strip) -> Non
             a.string = label
             inner.append(a)
         elif nm == "details":
+            aria = (child.get("aria-label") or "").lower()
+            is_artists = "artist" in aria
+            dd_cls = (
+                "mobile-artists-dd" if is_artists else "mobile-guides-dd"
+            )
+            summary_label = "Artists" if is_artists else "Guides"
             dd = soup.new_tag(
                 "details",
-                attrs={"class": ["mobile-guides-dd", "border-b", "border-outline-variant", "pb-1"]},
+                attrs={"class": [dd_cls, "border-b", "border-outline-variant", "pb-1"]},
             )
             sm = soup.new_tag(
                 "summary",
-                attrs={"class": link_classes("Guides")},
+                attrs={"class": link_classes(summary_label)},
             )
-            sm.string = "Guides"
+            sm.string = summary_label
             dd.append(sm)
             sub = soup.new_tag("div", attrs={"class": ["guides-sub"]})
             dd.append(sub)

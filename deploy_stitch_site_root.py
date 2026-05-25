@@ -8,6 +8,23 @@ Deploy Stitch exports at the site document root (no /stitch-pages/ prefix).
   (otherwise the theme header appears on that URL).
 - Prepends DirectoryIndex so index.html wins over index.php on /
 - Removes remote stitch-pages/ tree if present
+
+Local layout: slug folders live as direct children of your export root, each with code.html.
+
+Defaults:
+  Deploy root = the directory that contains this script (your repo root).
+  Homepage folder = auto-detected (see resolve_home_slug).
+
+Env overrides:
+  WOA_DEPLOY_SOURCE       — Root folder that contains slug subfolders (overrides default above)
+  WOA_HOME_SLUG           — Exact folder name for the homepage export (if auto-detect fails)
+  WOA_ROOT_MEDIA_FOLDER   — Where loose images at repo root go (default: _repo_media)
+  FTP_USER, FTP_PASS      — Required (never commit credentials into this file)
+
+Child folders without code.html still upload when they contain image files in that folder
+(non-recursive). Loose image files at repo root upload to /WOA_ROOT_MEDIA_FOLDER/.
+`artists_build/*.html` deploys to `/artists/<name>/index.html` (e.g. katelyn-cole).
+
 """
 
 from __future__ import annotations
@@ -18,41 +35,114 @@ from ftplib import FTP, error_perm
 from io import BytesIO
 from pathlib import Path
 
-# Base export folder + any "stitch_work_of_art_digital_overhaul N" siblings under Downloads.
-# Merge order: base first, then numbered folders sorted numerically (6 wins over 2 on same slug).
-_DOWNLOADS = Path("/Users/noone/Downloads")
-_SOURCE_PREFIX = "stitch_work_of_art_digital_overhaul"
+from woa_ai_crawl import GEO_SLUG, SITEMAP_STATIC_NAME, write_ai_crawl_assets
 
+_SCRIPT_DIR = Path(__file__).resolve().parent
+ROOT_CRAWL_FILES = ("llms.txt", "ai.txt", "robots.txt", "sitemap-static-pages.xml", "sitemap.xml")
+_DEFAULT_SOURCE_ROOT = str(_SCRIPT_DIR)
 
-def _discover_source_roots() -> list[Path]:
-    roots: list[Path] = []
-    base = _DOWNLOADS / _SOURCE_PREFIX
-    if base.is_dir():
-        roots.append(base)
-    numbered: list[tuple[int, Path]] = []
-    for p in _DOWNLOADS.iterdir():
-        if not p.is_dir():
-            continue
-        name = p.name
-        if not name.startswith(_SOURCE_PREFIX + " "):
-            continue
-        suffix = name[len(_SOURCE_PREFIX) :].strip()
-        try:
-            n = int(suffix)
-        except ValueError:
-            continue
-        numbered.append((n, p))
-    for _, p in sorted(numbered, key=lambda t: t[0]):
-        roots.append(p)
-    return roots
-
-
-SOURCES = _discover_source_roots()
+SOURCES = [
+    Path(os.environ.get("WOA_DEPLOY_SOURCE", _DEFAULT_SOURCE_ROOT)).expanduser().resolve()
+]
 HOST = "ftp.workofarttattoo.com"
-HOME_SLUG = "home_work_of_art_tattoo_piercing"
+_DEFAULT_HOME_SLUG = "home_work_of_art_tattoo_piercing"
 LEGACY_PREFIX = "stitch-pages"
 
+
+def resolve_home_slug(merged: dict[str, Path]) -> str | None:
+    """
+    Pick which subfolder supplies /index.html. Export folder names vary:
+    home_work_of_art_tattoo_piercing vs home_work_of_art_tattoo, etc.
+    """
+    env = os.environ.get("WOA_HOME_SLUG", "").strip()
+    candidates: list[str] = []
+    if env:
+        candidates.append(env)
+    candidates.extend(
+        [
+            _DEFAULT_HOME_SLUG,
+            "home_work_of_art_tattoo",
+            "home_work_of_art",
+        ]
+    )
+    seen: set[str] = set()
+    for slug in candidates:
+        if not slug or slug in seen:
+            continue
+        seen.add(slug)
+        if slug in merged and (merged[slug] / "code.html").is_file():
+            return slug
+
+    prefixes = ("home_work_of_art", "home_")
+    for name, path in sorted(merged.items()):
+        if not any(name.startswith(p) for p in prefixes):
+            continue
+        if (path / "code.html").is_file():
+            return name
+    return None
+
+
 IMAGE_EXT = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ico"}
+# Non-HTML assets deployed beside index.html in each slug folder
+SLUG_ASSET_EXT = IMAGE_EXT | {".css"}
+
+SKIP_MEDIA_ONLY_NAMES = frozenset({"__pycache__", "node_modules"})
+
+
+def iter_image_files_direct(local_dir: Path) -> list[Path]:
+    """Image files directly inside local_dir (not in subfolders)."""
+    return [
+        p
+        for p in sorted(local_dir.iterdir())
+        if p.is_file() and p.suffix.lower() in IMAGE_EXT
+    ]
+
+
+def artist_remote_slug_from_folder(folder_name: str) -> str | None:
+    """Map long Stitch folder names to /artists/<slug> paths."""
+    lower = folder_name.lower()
+    if "katelyn" in lower or "katie" in lower:
+        return "katelyn-cole"
+    if "joshua" in lower:
+        return "joshua-cole"
+    return None
+
+
+def ftp_stor_file(ftp: FTP, remote_dir: str, local_path: Path, remote_name: str) -> None:
+    ftp_mkdir_p(ftp, remote_dir)
+    print(f"[up]   /{remote_dir}/{remote_name}")
+    with open(local_path, "rb") as fh:
+        ftp.storbinary(f"STOR {remote_name}", fh)
+
+
+def deploy_root_crawl_files(ftp: FTP, repo_root: Path) -> int:
+    """Upload llms.txt, ai.txt, robots.txt, sitemap.xml and GEO index.html.md."""
+    count = 0
+    ftp.cwd("/")
+    for name in ROOT_CRAWL_FILES:
+        local = repo_root / name
+        if not local.is_file():
+            continue
+        print(f"[up] /{name}")
+        with open(local, "rb") as fh:
+            ftp.storbinary(f"STOR {name}", fh)
+        count += 1
+    geo_md = repo_root / GEO_SLUG / "index.html.md"
+    if geo_md.is_file():
+        ftp_stor_file(ftp, GEO_SLUG, geo_md, "index.html.md")
+        count += 1
+    return count
+
+
+def deploy_artists_build(ftp: FTP, local_dir: Path) -> int:
+    """Publish artist pages from artists_build/*.html → /artists/<slug>/index.html."""
+    count = 0
+    for html in sorted(local_dir.glob("*.html")):
+        remote = f"artists/{html.stem}"
+        ftp_stor_file(ftp, remote, html, "index.html")
+        count += 1
+    return count
+
 
 HTACCESS_MARKER = "# Stitch: prefer static index.html before WordPress\n"
 HTACCESS_SNIPPET = HTACCESS_MARKER + """<IfModule mod_dir.c>
@@ -77,6 +167,7 @@ def gather_folders() -> dict[str, Path]:
     merged: dict[str, Path] = {}
     for root in SOURCES:
         if not root.is_dir():
+            print(f"[error] Source root is not a directory: {root}", file=sys.stderr)
             continue
         for d in sorted(root.iterdir()):
             if not d.is_dir() or d.name.startswith("."):
@@ -86,7 +177,6 @@ def gather_folders() -> dict[str, Path]:
 
 
 def ftp_rmtree(ftp: FTP, path: str) -> None:
-    """Remove path (under FTP home) recursively."""
     ftp.cwd("/")
     try:
         ftp.cwd(path)
@@ -124,19 +214,59 @@ def main() -> int:
     user = os.environ.get("FTP_USER", "").strip()
     pw = os.environ.get("FTP_PASS", "").strip()
     if not user or not pw:
-        print("Set FTP_USER and FTP_PASS.", file=sys.stderr)
+        print("Set FTP_USER and FTP_PASS in your environment (do not hardcode in this file).", file=sys.stderr)
+        return 1
+
+    if not SOURCES[0].is_dir():
+        print(
+            f"Missing deploy source folder: {SOURCES[0]}\n"
+            "Create it or set WOA_DEPLOY_SOURCE to your export root.",
+            file=sys.stderr,
+        )
         return 1
 
     merged = gather_folders()
-    if HOME_SLUG not in merged:
-        print(f"Missing home folder {HOME_SLUG!r}; cannot write /index.html.", file=sys.stderr)
+    crawl_written = write_ai_crawl_assets(SOURCES[0])
+    if crawl_written:
+        print(f"[gen] AI crawl assets: {', '.join(p.name for p in crawl_written)}")
+
+    home_slug = resolve_home_slug(merged)
+    if not home_slug:
+        home_like = [
+            n
+            for n in sorted(merged)
+            if n.startswith("home") and (merged[n] / "code.html").is_file()
+        ]
+        print(
+            "Could not find a homepage export folder with code.html.\n"
+            "Expected something like 'home_work_of_art_tattoo_piercing' or "
+            "'home_work_of_art_tattoo' as a direct subfolder of:\n"
+            f"  {SOURCES[0]}\n"
+            "Fix: put the home export there, or set WOA_HOME_SLUG to the exact folder name.\n"
+            f"Folders here (first 40): {sorted(merged.keys())[:40]}",
+            file=sys.stderr,
+        )
+        if home_like:
+            print(f"Home-like folders with code.html found: {home_like}", file=sys.stderr)
         return 1
 
     print(f"SOURCES: {[str(s) for s in SOURCES]}")
-    print(f"Unique folders: {len(merged)} (home slug: {HOME_SLUG})")
+    print(f"Unique folders: {len(merged)} (home slug → /index.html: {home_slug})")
 
     ftp = FTP(HOST, timeout=120)
-    ftp.login(user, pw)
+    try:
+        ftp.login(user, pw)
+    except error_perm as e:
+        print(
+            f"FTP login failed ({e}).\n"
+            f"  Host: {HOST}\n"
+            f"  User: {user!r}\n"
+            "  Use one line: FTP_USER='...' FTP_PASS='...' python3 deploy_stitch_site_root.py\n"
+            "  (Do not use the placeholder 'your-password'.)\n"
+            "  Reset the FTP password in Bluehost → Advanced → FTP Accounts if needed.",
+            file=sys.stderr,
+        )
+        return 1
     ftp.set_pasv(True)
 
     buf = BytesIO()
@@ -149,33 +279,87 @@ def main() -> int:
         ftp.storbinary("STOR .htaccess", BytesIO(new_ht))
 
     uploaded = 0
+    uploaded_media_only = 0
+    uploaded_artists = 0
     skipped = 0
 
+    root_media_folder = (
+        os.environ.get("WOA_ROOT_MEDIA_FOLDER", "_repo_media").strip() or "_repo_media"
+    )
+
+    n_crawl = deploy_root_crawl_files(ftp, SOURCES[0])
+    if n_crawl:
+        print(f"[up] {n_crawl} AI crawl file(s) at site root / GEO markdown")
+
+    if "artists_build" in merged:
+        n = deploy_artists_build(ftp, merged["artists_build"])
+        if n:
+            print(f"[up] artists_build → {n} page(s) under /artists/")
+            uploaded_artists += n
+
     for slug in sorted(merged.keys()):
+        if slug == "artists_build":
+            continue
         local_dir = merged[slug]
         code = local_dir / "code.html"
-        if not code.is_file():
-            print(f"[skip] {slug} — no code.html")
+
+        if code.is_file():
+            ftp_mkdir_p(ftp, slug)
+            print(f"[up] /{slug}/index.html")
+            with open(code, "rb") as fh:
+                ftp.storbinary("STOR index.html", fh)
+
+            for fpath in sorted(local_dir.iterdir()):
+                if not fpath.is_file() or fpath.name == "code.html":
+                    continue
+                if fpath.suffix.lower() not in SLUG_ASSET_EXT:
+                    continue
+                print(f"[up]   asset /{slug}/{fpath.name}")
+                with open(fpath, "rb") as bf:
+                    ftp.storbinary(f"STOR {fpath.name}", bf)
+
+            uploaded += 1
+            continue
+
+        if slug in SKIP_MEDIA_ONLY_NAMES:
+            print(f"[skip] {slug} — excluded from deploy")
             skipped += 1
             continue
 
-        ftp_mkdir_p(ftp, slug)
-        print(f"[up] /{slug}/index.html")
-        with open(code, "rb") as fh:
-            ftp.storbinary("STOR index.html", fh)
+        imgs = iter_image_files_direct(local_dir)
+        if imgs:
+            artist_slug = artist_remote_slug_from_folder(slug)
+            if artist_slug:
+                remote = f"artists/{artist_slug}"
+                for fpath in imgs:
+                    ftp_stor_file(ftp, remote, fpath, fpath.name)
+                uploaded_media_only += 1
+                continue
+            ftp_mkdir_p(ftp, slug)
+            for fpath in imgs:
+                print(f"[up]   media /{slug}/{fpath.name}")
+                with open(fpath, "rb") as bf:
+                    ftp.storbinary(f"STOR {fpath.name}", bf)
+            uploaded_media_only += 1
+            continue
 
-        for fpath in sorted(local_dir.iterdir()):
-            if not fpath.is_file() or fpath.name == "code.html":
-                continue
-            if fpath.suffix.lower() not in IMAGE_EXT:
-                continue
-            print(f"[up]   asset /{slug}/{fpath.name}")
+        print(f"[skip] {slug} — no code.html and no images")
+        skipped += 1
+
+    root_imgs = [
+        p
+        for p in sorted(SOURCES[0].iterdir())
+        if p.is_file() and p.suffix.lower() in IMAGE_EXT
+    ]
+    if root_imgs:
+        ftp_mkdir_p(ftp, root_media_folder)
+        for fpath in root_imgs:
+            print(f"[up]   media /{root_media_folder}/{fpath.name}")
             with open(fpath, "rb") as bf:
                 ftp.storbinary(f"STOR {fpath.name}", bf)
+        print(f"[up] {len(root_imgs)} loose repo-root image(s) → /{root_media_folder}/")
 
-        uploaded += 1
-
-    home_code = merged[HOME_SLUG] / "code.html"
+    home_code = merged[home_slug] / "code.html"
     ftp.cwd("/")
     print("[up] /index.html (from home export)")
     with open(home_code, "rb") as fh:
@@ -186,10 +370,16 @@ def main() -> int:
 
     ftp.quit()
     print(
-        f"Done. Uploaded {uploaded} section roots + homepage, skipped {skipped} folders without code.html."
+        "Done. HTML sections: "
+        f"{uploaded}; media-only folders: {uploaded_media_only}; "
+        f"artist pages: {uploaded_artists}; skipped: {skipped}. "
+        f"Homepage from {home_slug!r}."
     )
-    print(f"Try: https://workofarttattoo.com/")
-    print("Example slug: https://workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/")
+    print("Try: https://workofarttattoo.com/")
+    print(
+        "Example slug: "
+        "https://workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/"
+    )
     return 0
 
 

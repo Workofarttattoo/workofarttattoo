@@ -2,7 +2,7 @@
 """
 Replace the desktop `<header>/<nav>` link strip with a unified row:
 
-Artists • Piercing • Guides (informative guides in a scrolling panel) • Merchandise
+Artists (dropdown: Joshua, Katelyn, Jay Jay) • Piercing • Guides • Merchandise
 • Reviews • Appointments
 
 Adds CSS for the Guides `<details>` panel. By default reruns inject mobile nav with
@@ -22,9 +22,9 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 from woa_nav_config import (
-    discover_guide_pairs,
+    discover_artist_nav_entries,
+    discover_guide_entries,
     HREF_APPOINTMENTS,
-    HREF_ARTISTS,
     HREF_PIERCING,
     HREF_REVIEWS,
     MERCH_HREF,
@@ -88,24 +88,30 @@ def ensure_desktop_nav_css(head, soup: BeautifulSoup) -> None:
     head.append(tag)
 
 
-def build_guide_details(soup: BeautifulSoup, guide_pairs: list[tuple[str, str]]):
+def build_dropdown_details(
+    soup: BeautifulSoup,
+    *,
+    summary_label: str,
+    aria_label: str,
+    items: list[tuple[str, str]],
+    panel_max_height: str = "24rem",
+):
     det = soup.new_tag(
         "details",
         attrs={
             "class": ["relative", "z-[70]", "woa-desktop-dd"],
-            "aria-label": "Guides submenu",
+            "aria-label": aria_label,
         },
     )
-    sm = soup.new_tag(
-        "summary",
-        attrs={"class": SUMMARY_CLASSES.split()},
-    )
-    sm.string = "Guides"
+    sm = soup.new_tag("summary", attrs={"class": SUMMARY_CLASSES.split()})
+    sm.string = summary_label
     pan = soup.new_tag(
         "div",
         attrs={"class": ["woa-dd-panel", "rounded-sm", "py-2"]},
     )
-    for label, href in guide_pairs:
+    if panel_max_height != "24rem":
+        pan["style"] = f"max-height: min(70vh, {panel_max_height});"
+    for label, href in items:
         a = soup.new_tag(
             "a",
             href=href,
@@ -129,7 +135,26 @@ def build_guide_details(soup: BeautifulSoup, guide_pairs: list[tuple[str, str]])
     return det
 
 
-def build_desktop_strip(soup: BeautifulSoup, guide_pairs: list[tuple[str, str]]):
+def build_artist_details(soup: BeautifulSoup):
+    return build_dropdown_details(
+        soup,
+        summary_label="Artists",
+        aria_label="Artists submenu",
+        items=discover_artist_nav_entries(),
+        panel_max_height="14rem",
+    )
+
+
+def build_guide_details(soup: BeautifulSoup, guide_pairs: list[tuple[str, str, str]]):
+    return build_dropdown_details(
+        soup,
+        summary_label="Guides",
+        aria_label="Guides submenu",
+        items=[(label, href) for label, href, _blurb in guide_pairs],
+    )
+
+
+def build_desktop_strip(soup: BeautifulSoup, guide_pairs: list[tuple[str, str, str]]):
     root = soup.new_tag(
         "div",
         attrs={
@@ -155,7 +180,7 @@ def build_desktop_strip(soup: BeautifulSoup, guide_pairs: list[tuple[str, str]])
         tag.string = label
         return tag
 
-    root.append(a_link(HREF_ARTISTS, "Artists"))
+    root.append(build_artist_details(soup))
     root.append(a_link(HREF_PIERCING, "Piercing"))
     root.append(build_guide_details(soup, guide_pairs))
     root.append(a_link(MERCH_HREF, "Merchandise"))
@@ -178,7 +203,7 @@ def apply_navigation(soup: BeautifulSoup) -> bool:
     holder = pick_nav_container(shell)
     if not holder:
         return False
-    guides = discover_guide_pairs()
+    guides = [(label, href, blurb) for _s, label, href, blurb in discover_guide_entries()]
     head = soup.find("head")
     ensure_desktop_nav_css(head, soup)
     blk = build_desktop_strip(soup, guides)
@@ -221,7 +246,7 @@ def main() -> int:
     )
     args = ap.parse_args()
 
-    guides = discover_guide_pairs()
+    guides = discover_guide_entries()
     print(f"Detected {len(guides)} informational guide URLs for dropdown.")
 
     n = 0

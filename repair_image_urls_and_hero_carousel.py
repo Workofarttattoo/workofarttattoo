@@ -18,12 +18,16 @@ Fix common Stitch static-site image failures:
    gets `fetchpriority="high"` (LCP / “images not appearing” fixes).
 
 5) Global: one-shot retry on failed Google CDN `<img>` loads (capture-phase error listener).
+
+6) Dead `aida-public` placeholders (HTTP 400): swap to self-hosted `/…/{seo-image}.png` assets
+   already in the repo (Stitch export folders + img_* batches).
 """
 
 from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -31,6 +35,10 @@ from bs4 import BeautifulSoup
 
 _ROOT_A = Path(__file__).resolve().parent
 _ROOT_B = Path("/Users/noone/Downloads/stitch_work_of_art_digital_overhaul 2")
+
+GOOGLE_IMG_PATTERN = re.compile(
+    r"https://lh3\.googleusercontent\.com/(?:aida-public|aida)/[^\"')\s<>]+"
+)
 
 BLOCKED_PATTERN = re.compile(
     r"https://lh3\.googleusercontent\.com/aida/[^\"')\s<>]+"
@@ -172,7 +180,122 @@ def build_global_public_pool(files: list[Path]) -> list[str]:
     return out
 
 
-def _apply_repairs(raw: str, global_public: Sequence[str]) -> tuple[str, list[str]]:
+def curl_ok(url: str) -> bool:
+    try:
+        proc = subprocess.run(
+            ["curl", "-sI", "-o", "/dev/null", "-w", "%{http_code}", url],
+            capture_output=True,
+            text=True,
+            timeout=20,
+        )
+        return proc.stdout.strip() == "200"
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+
+
+def build_google_health_map(files: list[Path]) -> dict[str, bool]:
+    """HEAD-check every unique Google CDN URL used in the project (once)."""
+    urls: set[str] = set()
+    for path in files:
+        try:
+            raw = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        urls.update(GOOGLE_IMG_PATTERN.findall(raw))
+    return {u: curl_ok(u) for u in sorted(urls)}
+
+
+def folder_hosted_image_path(folder: Path) -> str | None:
+    """First image asset in an export folder (SEO-renamed png preferred)."""
+    if not folder.is_dir():
+        return None
+    images = [
+        p
+        for p in folder.iterdir()
+        if p.is_file() and p.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}
+    ]
+    if not images:
+        return None
+    images.sort(key=lambda p: (p.name == "screen.png", p.name))
+    return f"/{folder.name}/{images[0].name}"
+
+
+def build_local_hosted_pool(root: Path) -> list[str]:
+    """`/folder/{image}.png` for every export dir with a hosted image."""
+    out: list[str] = []
+    if not root.is_dir():
+        return out
+    for d in sorted(root.iterdir()):
+        if not d.is_dir() or d.name.startswith("."):
+            continue
+        url = folder_hosted_image_path(d)
+        if url:
+            out.append(url)
+    return out
+
+
+def file_local_pool(path: Path) -> list[str]:
+    """Prefer this page's own folder image asset."""
+    pools: list[str] = []
+    url = folder_hosted_image_path(path.parent)
+    if url:
+        pools.append(url)
+    return pools
+
+
+def replace_dead_google_images(
+    text: str,
+    health: dict[str, bool],
+    hosted_pool: Sequence[str],
+    file_pool: Sequence[str],
+    *,
+    replace_all_google: bool = False,
+) -> tuple[str, list[str]]:
+    msgs: list[str] = []
+    if not hosted_pool and not file_pool:
+        return text, msgs
+
+    all_google = unique_ordered(GOOGLE_IMG_PATTERN.findall(text))
+    dead = [u for u in all_google if not health.get(u, False)]
+    if replace_all_google and all_google:
+        targets = all_google
+    else:
+        targets = dead
+    if not targets:
+        return text, msgs
+
+    cycle: list[str] = list(file_pool)
+    for u in hosted_pool:
+        if u not in cycle:
+            cycle.append(u)
+    if not cycle:
+        return text, msgs
+
+    swaps = 0
+    for i, bad_u in enumerate(targets):
+        neu = cycle[i % len(cycle)]
+        n = text.count(bad_u)
+        if n:
+            text = text.replace(bad_u, neu)
+            swaps += n
+    if swaps:
+        label = "all Google CDN" if replace_all_google else "dead Google CDN"
+        msgs.append(
+            f"{label} → self-hosted images ({swaps} img src; "
+            f"{len(targets)} unique URL(s))"
+        )
+    return text, msgs
+
+
+def _apply_repairs(
+    raw: str,
+    global_public: Sequence[str],
+    *,
+    health: dict[str, bool] | None = None,
+    hosted_pool: Sequence[str] | None = None,
+    file_pool: Sequence[str] | None = None,
+    replace_all_google: bool = False,
+) -> tuple[str, list[str]]:
     msgs: list[str] = []
     text = raw
     for bad in CAROUSEL_BAD:
@@ -204,6 +327,16 @@ def _apply_repairs(raw: str, global_public: Sequence[str]) -> tuple[str, list[st
             "no /aida-public/ anywhere in project — left unchanged"
         )
 
+    if health is not None and hosted_pool is not None:
+        text, m_dead = replace_dead_google_images(
+            text,
+            health,
+            hosted_pool,
+            file_pool or (),
+            replace_all_google=replace_all_google,
+        )
+        msgs.extend(m_dead)
+
     text2, m2 = _beautiful_repairs(text)
     msgs.extend(m2)
     text3, m3 = _inject_img_retry(text2)
@@ -212,9 +345,24 @@ def _apply_repairs(raw: str, global_public: Sequence[str]) -> tuple[str, list[st
     return text3, msgs
 
 
-def process_one(path: Path, dry_run: bool, global_public: Sequence[str]) -> list[str]:
+def process_one(
+    path: Path,
+    dry_run: bool,
+    global_public: Sequence[str],
+    *,
+    health: dict[str, bool] | None = None,
+    hosted_pool: Sequence[str] | None = None,
+) -> list[str]:
     raw = path.read_text(encoding="utf-8", errors="replace")
-    new_raw, msgs = _apply_repairs(raw, global_public)
+    use_all_local = path.parent.name.startswith("home_work_of_art")
+    new_raw, msgs = _apply_repairs(
+        raw,
+        global_public,
+        health=health,
+        hosted_pool=hosted_pool,
+        file_pool=file_local_pool(path),
+        replace_all_google=use_all_local,
+    )
     if new_raw != raw and not dry_run:
         path.write_text(new_raw, encoding="utf-8")
     return msgs
@@ -247,6 +395,11 @@ def main() -> int:
         action="store_true",
         help='Do not process artists_raw/*.html (default: raw files ARE repaired)',
     )
+    ap.add_argument(
+        "--skip-hosted-swap",
+        action="store_true",
+        help="Do not replace dead Google CDN URLs with self-hosted /folder/*.png paths",
+    )
     args = ap.parse_args()
 
     files = collect_html_files(
@@ -255,10 +408,30 @@ def main() -> int:
     )
 
     global_public = build_global_public_pool(files)
+    health: dict[str, bool] | None = None
+    hosted_pool: list[str] | None = None
+    if not args.skip_hosted_swap:
+        print("Checking Google CDN image URLs (HEAD)…")
+        health = build_google_health_map(files)
+        dead_n = sum(1 for ok in health.values() if not ok)
+        live_n = len(health) - dead_n
+        print(f"  {live_n} OK, {dead_n} dead (of {len(health)} unique URLs)")
+        hosted_pool = build_local_hosted_pool(_ROOT_A)
+        if not args.no_root_b and _ROOT_B.is_dir():
+            for u in build_local_hosted_pool(_ROOT_B):
+                if u not in hosted_pool:
+                    hosted_pool.append(u)
+        print(f"  {len(hosted_pool)} self-hosted image path(s) for fallback")
 
     touched = 0
     for path in files:
-        msgs = process_one(path, dry_run=args.dry_run, global_public=global_public)
+        msgs = process_one(
+            path,
+            dry_run=args.dry_run,
+            global_public=global_public,
+            health=health,
+            hosted_pool=hosted_pool,
+        )
 
         if msgs:
             print(f"[{rel_display(path)}]")
