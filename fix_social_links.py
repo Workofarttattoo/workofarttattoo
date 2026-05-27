@@ -46,7 +46,7 @@ TIKTOK_LINE = re.compile(
 
 CONTACT_US = (
     'href="#">Contact Us</a>',
-    f'href="tel:725-224-1240">(725) 224-1240</a>',
+    f'href="tel:+17252241240">(725) 224-1240</a>',
 )
 
 
@@ -68,7 +68,7 @@ def process(path: Path) -> bool:
     if path.name == "joshua-cole.html":
         text = text.replace(
             'href="#">Instagram Portfolio</a>',
-            f'href="{HREF_INSTAGRAM_JOSHUA}"{EXTERNAL}>Instagram @workofarttattoo</a>',
+            f'href="{HREF_INSTAGRAM_JOSHUA}"{EXTERNAL}>Instagram @stabislifee</a>',
         )
 
     for old, new in REPLACEMENTS:

@@ -21,18 +21,56 @@ RESIDENT_ARTIST_COUNT = 3
 TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
-    "Three artists work in-studio today — Joshua Cole (tattoo & piercing; studio "
-    "lead who trains resident artists and alumni), Jay Jay (tattoo), and Katelyn Cole "
-    "(master piercer). Seven tattoo artists trained here have gone on to open their "
-    "own shops or travel as guest artists."
+    "Three resident artists work in-studio today — Joshua Cole (tattoo & piercing; "
+    "studio lead), Jay Jay (tattoo), and Katelyn Cole (master piercer). Book tattoo "
+    "and piercing consults at our Tropicana studio seven nights a week."
+)
+STUDIO_ROSTER_LEGACY = (
+    "Seven artists trained at Work of Art now run their own shops or travel as guest "
+    "artists — a track record of mentorship, not empty chairs."
 )
 
 # Social (full URLs for footers and artist pages)
-HREF_INSTAGRAM_JOSHUA = "https://www.instagram.com/workofarttattoo/"
-HREF_INSTAGRAM_KATELYN = "https://www.instagram.com/stabislifee/"
+HREF_INSTAGRAM_STUDIO = "https://www.instagram.com/workofarttattoo/"
+HREF_INSTAGRAM_KATELYN = HREF_INSTAGRAM_STUDIO
+HREF_INSTAGRAM_JOSHUA = "https://www.instagram.com/stabislifee/"
+HREF_INSTAGRAM_JOSHUA_HANDLE = "stabislifee"
+HREF_INSTAGRAM_KATELYN_HANDLE = "workofarttattoo"
 HREF_FACEBOOK_STUDIO = "https://www.facebook.com/workofarttattoo/"
-# Studio IG used for Jay Jay / sitewide tattoo pages until a dedicated handle is provided
-HREF_INSTAGRAM_STUDIO = HREF_INSTAGRAM_JOSHUA
+
+# Public booking inbox (sitewide NAP, footers, schema — not personal Gmail)
+STUDIO_BOOKING_EMAIL = "booking@workofarttattoo.com"
+HREF_BOOKING_MAILTO = f"mailto:{STUDIO_BOOKING_EMAIL}"
+
+# Canonical NAP — must match Google Business Profile & every directory exactly
+STUDIO_LEGAL_NAME = "Work of Art Tattoo & Piercing"
+STUDIO_STREET_ADDRESS = "2375 E. Tropicana Suite 3"
+STUDIO_ADDRESS_LOCALITY = "Las Vegas"
+STUDIO_ADDRESS_REGION = "NV"
+STUDIO_POSTAL_CODE = "89119"
+STUDIO_ADDRESS_SINGLE_LINE = (
+    f"{STUDIO_STREET_ADDRESS}, {STUDIO_ADDRESS_LOCALITY}, "
+    f"{STUDIO_ADDRESS_REGION} {STUDIO_POSTAL_CODE}"
+)
+STUDIO_ADDRESS_HTML = (
+    f"{STUDIO_STREET_ADDRESS}<br/>{STUDIO_ADDRESS_LOCALITY}, "
+    f"{STUDIO_ADDRESS_REGION} {STUDIO_POSTAL_CODE}"
+)
+
+# Single studio line — do not publish artist/mobile lines on the public site
+STUDIO_PHONE_DISPLAY = "725-224-1240"
+STUDIO_PHONE_PARENS = "(725) 224-1240"
+STUDIO_PHONE_E164 = "+1-725-224-1240"
+STUDIO_PHONE_TEL = "tel:+17252241240"
+STUDIO_PHONE_SCHEMA = STUDIO_PHONE_E164
+
+STUDIO_HOURS_SUMMARY = "Mon–Thu 3 PM – midnight · Fri–Sun 3 PM – 6 AM"
+STUDIO_HOURS_HTML_GRID = (
+    '<div class="grid grid-cols-2 gap-4">'
+    '<p class="text-on-surface-variant">MON - THU</p><p>3:00 PM - 12:00 AM</p>'
+    '<p class="text-on-surface-variant">FRI - SUN</p><p>3:00 PM - 6:00 AM</p>'
+    "</div>"
+)
 
 # Primary links (sitewide; use root-relative anchors that work across pages)
 HREF_ARTISTS = "/#gallery"
@@ -55,6 +93,30 @@ def discover_artist_nav_entries() -> list[tuple[str, str]]:
 MERCH_HREF = "/merchandise/"
 HREF_REVIEWS = "/#faq"
 HREF_APPOINTMENTS = "/appointments/"
+
+# Insider knowledge (formerly opaque "Guides" label)
+HREF_KNOWLEDGE_VAULT = "/#knowledge-base"
+NAV_KNOWLEDGE_MENU_LABEL = "Insider Guides"
+NAV_KNOWLEDGE_VAULT_LINK_LABEL = "→ This way to the Secret Knowledge Vault"
+
+# Shown as direct top-level links (desktop + mobile); rest live in the dropdown
+FEATURED_GUIDE_NAV_SLUGS: tuple[str, ...] = (
+    "how_to_choose_a_tattoo_artist_master_selection_guide_2",
+    "how_much_do_tattoos_cost_in_las_vegas_authority_guide",
+    "tattoo_healing_in_desert_climate_expert_aftercare_guide",
+    "realism_tattoos_las_vegas_master_authority_guide",
+    "cover_up_tattoos_las_vegas_master_authority_guide",
+    "walk_in_tattoos_las_vegas_authority_guide",
+)
+
+FEATURED_GUIDE_SHORT_LABELS: dict[str, str] = {
+    "how_to_choose_a_tattoo_artist_master_selection_guide_2": "Choose Artist",
+    "how_much_do_tattoos_cost_in_las_vegas_authority_guide": "Pricing",
+    "tattoo_healing_in_desert_climate_expert_aftercare_guide": "Aftercare",
+    "realism_tattoos_las_vegas_master_authority_guide": "Realism",
+    "cover_up_tattoos_las_vegas_master_authority_guide": "Cover-Ups",
+    "walk_in_tattoos_las_vegas_authority_guide": "Walk-Ins",
+}
 
 # Exclude from "Guides" mega-list — home is duplicated as index; uploads often WP mirrors
 SKIP_GUIDE_SLUGS = frozenset(
@@ -96,6 +158,10 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     "best_fine_line_tattoos_in_vegas_ultimate_authority_guide": (
         "Fine Line Tattoos in Vegas",
         "Needle-light linework, healed clarity, and how to pick an artist for delicate script and micro-detail.",
+    ),
+    "cover_up_tattoos_las_vegas_master_authority_guide": (
+        "Cover-Up Tattoos in Vegas",
+        "Tattoo cover up, scar camouflage, real studio portfolio photos, pricing, and free consult — minutes from the Strip.",
     ),
     "best_piercing_shop_las_vegas_updated_jewelry_standards": (
         "Piercing Shop & Jewelry Standards",
@@ -205,3 +271,23 @@ def discover_guide_pairs() -> list[tuple[str, str]]:
     minus SKIP_GUIDE_SLUGS (home, upload staging, etc.).
     """
     return [(label, href) for _slug, label, href, _blurb in discover_guide_entries()]
+
+
+def discover_featured_guide_nav() -> list[tuple[str, str]]:
+    """Top-level nav links for highest-intent insider guides."""
+    by_slug = {slug: (label, href) for slug, label, href, _ in discover_guide_entries()}
+    out: list[tuple[str, str]] = []
+    for slug in FEATURED_GUIDE_NAV_SLUGS:
+        row = by_slug.get(slug)
+        if not row:
+            continue
+        _label, href = row
+        short = FEATURED_GUIDE_SHORT_LABELS.get(slug, _label)
+        out.append((short, href))
+    return out
+
+
+def discover_dropdown_guide_entries() -> list[tuple[str, str, str, str]]:
+    """Guides in the Insider Guides dropdown (excludes featured top-level links)."""
+    featured = frozenset(FEATURED_GUIDE_NAV_SLUGS)
+    return [row for row in discover_guide_entries() if row[0] not in featured]

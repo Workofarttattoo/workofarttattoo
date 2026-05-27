@@ -6,7 +6,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from woa_nav_config import ROOT_A
+from woa_nav_config import ROOT_A, STUDIO_ROSTER_BLURB, STUDIO_ROSTER_LEGACY
 
 ROOT = ROOT_A
 SKIP_DIRS = frozenset({"artists_raw", ".git", "__pycache__", "node_modules"})
@@ -60,8 +60,15 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Joshua Cole and Jay Jay tattoo in-studio; Katelyn Cole is our master piercer. Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
-        "Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (master piercer). Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
+        f"{STUDIO_ROSTER_BLURB} {STUDIO_ROSTER_LEGACY}",
     ),
+    (
+        "Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (master piercer). Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
+        f"{STUDIO_ROSTER_BLURB} {STUDIO_ROSTER_LEGACY}",
+    ),
+    ("New Artist Coming Soon", ""),
+    ("NEW ARTIST COMING SOON", ""),
+    ("New artist coming soon", ""),
     (
         "Joshua Cole, Katelyn Cole, and Jay Jay — the resident masters at Work of Art Tattoo &amp; Piercing, Las Vegas.",
         "Joshua Cole (tattoo & piercing), Jay Jay (tattoo), and Katelyn Cole (piercing) — our three in-studio residents. Joshua trains artists across the studio and alumni network. Seven alumni trained here now lead their own studios or travel as guest artists.",

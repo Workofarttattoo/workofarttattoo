@@ -440,7 +440,16 @@ def find_book_cta(shell):
 def fill_mobile_navigation(inner: object, soup: BeautifulSoup, nav_strip) -> None:
     """Flatten desktop strip into mobile drawer: top links + Guides accordion."""
 
-    bold_labels = frozenset({"guides", "artists"})
+    from woa_nav_config import NAV_KNOWLEDGE_MENU_LABEL
+
+    bold_labels = frozenset(
+        {
+            "guides",
+            "artists",
+            NAV_KNOWLEDGE_MENU_LABEL.lower(),
+            "insider guides",
+        }
+    )
 
     def link_classes(label: str) -> list[str]:
         base = MOB_LINK_V3_MAIN.split()
@@ -463,11 +472,23 @@ def fill_mobile_navigation(inner: object, soup: BeautifulSoup, nav_strip) -> Non
             inner.append(a)
         elif nm == "details":
             aria = (child.get("aria-label") or "").lower()
-            is_artists = "artist" in aria
-            dd_cls = (
-                "mobile-artists-dd" if is_artists else "mobile-guides-dd"
+            is_artists = "artist" in aria and "guide" not in aria
+            is_knowledge = (
+                "insider" in aria
+                or "knowledge" in aria
+                or ("guide" in aria and "artist" not in aria)
             )
-            summary_label = "Artists" if is_artists else "Guides"
+            dd_cls = (
+                "mobile-artists-dd"
+                if is_artists
+                else "mobile-guides-dd"
+            )
+            if is_artists:
+                summary_label = "Artists"
+            elif is_knowledge:
+                summary_label = NAV_KNOWLEDGE_MENU_LABEL
+            else:
+                summary_label = "Guides"
             dd = soup.new_tag(
                 "details",
                 attrs={"class": [dd_cls, "border-b", "border-outline-variant", "pb-1"]},

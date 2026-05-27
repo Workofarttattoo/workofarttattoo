@@ -11,6 +11,12 @@ Deploy Stitch exports at the site document root (no /stitch-pages/ prefix).
 
 Local layout: slug folders live as direct children of your export root, each with code.html.
 
+Before every deploy, run:
+  python3 prepare_site_deploy.py
+
+After deploy, confirm production updated:
+  python3 verify_live_deploy.py
+
 Defaults:
   Deploy root = the directory that contains this script (your repo root).
   Homepage folder = auto-detected (see resolve_home_slug).
@@ -108,11 +114,49 @@ def artist_remote_slug_from_folder(folder_name: str) -> str | None:
     return None
 
 
-def ftp_stor_file(ftp: FTP, remote_dir: str, local_path: Path, remote_name: str) -> None:
+def ftp_stor_file(
+    ftp: FTP,
+    remote_dir: str,
+    local_path: Path,
+    remote_name: str,
+    *,
+    verify: bool = True,
+) -> None:
+    expected = local_path.stat().st_size
     ftp_mkdir_p(ftp, remote_dir)
-    print(f"[up]   /{remote_dir}/{remote_name}")
+    print(f"[up]   /{remote_dir}/{remote_name} ({expected:,} bytes)")
     with open(local_path, "rb") as fh:
         ftp.storbinary(f"STOR {remote_name}", fh)
+    if not verify:
+        ftp.cwd("/")
+        return
+    remote_path = f"{remote_dir}/{remote_name}"
+    try:
+        actual = ftp.size(remote_name)
+    except error_perm as e:
+        ftp.cwd("/")
+        raise RuntimeError(f"FTP verify failed for /{remote_path}: {e}") from e
+    ftp.cwd("/")
+    if actual != expected:
+        raise RuntimeError(
+            f"FTP upload size mismatch for /{remote_path}: "
+            f"local={expected:,} remote={actual:,}"
+        )
+
+
+def ftp_stor_root_file(ftp: FTP, local_path: Path, remote_name: str) -> None:
+    """Upload a file to site document root (/) with size verification."""
+    expected = local_path.stat().st_size
+    ftp.cwd("/")
+    print(f"[up] /{remote_name} ({expected:,} bytes)")
+    with open(local_path, "rb") as fh:
+        ftp.storbinary(f"STOR {remote_name}", fh)
+    actual = ftp.size(remote_name)
+    if actual != expected:
+        raise RuntimeError(
+            f"FTP upload size mismatch for /{remote_name}: "
+            f"local={expected:,} remote={actual:,}"
+        )
 
 
 def deploy_root_crawl_files(ftp: FTP, repo_root: Path) -> int:
@@ -141,6 +185,61 @@ def deploy_artists_build(ftp: FTP, local_dir: Path) -> int:
         remote = f"artists/{html.stem}"
         ftp_stor_file(ftp, remote, html, "index.html")
         count += 1
+    return count
+
+
+def deploy_nested_assets(ftp: FTP, local_dir: Path, remote_prefix: str) -> int:
+    """Upload images/CSS in subfolders (e.g. client-portfolio/, hero-premium/, artists/joshua-cole/)."""
+    count = 0
+    for fpath in sorted(local_dir.rglob("*")):
+        if not fpath.is_file() or fpath.name == "code.html":
+            continue
+        if fpath.suffix.lower() not in SLUG_ASSET_EXT:
+            continue
+        rel = fpath.relative_to(local_dir)
+        if len(rel.parts) < 2:
+            continue
+        remote_dir = f"{remote_prefix}/{rel.parent.as_posix()}"
+        ftp_stor_file(ftp, remote_dir, fpath, fpath.name)
+        count += 1
+    return count
+
+
+def ftp_dele_file(ftp: FTP, remote_dir: str, remote_name: str) -> None:
+    ftp_mkdir_p(ftp, remote_dir)
+    try:
+        ftp.delete(remote_name)
+    except error_perm:
+        pass
+    ftp.cwd("/")
+
+
+def deploy_artists_roster_media(ftp: FTP, artists_dir: Path) -> int:
+    """Homepage artist cards use /artists/<slug>/* — upload roster image folders."""
+    count = 0
+    if not artists_dir.is_dir():
+        return 0
+    for sub in sorted(artists_dir.iterdir()):
+        if not sub.is_dir() or sub.name.startswith("."):
+            continue
+        remote = f"artists/{sub.name}"
+        if sub.name == "katelyn-cole":
+            ftp_dele_file(
+                ftp,
+                remote,
+                "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png",
+            )
+        for fpath in sorted(sub.iterdir()):
+            if not fpath.is_file() or fpath.suffix.lower() not in SLUG_ASSET_EXT:
+                continue
+            # Bluehost rewrites large portrait PNG to WebP at the same path — deploy webp + jpg only.
+            if sub.name == "katelyn-cole" and fpath.suffix.lower() == ".png":
+                if "master-body-piercer" in fpath.name:
+                    continue
+            if sub.name == "katelyn-cole":
+                ftp_dele_file(ftp, remote, fpath.name)
+            ftp_stor_file(ftp, remote, fpath, fpath.name)
+            count += 1
     return count
 
 
@@ -231,6 +330,25 @@ def main() -> int:
         print(f"[gen] AI crawl assets: {', '.join(p.name for p in crawl_written)}")
 
     home_slug = resolve_home_slug(merged)
+    home_code_path = merged[home_slug] / "code.html" if home_slug else None
+    if home_slug and home_code_path and home_code_path.is_file():
+        home_html = home_code_path.read_text(encoding="utf-8", errors="replace")
+        if "WOA_BUILD_STAMP:" not in home_html:
+            print(
+                "[warn] Homepage has no WOA_BUILD_STAMP — run: python3 prepare_site_deploy.py",
+                file=sys.stderr,
+            )
+        if "instagram.com/reel/DDiX988y0tR" not in home_html:
+            print(
+                "[warn] Homepage missing Joshua interview reel link — run: python3 prepare_site_deploy.py",
+                file=sys.stderr,
+            )
+        if 'id="studio-interview"' not in home_html:
+            print(
+                "[warn] Homepage missing #studio-interview — run: python3 prepare_site_deploy.py",
+                file=sys.stderr,
+            )
+
     if not home_slug:
         home_like = [
             n
@@ -253,8 +371,12 @@ def main() -> int:
     print(f"SOURCES: {[str(s) for s in SOURCES]}")
     print(f"Unique folders: {len(merged)} (home slug → /index.html: {home_slug})")
 
-    ftp = FTP(HOST, timeout=120)
+    root_media_folder = (
+        os.environ.get("WOA_ROOT_MEDIA_FOLDER", "_repo_media").strip() or "_repo_media"
+    )
+
     try:
+        ftp = FTP(HOST, timeout=120)
         ftp.login(user, pw)
     except error_perm as e:
         print(
@@ -269,6 +391,23 @@ def main() -> int:
         return 1
     ftp.set_pasv(True)
 
+    try:
+        return _deploy_all(ftp, merged, home_slug, root_media_folder)
+    except RuntimeError as e:
+        print(f"\n[error] {e}", file=sys.stderr)
+        try:
+            ftp.quit()
+        except OSError:
+            pass
+        return 1
+
+
+def _deploy_all(
+    ftp: FTP,
+    merged: dict[str, Path],
+    home_slug: str,
+    root_media_folder: str,
+) -> int:
     buf = BytesIO()
     ftp.retrbinary("RETR .htaccess", buf.write)
     old_ht = buf.getvalue()
@@ -283,10 +422,6 @@ def main() -> int:
     uploaded_artists = 0
     skipped = 0
 
-    root_media_folder = (
-        os.environ.get("WOA_ROOT_MEDIA_FOLDER", "_repo_media").strip() or "_repo_media"
-    )
-
     n_crawl = deploy_root_crawl_files(ftp, SOURCES[0])
     if n_crawl:
         print(f"[up] {n_crawl} AI crawl file(s) at site root / GEO markdown")
@@ -296,6 +431,13 @@ def main() -> int:
         if n:
             print(f"[up] artists_build → {n} page(s) under /artists/")
             uploaded_artists += n
+
+    artists_root = merged.get("artists")
+    if artists_root and artists_root.is_dir():
+        n = deploy_artists_roster_media(ftp, artists_root)
+        if n:
+            print(f"[up] artists roster media → {n} file(s) under /artists/<slug>/")
+            uploaded += n
 
     for slug in sorted(merged.keys()):
         if slug == "artists_build":
@@ -318,6 +460,10 @@ def main() -> int:
                 with open(fpath, "rb") as bf:
                     ftp.storbinary(f"STOR {fpath.name}", bf)
 
+            n_nested = deploy_nested_assets(ftp, local_dir, slug)
+            if n_nested:
+                print(f"[up]   nested assets /{slug}/ → {n_nested} file(s)")
+
             uploaded += 1
             continue
 
@@ -333,6 +479,9 @@ def main() -> int:
                 remote = f"artists/{artist_slug}"
                 for fpath in imgs:
                     ftp_stor_file(ftp, remote, fpath, fpath.name)
+                # Pages also reference the Stitch export folder name at site root.
+                for fpath in imgs:
+                    ftp_stor_file(ftp, slug, fpath, fpath.name)
                 uploaded_media_only += 1
                 continue
             ftp_mkdir_p(ftp, slug)
@@ -360,22 +509,29 @@ def main() -> int:
         print(f"[up] {len(root_imgs)} loose repo-root image(s) → /{root_media_folder}/")
 
     home_code = merged[home_slug] / "code.html"
-    ftp.cwd("/")
-    print("[up] /index.html (from home export)")
-    with open(home_code, "rb") as fh:
-        ftp.storbinary("STOR index.html", fh)
+    ftp_stor_root_file(ftp, home_code, "index.html")
+
+    # Force critical assets (common partial-deploy failures).
+    artists_dir = merged.get("artists")
+    if artists_dir and artists_dir.is_dir():
+        n = deploy_artists_roster_media(ftp, artists_dir)
+        if n:
+            print(f"[up] critical re-push artists media → {n} file(s)")
 
     print(f"[rm] removing legacy /{LEGACY_PREFIX}/ …")
     ftp_rmtree(ftp, LEGACY_PREFIX)
 
     ftp.quit()
+    home_bytes = home_code.stat().st_size
     print(
         "Done. HTML sections: "
         f"{uploaded}; media-only folders: {uploaded_media_only}; "
         f"artist pages: {uploaded_artists}; skipped: {skipped}. "
-        f"Homepage from {home_slug!r}."
+        f"Homepage from {home_slug!r} ({home_bytes:,} bytes on server)."
     )
     print("Try: https://workofarttattoo.com/")
+    print("View Source → search for WOA_BUILD_STAMP and id=\"studio-interview\"")
+    print("Then run: python3 verify_live_deploy.py")
     print(
         "Example slug: "
         "https://workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/"

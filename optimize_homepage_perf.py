@@ -7,7 +7,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parent
 HOME = ROOT / "home_work_of_art_tattoo_piercing"
@@ -51,6 +51,7 @@ def rule_for(path: str) -> tuple[int, int]:
 def resize_and_webp(src: Path, dest: Path, max_w: int, quality: int) -> tuple[int, int]:
     dest.parent.mkdir(parents=True, exist_ok=True)
     with Image.open(src) as im:
+        im = ImageOps.exif_transpose(im)
         im = im.convert("RGB") if im.mode in ("RGBA", "P") else im
         w, h = im.size
         if w > max_w:

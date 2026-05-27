@@ -21,6 +21,7 @@ BLOCK = f"""
 <li><a class="text-secondary underline hover:no-underline" href="/artists/joshua-cole/">Joshua Cole — realism tattoo</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/artists/katelyn-cole/">Katelyn Cole — piercing</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/jay_jay_artist_portfolio_authentic_masterpieces/">Jay Jay — portfolio</a></li>
+<li><a class="text-secondary underline hover:no-underline" href="/cover_up_tattoos_las_vegas_master_authority_guide/">Cover-up tattoos Las Vegas</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/realism_tattoos_las_vegas_master_authority_guide/">Realism tattoos guide</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/best_piercing_shop_las_vegas_updated_jewelry_standards/">Piercing shop guide</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/walk_in_tattoos_las_vegas_authority_guide/">Walk-in tattoos</a></li>

@@ -18,6 +18,8 @@ from bs4 import BeautifulSoup
 
 from woa_nav_config import (
     HOME_SLUG,
+    HREF_KNOWLEDGE_VAULT,
+    NAV_KNOWLEDGE_VAULT_LINK_LABEL,
     SKIP_GUIDE_SLUGS,
     discover_guide_entries,
     merged_export_roots,
@@ -68,6 +70,11 @@ HUB_STYLE = """
   border-color: #e9c349;
   color: #e9c349;
 }
+[data-woa-guide-hub-bar] .woa-guide-pill-vault {
+  border-color: rgba(233, 195, 73, 0.65);
+  color: #e9c349;
+  font-weight: 700;
+}
 #knowledge-base .woa-kb-card {
   display: block;
   padding: 1.25rem 1.5rem;
@@ -104,7 +111,7 @@ def build_guide_hub_bar(soup: BeautifulSoup, current_slug: str | None) -> Beauti
     wrap = soup.new_tag(
         "nav",
         attrs={
-            "aria-label": "All guides",
+            "aria-label": "Insider guides",
             "data-woa-guide-hub-bar": "1",
             "class": [
                 "px-margin-mobile",
@@ -113,6 +120,13 @@ def build_guide_hub_bar(soup: BeautifulSoup, current_slug: str | None) -> Beauti
         },
     )
     inner = soup.new_tag("div", attrs={"class": ["woa-guide-hub-scroll"]})
+    vault = soup.new_tag(
+        "a",
+        href=HREF_KNOWLEDGE_VAULT,
+        attrs={"class": ["woa-guide-pill", "woa-guide-pill-vault"]},
+    )
+    vault.string = NAV_KNOWLEDGE_VAULT_LINK_LABEL
+    inner.append(vault)
     for slug, label, href, _blurb in discover_guide_entries():
         a = soup.new_tag("a", href=href, attrs={"class": ["woa-guide-pill"]})
         if slug == current_slug:
@@ -145,11 +159,16 @@ def insert_before_main(soup: BeautifulSoup, node) -> bool:
     return True
 
 
-def inject_guide_hub_bar(path: Path, slug: str) -> bool:
+def inject_guide_hub_bar(path: Path, slug: str, *, force: bool = False) -> bool:
     raw = path.read_text(encoding="utf-8", errors="replace")
-    if 'data-woa-guide-hub-bar="1"' in raw:
+    has_bar = 'data-woa-guide-hub-bar="1"' in raw
+    if has_bar and not force:
         return False
     soup = BeautifulSoup(raw, "html.parser")
+    if has_bar and force:
+        old = soup.find(attrs={"data-woa-guide-hub-bar": True})
+        if old:
+            old.decompose()
     ensure_hub_css(soup)
     bar = build_guide_hub_bar(soup, slug)
     if not insert_before_main(soup, bar):
@@ -187,16 +206,16 @@ def build_knowledge_base_section(soup: BeautifulSoup) -> BeautifulSoup:
             ]
         },
     )
-    span.string = "Expert Guides"
+    span.string = "Secret Knowledge Vault"
     h2 = soup.new_tag("h2", attrs={"class": ["font-headline-lg", "text-headline-lg", "text-on-surface"]})
-    h2.string = "Our Las Vegas Tattoo & Piercing Knowledge Base"
+    h2.string = "Free Insider Tattoo & Piercing Guides"
     intro = soup.new_tag(
         "p",
         attrs={"class": ["font-body-lg", "text-body-lg", "text-on-surface-variant", "max-w-2xl", "mx-auto"]},
     )
     intro.string = (
-        "Dozens of in-depth guides written by our team — pricing, placement, aftercare, "
-        "walk-ins, realism, fine line, and how to choose the right artist before you commit."
+        "No gate, no signup — just straight talk from our Vegas team on pricing, aftercare in "
+        "the desert, choosing an artist, walk-ins, realism, cover-ups, and more."
     )
     head.extend([span, h2, intro])
     grid = soup.new_tag(
@@ -235,10 +254,26 @@ def build_knowledge_base_section(soup: BeautifulSoup) -> BeautifulSoup:
     return sec
 
 
+def refresh_home_knowledge_base(path: Path) -> bool:
+    """Replace #knowledge-base section with current copy and guide cards."""
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    if 'id="knowledge-base"' not in raw:
+        return False
+    soup = BeautifulSoup(raw, "html.parser")
+    old = soup.find(id="knowledge-base")
+    if not old:
+        return False
+    ensure_hub_css(soup)
+    kb = build_knowledge_base_section(soup)
+    old.replace_with(kb)
+    path.write_text(str(soup), encoding="utf-8")
+    return True
+
+
 def inject_home_knowledge_base(path: Path) -> bool:
     raw = path.read_text(encoding="utf-8", errors="replace")
     if 'id="knowledge-base"' in raw:
-        return False
+        return refresh_home_knowledge_base(path)
     soup = BeautifulSoup(raw, "html.parser")
     ensure_hub_css(soup)
     kb = build_knowledge_base_section(soup)
@@ -263,6 +298,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--guides-only", action="store_true")
     ap.add_argument("--home-only", action="store_true")
+    ap.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Replace existing hub bars and knowledge-base section",
+    )
     args = ap.parse_args()
 
     do_guides = not args.home_only
@@ -276,7 +316,7 @@ def main() -> int:
             if not is_guide_slug(slug):
                 continue
             html = folder / "code.html"
-            if inject_guide_hub_bar(html, slug):
+            if inject_guide_hub_bar(html, slug, force=args.refresh):
                 print(f"[hub bar] {slug}")
                 n_bar += 1
 
