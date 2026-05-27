@@ -1529,63 +1529,14 @@ else mq.addListener(onWide);
 </script>
 <!-- ElevenLabs ConvAI Widget -->
 <style data-woa-convai-widget="1">
-[data-woa-convai-wrapper] {
+elevenlabs-convai {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: inherit;
-}
-
-[data-woa-convai-label] {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #e9c349;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  pointer-events: none;
-  animation: pulse-label 2s ease-in-out infinite;
-}
-
-@keyframes pulse-label {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-#elevenlabs-widget-wrapper {
-  max-width: 400px;
-}
-
-@media (max-width: 640px) {
-  [data-woa-convai-wrapper] {
-    bottom: 1rem;
-    right: 1rem;
-    gap: 0.5rem;
-  }
-
-  [data-woa-convai-label] {
-    display: none;
-  }
 }
 </style>
-<div data-woa-convai-wrapper>
-  <span data-woa-convai-label>Chat with a person now!</span>
-  <div id="elevenlabs-widget-wrapper"></div>
-</div>
+<elevenlabs-convai agent-id="agent_0901kq5vq3j3efpb801ssyfgdxq4"></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-<script type="text/javascript">
-window.addEventListener('load', function() {
-  if (typeof ElevenLabsWidget !== 'undefined') {
-    ElevenLabsWidget.setup({
-      agentId: 'agent_0901kq5vq3j3efpb801ssyfgdxq4',
-      implicitTarget: 'elevenlabs-widget-wrapper'
-    });
-  }
-});
-</script>
 
 </body></html>
