@@ -127,7 +127,7 @@ gtag('config', 'G-XLXNGGW7SX');
         },
       }
     </script>
-<>
+&lt;&gt;
 <!-- Review Schema Markup -->
 <script type="application/ld+json">
     {
@@ -1230,6 +1230,77 @@ header[data-woa-top-shell="1"] > a[data-woa-site-brand="1"] {
   animation-delay: 0.6s;
 }
 
+</style><style data-woa-desktop-nav-css="1">
+/* Work of Art — unified desktop nav dropdown */
+[data-woa-desktop-nav="1"] details.woa-desktop-dd > summary {
+  list-style: none;
+}
+[data-woa-desktop-nav="1"] details.woa-desktop-dd > summary::-webkit-details-marker {
+  display: none;
+}
+[data-woa-desktop-nav="1"] .woa-dd-panel {
+  position: absolute;
+  left: 0;
+  margin-top: 2px;
+  min-width: 14rem;
+  max-width: min(90vw, 22rem);
+  max-height: min(70vh, 24rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 100;
+  border: 1px solid rgba(68, 71, 72, 0.65);
+  background: rgba(19, 19, 19, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.52);
+}
+[data-woa-desktop-nav="1"] .woa-dd-vault-link {
+  color: #e9c349;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+[data-woa-desktop-nav="1"] .woa-dd-vault-link:hover {
+  color: #f5d76e;
+}
+[data-woa-desktop-nav="1"] .woa-dd-sep {
+  display: block;
+  margin: 0.35rem 0.75rem;
+  border-top: 1px solid rgba(68, 71, 72, 0.65);
+}
+@keyframes woa-topnav-fire-glow {
+  0%,
+  100% {
+    color: #ffe088;
+    text-shadow:
+      0 0 6px rgba(233, 195, 73, 0.55),
+      0 0 14px rgba(255, 90, 20, 0.2);
+  }
+  50% {
+    color: #fff4cc;
+    text-shadow:
+      0 0 10px rgba(255, 224, 136, 0.95),
+      0 0 22px rgba(255, 100, 20, 0.55),
+      0 0 36px rgba(233, 195, 73, 0.35);
+  }
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd > summary.woa-top-nav-link {
+  animation: woa-topnav-fire-glow 2.6s ease-in-out infinite;
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:hover,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd > summary.woa-top-nav-link:hover,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:focus-visible,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd > summary.woa-top-nav-link:focus-visible {
+  color: #fff8e0;
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:nth-child(2n) {
+  animation-delay: 0.3s;
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:nth-child(3n),
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd:nth-child(3n) > summary.woa-top-nav-link {
+  animation-delay: 0.6s;
+}
+
 </style><style data-woa-mnav-style="1">
 
 /* Work of Art — mobile nav (inject_mobile_hamburger_nav.py) — narrow rail + larger type */
@@ -1514,10 +1585,10 @@ html.woa-mnav-lock body {
 <div class="max-w-xl mx-auto space-y-4 text-center">
 <span class="font-label-caps text-[10px] text-secondary uppercase tracking-[0.22em]">Studio clip</span>
 <article class="woa-video-card">
-<a class="video-card" href="https://www.instagram.com/reel/C8vPwacP1du/" rel="noopener noreferrer" target="_blank">
-<div aria-hidden="true" class="video-thumb video-thumb--brand"><span class="video-thumb-play">▶</span></div>
-<h3>Joshua Cole — painting in the studio</h3>
-<p>Joshua at the easel — fine art and tattoo craft under one roof at Work of Art Las Vegas.</p>
+<a class="video-card" href="https://www.instagram.com/reel/C78fY1quCVF/" rel="noopener noreferrer" target="_blank">
+<div aria-hidden="true" class="video-thumb" style="background-image:url('/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg');"><span class="video-thumb-play">▶</span></div>
+<h3>Katelyn Cole — piercing in the studio</h3>
+<p>Watch Katelyn at Work of Art — precision ear curation and medical-grade piercing in Las Vegas.</p>
 <span class="video-card-cta">Watch on Instagram</span>
 </a>
 </article>
@@ -1628,6 +1699,65 @@ t.src=base+"?woa-retry="+Date.now();
 </ul>
 </div>
 </nav>
+
+<!-- ElevenLabs ConvAI Widget -->
+<style data-woa-convai-widget="1">
+elevenlabs-convai {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  animation: convai-glow 3s ease-in-out infinite, convai-bob 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(233, 195, 73, 0.4)) drop-shadow(0 0 16px rgba(233, 195, 73, 0.2));
+  --ev-color-brand: #e9c349;
+  --ev-color-text: #e5e2e1;
+  --ev-color-text-secondary: #c4c7c7;
+  --ev-color-background: #131313;
+  --ev-color-background-secondary: #20201f;
+  --ev-color-border: #444748;
+  color-scheme: dark;
+}
+
+elevenlabs-convai::part(root) {
+  background: #131313 !important;
+  color: #e5e2e1 !important;
+}
+
+elevenlabs-convai::part(conversation) {
+  background: #131313 !important;
+}
+
+elevenlabs-convai::part(input) {
+  background: #20201f !important;
+  color: #e5e2e1 !important;
+  border-color: #444748 !important;
+}
+
+elevenlabs-convai::part(button) {
+  background: #e9c349 !important;
+  color: #1c1b1b !important;
+}
+
+@keyframes convai-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(233, 195, 73, 0.4)) drop-shadow(0 0 16px rgba(233, 195, 73, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(233, 195, 73, 0.6)) drop-shadow(0 0 24px rgba(233, 195, 73, 0.4));
+  }
+}
+
+@keyframes convai-bob {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+</style>
+<script async src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
+<elevenlabs-convai agent-id="TJz0pp7opUc4JvMXMXob"></elevenlabs-convai>
 <script data-woa-mnav-script="1" type="text/javascript">(function() {
 'use strict';
 var KEY = '__woaMnavDone';
@@ -1709,64 +1839,4 @@ function onWide() {
 if (mq.addEventListener) mq.addEventListener('change', onWide);
 else mq.addListener(onWide);
 })();
-</script>
-<!-- ElevenLabs ConvAI Widget -->
-<style data-woa-convai-widget="1">
-elevenlabs-convai {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  animation: convai-glow 3s ease-in-out infinite, convai-bob 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(233, 195, 73, 0.4)) drop-shadow(0 0 16px rgba(233, 195, 73, 0.2));
-  --ev-color-brand: #e9c349;
-  --ev-color-text: #e5e2e1;
-  --ev-color-text-secondary: #c4c7c7;
-  --ev-color-background: #131313;
-  --ev-color-background-secondary: #20201f;
-  --ev-color-border: #444748;
-  color-scheme: dark;
-}
-
-elevenlabs-convai::part(root) {
-  background: #131313 !important;
-  color: #e5e2e1 !important;
-}
-
-elevenlabs-convai::part(conversation) {
-  background: #131313 !important;
-}
-
-elevenlabs-convai::part(input) {
-  background: #20201f !important;
-  color: #e5e2e1 !important;
-  border-color: #444748 !important;
-}
-
-elevenlabs-convai::part(button) {
-  background: #e9c349 !important;
-  color: #1c1b1b !important;
-}
-
-@keyframes convai-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(233, 195, 73, 0.4)) drop-shadow(0 0 16px rgba(233, 195, 73, 0.2));
-  }
-  50% {
-    filter: drop-shadow(0 0 16px rgba(233, 195, 73, 0.6)) drop-shadow(0 0 24px rgba(233, 195, 73, 0.4));
-  }
-}
-
-@keyframes convai-bob {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-</style>
-<elevenlabs-convai agent-id="TJz0pp7opUc4JvMXMXob"></elevenlabs-convai>
-<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-
-</body></html>
+</script></body></html>
