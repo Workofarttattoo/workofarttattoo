@@ -26,7 +26,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "fix_hero_carousel.py")],
     ["python3", str(ROOT / "inject_client_videos.py")],
     ["python3", str(ROOT / "inject_homepage_atmosphere.py")],
-    ["python3", str(ROOT / "fix_hero_layout.py")],
+    # ["python3", str(ROOT / "fix_hero_layout.py")],  # Disabled: breaks new carousel structure
     ["python3", str(ROOT / "inject_site_typography.py")],
     ["python3", str(ROOT / "build_studio_videos_page.py")],
     ["python3", str(ROOT / "inject_page_spotlights.py")],

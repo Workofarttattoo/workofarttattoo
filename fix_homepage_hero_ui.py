@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent
 CODE = ROOT / "home_work_of_art_tattoo_piercing/code.html"
 ROOT_CODE = ROOT / "code.html"
 
-GOOGLE_REVIEW_URL = "/review_funnel_google_authority_hub/"
+GOOGLE_REVIEW_URL = "/reviews_vault_100_verified_masterpieces/"
 
 RATING_INNER = f"""<div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-4 sm:gap-8">
 <div class="woa-google-rating flex items-center gap-3">
