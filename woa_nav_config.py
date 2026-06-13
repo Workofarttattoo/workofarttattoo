@@ -30,7 +30,7 @@ SKIP_GUIDE_SLUGS = frozenset(
         "skipped_upload_build",
         "skipped_pages_clipboard.html",
         "skipped_pages_clipboard",
-        "appointments",
+        "appointments", "how_to_choose_a_tattoo_artist_master_selection_guide_1", "how_to_choose_a_tattoo_artist_master_selection_guide", "walk_in_tattoos_las_vegas_nap_corrected", "tattoo_shop_near_the_strip_geo_seo_optimized", "tattoo_shop_near_the_strip_nap_corrected",
     }
 )
 
@@ -52,7 +52,7 @@ def merged_export_roots() -> dict[str, Path]:
 
 
 def slug_to_guide_label(slug: str, max_len: int = 46) -> str:
-    readable = slug.replace("_", " ").strip()
+    readable = slug.replace("_", " ").replace("authority guide", "").replace("master selection guide", "").replace("ultimate authority guide", "").strip()
     if len(readable) > max_len:
         readable = readable[: max_len - 1].rstrip() + "…"
     return readable
