@@ -442,7 +442,7 @@ def reviews_section_html() -> str:
 <div class="space-y-4 max-w-2xl">
 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Client reviews</span>
 <h2 class="font-headline-lg text-headline-lg text-on-surface">Real Google reviews from people who booked here</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant">Verified five-star feedback from locals and out-of-town clients — half sleeves, walk-ins, and long-term collectors who plan their next piece with Joshua Cole.</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Recent feedback from locals and out-of-town clients — half sleeves, walk-ins, and long-term collectors who plan their next piece with Joshua Cole.</p>
 </div>
 <div class="flex flex-col sm:flex-row gap-3 shrink-0">
 <a class="bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest text-center min-h-[48px] flex items-center justify-center gold-glow" href="/reviews_vault_100_verified_masterpieces/">All Reviews</a>
@@ -455,7 +455,7 @@ def reviews_section_html() -> str:
 {featured}
 </div>
 {rail_block}
-<p class="font-body-md text-on-surface-variant text-center"><span class="text-on-surface font-semibold">5.0</span> average · <span class="text-on-surface font-semibold">300+</span> verified five-star reviews · Work of Art Tattoo &amp; Piercing, Las Vegas</p>
+<p class="font-body-md text-on-surface-variant text-center">Hundreds of positive Google reviews · Work of Art Tattoo &amp; Piercing, Las Vegas</p>
 </div>
 </section>
 <!-- WOA_HOME_REVIEWS_END -->

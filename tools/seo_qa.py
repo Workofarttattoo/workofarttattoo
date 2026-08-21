@@ -21,7 +21,7 @@ FORBIDDEN = {
     "deprecated phone 725-260-6376": r"725[-\s.]260[-\s.]6376",
     "deprecated phone 702-960-9607": r"702[-\s.]960[-\s.]9607",
     "legacy email": r"Thewhiteknight702@gmail\.com",
-    "tattoo/piercing contamination": r"pierce\s+fine\s+line\s+tattoo|where\s+do\s+you\s+pierce\s+fine\s+line",
+    "tattoo/piercing contamination": r"where\s+do\s+you\s+pierce\b|pierce\s+fine\s+line\s+tattoo|where\s+do\s+you\s+pierce\s+fine\s+line",
 }
 
 def route_for(path: Path) -> str:

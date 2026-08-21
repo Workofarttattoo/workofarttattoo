@@ -228,7 +228,7 @@ KATELYN_KNOWS_ABOUT = (
 
 TERALYN_KNOWS_ABOUT = (
     "Fine line tattoo",
-    "Award-winning fine line floral tattoo",
+    "Fine line floral tattoo",
     "Floral fine line tattoo",
     "Small script tattoo",
     "Fine line script tattoo",
@@ -368,7 +368,7 @@ def person_teralyn() -> dict:
         "jobTitle": "Fine Line Tattoo Artist",
         "description": (
             "Teralyn graduated from Work of Art's piercing apprenticeship and grew into a "
-            "tattoo artist focused on award-winning fine line floral work, fine line, "
+            "tattoo artist focused on fine line floral work, fine line, "
             "small script, commissioned custom drawings, high-detail smaller tattoos, "
             "walk-in requests, and flash designs. "
             "She is also part of the female piercing team with Katelyn Cole."

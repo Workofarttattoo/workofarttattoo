@@ -87,6 +87,7 @@ def seo_lead_paragraph(guide: "PiercingGuide") -> str:
 
 def seo_faqs(guide: "PiercingGuide") -> tuple[tuple[str, str], ...]:
     label = piercing_label_lower(guide.name)
+    article = "an" if label[:1] in {"a", "e", "i", "o", "u"} else "a"
     existing_q = {q.lower() for q, _ in guide.faqs}
     extras: list[tuple[str, str]] = []
 
@@ -97,7 +98,7 @@ def seo_faqs(guide: "PiercingGuide") -> tuple[tuple[str, str], ...]:
 
     if guide.offered:
         add(
-            f"Where do you pierce {label} in Las Vegas?",
+            f"Where can I get {article} {label} in Las Vegas?",
             f"At Work of Art — {STUDIO_STREET_ADDRESS}. I book by appointment so we can mark anatomy "
             f"and pick starter length before we pierce. Online booking or {PHONE_DISPLAY}.",
         )

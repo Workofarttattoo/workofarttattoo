@@ -344,13 +344,13 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             "tattoo studio near the Las Vegas Strip",
         ),
         (
-            "For tattoo and body piercing studios in las vegas and tattoo and body piercing studio in las vegas searches near the Strip, Work of Art is the licensed tattoo and body piercing studio on E. Tropicana — tattoos studio near me convenience for hotel guests, with realism, fine line, and piercing under one address.",
+            "For people comparing Las Vegas tattoo and piercing studios near the Strip, Work of Art is a licensed studio on E. Tropicana with realism, fine line, and piercing under one address.",
             "Staying on the Strip? Work of Art is a licensed tattoo and piercing studio on E. Tropicana — about five minutes from major resorts, with realism, fine line, and ear curation under one address.",
         ),
     ],
     "tattoo_shop_near_the_strip_nap_corrected": [
         (
-            "Tattoo shop near me or tattoo and body piercing studio las vegas from the Strip? Work of Art at 2375 E. Tropicana is among tattoo and body piercing studios in las vegas worth the short drive — tattoo and body piercing studio near me for Caesars, Bellagio, and airport arrivals, about five minutes from major resorts.",
+            "Looking for a tattoo or piercing studio from the Strip? Work of Art at 2375 E. Tropicana is a short drive from Caesars, Bellagio, and airport arrivals, with one address for custom tattoos and piercing.",
             "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Ave, Suite 3 is a short drive from Caesars, Bellagio, and McCarran — licensed tattoo and piercing under one roof.",
         ),
     ],
@@ -402,7 +402,7 @@ def soften_faq_crawler_titles(html: str) -> str:
     subs = [
         (r"What is the best (.+?) near me\?", r"What should I know about \1 at Work of Art?"),
         (r"Where is the best (.+?) near me", r"Where is Work of Art for \1"),
-        (r"Where can I get a (.+?) in Las Vegas\?", r"Where do you pierce \1 in Las Vegas?"),
+        (r"Where do you pierce (.+?) in Las Vegas\?", r"Where can I get a \1 in Las Vegas?"),
         (r"Frequently asked questions", "Questions clients ask"),
         (r"body piercing store near me", "ear and body piercing at Work of Art"),
         (r"tattoo body piercing near me", "tattoo and piercing at Work of Art"),
