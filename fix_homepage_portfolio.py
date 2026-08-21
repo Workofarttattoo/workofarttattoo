@@ -295,7 +295,7 @@ def artist_cards_html() -> str:
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Joshua Cole</span>
 <span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Black &amp; Grey Realism</span>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/stabislifee/" rel="noopener noreferrer" target="_blank">@stabislifee</a>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">@workofarttattoo</a>
 </div>
 <div class="text-center">
 <a class="group block" href="/artists/katelyn-cole/">
@@ -306,7 +306,7 @@ def artist_cards_html() -> str:
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Katelyn Cole</span>
 <span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Master Piercer</span>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">@workofarttattoo</a>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/stabislifee/" rel="noopener noreferrer" target="_blank">@stabislifee</a>
 </div>
 <div class="text-center">
 <a class="group block" href="/artists/teralyn/">

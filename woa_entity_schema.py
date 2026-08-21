@@ -9,6 +9,7 @@ from pathlib import Path
 
 from woa_nav_config import (
     HREF_FACEBOOK_STUDIO,
+    HREF_INSTAGRAM_KATELYN,
     HREF_INSTAGRAM_JOSHUA,
     HREF_INSTAGRAM_STUDIO,
     HREF_INSTAGRAM_TERALYN,
@@ -352,7 +353,7 @@ def person_katelyn() -> dict:
             "implant-grade titanium and surgical steel jewelry, and APP-aligned sterile technique."
         ),
         "knowsAbout": list(KATELYN_KNOWS_ABOUT),
-        "sameAs": [HREF_INSTAGRAM_STUDIO, HREF_FACEBOOK_STUDIO],
+        "sameAs": [HREF_INSTAGRAM_KATELYN, HREF_FACEBOOK_STUDIO],
         "worksFor": {"@id": ID_BUSINESS},
     }
 

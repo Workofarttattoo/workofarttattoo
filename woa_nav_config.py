@@ -33,11 +33,11 @@ STUDIO_ROSTER_LEGACY = (
 
 # Social (full URLs for footers and artist pages)
 HREF_INSTAGRAM_STUDIO = "https://www.instagram.com/workofarttattoo/"
-HREF_INSTAGRAM_KATELYN = HREF_INSTAGRAM_STUDIO
-HREF_INSTAGRAM_JOSHUA = "https://www.instagram.com/stabislifee/"
+HREF_INSTAGRAM_KATELYN = "https://www.instagram.com/stabislifee/"
+HREF_INSTAGRAM_JOSHUA = HREF_INSTAGRAM_STUDIO
 HREF_INSTAGRAM_TERALYN = "https://www.instagram.com/mischiefmodifies/"
-HREF_INSTAGRAM_JOSHUA_HANDLE = "stabislifee"
-HREF_INSTAGRAM_KATELYN_HANDLE = "workofarttattoo"
+HREF_INSTAGRAM_JOSHUA_HANDLE = "workofarttattoo"
+HREF_INSTAGRAM_KATELYN_HANDLE = "stabislifee"
 HREF_INSTAGRAM_TERALYN_HANDLE = "mischiefmodifies"
 HREF_FACEBOOK_STUDIO = "https://www.facebook.com/workofarttattoo/"
 
