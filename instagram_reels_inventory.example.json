@@ -1,0 +1,10 @@
+{
+  "items": [
+    {
+      "kind": "reel",
+      "media_id": "SHORTCODE_FROM_INSTAGRAM_URL",
+      "title": "Optional title shown on /studio_videos/",
+      "blurb": "Optional one-line description."
+    }
+  ]
+}
