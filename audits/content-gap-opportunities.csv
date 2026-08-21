@@ -1,0 +1,6 @@
+topic,user_intent,current_best_page,coverage_score,commercial_value,expert_available,original_evidence_available,recommended_action,priority
+Tattoo pain,Understand pain by placement and plan appointment,/tattoo_pain_chart_placement_sensitivity_guide/,55,high,Joshua Cole,partial,Improve existing page with real studio observations and sourced health boundaries,P1
+Swimming after tattoo,Know when pools/hot tubs are safe after a Vegas tattoo,/tattoo-aftercare-desert-climate/,65,high,Joshua Cole,partial,Strengthen existing aftercare page rather than create many variants,P1
+Piercing bumps,Understand irritation signs and when to ask piercer/doctor,/piercing_aftercare_guide_las_vegas/,60,high,Katelyn Cole,partial,Improve existing piercing aftercare guide with conservative medical language,P1
+Implant-grade titanium jewelry,Choose safe starter jewelry,/piercing_jewelry_guide_las_vegas/,60,high,Katelyn Cole,partial,Improve existing jewelry guide and link to piercing hub,P1
+Healed tattoo proof,Compare fresh vs healed results,/healed_tattoo_gallery_las_vegas/,70,high,Joshua Cole,yes,Build structured case-study data over time,P0
