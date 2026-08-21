@@ -45,7 +45,6 @@ SKIP_HEAVY_SLUGS = frozenset(
     {
         # Already has a full multi-embed client stories grid
         "artists",
-        "jay_jay_artist_portfolio_authentic_masterpieces",
     }
 )
 

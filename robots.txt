@@ -1,8 +1,12 @@
-# Work of Art Tattoo & Piercing
+# Work of Art Tattoo & Piercing — https://workofarttattoo.com
+# Single robots policy for Google, Bing, and AI crawlers.
+# Third-party chat widgets (ElevenLabs, etc.) load external scripts; their robots.txt
+# does NOT control indexing of pages on https://workofarttattoo.com.
+
 User-agent: *
 Allow: /
 
-# AI crawlers — GEO hub is the preferred structured source
+# AI crawlers — full site + preferred structured GEO hub
 User-agent: GPTBot
 Allow: /
 Allow: /geo_hub_ai_source_of_truth_work_of_art/
@@ -15,17 +19,26 @@ Allow: /
 
 User-agent: ClaudeBot
 Allow: /
+Allow: /geo_hub_ai_source_of_truth_work_of_art/
 
 User-agent: anthropic-ai
 Allow: /
+Allow: /geo_hub_ai_source_of_truth_work_of_art/
 
 User-agent: PerplexityBot
 Allow: /
+Allow: /geo_hub_ai_source_of_truth_work_of_art/
 
 User-agent: Google-Extended
 Allow: /
 
 User-agent: GoogleOther
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 User-agent: meta-externalagent
@@ -34,6 +47,11 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-# Stitch static HTML pages (Yoast/Rank Math owns /sitemap.xml → sitemap_index.xml)
+# Sitemaps (primary index for Google + static HTML export)
+Sitemap: https://workofarttattoo.com/sitemap.xml
 Sitemap: https://workofarttattoo.com/sitemap-static-pages.xml
-# LLM index (llmstxt.org): https://workofarttattoo.com/llms.txt
+
+# AI / LLM discovery (human-readable indexes — not robots directives)
+# LLM index: https://workofarttattoo.com/llms.txt
+# AI permissions: https://workofarttattoo.com/ai.txt
+# GEO source of truth: /geo_hub_ai_source_of_truth_work_of_art/

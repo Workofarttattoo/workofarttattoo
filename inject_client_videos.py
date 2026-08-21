@@ -44,7 +44,6 @@ HOME = ROOT / "home_work_of_art_tattoo_piercing" / "code.html"
 
 TARGETS: list[tuple[Path, str, bool]] = [
     (HOME, "after_masonry", False),
-    (ROOT / "jay_jay_artist_portfolio_authentic_masterpieces" / "code.html", "before_portfolio", True),
     (ROOT / "artists" / "code.html", "before_curated", True),
 ]
 

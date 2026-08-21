@@ -5,13 +5,16 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from woa_nav_config import STUDIO_ADDRESS_SINGLE_LINE
+
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "cover_up_tattoos_las_vegas_master_authority_guide" / "code.html"
 SLUG = "cover_up_tattoos_las_vegas_master_authority_guide"
 CANON = f"https://workofarttattoo.com/{SLUG}/"
-OG_IMG = "https://workofarttattoo.com/img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup.webp"
-COVER_IMG = "/img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup.webp"
-COVER_WEBP = "/img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup.webp"
+OG_IMG = f"https://workofarttattoo.com/{SLUG}/cover-up-tattoo-phoenix-hand-las-vegas-after.webp"
+COVER_STEM = f"/{SLUG}/cover-up-tattoo-phoenix-hand-las-vegas-after"
+COVER_IMG = COVER_STEM
+COVER_WEBP = f"{COVER_STEM}.webp"
 
 # Reuse walk-in shell through </style></head> — nav injected by upgrade_site_navigation.py
 SHELL_END = Path(ROOT / "walk_in_tattoos_las_vegas_authority_guide" / "code.html").read_text(encoding="utf-8")
@@ -121,7 +124,7 @@ MAIN = f"""
 
 <section class="relative min-h-[85vh] flex items-center overflow-hidden">
 <div class="absolute inset-0 z-0">
-<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Cover up tattoo Las Vegas — floral butterfly cover-up transformation, Work of Art Tattoo &amp; Piercing" class="w-full h-full object-cover opacity-55" loading="eager" src="{COVER_IMG}.png"/></picture>
+<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Cover up tattoo Las Vegas — black and grey lion thigh realism, Work of Art Tattoo" class="w-full h-full object-cover opacity-55" loading="eager" src="{COVER_STEM}.png"/></picture>
 <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
 </div>
 <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-4xl py-24">
@@ -179,7 +182,7 @@ MAIN = f"""
 </div>
 <article class="mb-10 border border-outline-variant bg-surface overflow-hidden">
 <div class="relative aspect-[16/10] md:aspect-[21/9]">
-<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Color phoenix hand tattoo — cover-up work Las Vegas" class="w-full h-full object-cover object-center" loading="lazy" src="{COVER_IMG}.png"/></picture>
+<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Color phoenix hand tattoo — cover-up work Las Vegas" class="w-full h-full object-cover object-center" loading="lazy" src="{COVER_STEM}.png"/></picture>
 <span class="absolute top-4 left-4 font-label-caps text-[10px] bg-secondary/90 px-2 py-1 text-on-secondary">FINISHED WORK</span>
 </div>
 <p class="p-6 md:p-8 font-body-md text-on-surface-variant"><strong>Featured cover-up</strong> — color phoenix hand and forearm. Joshua Cole.</p>
@@ -216,7 +219,7 @@ MAIN = f"""
 </div>
 <div class="flex gap-6 overflow-x-auto px-margin-mobile md:px-margin-desktop pb-8 no-scrollbar">
 <div class="min-w-[280px] md:min-w-[360px] aspect-[4/5] relative border border-outline-variant">
-<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Healed cover up tattoo Las Vegas — color butterfly floral" class="w-full h-full object-cover" loading="lazy" src="{COVER_IMG}.png"/></picture>
+<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Healed cover up tattoo Las Vegas — black and grey lion thigh realism" class="w-full h-full object-cover" loading="lazy" src="{COVER_STEM}.png"/></picture>
 <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/85 to-transparent"><span class="font-label-caps text-label-caps text-white text-xs">HEALED — COLOR COVER</span></div>
 </div>
 <div class="min-w-[280px] md:min-w-[360px] aspect-[4/5] relative border border-outline-variant bg-surface-container flex items-center justify-center">
@@ -242,15 +245,6 @@ MAIN = f"""
 <p class="font-label-caps text-label-caps text-secondary mb-4">Tattoo &amp; Piercing — Studio Lead</p>
 <p class="font-body-md text-on-surface-variant mb-6">Joshua specializes in <strong>black and grey realism</strong> and large-scale redesigns where old ink needs controlled contrast. If your cover-up needs photographic depth or a full rework, start here.</p>
 <a class="inline-flex items-center gap-2 font-label-caps text-label-caps text-secondary hover:underline" href="/artists/joshua-cole/">View portfolio <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
-</div>
-</article>
-<article class="flex flex-col md:flex-row gap-8 p-8 border border-outline-variant bg-surface-container-low">
-<div class="w-full md:w-48 aspect-square bg-surface-container shrink-0 flex items-center justify-center font-label-caps text-secondary">JJ</div>
-<div>
-<h3 class="font-headline-md text-headline-md mb-2">Jay Jay</h3>
-<p class="font-label-caps text-label-caps text-secondary mb-4">Tattoo Artist</p>
-<p class="font-body-md text-on-surface-variant mb-6">Jay Jay handles bold illustrative cover-ups, ornamental flow, and pieces that need strong silhouette to hide old shapes underneath.</p>
-<a class="inline-flex items-center gap-2 font-label-caps text-label-caps text-secondary hover:underline" href="/jay_jay_artist_portfolio_authentic_masterpieces/">View portfolio <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
 </div>
 </article>
 </div>
@@ -323,7 +317,7 @@ MAIN = f"""
 </div>
 <div class="p-8 border border-outline-variant/20 bg-surface-container-high">
 <h3 class="font-headline-md text-[20px] text-on-surface mb-3">Where is the best tattoo cover up near me in Las Vegas?</h3>
-<p class="font-body-md text-on-surface-variant">Work of Art — <strong>2375 E. Tropicana Ave Suite 3, Las Vegas, NV 89119</strong> — five minutes from major Strip resorts. <a class="text-secondary underline" href="/tattoo_shop_near_the_strip_nap_corrected/">Directions &amp; hours</a>.</p>
+<p class="font-body-md text-on-surface-variant">Work of Art — <strong>{STUDIO_ADDRESS_SINGLE_LINE}</strong> — five minutes from major Strip resorts. <a class="text-secondary underline" href="/tattoo_shop_near_the_strip_nap_corrected/">Directions &amp; hours</a>.</p>
 </div>
 </div>
 </div>

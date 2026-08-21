@@ -47,7 +47,7 @@ HASH_TEXT_HREFS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"^reviews?$", re.I), "/reviews_vault_100_verified_masterpieces/"),
     (re.compile(r"leave\s+a\s+google\s+review", re.I), "/review_funnel_google_authority_hub/"),
     (re.compile(r"review\s+us\s+on\s+google", re.I), "/review_funnel_google_authority_hub/"),
-    (re.compile(r"^piercing$", re.I), "/#piercing"),
+    (re.compile(r"^piercing$", re.I), "/best_piercing_shop_las_vegas_updated_jewelry_standards/"),
     (re.compile(r"^merchandise$", re.I), "/merchandise/"),
     (re.compile(r"^appointments?$", re.I), HREF_APPOINTMENTS),
     (re.compile(r"privacy\s*policy", re.I), "/privacy-policy/"),

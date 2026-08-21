@@ -5,18 +5,41 @@ from __future__ import annotations
 from datetime import date
 from pathlib import Path
 
-from woa_nav_config import HOME_SLUG, SKIP_GUIDE_SLUGS
-
 SITE_ORIGIN = "https://workofarttattoo.com"
 GEO_SLUG = "geo_hub_ai_source_of_truth_work_of_art"
+
+
+def _priority_for_slug(slug: str, home_slug: str | None) -> tuple[str, str]:
+    """Return (priority, changefreq) for a deployed slug folder."""
+    if slug == GEO_SLUG:
+        return "0.95", "weekly"
+    if home_slug and slug == home_slug:
+        return "0.95", "weekly"
+    if slug == "appointments":
+        return "0.9", "monthly"
+    if slug == "artists":
+        return "0.9", "monthly"
+    if slug == "knowledge":
+        return "0.9", "weekly"
+    return "0.8", "monthly"
 
 
 def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
     """
     Return sorted (path, priority, changefreq) for sitemap entries.
     path is site-root relative with leading slash and trailing slash for directories.
+
+    Uses the same folder merge + SKIP_DEPLOY_SLUGS rules as deploy_stitch_site_root.py
+    so every live HTML URL is listed (including short aliases, never-retire legacy paths,
+    and pages excluded from the guides nav only).
     """
+    from deploy_stitch_site_root import SKIP_DEPLOY_SLUGS, gather_folders, resolve_home_slug
+    from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
+
     repo_root = repo_root.resolve()
+    merged = gather_folders()
+    home_slug = resolve_home_slug(merged)
+
     rows: list[tuple[str, str, str]] = []
     seen: set[str] = set()
 
@@ -31,24 +54,27 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
         rows.append((path, priority, changefreq))
 
     add("/", "1.0", "weekly")
-    add(f"/{GEO_SLUG}/", "0.95", "weekly")
-    add("/appointments/", "0.9", "monthly")
 
-    for slug_dir in sorted(repo_root.iterdir()):
-        if not slug_dir.is_dir() or slug_dir.name.startswith("."):
+    for slug in sorted(merged.keys()):
+        if slug == "artists_build":
             continue
-        slug = slug_dir.name
-        if slug in SKIP_GUIDE_SLUGS or slug == "artists_build":
+        if slug in SKIP_DEPLOY_SLUGS or slug in RETIRE_OVERLAP_SLUGS:
             continue
-        if slug == HOME_SLUG:
+        local_dir = merged[slug]
+        if not (local_dir / "code.html").is_file():
             continue
-        if (slug_dir / "code.html").is_file():
-            pri = "0.95" if slug == GEO_SLUG else "0.8"
-            add(f"/{slug}/", pri, "weekly" if slug == GEO_SLUG else "monthly")
+        pri, freq = _priority_for_slug(slug, home_slug)
+        add(f"/{slug}/", pri, freq)
 
-    artists = repo_root / "artists_build"
-    if artists.is_dir():
-        for html in sorted(artists.glob("*.html")):
+    knowledge = merged.get("knowledge")
+    if knowledge and knowledge.is_dir():
+        for child in sorted(knowledge.iterdir()):
+            if child.is_dir() and (child / "code.html").is_file():
+                add(f"/knowledge/{child.name}/", "0.75", "monthly")
+
+    artists_build = merged.get("artists_build") or repo_root / "artists_build"
+    if artists_build.is_dir():
+        for html in sorted(artists_build.glob("*.html")):
             add(f"/artists/{html.stem}/", "0.85", "monthly")
 
     return rows

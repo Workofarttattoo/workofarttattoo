@@ -198,11 +198,6 @@ def fix_hero_premium() -> int:
 def fix_artist_roster() -> None:
     joshua_dir = ROOT / "artists" / "joshua-cole"
     katelyn_dir = ROOT / "artists" / "katelyn-cole"
-    jay_png = (
-        ROOT
-        / "jay_jay_artist_portfolio_authentic_masterpieces"
-        / "jay-jay-artist-portfolio-authentic-masterpieces-las-vegas.png"
-    )
     joshua_dir.mkdir(parents=True, exist_ok=True)
     katelyn_dir.mkdir(parents=True, exist_ok=True)
 
@@ -226,12 +221,6 @@ def fix_artist_roster() -> None:
             save_artist_portrait(tmp, katelyn_dest)
             tmp.unlink(missing_ok=True)
             print("[artist] katelyn portrait from Google")
-
-    if is_bad_asset(jay_png):
-        pool = portrait_pool()
-        if pool:
-            save_artist_portrait(pool[0], jay_png)
-            print(f"[artist] jay-jay ← {pool[0].relative_to(ROOT)}")
 
 
 def fix_featured_snake() -> None:

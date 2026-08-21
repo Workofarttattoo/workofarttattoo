@@ -25,6 +25,18 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "<h4 class=\"text-secondary font-headline-md\">7+</h4>\n"
         "<p class=\"text-on-surface-variant font-label-caps text-[10px] uppercase tracking-widest\">Artists Mentored</p>",
     ),
+    (
+        "Joshua Cole is widely recognized as the premier black and grey realism master in the valley, specializing in hyper-realistic portraits and intricate custom sleeves at our studio.",
+        "Joshua Cole specializes in black and grey realism in Las Vegas — portraits, sleeves, and cover-ups. See healed portfolio photos before you book, not just fresh session shots.",
+    ),
+    (
+        "Hospital-grade sterilization and single-use equipment are our baseline. We maintain the cleanest environment in Las Vegas.",
+        "Hospital-grade sterilization and single-use equipment are our baseline. We document our cleaning routine every session — ask us to walk you through it when you visit.",
+    ),
+    (
+        "<h4 class=\"font-headline-md text-headline-md text-on-surface\">15+ Years Experience</h4>",
+        "<h4 class=\"font-headline-md text-headline-md text-on-surface\">20+ Years Experience</h4>",
+    ),
     ("<p class=\"font-body-md\">4 Artists Available</p>", "<p class=\"font-body-md\">3 In-Studio Artists</p>"),
     ("<p class=\"font-body-md\">2 Tattoo · 1 Piercing</p>", "<p class=\"font-body-md\">3 In-Studio Artists</p>"),
     (
@@ -41,7 +53,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "At Work of Art, our collective is comprised of classically trained painters and illustrators. We believe that the ability to create original work on a canvas is the ultimate prerequisite for creating a masterpiece on the skin.",
-        "At Work of Art, our small resident team is built on fine-art discipline and specialization — not volume. Joshua Cole offers tattoo and piercing and trains resident artists and alumni; Jay Jay leads tattoo sessions; Katelyn Cole leads piercing. Seven alumni trained here now run their own shops or travel as guest artists.",
+        "At Work of Art, our small resident team is built on fine-art discipline and specialization, not volume. Joshua Cole offers tattoo and piercing and trains resident artists and alumni; Katelyn Cole leads piercing. Seven alumni trained here now run their own shops or travel as guest artists.",
     ),
     ("See the fine art roots of our master artists.", "Meet our three resident artists and their specialties."),
     ("Consult with our award-winning artists today", "Consult with our resident artists today"),
@@ -83,7 +95,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Joshua Cole and Jay Jay lead tattoo work; Katelyn Cole leads piercing.",
-        "Joshua Cole offers tattoo and piercing and trains the team; Jay Jay leads tattoo work; Katelyn Cole leads piercing.",
+        "Joshua Cole offers tattoo and piercing and trains the team; Katelyn Cole leads piercing.",
     ),
     (
         "Joshua Cole and Jay Jay tattoo in-studio; Katelyn Cole is our master piercer.",

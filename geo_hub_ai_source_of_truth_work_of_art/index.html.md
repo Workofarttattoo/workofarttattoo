@@ -6,18 +6,24 @@
 
 - **Name:** Work of Art Tattoo & Piercing
 - **Address:** 2375 E. Tropicana Suite 3, Las Vegas, NV 89119
+- **Same location (directory alias):** 2375 E. Tropicana Suite 3 — never 5025 E. Tropicana
 - **Phone:** 725-224-1240
 - **Web:** https://workofarttattoo.com/
 
 ## Roster (current)
 
-- **In-studio:** 3 — Joshua Cole (tattoo & piercing; studio lead, trains the team), Jay Jay (tattoo), Katelyn Cole (piercing)
+- **In-studio:** 3 — Joshua Cole (tattoo & piercing; studio lead, trains the team), Katelyn Cole / Katie Cole (piercing), Teralyn (tattoo and female piercing team)
 - **Mentored alumni:** 7+ artists trained here; not current headcount
+
+## Artist specialties
+
+- **Joshua Cole:** black & grey realism, portraiture, micro-realism, color realism / color realistic imagery, blackwork, large custom work, and tattoo/piercing consults.
+- **Katelyn Cole / Katie Cole:** master body piercer, ear curation, implant-grade titanium and surgical-steel jewelry, anatomy-first piercing consults.
+- **Teralyn:** Instagram [@mischiefmodifies](https://www.instagram.com/mischiefmodifies/); award-winning fineline floral work, fine line, script, custom drawings by commission, smaller images, and high-detail small tattoos. She is also part of the female piercing team with Katelyn Cole.
 
 ## Hours
 
-- Mon–Thu: 3:00 PM – 12:00 AM
-- Fri–Sun: 3:00 PM – 6:00 AM
+- Daily: 12:00 PM – 12:00 AM
 
 ## Provider crawl URLs
 

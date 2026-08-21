@@ -28,7 +28,7 @@ OG_IMAGE: dict[str, str] = {
         "professional-tattoo-artist-work-of-art-las-vegas-studio.webp"
     ),
     "realism_tattoos_las_vegas_master_authority_guide": (
-        f"{SITE}/img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup.webp"
+        f"{SITE}/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.webp"
     ),
     "fine_line_tattoos_las_vegas_master_authority_guide": (
         f"{SITE}/fine_line_tattoos_las_vegas_master_authority_guide/"
@@ -50,13 +50,9 @@ OG_IMAGE: dict[str, str] = {
         f"{SITE}/image_5_22_26_at_9.11_pm_1.png/"
         "professional-tattoo-artist-work-of-art-las-vegas-studio.webp"
     ),
-    "artists": f"{SITE}/artists/joshua-cole/joshua-cole-masterpiece-wall-consistently-unique-las-vegas.webp",
-    "jay_jay_artist_portfolio_authentic_masterpieces": (
-        f"{SITE}/jay_jay_artist_portfolio_authentic_masterpieces/"
-        "jay-jay-artist-portfolio-authentic-masterpieces-las-vegas.webp"
-    ),
+    "artists": f"{SITE}/artists/joshua-cole/joshua-cole-tattooing-portrait-las-vegas.webp",
     "reviews_vault_100_verified_masterpieces": (
-        f"{SITE}/img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup.webp"
+        f"{SITE}/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.webp"
     ),
     "review_funnel_google_authority_hub": DEFAULT_OG,
     "tattoo_pain_chart_placement_sensitivity_guide": (
@@ -78,7 +74,7 @@ DESC_EXTRA: dict[str, str] = {
         "black and grey realism, color work, cover-ups, and walk-ins. (725) 224-1240."
     ),
     "artists": (
-        "Meet Joshua Cole, Jay Jay, and Katelyn Cole at Work of Art in Las Vegas — "
+        "Meet Joshua Cole and Katelyn Cole at Work of Art in Las Vegas — "
         "realism tattoo, custom ink, and master piercing. Book at our Tropicana studio."
     ),
 }

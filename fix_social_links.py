@@ -27,7 +27,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         'href="#">Instagram Portfolio</a>',
-        f'href="{HREF_INSTAGRAM_KATELYN}"{EXTERNAL}>Instagram @stabislifee</a>',
+        f'href="{HREF_INSTAGRAM_KATELYN}"{EXTERNAL}>Instagram @workofarttattoo</a>',
     ),
     (
         'href="https://instagram.com" target="_blank">Follow on Instagram</a>',

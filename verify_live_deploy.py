@@ -17,7 +17,8 @@ KATELYN_BASE = (
 )
 KATELYN_WEBP = f"/artists/katelyn-cole/{KATELYN_BASE}.webp"
 KATELYN_JPG = f"/artists/katelyn-cole/{KATELYN_BASE}.jpg"
-PORTRAIT_SIZE = (800, 1067)
+PORTRAIT_WEBP_SIZE = (640, 853)
+PORTRAIT_JPG_SIZE = (800, 1067)
 INTERVIEW_STILL = (
     "/home_work_of_art_tattoo_piercing/joshua-cole-studio-interview-las-vegas.png"
 )
@@ -115,7 +116,7 @@ def main() -> int:
         errors.append("Katelyn .webp on server is stale (wrong file size)")
     else:
         try:
-            if image_size(live_webp_body) != PORTRAIT_SIZE:
+            if image_size(live_webp_body) != PORTRAIT_WEBP_SIZE:
                 errors.append(
                     f"Katelyn .webp wrong dimensions on live: {image_size(live_webp_body)}"
                 )
@@ -135,7 +136,7 @@ def main() -> int:
             errors.append("Katelyn .jpg on server is stale (wrong file size)")
         else:
             try:
-                if image_size(live_jpg_body) != PORTRAIT_SIZE:
+                if image_size(live_jpg_body) != PORTRAIT_JPG_SIZE:
                     errors.append(
                         f"Katelyn .jpg wrong dimensions on live: {image_size(live_jpg_body)}"
                     )
