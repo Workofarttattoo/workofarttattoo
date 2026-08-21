@@ -1,0 +1,151 @@
+/* Work of Art homepage — layout & interaction (Tailwind via CDN in HTML) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.font-label-caps {
+  font-family: "Hanken Grotesk", system-ui, sans-serif;
+}
+html {
+  overflow-x: hidden;
+}
+body {
+  background-color: #131313;
+  color: #e5e2e1;
+  scroll-behavior: smooth;
+  cursor: none;
+}
+@media (hover: none) and (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+  #sparkle-cursor {
+    display: none !important;
+  }
+}
+.ink-texture {
+  background-image: url(/home_work_of_art_tattoo_piercing/custom-tattoos-las-vegas-epic-snake-texture.webp);
+  opacity: 0.04;
+  pointer-events: none;
+}
+.glass-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.gold-glow:hover {
+  box-shadow: 0 0 20px rgba(233, 195, 73, 0.4);
+}
+.glow-sm:hover {
+  box-shadow: 0 0 15px rgba(233, 195, 73, 0.3);
+}
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+#sparkle-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #ffe088 0%, #e9c349 40%, transparent 80%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transition: transform 0.06s ease-out;
+  transform: translate(-100px, -100px);
+  will-change: transform;
+  box-shadow: 0 0 15px 2px #e9c349;
+}
+.sparkle {
+  position: fixed;
+  background: #ffe088;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  box-shadow: 0 0 8px #e9c349;
+  animation: fly 1.5s forwards ease-out, flicker 0.15s infinite alternate;
+}
+@keyframes fly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0);
+    opacity: 0;
+  }
+}
+@keyframes flicker {
+  0% {
+    opacity: 0.7;
+    filter: brightness(1);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.carousel-item {
+  min-width: 100%;
+  transition: opacity 0.5s ease;
+}
+/* Homepage conversion gallery + reviews (expand_homepage_conversion.py) */
+.woa-review-rail {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(233, 195, 73, 0.45) transparent;
+}
+.woa-review-rail::-webkit-scrollbar {
+  height: 6px;
+}
+.woa-review-rail::-webkit-scrollbar-thumb {
+  background: rgba(233, 195, 73, 0.45);
+  border-radius: 3px;
+}
+.woa-greview-card {
+  scroll-snap-align: start;
+  background: linear-gradient(145deg, #1c1b1b 0%, #131313 100%);
+  border: 1px solid rgba(68, 71, 72, 0.55);
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+.woa-gallery-masonry {
+  columns: 2;
+  column-gap: 0.5rem;
+}
+@media (min-width: 768px) {
+  .woa-gallery-masonry {
+    columns: 3;
+    column-gap: 0.75rem;
+  }
+}
+@media (min-width: 1024px) {
+  .woa-gallery-masonry {
+    columns: 4;
+    column-gap: 1rem;
+  }
+}
+.woa-gallery-masonry .woa-gallery-tile {
+  break-inside: avoid;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 768px) {
+  .woa-gallery-masonry .woa-gallery-tile {
+    margin-bottom: 0.75rem;
+  }
+}

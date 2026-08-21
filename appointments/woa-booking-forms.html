@@ -1,0 +1,77 @@
+<!-- WOA_BOOKING_FORMS_START -->
+<div class="rounded-lg border border-outline-variant bg-surface-container-high/80 p-6 md:p-10 mt-10" id="woa-booking-app">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Request an appointment</p>
+<p class="font-body-md text-on-surface-variant mt-2">Choose <strong class="text-on-surface">Tattoo</strong> or <strong class="text-on-surface">Piercing</strong> — your request emails our team at <a class="text-secondary underline hover:no-underline" href="mailto:booking@workofarttattoo.com">booking@workofarttattoo.com</a>.</p>
+<div class="hidden mt-4 rounded-sm border border-secondary/40 bg-secondary/10 px-4 py-3 text-sm text-on-surface" id="woa-booking-thanks" role="status"></div>
+<div class="flex flex-wrap gap-3 mt-6" role="tablist" aria-label="Service type">
+<button aria-selected="true" class="px-6 py-3 min-h-[48px] font-label-caps text-label-caps uppercase tracking-widest border-2 rounded-sm transition-all bg-secondary text-on-secondary border-secondary" data-woa-service-tab="tattoo" role="tab" type="button">Tattoo</button>
+<button aria-selected="false" class="px-6 py-3 min-h-[48px] font-label-caps text-label-caps uppercase tracking-widest border-2 rounded-sm transition-all text-on-surface-variant border-outline-variant hover:border-secondary hover:text-secondary" data-woa-service-tab="piercing" role="tab" type="button">Piercing</button>
+</div>
+<div class="hidden mt-4 rounded-sm border border-outline-variant/40 bg-background px-4 py-3 text-sm" hidden="" id="woa-booking-status" role="status"></div>
+<!-- Tattoo -->
+<div class="mt-8" data-woa-service-panel="tattoo" id="woa-panel-tattoo" role="tabpanel">
+<form action="https://formsubmit.co/booking@workofarttattoo.com" class="space-y-5" id="woa-form-tattoo" method="POST">
+<input name="_subject" type="hidden" value="[Tattoo] Appointment request — Work of Art"/>
+<input name="_captcha" type="hidden" value="false"/>
+<input name="_template" type="hidden" value="table"/>
+<input name="_next" type="hidden" value="https://workofarttattoo.com/appointments/?sent=tattoo"/>
+<input name="service_type" type="hidden" value="tattoo"/>
+<input autocomplete="off" class="hidden" name="_woa_hp" tabindex="-1" type="text"/>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Full name *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="full_name" required="" type="text"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Email *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="email" required="" type="email"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Phone *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="phone" required="" type="tel"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Preferred contact</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="preferred_contact"><option value="phone">Phone</option><option value="text">Text</option><option value="email">Email</option></select></label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Request type *</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="tattoo_request_type" required=""><option value="consultation">Consultation (new tattoo)</option><option value="cover-up">Cover-up</option><option value="touch-up">Touch-up / rework</option><option value="walk-in">Walk-in (subject to availability)</option><option value="large-scale">Large-scale / sleeve project</option></select></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Preferred artist</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="preferred_artist"><option value="no preference">No preference</option><option value="Joshua Cole">Joshua Cole</option></select></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Placement on body</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="placement" placeholder="e.g. outer forearm, upper back" type="text"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Approximate size</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="tattoo_size" placeholder="e.g. palm-sized, half sleeve" type="text"/></label>
+</div>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Describe your idea *</span><textarea class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none min-h-[120px]" name="description" required=""></textarea></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Reference links (optional)</span><textarea class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none min-h-[72px]" name="reference_links"></textarea></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Timeline / availability</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="timeline" type="text"/></label>
+<label class="flex items-start gap-3 cursor-pointer"><input class="mt-1 accent-secondary" name="age_confirm" required="" type="checkbox" value="yes"/><span class="text-sm text-on-surface-variant">I confirm I am 18 years of age or older. *</span></label>
+<button class="w-full md:w-auto bg-secondary text-on-secondary px-10 py-4 min-h-[56px] font-label-caps text-label-caps uppercase tracking-widest border-2 border-secondary rounded-sm gold-glow hover:opacity-95 transition-all" type="submit">Send tattoo request</button>
+</form>
+</div>
+<!-- Piercing -->
+<div class="mt-8 hidden" data-woa-service-panel="piercing" hidden="" id="woa-panel-piercing" role="tabpanel">
+<form action="https://formsubmit.co/booking@workofarttattoo.com" class="space-y-5" id="woa-form-piercing" method="POST">
+<input name="_subject" type="hidden" value="[Piercing] Appointment request — Work of Art"/>
+<input name="_captcha" type="hidden" value="false"/>
+<input name="_template" type="hidden" value="table"/>
+<input name="_next" type="hidden" value="https://workofarttattoo.com/appointments/?sent=piercing"/>
+<input name="service_type" type="hidden" value="piercing"/>
+<input autocomplete="off" class="hidden" name="_woa_hp" tabindex="-1" type="text"/>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Full name *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="full_name" required="" type="text"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Email *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="email" required="" type="email"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Phone *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="phone" required="" type="tel"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Preferred contact</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="preferred_contact"><option value="phone">Phone</option><option value="text">Text</option><option value="email">Email</option></select></label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Piercing type *</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="piercing_type" required=""><option value="ear">Ear (lobe, helix, conch, etc.)</option><option value="nose">Nose</option><option value="nostril-septum">Nostril / septum</option><option value="body">Body piercing</option><option value="multiple">Multiple piercings</option><option value="consultation">Consultation only</option></select></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Jewelry interest</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="jewelry_interest"><option value="standard studio jewelry">Standard studio jewelry</option><option value="premium upgrade">Premium titanium upgrade</option><option value="bring own">Bringing my own jewelry (consult first)</option><option value="not sure">Not sure yet</option></select></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">First piercing?</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="first_piercing"><option value="yes">Yes — first time</option><option value="no">No — I have others</option></select></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Preferred piercer</span><select class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="preferred_piercer"><option value="Katelyn Cole">Katelyn Cole</option><option value="no preference">No preference</option></select></label>
+</div>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Notes *</span><textarea class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none min-h-[120px]" name="piercing_notes" required=""></textarea></label>
+<label class="flex items-start gap-3 cursor-pointer"><input class="mt-1 accent-secondary" name="age_confirm" required="" type="checkbox" value="yes"/><span class="text-sm text-on-surface-variant">I confirm I am 18 years of age or older. *</span></label>
+<button class="w-full md:w-auto bg-secondary text-on-secondary px-10 py-4 min-h-[56px] font-label-caps text-label-caps uppercase tracking-widest border-2 border-secondary rounded-sm gold-glow hover:opacity-95 transition-all" type="submit">Send piercing request</button>
+</form>
+</div>
+<p class="text-xs text-on-surface-variant mt-6 pt-4 border-t border-outline-variant/30">Prefer to talk now? Call <a class="text-secondary" href="tel:+17252241240">(725) 224-1240</a>. Walk-ins welcome when artists are available.</p>
+</div>
+<script data-woa-booking-inline="1" type="text/javascript">(function(){
+var root=document.getElementById("woa-booking-app");if(!root)return;
+var tabs=root.querySelectorAll("[data-woa-service-tab]");
+var panels=root.querySelectorAll("[data-woa-service-panel]");
+function show(s){tabs.forEach(function(b){var on=b.getAttribute("data-woa-service-tab")===s;b.setAttribute("aria-selected",on?"true":"false");b.classList.toggle("bg-secondary",on);b.classList.toggle("text-on-secondary",on);b.classList.toggle("border-secondary",on);b.classList.toggle("text-on-surface-variant",!on);b.classList.toggle("border-outline-variant",!on);});panels.forEach(function(p){var on=p.getAttribute("data-woa-service-panel")===s;p.hidden=!on;p.classList.toggle("hidden",!on);});}
+tabs.forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-woa-service-tab"));});});
+show("tattoo");
+var q=location.search||"";var thanks=document.getElementById("woa-booking-thanks");
+if(thanks&&(q.indexOf("sent=tattoo")>=0||q.indexOf("sent=piercing")>=0)){thanks.hidden=false;thanks.classList.remove("hidden");thanks.textContent="Thank you — your request was sent to booking@workofarttattoo.com. We will reply shortly.";if(q.indexOf("sent=piercing")>=0)show("piercing");}
+})();</script>
+<!-- WOA_BOOKING_FORMS_END -->

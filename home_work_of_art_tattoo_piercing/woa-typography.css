@@ -1,0 +1,127 @@
+/* Site-wide type + contrast (inject_site_typography.py) */
+:root {
+  --font-gothic-display: "Cinzel", "Playfair Display", Georgia, serif;
+  --font-gothic-cap: "UnifrakturMaguntia", "Cinzel Decorative", serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+.font-headline-xl,
+.font-headline-lg,
+.font-headline-md,
+.font-headline-lg-mobile,
+h1.font-headline-xl,
+h2.font-headline-lg,
+h3.font-headline-md {
+  font-family: var(--font-gothic-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+h1.font-headline-xl::first-letter,
+h2.font-headline-lg::first-letter {
+  font-family: var(--font-gothic-cap);
+  font-weight: 400;
+  font-size: 1.22em;
+  line-height: 0.85;
+  margin-right: 0.06em;
+  color: #e9c349;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+}
+
+/* Readable text on busy / photo backgrounds */
+#hero .woa-hero-copy,
+#hero .woa-hero-rating-bar,
+.woa-hero-banner-nav a.woa-banner-nav-link,
+.woa-text-on-photo {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 4px 28px rgba(0, 0, 0, 0.85);
+}
+
+#hero .woa-hero-copy {
+  padding: 1.25rem 1.5rem 1.5rem;
+  margin-left: -0.25rem;
+  border-radius: 2px;
+  background: linear-gradient(
+    105deg,
+    rgba(12, 10, 9, 0.88) 0%,
+    rgba(12, 10, 9, 0.72) 55%,
+    rgba(12, 10, 9, 0.35) 100%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+#hero .woa-hero-copy p,
+#hero .woa-hero-copy .font-label-caps {
+  color: #f0eeec;
+}
+
+main h1.font-headline-xl,
+main h2.font-headline-lg,
+main h3.font-headline-md,
+section h2.font-headline-lg,
+section h3.font-headline-md {
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+}
+
+/* Text on full-bleed photo heroes (authority guides) */
+.relative.min-h-\[50vh\] h1,
+.relative.min-h-\[60vh\] h1,
+.relative.min-h-\[70vh\] h1,
+[class*="bg-gradient"] h1.font-headline-xl,
+[class*="bg-gradient"] h2.font-headline-lg {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.95),
+    0 6px 32px rgba(0, 0, 0, 0.75);
+}
+
+.relative.min-h-\[50vh\] p.max-w,
+.relative.min-h-\[60vh\] p,
+.relative.min-h-\[70vh\] p {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+}
+
+/* Portfolio tiles: show full tattoo (not cropped) */
+.woa-gallery-tile picture,
+.woa-gallery-tile img,
+#showcase-grid [data-category] picture img {
+  background: #0a0a0a;
+}
+
+.woa-gallery-tile img,
+#showcase-grid .md\\:col-span-8 img,
+#showcase-grid .aspect-square img {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+#showcase-grid .md\\:col-span-8 {
+  background: #0a0a0a;
+}
+
+/* Hero carousel: full artwork visible */
+#hero .woa-hero-slide img,
+#hero .carousel-item img {
+  object-fit: contain !important;
+  object-position: center !important;
+  background: radial-gradient(ellipse at 50% 40%, #1a1816 0%, #0a0a0a 70%);
+  opacity: 0.92;
+}
+
+/* Discount / offer promo image */
+section img[alt*="offer visual"],
+section img[alt*="10 percent"] {
+  object-fit: contain;
+  object-position: center;
+  background: #0a0a0a;
+  max-height: min(70vh, 520px);
+  width: auto;
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  #hero .woa-hero-copy {
+    max-width: min(52rem, 58vw);
+  }
+}
