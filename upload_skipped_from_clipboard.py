@@ -3,7 +3,7 @@
 Split skipped_pages_clipboard.html (paste from clipboard saved to disk),
 apply HTML fixes, and FTP-upload to slug folders matching prior deploy conventions.
 
-FTP_USER / FTP_PASS required (tattoojosh@workofarttattoo.com).
+FTP_USER / FTP_PASS required.
 """
 
 from __future__ import annotations

@@ -78,7 +78,7 @@ SECTIONS: dict[str, str] = {
     ),
     "official_location_hours_contact/code.html": block(
         "Arriving at the studio",
-        "Work of Art is at 2375 E. Tropicana Suite 3, Suite 3. If you are coming from the Strip, give yourself a little buffer; the drive is short, but Las Vegas traffic is not always polite about it.",
+        "Work of Art is at 2375 E. Tropicana Ave, Suite 3, Suite 3. If you are coming from the Strip, give yourself a little buffer; the drive is short, but Las Vegas traffic is not always polite about it.",
         (
             "Use Suite 3 as the final check when you arrive.",
             "Bring valid ID for tattoos, piercings, jewelry changes, and minor piercings with a parent or legal guardian.",

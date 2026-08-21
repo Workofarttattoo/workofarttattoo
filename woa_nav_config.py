@@ -47,13 +47,13 @@ HREF_BOOKING_MAILTO = f"mailto:{STUDIO_BOOKING_EMAIL}"
 
 # Canonical NAP — must match Google Business Profile & every directory exactly
 STUDIO_LEGAL_NAME = "Work of Art Tattoo & Piercing"
-STUDIO_STREET_ADDRESS = "2375 E. Tropicana Suite 3"
+STUDIO_STREET_ADDRESS = "2375 E. Tropicana Ave, Suite 3"
 # Same physical location — Fresha, Apple Maps, and some directories use Ave + unit number
-STUDIO_ADDRESS_DIRECTORY = "2375 E. Tropicana Suite 3"
+STUDIO_ADDRESS_DIRECTORY = "2375 E. Tropicana Ave, Suite 3"
 STUDIO_ADDRESS_ALIASES: tuple[str, ...] = (
     STUDIO_STREET_ADDRESS,
     STUDIO_ADDRESS_DIRECTORY,
-    "2375 E. Tropicana Suite 3",
+    "2375 E. Tropicana Ave, Suite 3",
 )
 STUDIO_ADDRESS_LOCALITY = "Las Vegas"
 STUDIO_ADDRESS_REGION = "NV"
@@ -409,7 +409,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "tattoo_shop_near_the_strip_nap_corrected": (
         "Studio Location & Hours",
-        "Directions to Work of Art at 2375 E. Tropicana Suite 3 — easy access from the Strip and airport.",
+        "Directions to Work of Art at 2375 E. Tropicana Ave, Suite 3 — easy access from the Strip and airport.",
     ),
     "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison": (
         "Premium Studio vs. Cheap Strip Shops",

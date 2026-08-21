@@ -228,8 +228,8 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
     ],
     "cover_up_tattoos_las_vegas_master_authority_guide": [
         (
-            '<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Our <strong>tattoo cover up</strong> team redesigns old work, <strong>cover up tattoos</strong> from Strip regrets, and <strong>scar cover tattoo</strong> pieces that put confidence back on your skin — minutes from the Strip at 2375 E. Tropicana Suite 3.</p>',
-            '<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Joshua Cole redesigns old work — Strip regrets, faded color, and scar camouflage — with in-studio consults at 2375 E. Tropicana Suite 3, a short drive from major resorts.</p>',
+            '<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Our <strong>tattoo cover up</strong> team redesigns old work, <strong>cover up tattoos</strong> from Strip regrets, and <strong>scar cover tattoo</strong> pieces that put confidence back on your skin — minutes from the Strip at 2375 E. Tropicana Ave, Suite 3.</p>',
+            '<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Joshua Cole redesigns old work — Strip regrets, faded color, and scar camouflage — with in-studio consults at 2375 E. Tropicana Ave, Suite 3, a short drive from major resorts.</p>',
         ),
         (
             "<h3 class=\"font-headline-md text-[20px] text-on-surface mb-3\">Where is the best tattoo cover up near me in Las Vegas?</h3>",
@@ -298,8 +298,8 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Work of Art on E. Tropicana pairs Katelyn Cole's ear curation and implant-grade jewelry with Joshua Cole's custom tattoos — one licensed studio, sterile setup, and aftercare coaching built for Vegas heat.</p>",
         ),
         (
-            "<p class=\"font-body-lg text-on-surface-variant\">Searching <strong>tattoo body piercing near me</strong> or <strong>body piercings and tattoos near me</strong> in Vegas? Work of Art is a licensed <strong>body piercing studio</strong> and tattoo and piercing shop at 2375 E. Tropicana Suite 3 — minutes from the Strip. Book piercing with Katelyn Cole and tattoos with Joshua Cole without bouncing between a body piercing place and a separate tattoo parlor.</p>",
-            "<p class=\"font-body-lg text-on-surface-variant\">Need piercing and tattoos in one trip? Work of Art is a licensed studio at 2375 E. Tropicana Suite 3 — a short drive from the Strip. Book ear curation with Katelyn Cole and custom tattoo work with Joshua Cole under the same roof.</p>",
+            "<p class=\"font-body-lg text-on-surface-variant\">Searching <strong>tattoo body piercing near me</strong> or <strong>body piercings and tattoos near me</strong> in Vegas? Work of Art is a licensed <strong>body piercing studio</strong> and tattoo and piercing shop at 2375 E. Tropicana Ave, Suite 3 — minutes from the Strip. Book piercing with Katelyn Cole and tattoos with Joshua Cole without bouncing between a body piercing place and a separate tattoo parlor.</p>",
+            "<p class=\"font-body-lg text-on-surface-variant\">Need piercing and tattoos in one trip? Work of Art is a licensed studio at 2375 E. Tropicana Ave, Suite 3 — a short drive from the Strip. Book ear curation with Katelyn Cole and custom tattoo work with Joshua Cole under the same roof.</p>",
         ),
         (
             "<h3 class=\"font-headline-md text-headline-md text-on-surface mb-3\">Piercing near me — why Work of Art</h3>",
@@ -351,7 +351,7 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
     "tattoo_shop_near_the_strip_nap_corrected": [
         (
             "Tattoo shop near me or tattoo and body piercing studio las vegas from the Strip? Work of Art at 2375 E. Tropicana is among tattoo and body piercing studios in las vegas worth the short drive — tattoo and body piercing studio near me for Caesars, Bellagio, and airport arrivals, about five minutes from major resorts.",
-            "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Suite 3 is a short drive from Caesars, Bellagio, and McCarran — licensed tattoo and piercing under one roof.",
+            "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Ave, Suite 3 is a short drive from Caesars, Bellagio, and McCarran — licensed tattoo and piercing under one roof.",
         ),
     ],
 }

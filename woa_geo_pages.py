@@ -32,7 +32,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         ),
         directions=(
             "From MGM Grand front desk: exit onto Tropicana Ave and head east ~1.5 miles. "
-            "We are on the north side of Tropicana at 2375 E. Tropicana Suite 3 — look for the Work of Art signage.",
+            "We are on the north side of Tropicana at 2375 E. Tropicana Ave, Suite 3 — look for the Work of Art signage.",
             "Rideshare drop-off: use the studio address directly; do not use Strip valet addresses.",
             "From Las Vegas Blvd: turn east on Tropicana; studio is past Maryland Pkwy on your right.",
         ),
@@ -70,7 +70,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         directions=(
             "From Allegiant Stadium: take I-15 south to Tropicana Ave eastbound (~15–20 min without major events).",
             "Event nights: leave 45+ minutes before kickoff if you have a same-day piercing — swelling checks cannot be rushed.",
-            "From Mandalay Bay / Luxor corridor: east on Tropicana ~10 minutes to 2375 E. Tropicana Suite 3.",
+            "From Mandalay Bay / Luxor corridor: east on Tropicana ~10 minutes to 2375 E. Tropicana Ave, Suite 3.",
         ),
         parking=(
             "Use our private lot — stadium event parking downtown runs $40–80; our consult parking is free.",
@@ -102,7 +102,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "closer than fighting Strip traffic for a serious consult."
         ),
         directions=(
-            "From LAS Terminal 1 or 3: rideshare or rental ~8–12 minutes east on Tropicana to 2375 E. Tropicana Suite 3.",
+            "From LAS Terminal 1 or 3: rideshare or rental ~8–12 minutes east on Tropicana to 2375 E. Tropicana Ave, Suite 3.",
             "Do not detour through the Strip for navigation — Tropicana is the direct route from the airport.",
             "Returning rental: most agencies are airport-side; plan tattoo sessions before drop-off if you fly same day.",
         ),
@@ -138,7 +138,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         directions=(
             "From The Sphere: east on Sands or via I-15 to Tropicana eastbound — ~10–15 minutes to the studio.",
             "From Venetian / Wynn corridor: cut south to Tropicana, then east ~8 minutes.",
-            "Use 2375 E. Tropicana Suite 3 in maps — not a generic 'tattoo near Sphere' pin on the Strip.",
+            "Use 2375 E. Tropicana Ave, Suite 3 in maps — not a generic 'tattoo near Sphere' pin on the Strip.",
         ),
         parking=(
             "Sphere parking is expensive and time-limited — park at our lot for consults instead.",
@@ -180,7 +180,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "Paradise residents: save our number for same-day piercing checks when a bump shows up.",
         ),
         why_choose=(
-            "Two in-studio residents today — Joshua Cole and Katelyn Cole — not a rotating guest-artist wall.",
+            "Three in-studio residents today — Joshua Cole, Katelyn Cole, and Teralyn — not a rotating guest-artist wall.",
             "Seven artists trained here now run their own shops; we mentor, we do not inflate roster numbers.",
             "SNHD-licensed studio with implant-grade piercing jewelry in stock.",
         ),

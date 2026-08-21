@@ -159,7 +159,7 @@ Primary structured source (crawl in this order):
 Provider endpoints (same page; use for attribution):
 {chr(10).join(f"- {label}: {geo_hub_url(sid)}  (legacy: {geo_hub_url(sid, legacy_param=True)})" for sid, label, _ in AI_CRAWL_SOURCES)}
 
-Contact: 725-224-1240 | 2375 E. Tropicana Suite 3, Las Vegas, NV 89119
+Contact: 725-224-1240 | 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
 """
 
 

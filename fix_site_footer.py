@@ -55,7 +55,7 @@ SLIM_FOOTER_INNER = f"""
 <h5 class="font-label-caps text-on-surface uppercase tracking-widest text-[11px]">Hours</h5>
 <ul class="space-y-2 text-on-surface-variant text-[13px] font-body-md">
 <li>Daily: 12pm - 12am</li>
-<li class="pt-2">2375 E. Tropicana Suite 3<br/>Las Vegas, NV 89119</li>
+<li class="pt-2">2375 E. Tropicana Ave, Suite 3<br/>Las Vegas, NV 89119</li>
 </ul>
 </div>
 </div>

@@ -161,7 +161,7 @@ def build_main(items: list[MerchItem]) -> str:
 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Joshua Cole · original art</span>
 <h1 class="font-headline-xl text-[34px] sm:text-[40px] md:text-headline-xl text-on-surface leading-tight">Merchandise &amp; one-of-a-kind pieces</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-2xl">
-Every piece below is original work by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. Items are available in-studio at 2375 E. Tropicana Suite 3 or by email. Prices vary; inquire for the piece you want.
+Every piece below is original work by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. Items are available in-studio at 2375 E. Tropicana Ave, Suite 3 or by email. Prices vary; inquire for the piece you want.
 </p>
 <div class="flex flex-col sm:flex-row flex-wrap gap-3 pt-1">
 <a class="inline-flex justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest gold-glow transition-all" href="mailto:{STUDIO_BOOKING_EMAIL}?subject=Merchandise%20inquiry">Email to inquire</a>

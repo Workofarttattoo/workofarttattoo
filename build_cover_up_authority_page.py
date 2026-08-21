@@ -83,7 +83,7 @@ META_HEAD = f"""<!DOCTYPE html>
           "name": "Can any tattoo be covered up in Las Vegas?",
           "acceptedAnswer": {{
             "@type": "Answer",
-            "text": "Most tattoos can be redesigned, but very dark or saturated ink may need laser lightening first. We assess contrast, placement, and skin during a free consult at 2375 E. Tropicana Suite 3."
+            "text": "Most tattoos can be redesigned, but very dark or saturated ink may need laser lightening first. We assess contrast, placement, and skin during a free consult at 2375 E. Tropicana Ave, Suite 3."
           }}
         }},
         {{
@@ -133,7 +133,7 @@ MAIN = f"""
 <span class="font-label-caps text-label-caps text-secondary">LAS VEGAS COVER-UP SPECIALISTS</span>
 </div>
 <h1 class="font-headline-xl text-headline-xl mb-6 leading-none">Cover Up Tattoos <span class="text-secondary">Las Vegas</span></h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Our <strong>tattoo cover up</strong> team redesigns old work, <strong>cover up tattoos</strong> from Strip regrets, and <strong>scar cover tattoo</strong> pieces that put confidence back on your skin — minutes from the Strip at 2375 E. Tropicana Suite 3.</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Our <strong>tattoo cover up</strong> team redesigns old work, <strong>cover up tattoos</strong> from Strip regrets, and <strong>scar cover tattoo</strong> pieces that put confidence back on your skin — minutes from the Strip at 2375 E. Tropicana Ave, Suite 3.</p>
 <div class="flex flex-col sm:flex-row gap-4">
 <a class="px-10 py-5 bg-secondary text-on-secondary font-label-caps text-label-caps tracking-widest hover:glow-sm transition-all text-center" href="#consult">BOOK FREE CONSULT</a>
 <a class="px-10 py-5 border border-outline text-on-surface font-label-caps text-label-caps tracking-widest hover:bg-on-surface hover:text-surface transition-all text-center" href="#studio-portfolio">VIEW STUDIO WORK</a>
@@ -332,7 +332,7 @@ MAIN = f"""
 <a class="flex-1 text-center px-10 py-5 bg-secondary text-on-secondary font-label-caps text-label-caps tracking-widest hover:glow-sm transition-all" href="/appointments/">SCHEDULE ONLINE</a>
 <a class="flex-1 text-center px-10 py-5 border border-outline font-label-caps text-label-caps tracking-widest hover:border-secondary transition-all" href="tel:+17252241240">CALL (725) 224-1240</a>
 </div>
-<p class="font-label-caps text-[10px] text-on-surface-variant text-center">2375 E. Tropicana Suite 3 · Las Vegas, NV 89119 · Minutes from the Strip</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant text-center">2375 E. Tropicana Ave, Suite 3 · Las Vegas, NV 89119 · Minutes from the Strip</p>
 </div>
 </section>
 
@@ -345,7 +345,7 @@ FOOTER_CUSTOM = """
 <div class="max-w-md">
 <div class="font-headline-md text-headline-md text-on-surface mb-4">WORK OF ART</div>
 <p class="font-body-md text-on-surface-variant mb-6 text-sm">Las Vegas cover-up tattoos, realism, and piercing — clinical standards, zero ego.</p>
-<p class="font-body-md text-on-surface-variant">2375 E. Tropicana Suite 3<br/>Las Vegas, NV 89119</p>
+<p class="font-body-md text-on-surface-variant">2375 E. Tropicana Ave, Suite 3<br/>Las Vegas, NV 89119</p>
 </div>
 <div class="flex flex-col gap-4">
 <h5 class="font-label-caps text-label-caps text-secondary">BOOK</h5>

@@ -31,7 +31,7 @@ SITE = "https://workofarttattoo.com"
 CANON = f"{SITE}/{SLUG}/"
 TITLE = "Work of Art Tattoo & Piercing — Official Location, Hours & Contact"
 DESCRIPTION = (
-    "Official NAP for Work of Art Tattoo & Piercing — 2375 E. Tropicana Suite 3, Las Vegas. "
+    "Official NAP for Work of Art Tattoo & Piercing — 2375 E. Tropicana Ave, Suite 3, Las Vegas. "
     f"Phone {STUDIO_PHONE_PARENS}. Hours, parking, walk-ins, and piercing age policy."
 )
 
@@ -136,7 +136,7 @@ def main_html() -> str:
 </div>
 <div class="space-y-3">
 <h3 class="font-headline-md text-on-surface text-lg">In-studio artists</h3>
-<p>Joshua Cole — tattoo &amp; piercing. Katelyn Cole — master piercer &amp; ear curation. Two resident artists, one address.</p>
+<p>Joshua Cole — tattoo &amp; piercing. Katelyn Cole — master piercer &amp; ear curation. Three resident artists, one address.</p>
 <p><a class="text-secondary underline hover:no-underline" href="/artists/joshua-cole/">Joshua</a> · <a class="text-secondary underline hover:no-underline" href="/artists/katelyn-cole/">Katelyn</a></p>
 </div>
 <div class="space-y-3">

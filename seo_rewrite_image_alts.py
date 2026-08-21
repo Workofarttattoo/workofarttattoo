@@ -10,7 +10,7 @@ Rewrite <img alt> attributes across Stitch export HTML for SEO.
   (screenshot-only bundles simply yield no HTML; any `code.html` there is included)
 
 Deploy (optional):
-  FTP_USER=tattoojosh@workofarttattoo.com FTP_PASS=... \\
+  FTP_USER=your-ftp-username FTP_PASS=... \\
     python seo_rewrite_image_alts.py --deploy
 """
 

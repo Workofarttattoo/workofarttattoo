@@ -42,7 +42,7 @@ Don't just get a tattoo or piercing — leave feeling valued. Like you made a li
 <a class="inline-flex justify-center border border-outline px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="tel:+17252241240">Call (725) 224-1240</a>
 <a class="inline-flex justify-center border border-outline-variant/50 px-8 py-4 font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors" href="/walk_in_tattoos_las_vegas_authority_guide/">Walk-in info</a>
 </div>
-<p class="font-body-md text-on-surface-variant text-sm pt-1"><a class="text-secondary underline hover:no-underline" href="/official_location_hours_contact/">2375 E. Tropicana Suite 3</a> · Joshua &amp; Katelyn Cole in-studio · Seven nights a week</p>
+<p class="font-body-md text-on-surface-variant text-sm pt-1"><a class="text-secondary underline hover:no-underline" href="/official_location_hours_contact/">2375 E. Tropicana Ave, Suite 3</a> · Joshua &amp; Katelyn Cole in-studio · Seven nights a week</p>
 </div>
 </section>
 {MARKER_END}"""

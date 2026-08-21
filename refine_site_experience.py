@@ -33,9 +33,9 @@ CITATION_REPLACEMENTS: tuple[tuple[str, str], ...] = (
     ("725-224-1240", "725-224-1240"),
     ("725-224-1240", "725-224-1240"),
     ("702.960.9607", "725-224-1240"),
-    ("2375 E. Tropicana Suite 3", "2375 E. Tropicana Suite 3"),
-    ("2375 E. Tropicana Suite 3", "2375 E. Tropicana Suite 3"),
-    ("2375 E. Tropicana Suite 3", "2375 E. Tropicana Suite 3"),
+    ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
+    ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
+    ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
     ("/tattoo_shop_near_the_strip_geo_seo_optimized/", "/tattoo_shop_near_the_strip_nap_corrected/"),
 )
 

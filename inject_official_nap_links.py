@@ -28,21 +28,21 @@ CALLOUT_RE = re.compile(
 
 ADDRESS_LINK = (
     f'<a class="text-secondary underline hover:no-underline" href="{HREF_OFFICIAL_NAP}">'
-    "2375 E. Tropicana Suite 3</a>"
+    "2375 E. Tropicana Ave, Suite 3</a>"
 )
 
 
 def inject_strip_page(html: str) -> str:
     if MARKER in html:
         html = CALLOUT_RE.sub(CALLOUT + "\n", html, count=1)
-    elif "2375 E. Tropicana Suite 3 is a short drive" in html:
+    elif "2375 E. Tropicana Ave, Suite 3 is a short drive" in html:
         html = html.replace(
-            "2375 E. Tropicana Suite 3 is a short drive",
+            "2375 E. Tropicana Ave, Suite 3 is a short drive",
             f"{ADDRESS_LINK} is a short drive",
             1,
         )
         html = html.replace(
-            "2375 E. Tropicana Suite 3 — about five minutes",
+            "2375 E. Tropicana Ave, Suite 3 — about five minutes",
             f"{ADDRESS_LINK} — about five minutes",
             1,
         )

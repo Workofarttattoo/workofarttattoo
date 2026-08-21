@@ -67,7 +67,7 @@ OG_IMAGE: dict[str, str] = {
 DESC_EXTRA: dict[str, str] = {
     "appointments": (
         "Book tattoo and piercing appointments at Work of Art in Las Vegas — "
-        "custom tattoos, consults, and walk-ins. 2375 E. Tropicana Suite 3. (725) 224-1240."
+        "custom tattoos, consults, and walk-ins. 2375 E. Tropicana Ave, Suite 3. (725) 224-1240."
     ),
     "home_work_of_art_tattoo_piercing": (
         "Las Vegas tattoo and piercing studio on E. Tropicana — custom tattoos, "
