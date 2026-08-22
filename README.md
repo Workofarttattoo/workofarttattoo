@@ -1,6 +1,6 @@
 # Work of Art Tattoo & Piercing - Site Deployment
 
-This repository contains the source code and deployment scripts for the [Work of Art Tattoo](https://workofarttattoo.com/) website.
+This repository contains the source code and deployment scripts for the [Work of Art Tattoo](https://www.workofarttattoo.com/) website.
 
 ## Deployment
 

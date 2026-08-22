@@ -11,7 +11,7 @@ from urllib.parse import urlparse, urldefrag
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 HTML_FILES = sorted(p for p in ROOT.rglob("code.html") if ".git" not in p.parts)
 LEGACY_PATTERNS = {
     "legacy placeholder address": r"123\s+LV\s+Blvd",
@@ -19,10 +19,10 @@ LEGACY_PATTERNS = {
     "wrong zip 89101": r"\b89101\b",
     "old review count 2400": r"\b2,400\b|\b2400\b",
     "wrong artist count two": r"\btwo\s+(resident\s+)?(artists|in-studio)\b",
-    "deprecated phone 725-224-2617": r"725[-\s.]224[-\s.]2617",
-    "deprecated phone 725-224-2931": r"725[-\s.]224[-\s.]2931",
+    "deprecated phone 725-224-1240": r"725[-\s.]224[-\s.]2617",
+    "deprecated phone 725-224-1240": r"725[-\s.]224[-\s.]2931",
     "deprecated phone 725-260-6376": r"725[-\s.]260[-\s.]6376",
-    "deprecated phone 702-960-9607": r"702[-\s.]960[-\s.]9607",
+    "deprecated phone 725-224-1240": r"702[-\s.]960[-\s.]9607",
     "legacy email": r"Thewhiteknight702@gmail\.com",
 }
 QUESTIONABLE_LANGUAGE = [

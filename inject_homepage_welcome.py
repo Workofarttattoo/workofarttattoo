@@ -7,6 +7,13 @@ import re
 from pathlib import Path
 
 from woa_joshua_tattooing import homepage_at_work_picture
+from woa_nav_config import (
+    STUDIO_ADDRESS_SINGLE_LINE,
+    STUDIO_PHONE_PARENS,
+    STUDIO_PHONE_TEL,
+    STUDIO_ROSTER_BLURB,
+    STUDIO_STREET_ADDRESS,
+)
 
 ROOT = Path(__file__).resolve().parent
 HOME = ROOT / "home_work_of_art_tattoo_piercing"
@@ -24,7 +31,8 @@ WELCOME_HTML = f"""{MARKER_START}
 <span class="inline-flex items-center px-3 py-1.5 bg-secondary/15 border border-secondary/35 font-label-caps text-[10px] uppercase tracking-widest text-secondary">Free consultations</span>
 <span class="inline-flex items-center px-3 py-1.5 bg-secondary/15 border border-secondary/35 font-label-caps text-[10px] uppercase tracking-widest text-secondary">Walk-ins always welcome</span>
 </div>
-<h1 class="font-headline-xl text-[30px] sm:text-[36px] md:text-[42px] text-on-surface leading-tight">You're welcome here — questions included.</h1>
+<h1 class="font-headline-xl text-[30px] sm:text-[36px] md:text-[42px] text-on-surface leading-tight">Tattoo &amp; Piercing Studio in Las Vegas</h1>
+<p class="font-headline-md text-[22px] md:text-[28px] text-secondary leading-snug">You're welcome here — questions included.</p>
 <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
 We're happy to answer every question we can — or guide you to someone who can. No pressure, no eye rolls, no making you feel small for asking.
 </p>
@@ -39,10 +47,10 @@ Don't just get a tattoo or piercing — leave feeling valued. Like you made a li
 </p>
 <div class="flex flex-col sm:flex-row flex-wrap gap-3 pt-2">
 <a class="inline-flex justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest gold-glow transition-all" href="/appointments/">Book a free consult</a>
-<a class="inline-flex justify-center border border-outline px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="tel:+17252241240">Call (725) 224-1240</a>
+<a class="inline-flex justify-center border border-outline px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="{STUDIO_PHONE_TEL}">Call {STUDIO_PHONE_PARENS}</a>
 <a class="inline-flex justify-center border border-outline-variant/50 px-8 py-4 font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors" href="/walk_in_tattoos_las_vegas_authority_guide/">Walk-in info</a>
 </div>
-<p class="font-body-md text-on-surface-variant text-sm pt-1"><a class="text-secondary underline hover:no-underline" href="/official_location_hours_contact/">2375 E. Tropicana Ave, Suite 3</a> · Joshua &amp; Katelyn Cole in-studio · Seven nights a week</p>
+<p class="font-body-md text-on-surface-variant text-sm pt-1"><a class="text-secondary underline hover:no-underline" href="/official_location_hours_contact/" aria-label="{STUDIO_ADDRESS_SINGLE_LINE}">{STUDIO_STREET_ADDRESS}</a> · {STUDIO_ROSTER_BLURB}</p>
 </div>
 </section>
 {MARKER_END}"""

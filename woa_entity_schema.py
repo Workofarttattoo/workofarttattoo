@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from bs4 import BeautifulSoup
 
 from woa_nav_config import (
     HREF_FACEBOOK_STUDIO,
@@ -14,6 +15,7 @@ from woa_nav_config import (
     HREF_INSTAGRAM_STUDIO,
     HREF_INSTAGRAM_TERALYN,
     RESIDENT_ARTIST_COUNT,
+    SITE_CANONICAL_HOST,
     STUDIO_ADDRESS_LOCALITY,
     STUDIO_ADDRESS_REGION,
     STUDIO_BOOKING_EMAIL,
@@ -23,7 +25,7 @@ from woa_nav_config import (
     STUDIO_STREET_ADDRESS,
 )
 
-SITE = "https://workofarttattoo.com"
+SITE = SITE_CANONICAL_HOST
 ID_WEBSITE = f"{SITE}/#website"
 ID_BUSINESS = f"{SITE}/#localbusiness"
 ID_JOSHUA = f"{SITE}/#person-joshua-cole"
@@ -276,9 +278,14 @@ def _strip_html(text: str) -> str:
 
 def extract_faqs_from_html(html: str, *, limit: int = 8) -> list[tuple[str, str]]:
     faqs: list[tuple[str, str]] = []
-    for match in FAQ_DETAILS_RE.finditer(html):
-        q = _strip_html(match.group("q"))
-        a = _strip_html(match.group("a"))
+    soup = BeautifulSoup(html, "html.parser")
+    for details in soup.find_all("details"):
+        summary = details.find("summary")
+        answer = details.find("p")
+        if not summary or not answer:
+            continue
+        q = re.sub(r"\s+", " ", summary.get_text(" ", strip=True)).strip()
+        a = re.sub(r"\s+", " ", answer.get_text(" ", strip=True)).strip()
         if len(q) < 8 or len(a) < 20:
             continue
         faqs.append((q, a))

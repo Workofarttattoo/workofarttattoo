@@ -149,7 +149,7 @@ KATELYN_TOPICS: tuple[KatelynTopic, ...] = (
         related=("katelyn_anatomy_matters", "katelyn_sleeping_on_helix"),
     ),
     KatelynTopic(
-        slug_id="katelyn_implant_grade_titanium",
+        slug_id="katelyn_gold_vs_titanium",
         title="Gold vs Titanium",
         intro=(
             "Both can be excellent — timing matters. Titanium for fresh work and titanium-based upgrades when you want a decorative healed look."

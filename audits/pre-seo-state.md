@@ -42,7 +42,7 @@ Most pages include JSON-LD blocks marked with `data-woa-entity-schema="1"`. Sche
 - `sitemap.xml`
 - `sitemap-static-pages.xml`
 
-Both list static canonical URLs using `https://workofarttattoo.com/` host format, while `CNAME` is `www.workofarttattoo.com`. Canonical host policy should be finalized and synchronized.
+Both list static canonical URLs using `https://www.workofarttattoo.com/` host format, while `CNAME` is `www.workofarttattoo.com`. Canonical host policy should be finalized and synchronized.
 
 ## Robots Implementation
 

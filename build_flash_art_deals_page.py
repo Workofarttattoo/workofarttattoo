@@ -15,7 +15,7 @@ ASSETS = Path("/Users/noone/.cursor/projects/Users-noone-Downloads-GitHub-workof
 SLUG = "flash_art_deals_under_100"
 OUT_DIR = ROOT / SLUG
 OUT = OUT_DIR / "code.html"
-CANON = f"https://workofarttattoo.com/{SLUG}/"
+CANON = f"https://www.workofarttattoo.com/{SLUG}/"
 TEMPLATE = ROOT / "tattoo_healing_before_after_real_results" / "code.html"
 WALK_IN = ROOT / "walk_in_tattoos_las_vegas_authority_guide" / "code.html"
 
@@ -263,7 +263,7 @@ def patch_meta(html: str) -> str:
         count=1,
     )
     html = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{CANON}" rel="canonical"/>',
         html,
         count=1,

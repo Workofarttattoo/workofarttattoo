@@ -18,7 +18,7 @@ from woa_tattoo_seo import (
 )
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 FAQ_MARKER = 'data-woa-tattoo-faq="1"'
 SEO_MARKER = 'data-woa-tattoo-seo="1"'
 

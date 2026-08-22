@@ -50,6 +50,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "bridge_10_copy_gaps.py")],
     ["python3", str(ROOT / "implement_seo_growth_actions.py")],
     ["python3", str(ROOT / "final_copy_polish.py")],
+    ["python3", str(ROOT / "fix_social_links.py")],
     ["python3", str(ROOT / "inject_google_tag_manager.py")],
     ["python3", str(ROOT / "inject_mixpanel.py")],
     # Last: banner markup + woa-home.css + repaired <img> tags (earlier steps may drop the CSS link)

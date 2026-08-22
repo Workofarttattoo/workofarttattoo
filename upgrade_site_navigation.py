@@ -77,12 +77,14 @@ SUMMARY_CLASSES = TOP_LINK_CLASSES + " cursor-pointer select-none list-none"
 
 
 def ensure_desktop_nav_css(head, soup: BeautifulSoup) -> None:
-    needle = "[data-woa-desktop-nav-css"
     if not head:
         return
-    for st in head.find_all("style"):
-        if st.string and needle in st.string:
-            return
+    existing = head.find_all("style", attrs={"data-woa-desktop-nav-css": True})
+    if existing:
+        existing[0].string = DESKTOP_NAV_STYLE
+        for duplicate in existing[1:]:
+            duplicate.decompose()
+        return
     tag = soup.new_tag("style", attrs={"data-woa-desktop-nav-css": "1"})
     tag.string = DESKTOP_NAV_STYLE
     head.append(tag)

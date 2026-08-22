@@ -12,7 +12,7 @@ from woa_entity_schema import guide_article_graph, schema_script
 ROOT = Path(__file__).resolve().parent
 SLUG = "joshua_oil_painting_black_grey_tattoo_aging_las_vegas"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 OG = "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-statue-bust-cloth-drape-las-vegas"
 
 TITLE = "Why Oil Painting Training Shapes How My Black & Grey Tattoos Age"
@@ -78,14 +78,14 @@ def patch_meta(page: str) -> str:
         count=1,
     )
     page = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{canon}" rel="canonical"/>',
         page,
         count=1,
     )
     og = f"{SITE}{OG}.webp"
     page = re.sub(
-        r'<meta content="https://workofarttattoo.com/how_much[^"]*" property="og:image"/>',
+        r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" property="og:image"/>',
         f'<meta content="{og}" property="og:image"/>',
         page,
         count=1,

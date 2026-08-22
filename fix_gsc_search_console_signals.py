@@ -11,7 +11,8 @@ ROOT = Path(__file__).resolve().parent
 
 REEL_SCHEMA_MARKER = 'data-woa-reel-list-schema="1"'
 LOCAL_INTENT_MARKER = "WOA_LOCAL_PIERCING_INTENT_START"
-IMAGE_LICENSE_URL = "https://workofarttattoo.com/image-license/"
+SITE = "https://www.workofarttattoo.com"
+IMAGE_LICENSE_URL = f"{SITE}/image-license/"
 IMAGE_CREDIT_TEXT = "Work of Art Tattoo & Piercing"
 IMAGE_COPYRIGHT_NOTICE = "Copyright Work of Art Tattoo & Piercing. All rights reserved."
 
@@ -30,7 +31,7 @@ REELS = [
 REEL_ITEMLIST_SCHEMA = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "@id": "https://workofarttattoo.com/studio_videos/#instagram-reel-library",
+    "@id": f"{SITE}/studio_videos/#instagram-reel-library",
     "name": "Work of Art Tattoo & Piercing Instagram reel library",
     "itemListElement": [
         {

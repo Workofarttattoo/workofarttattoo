@@ -15,7 +15,7 @@ ASSETS = Path("/Users/noone/.cursor/projects/Users-noone-Downloads-GitHub-workof
 SLUG = "offsite_bookings"
 OUT_DIR = ROOT / SLUG
 OUT = OUT_DIR / "code.html"
-CANON = f"https://workofarttattoo.com/{SLUG}/"
+CANON = f"https://www.workofarttattoo.com/{SLUG}/"
 TEMPLATE = ROOT / "tattoo_healing_before_after_real_results" / "code.html"
 HERO_PREFIX = "CE767869"
 
@@ -148,7 +148,7 @@ def patch_meta(html: str, hero_stem: str) -> str:
         count=1,
     )
     html = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{CANON}" rel="canonical"/>',
         html,
         count=1,

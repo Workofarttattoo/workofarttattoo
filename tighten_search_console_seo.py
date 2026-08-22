@@ -5,18 +5,20 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from woa_nav_config import STUDIO_PHONE_PARENS
+
 
 HOME_TITLE_OLD = "Work of Art Tattoo &amp; Piercing | Las Vegas | Walk-Ins on E. Tropicana"
 HOME_TITLE_NEW = "Tattoo and Piercing Shop Near the Strip | Work of Art Las Vegas"
 HOME_DESC_OLD = (
     "Warm, no-attitude tattoo &amp; piercing on E. Tropicana — free consultations, "
-    "walk-ins welcome. Joshua &amp; Katelyn Cole in-studio. Questions encouraged. "
-    "(725) 224-1240."
+    "walk-ins welcome. Joshua, Katelyn &amp; Teralyn in-studio. Questions encouraged. "
+    f"{STUDIO_PHONE_PARENS}."
 )
 HOME_DESC_NEW = (
     "Tattoo and piercing shop near the Las Vegas Strip on E. Tropicana. "
     "Walk-ins welcome, free consults, cover-up tattoos, "
-    "and piercing with Joshua and Katelyn."
+    "fine-line tattoos with Teralyn, and piercing with Katelyn."
 )
 
 PIERCING_BOOKING_BLOCK = """<section class="py-10 px-margin-mobile md:px-margin-desktop bg-surface-container/40 border-y border-outline-variant/20" data-woa-piercing-booking-boost="1">

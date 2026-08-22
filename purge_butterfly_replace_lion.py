@@ -12,7 +12,7 @@ SKIP_PARTS = frozenset({".git", "__pycache__", "node_modules", "skipped_upload_b
 LION_STEM = "black-grey-lion-thigh-realism-las-vegas"
 LION_PNG = f"/home_work_of_art_tattoo_piercing/client-portfolio/{LION_STEM}.png"
 LION_WEBP = f"/home_work_of_art_tattoo_piercing/client-portfolio/{LION_STEM}.webp"
-LION_OG = f"https://workofarttattoo.com{LION_WEBP}"
+LION_OG = f"https://www.workofarttattoo.com{LION_WEBP}"
 
 BUTTERFLY_ASSET_GLOBS = (
     "**/color-butterfly-back-tattoo-las-vegas.*",

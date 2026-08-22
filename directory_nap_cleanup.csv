@@ -5,7 +5,7 @@ Google Business Profile,https://business.google.com/,City,Las Vegas,,P0,,
 Google Business Profile,https://business.google.com/,State,NV,,P0,,
 Google Business Profile,https://business.google.com/,ZIP,89119,,P0,,
 Google Business Profile,https://business.google.com/,Phone,(725) 224-1240,"(725) 224-2617;702-960-9607",P0,,"Primary line only — no artist mobile numbers"
-Google Business Profile,https://business.google.com/,Website,https://workofarttattoo.com/official_location_hours_contact/,,P0,,"Official NAP source page — link in GBP website field or posts"
+Google Business Profile,https://business.google.com/,Website,https://www.workofarttattoo.com/official_location_hours_contact/,,P0,,"Official NAP source page — link in GBP website field or posts"
 Google Business Profile,https://business.google.com/,Primary category,Tattoo shop,,P0,,
 Google Business Profile,https://business.google.com/,Additional categories,"Body piercing shop;Tattoo and piercing shop",,P1,,
 Google Business Profile,https://business.google.com/,Opening date,2019,,P1,,"Studio brand at this address — separate from Joshua's 20+ year career"
@@ -13,7 +13,7 @@ Google Business Profile,https://business.google.com/,Description,"Two in-studio 
 Google Business Profile,https://business.google.com/,Posts,Weekly healed photo or guide link,,P2,,"1 post/week minimum"
 Yelp,https://www.yelp.com/biz/work-of-art-tattoo-las-vegas,Address,"2375 E. Tropicana Suite 3",5025 E. Tropicana,P0,,"Audit says 'Established 2019' — keep if accurate for studio opening"
 Yelp,https://www.yelp.com/biz/work-of-art-tattoo-las-vegas,Phone,(725) 224-1240,"(725) 224-2617;702-960-9607",P0,,
-Yelp,https://www.yelp.com/biz/work-of-art-tattoo-las-vegas,Website,https://workofarttattoo.com/,,P0,,
+Yelp,https://www.yelp.com/biz/work-of-art-tattoo-las-vegas,Website,https://www.workofarttattoo.com/,,P0,,
 Fresha,https://www.fresha.com/,Address,"2375 E. Tropicana Ave #3","5025; wrong suite",P0,,"Fresha often uses Ave #3 — same as Suite 3"
 Fresha,https://www.fresha.com/,Phone,(725) 224-1240,,P0,,
 Apple Maps,https://mapsconnect.apple.com/,Address,"2375 E. Tropicana Suite 3",5025,P0,,"Claim via Apple Business Connect"
@@ -23,7 +23,7 @@ Bing Places,https://www.bingplaces.com/,Phone,(725) 224-1240,,P1,,
 Facebook,https://www.facebook.com/workofarttattoo/,Address,"2375 E. Tropicana Suite 3",5025,P0,,
 Facebook,https://www.facebook.com/workofarttattoo/,Phone,(725) 224-1240,,P0,,
 Facebook,https://www.facebook.com/workofarttattoo/,Email,booking@workofarttattoo.com,thewhiteknight702@gmail.com,P0,,
-Instagram,https://www.instagram.com/workofarttattoo/,Bio link,https://workofarttattoo.com/appointments/,,P1,,
+Instagram,https://www.instagram.com/workofarttattoo/,Bio link,https://www.workofarttattoo.com/appointments/,,P1,,
 Instagram,https://www.instagram.com/workofarttattoo/,Contact button,(725) 224-1240,,P1,,
 MapQuest,,Address,"2375 E. Tropicana Suite 3",5025,P2,,"Search 'Work of Art Tattoo Las Vegas' and edit listing"
 Yellow Pages,,Address,"2375 E. Tropicana Suite 3",5025,P2,,
@@ -33,7 +33,7 @@ Better Business Bureau,,Address,"2375 E. Tropicana Suite 3",5025,P2,,
 TripAdvisor,,Address,"2375 E. Tropicana Suite 3",5025,P3,,"If listed"
 Tattoo.com / InkedMag directories,,Listing URL,,,P3,,"Submit studio + Joshua Cole artist profile"
 Las Vegas local blogs,,Backlink,,,P2,,"Target: Secret Las Vegas; VegasNews; Best Las Vegas Tattoo Shop roundups"
-Search Console,https://search.google.com/search-console,Sitemap,https://workofarttattoo.com/sitemap.xml,,P0,,"Submit after deploy; request indexing on / and top hubs"
+Search Console,https://search.google.com/search-console,Sitemap,https://www.workofarttattoo.com/sitemap.xml,,P0,,"Submit after deploy; request indexing on / and top hubs"
 Search Console,https://search.google.com/search-console,URL inspection,/,,P0,,"Confirm homepage + /artists/joshua-cole/ indexed"
 Search Console,https://search.google.com/search-console,URL inspection,/piercing_types_las_vegas_authority_hub/,,P1,,
 Search Console,https://search.google.com/search-console,URL inspection,/knowledge/,,P1,,

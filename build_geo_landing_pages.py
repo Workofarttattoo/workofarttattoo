@@ -11,7 +11,7 @@ from woa_geo_pages import GEO_PAGES, GeoPage
 from woa_nav_config import STUDIO_ADDRESS_SINGLE_LINE, STUDIO_HOURS_SUMMARY, STUDIO_PHONE_DISPLAY
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 
 HEAD_LINKS = """<link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-typography.css" rel="stylesheet"/>"""

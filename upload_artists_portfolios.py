@@ -131,8 +131,8 @@ def main() -> int:
 
     ftp.quit()
     print("Done.")
-    print("https://workofarttattoo.com/artists/katelyn-cole/")
-    print("https://workofarttattoo.com/artists/joshua-cole/")
+    print("https://www.workofarttattoo.com/artists/katelyn-cole/")
+    print("https://www.workofarttattoo.com/artists/joshua-cole/")
     return 0
 
 

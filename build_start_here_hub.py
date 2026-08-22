@@ -17,7 +17,7 @@ from woa_start_here import (
 )
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 OUT_DIR = ROOT / START_HERE_SLUG
 BOOK = "/appointments/"
@@ -78,13 +78,13 @@ def patch_meta(page_html: str, title: str, description: str) -> str:
         count=1,
     )
     page_html = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{canon}" rel="canonical"/>',
         page_html,
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="https://workofarttattoo.com/[^"]*" property="og:url"/>',
+        r'<meta content="https://www.workofarttattoo.com/[^"]*" property="og:url"/>',
         f'<meta content="{canon}" property="og:url"/>',
         page_html,
         count=1,

@@ -130,8 +130,8 @@ KATELYN_EEAT = """
 
 def fix_katelyn_breadcrumb(html: str) -> str:
     return html.replace(
-        '"item": "https://workofarttattoo.com/piercing"',
-        '"item": "https://workofarttattoo.com/best_piercing_shop_las_vegas_updated_jewelry_standards/"',
+        '"item": "https://www.workofarttattoo.com/piercing"',
+        '"item": "https://www.workofarttattoo.com/best_piercing_shop_las_vegas_updated_jewelry_standards/"',
     ).replace(
         '"name": "Piercing",',
         '"name": "Piercing Guide",',

@@ -19,6 +19,9 @@ from woa_nav_config import (
     STUDIO_PHONE_PARENS,
     STUDIO_PHONE_SCHEMA,
     STUDIO_PHONE_TEL,
+    SITE_CANONICAL_HOST,
+    SITE_CANONICAL_URL,
+    STUDIO_ROSTER_BLURB,
     STUDIO_STREET_ADDRESS,
 )
 from woa_studio_conversion import sitewide_conversion_block
@@ -27,7 +30,7 @@ ROOT = Path(__file__).resolve().parent
 SLUG = "official_location_hours_contact"
 OUT = ROOT / SLUG / "code.html"
 TEMPLATE = ROOT / "appointments" / "code.html"
-SITE = "https://workofarttattoo.com"
+SITE = SITE_CANONICAL_HOST
 CANON = f"{SITE}/{SLUG}/"
 TITLE = "Work of Art Tattoo & Piercing — Official Location, Hours & Contact"
 DESCRIPTION = (
@@ -69,7 +72,7 @@ def main_html() -> str:
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Phone</dt><dd><a class="text-secondary underline hover:no-underline" href="{STUDIO_PHONE_TEL}">{html_lib.escape(STUDIO_PHONE_PARENS)}</a></dd></div>
 <div class="sm:col-span-2"><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Address</dt><dd class="text-on-surface">{STUDIO_ADDRESS_HTML}</dd></div>
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Email</dt><dd><a class="text-secondary underline hover:no-underline" href="mailto:{STUDIO_BOOKING_EMAIL}">{html_lib.escape(STUDIO_BOOKING_EMAIL)}</a></dd></div>
-<div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Website</dt><dd><a class="text-secondary underline hover:no-underline" href="{SITE}/">workofarttattoo.com</a></dd></div>
+<div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Website</dt><dd><a class="text-secondary underline hover:no-underline" href="{SITE_CANONICAL_URL}">www.workofarttattoo.com</a></dd></div>
 </dl>"""
 
     faq_rows = "".join(
@@ -136,8 +139,8 @@ def main_html() -> str:
 </div>
 <div class="space-y-3">
 <h3 class="font-headline-md text-on-surface text-lg">In-studio artists</h3>
-<p>Joshua Cole — tattoo &amp; piercing. Katelyn Cole — master piercer &amp; ear curation. Three resident artists, one address.</p>
-<p><a class="text-secondary underline hover:no-underline" href="/artists/joshua-cole/">Joshua</a> · <a class="text-secondary underline hover:no-underline" href="/artists/katelyn-cole/">Katelyn</a></p>
+<p>{html_lib.escape(STUDIO_ROSTER_BLURB)}</p>
+<p><a class="text-secondary underline hover:no-underline" href="/artists/joshua-cole/">Joshua</a> · <a class="text-secondary underline hover:no-underline" href="/artists/katelyn-cole/">Katelyn</a> · <a class="text-secondary underline hover:no-underline" href="/artists/teralyn/">Teralyn</a></p>
 </div>
 <div class="space-y-3">
 <h3 class="font-headline-md text-on-surface text-lg">Piercing minors</h3>
@@ -168,7 +171,7 @@ def patch_meta(page_html: str) -> str:
         count=1,
     )
     page_html = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{CANON}" rel="canonical"/>',
         page_html,
         count=1,
@@ -189,7 +192,7 @@ def patch_meta(page_html: str) -> str:
 
 def patch_main(page_html: str, main: str) -> str:
     page_html = re.sub(
-        r'<script data-woa-entity-schema="1" type="application/ld\\+json">.*?</script>\s*',
+        r'<script data-woa-entity-schema="1" type="application/ld\+json">.*?</script>\s*',
         "",
         page_html,
         flags=re.DOTALL,

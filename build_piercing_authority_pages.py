@@ -65,7 +65,7 @@ def guides_for(category: CategoryId) -> list[PiercingGuide]:
     return [g for g in PIERCING_CATALOG if g.category == category]
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 OG_DEFAULT = "/studio_gallery/ear-lobe-piercing-session-da19eec5"
 
@@ -505,20 +505,20 @@ def patch_meta(page_html: str, slug: str, title: str, description: str, og_path:
         count=1,
     )
     page_html = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{canon}" rel="canonical"/>',
         page_html,
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="https://workofarttattoo.com/tattoo_healing[^"]*" property="og:url"/>',
+        r'<meta content="https://www.workofarttattoo.com/tattoo_healing[^"]*" property="og:url"/>',
         f'<meta content="{canon}" property="og:url"/>',
         page_html,
         count=1,
     )
     og_img = f"{SITE}{og_path}.webp"
     page_html = re.sub(
-        r'<meta content="https://workofarttattoo.com/how_much[^"]*" property="og:image"/>',
+        r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" property="og:image"/>',
         f'<meta content="{og_img}" property="og:image"/>',
         page_html,
         count=1,
@@ -536,7 +536,7 @@ def patch_meta(page_html: str, slug: str, title: str, description: str, og_path:
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="https://workofarttattoo.com/how_much[^"]*" name="twitter:image"/>',
+        r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" name="twitter:image"/>',
         f'<meta content="{og_img}" name="twitter:image"/>',
         page_html,
         count=1,

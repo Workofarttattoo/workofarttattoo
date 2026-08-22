@@ -30,7 +30,7 @@ StageId = Literal[
     "year_1",
 ]
 
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 HUB_SLUG = "healing_database_tattoo_timeline_encyclopedia_las_vegas"
 GALLERY = "healed_tattoo_gallery_las_vegas"
 CLIENT = "home_work_of_art_tattoo_piercing/client-portfolio"

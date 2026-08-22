@@ -49,6 +49,8 @@ def pick_graph(path: Path, html: str) -> dict:
         if slug == "katelyn-cole":
             return artist_profile_graph("katelyn", root=ROOT)
     slug = rel.parts[0] if len(rel.parts) > 1 else ""
+    if slug == "official_location_hours_contact":
+        return sitewide_graph()
     if rel.parts[0] == "knowledge" and len(rel.parts) >= 3:
         slug = rel.parts[1]
     if slug in GUIDE_META:

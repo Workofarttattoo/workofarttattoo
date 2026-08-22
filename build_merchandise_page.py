@@ -203,7 +203,7 @@ def patch_meta(html_text: str) -> str:
         count=1,
     )
     html_text = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{CANON}" rel="canonical"/>',
         html_text,
         count=1,

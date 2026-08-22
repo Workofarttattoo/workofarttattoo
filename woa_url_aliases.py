@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 
 
 @dataclass(frozen=True)

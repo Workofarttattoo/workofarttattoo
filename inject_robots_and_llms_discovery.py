@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 
 ROBOTS_META = (
     '<meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>'

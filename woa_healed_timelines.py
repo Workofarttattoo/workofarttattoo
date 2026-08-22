@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 PORTFOLIO = f"{SITE}/home_work_of_art_tattoo_piercing/client-portfolio"
 
 

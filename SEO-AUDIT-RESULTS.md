@@ -7,7 +7,7 @@ Last updated: 2026-08-21
 | File | Route | Problem | Change made | Validation |
 | --- | --- | --- | --- | --- |
 | `CNAME` | Sitewide | GitHub Pages was configured for `www.workofarttattoo.com` while the site uses apex canonicals. | Changed CNAME to `workofarttattoo.com`. | `dig` confirmed Cloudflare nameservers and GitHub Pages A/CNAME records; `curl --resolve` confirmed GitHub receives the apex host. |
-| `siteData/business.json` | Sitewide | Central business config listed `https://www.workofarttattoo.com` as canonical host while HTML, sitemap, and schema use apex. | Changed `canonicalHost` to `https://workofarttattoo.com`. | Canonical scan found `0` bad canonical tags across 276 pages. |
+| `siteData/business.json` | Sitewide | Central business config listed `https://www.workofarttattoo.com` as canonical host while HTML, sitemap, and schema use apex. | Changed `canonicalHost` to `https://www.workofarttattoo.com`. | Canonical scan found `0` bad canonical tags across 276 pages. |
 | `DNS-RECOVERY.md` | N/A | DNS/TLS cannot be fully repaired from static HTML. | Added recovery record list, external DNS findings, and GitHub Pages settings. | Live checks documented for NS, A, CNAME, DS, CAA, robots, sitemap, and HTTPS behavior. |
 
 ## P1 - Entity/local SEO errors

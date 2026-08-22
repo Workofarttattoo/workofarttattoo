@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent
 AUDITS = ROOT / "audits"
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 
 PUBLIC_EXTENSIONS = {".html", ".txt", ".xml", ".json", ".js", ".css", ".py", ".md"}
 SKIP_PARTS = {".git", "__pycache__", "node_modules"}
@@ -37,7 +37,7 @@ BUSINESS_FACTS = {
 REPAIRS: list[tuple[str, str]] = [
     ("2375 E. Tropicana Suite 3", BUSINESS_FACTS["street"]),
     ("2375 E Tropicana Ave Suite 3", BUSINESS_FACTS["street"]),
-    ("2375 E. Tropicana Ave Suite 3", BUSINESS_FACTS["street"]),
+    ("2375 E. Tropicana Ave, Suite 3", BUSINESS_FACTS["street"]),
     ("Google Reviews (2,400+)", "Google Reviews (323)"),
     ("Google reviews (2,400+)", "Google reviews (323)"),
     ("Google Reviews (2400+)", "Google Reviews (323)"),
@@ -368,8 +368,8 @@ def write_social_conflicts() -> int:
     mention_re = re.compile(r"@(workofarttattoo|stabislifee|mischiefmodifies)\b", re.IGNORECASE)
     expected = {
         "studio": {"workofarttattoo"},
-        "joshua cole": {"stabislifee"},
-        "katelyn cole": {"workofarttattoo"},
+        "joshua cole": {"workofarttattoo"},
+        "katelyn cole": {"stabislifee"},
         "teralyn": {"mischiefmodifies"},
     }
     occurrences = []
@@ -405,8 +405,8 @@ def write_social_conflicts() -> int:
         "",
         "## Repo-Verified Handles",
         "",
-        "- Studio / Katelyn Cole: `@workofarttattoo`",
-        "- Joshua Cole: `@stabislifee`",
+        "- Studio / Joshua Cole: `@workofarttattoo`",
+        "- Katelyn Cole: `@stabislifee`",
         "- Teralyn: `@mischiefmodifies`",
         "",
         "## Handle Counts",

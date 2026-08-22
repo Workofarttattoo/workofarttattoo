@@ -9,15 +9,28 @@ Adjust MERCH_HREF only if merchandise lives elsewhere.
 
 from __future__ import annotations
 
+import json
+import re
 from pathlib import Path
 
 ROOT_A = Path(__file__).resolve().parent
 ROOT_B = Path("/Users/noone/Downloads/stitch_work_of_art_digital_overhaul 2")
 
+
+def _load_site_data(filename: str) -> dict:
+    path = ROOT_A / "siteData" / filename
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+_BUSINESS = _load_site_data("business.json")
+_SOCIAL = _load_site_data("social.json")
+
 HOME_SLUG = "home_work_of_art_tattoo_piercing"
 
 # In-studio roster (do not inflate headcount in marketing copy)
-RESIDENT_ARTIST_COUNT = 3
+RESIDENT_ARTIST_COUNT = int(_BUSINESS.get("residentArtistCount", 3))
 TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
@@ -32,22 +45,25 @@ STUDIO_ROSTER_LEGACY = (
 )
 
 # Social (full URLs for footers and artist pages)
-HREF_INSTAGRAM_STUDIO = "https://www.instagram.com/workofarttattoo/"
-HREF_INSTAGRAM_KATELYN = "https://www.instagram.com/stabislifee/"
-HREF_INSTAGRAM_JOSHUA = HREF_INSTAGRAM_STUDIO
-HREF_INSTAGRAM_TERALYN = "https://www.instagram.com/mischiefmodifies/"
+HREF_INSTAGRAM_STUDIO = _SOCIAL.get("studioInstagram", "https://www.instagram.com/workofarttattoo/")
+HREF_INSTAGRAM_KATELYN = _SOCIAL.get("katelynInstagram", "https://www.instagram.com/stabislifee/")
+HREF_INSTAGRAM_JOSHUA = _SOCIAL.get("joshuaInstagram", HREF_INSTAGRAM_STUDIO)
+HREF_INSTAGRAM_TERALYN = _SOCIAL.get("teralynInstagram", "https://www.instagram.com/mischiefmodifies/")
 HREF_INSTAGRAM_JOSHUA_HANDLE = "workofarttattoo"
 HREF_INSTAGRAM_KATELYN_HANDLE = "stabislifee"
 HREF_INSTAGRAM_TERALYN_HANDLE = "mischiefmodifies"
-HREF_FACEBOOK_STUDIO = "https://www.facebook.com/workofarttattoo/"
+HREF_FACEBOOK_STUDIO = _SOCIAL.get("facebook", "https://www.facebook.com/workofarttattoo/")
 
 # Public booking inbox (sitewide NAP, footers, schema — not personal Gmail)
-STUDIO_BOOKING_EMAIL = "booking@workofarttattoo.com"
+STUDIO_BOOKING_EMAIL = _BUSINESS.get("bookingEmail", "booking@workofarttattoo.com")
 HREF_BOOKING_MAILTO = f"mailto:{STUDIO_BOOKING_EMAIL}"
 
 # Canonical NAP — must match Google Business Profile & every directory exactly
-STUDIO_LEGAL_NAME = "Work of Art Tattoo & Piercing"
-STUDIO_STREET_ADDRESS = "2375 E. Tropicana Ave, Suite 3"
+SITE_CANONICAL_HOST = _BUSINESS.get("canonicalHost", "https://www.workofarttattoo.com")
+SITE_CANONICAL_URL = _BUSINESS.get("url", f"{SITE_CANONICAL_HOST}/")
+STUDIO_LEGAL_NAME = _BUSINESS.get("name", "Work of Art Tattoo & Piercing")
+_ADDRESS = _BUSINESS.get("address", {})
+STUDIO_STREET_ADDRESS = _ADDRESS.get("streetAddress", "2375 E. Tropicana Ave, Suite 3")
 # Same physical location — Fresha, Apple Maps, and some directories use Ave + unit number
 STUDIO_ADDRESS_DIRECTORY = "2375 E. Tropicana Ave, Suite 3"
 STUDIO_ADDRESS_ALIASES: tuple[str, ...] = (
@@ -55,9 +71,9 @@ STUDIO_ADDRESS_ALIASES: tuple[str, ...] = (
     STUDIO_ADDRESS_DIRECTORY,
     "2375 E. Tropicana Ave, Suite 3",
 )
-STUDIO_ADDRESS_LOCALITY = "Las Vegas"
-STUDIO_ADDRESS_REGION = "NV"
-STUDIO_POSTAL_CODE = "89119"
+STUDIO_ADDRESS_LOCALITY = _ADDRESS.get("addressLocality", "Las Vegas")
+STUDIO_ADDRESS_REGION = _ADDRESS.get("addressRegion", "NV")
+STUDIO_POSTAL_CODE = _ADDRESS.get("postalCode", "89119")
 STUDIO_ADDRESS_SINGLE_LINE = (
     f"{STUDIO_STREET_ADDRESS}, {STUDIO_ADDRESS_LOCALITY}, "
     f"{STUDIO_ADDRESS_REGION} {STUDIO_POSTAL_CODE}"
@@ -68,10 +84,10 @@ STUDIO_ADDRESS_HTML = (
 )
 
 # Single studio line — do not publish artist/mobile lines on the public site
-STUDIO_PHONE_DISPLAY = "725-224-1240"
-STUDIO_PHONE_PARENS = "(725) 224-1240"
-STUDIO_PHONE_E164 = "+1-725-224-1240"
-STUDIO_PHONE_TEL = "tel:+17252241240"
+STUDIO_PHONE_DISPLAY = _BUSINESS.get("phoneDisplay", "725-224-1240")
+STUDIO_PHONE_PARENS = f"({STUDIO_PHONE_DISPLAY[:3]}) {STUDIO_PHONE_DISPLAY[4:]}" if re.match(r"^\d{3}-\d{3}-\d{4}$", STUDIO_PHONE_DISPLAY) else "(725) 224-1240"
+STUDIO_PHONE_E164 = _BUSINESS.get("phoneE164", "+17252241240").replace("+1", "+1-")
+STUDIO_PHONE_TEL = f"tel:{_BUSINESS.get('phoneE164', '+17252241240')}"
 STUDIO_PHONE_SCHEMA = STUDIO_PHONE_E164
 
 # Homepage SEO — evidence-led, not "Best Tattoo Shop" superlative stacking

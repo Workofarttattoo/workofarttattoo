@@ -4,8 +4,8 @@ Generated: 2026-08-21T14:22:34
 
 ## Repo-Verified Handles
 
-- Studio / Katelyn Cole: `@workofarttattoo`
-- Joshua Cole: `@stabislifee`
+- Studio / Joshua Cole: `@workofarttattoo`
+- Katelyn Cole: `@stabislifee`
 - Teralyn: `@mischiefmodifies`
 
 ## Handle Counts

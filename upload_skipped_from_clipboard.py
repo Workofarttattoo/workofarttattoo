@@ -80,6 +80,10 @@ def classify(chunk: str) -> str | None:
 
 
 def prepare_html(slug: str, html: str) -> bytes:
+    html = html.replace(
+        "LAS VEGAS' HIGHEST RATED WALK-IN STUDIO",
+        "323 GOOGLE REVIEWS, 5.0 RATING",
+    )
     if slug == "how_to_choose_a_tattoo_artist_master_selection_guide_1":
         html = fix_stitch_placeholders(html)
         html = strip_article_p_apply(html)
@@ -134,7 +138,7 @@ def main() -> int:
     ftp.quit()
     print("Done.")
     for slug in sorted(chosen.keys()):
-        print(f"https://workofarttattoo.com/{slug}/")
+        print(f"https://www.workofarttattoo.com/{slug}/")
     return 0
 
 

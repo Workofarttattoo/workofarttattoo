@@ -14,7 +14,7 @@ from woa_healed_gallery import GALLERY, STUDIO
 
 ROOT = Path(__file__).resolve().parent
 SLUG = "real_client_tattoo_timeline_las_vegas"
-SITE = f"https://workofarttattoo.com/{SLUG}/"
+SITE = f"https://www.workofarttattoo.com/{SLUG}/"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 TITLE = "Real Client Tattoo Timeline — Fresh to 1 Year | Joshua Cole, Las Vegas"
 DESCRIPTION = (
@@ -28,8 +28,8 @@ REALISM = "/realism_tattoos_las_vegas_master_authority_guide/"
 
 
 def img(stem: str, folder: str, alt: str) -> str:
-    webp = f"https://workofarttattoo.com/{folder}/{stem}.webp"
-    png = f"https://workofarttattoo.com/{folder}/{stem}.png"
+    webp = f"https://www.workofarttattoo.com/{folder}/{stem}.webp"
+    png = f"https://www.workofarttattoo.com/{folder}/{stem}.png"
     return (
         f'<picture><source srcset="{webp}" type="image/webp"/>'
         f'<img alt="{html.escape(alt)}" class="w-full h-auto object-cover" loading="lazy" src="{png}"/></picture>'
@@ -135,7 +135,7 @@ def patch_meta(page: str) -> str:
         count=1,
     )
     page = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{SITE}" rel="canonical"/>',
         page,
         count=1,

@@ -15,8 +15,8 @@ Generated: 2026-08-21T14:22:33
 
 - `business fact mismatch` in `fix_artist_roster_copy.py:125`: "Every tattoo at Work of Art is a collaboration with one of our two in-studio tattoo artists — Joshua Cole or Jay Jay — backed by a master piercer, Katelyn Cole.",
 - `business fact mismatch` in `remove_jay_jay_from_site.py:97`: ("one of our two in-studio tattoo artists — Joshua Cole or Jay Jay", "one of our two in-studio tattoo artists — Joshua Cole or Teralyn"),
-- `business fact mismatch` in `fix_studio_nap.py:76`: "725 Art District Ln,<br/>Las Vegas, NV 89101",
-- `business fact mismatch` in `fix_studio_nap.py:115`: ('"postalCode": "89101"', f'"postalCode": "{STUDIO_POSTAL_CODE}"'),
+- `business fact mismatch` in `fix_studio_nap.py:76`: "2375 E. Tropicana Ave, Suite 3<br/>Las Vegas, NV 89119",
+- `business fact mismatch` in `fix_studio_nap.py:115`: ('"postalCode": "89119"', f'"postalCode": "{STUDIO_POSTAL_CODE}"'),
 - `business fact mismatch` in `fix_studio_nap.py:195`: if "postalCode" in obj and obj["postalCode"] in ("89101", "89104"):
 
 ## Opening-Hours Statements For Manual Review

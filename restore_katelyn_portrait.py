@@ -100,7 +100,7 @@ def fix_katelyn_page_hero() -> bool:
         '"image": "url(/home_work_of_art_tattoo_piercing/client-portfolio/'
         'black-grey-lion-realism-thigh-client-photo-las-vegas.webp)",'
     )
-    schema_new = f'"image": "https://workofarttattoo.com/artists/katelyn-cole/{FILENAME}.webp",'
+    schema_new = f'"image": "https://www.workofarttattoo.com/artists/katelyn-cole/{FILENAME}.webp",'
     if schema_old in html:
         html = html.replace(schema_old, schema_new)
         changed = True

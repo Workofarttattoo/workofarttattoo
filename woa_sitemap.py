@@ -5,7 +5,9 @@ from __future__ import annotations
 from datetime import date
 from pathlib import Path
 
-SITE_ORIGIN = "https://workofarttattoo.com"
+from woa_nav_config import SITE_CANONICAL_HOST
+
+SITE_ORIGIN = SITE_CANONICAL_HOST
 GEO_SLUG = "geo_hub_ai_source_of_truth_work_of_art"
 
 
@@ -57,6 +59,8 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
 
     for slug in sorted(merged.keys()):
         if slug == "artists_build":
+            continue
+        if home_slug and slug == home_slug:
             continue
         if slug in SKIP_DEPLOY_SLUGS or slug in RETIRE_OVERLAP_SLUGS:
             continue

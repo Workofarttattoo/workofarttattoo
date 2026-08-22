@@ -42,31 +42,17 @@ Potential conflict locations:
 
 Recommended action: inspect context before replacement; many hits may be generated script history rather than public pages.
 
-## deprecated phone 725-224-2617
-
-Potential conflict locations:
-- `fix_studio_nap.py`
-
-Recommended action: inspect context before replacement; many hits may be generated script history rather than public pages.
-
-## deprecated phone 725-224-2931
-
-Potential conflict locations:
-- `fix_studio_nap.py`
-
-Recommended action: inspect context before replacement; many hits may be generated script history rather than public pages.
-
-## deprecated phone 725-260-6376
-
-No repository hits found.
-
-## deprecated phone 702-960-9607
+## deprecated phone 725-224-1240
 
 Potential conflict locations:
 - `fix_studio_nap.py`
 - `refine_site_experience.py`
 
 Recommended action: inspect context before replacement; many hits may be generated script history rather than public pages.
+
+## deprecated phone 725-260-6376
+
+No repository hits found.
 
 ## legacy email
 

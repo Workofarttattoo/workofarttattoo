@@ -32,7 +32,7 @@ from woa_piercing_pillars import (
 PIERCING_CATALOG: tuple[PiercingGuide, ...] = _BASE + PIERCING_CATALOG_EXTRA
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 OG = "/studio_gallery/ear-lobe-piercing-session-da19eec5"
 BOOK_LINK = "/appointments/"
@@ -127,7 +127,7 @@ def patch_meta(page_html: str, slug: str, title: str, description: str) -> str:
         count=1,
     )
     page_html = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{canon}" rel="canonical"/>',
         page_html,
         count=1,

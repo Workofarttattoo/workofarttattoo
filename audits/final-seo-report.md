@@ -1,94 +1,119 @@
 # Final SEO Implementation Report
 
-## Executive Summary
+## Summary
 
-Started the master SEO implementation on branch `seo/master-authority-rebuild`. Added central source-of-truth data, generated current state/inventory/consolidation/link/quality audits, added SEO QA tooling, fixed known fine-line FAQ contamination, tightened duplicate titles, and created off-site/research/content governance files.
+Continued the existing `seo/master-authority-rebuild` branch, fetched origin, merged `origin/main` safely, and preserved the SEO work. Production mismatch is deployment-related: `origin/gh-pages` is still at `f21c143` (`Deploy artist portfolio fixes`), while this branch contains the source-generator fixes.
 
-## Critical Issues Fixed
+## Before URL Count
 
-- Replaced contaminated fine-line FAQ copy that said "pierce fine line tattoo" on two tattoo pages.
-- Added regression coverage to prevent that phrase from returning.
-- Made duplicate page titles distinct across legacy/alternate pages.
-- Added JSON-LD syntax validation across public HTML pages.
-- Added central business, artist, contact, social, and review data files.
+- Audit inventory before consolidation execution: 276 generated HTML pages.
+- Prior deployable sitemap count before homepage duplicate cleanup: 171 URLs.
 
-## Files Modified
+## After URL Count
 
-See `git status --short` for the exact current worktree. Major new outputs live in `audits/`, `siteData/`, `tools/`, `growth/`, `analytics/`, `content/`, `research/`, and `content-needed/`.
+- Current deployable sitemap count: 170 URLs.
+- Current audit inventory: 276 local generated HTML pages, including retired source pages kept for evidence/redirect mapping.
 
-## Pages Improved
+## Fact Conflicts Before
 
-- Fine line tattoo authority pages with template contamination fixed.
-- Alternate/legacy pages with duplicate titles fixed.
-- The 15 major guide pages from the prior editorial pass remain improved with direct-answer/expert/evidence blocks.
+- Fine-line FAQ contained: "Where do you pierce fine line tattoo in Las Vegas?"
+- Homepage referenced only Joshua and Katelyn in-studio.
+- Homepage used stale review copy instead of canonical `siteData/reviews.json`.
+- Official location page omitted Teralyn from the roster.
+- Official location page duplicated Suite 3.
+- Official-location footer labeled `@stabislifee` as Joshua in one path.
+- Some generated URLs used apex `https://workofarttattoo.com/` while production redirects to `www`.
+- "Established 2012" was not verified as a business founding claim.
 
-## Pages Merged
+## Fact Conflicts After
 
-None. No destructive consolidation performed.
+- Generated production output has 0 QA failures across 170 indexable HTML pages.
+- Canonical review count is `323`; canonical artist count is `3`.
+- Canonical roster is Joshua Cole, Katelyn Cole, and Teralyn.
+- Canonical NAP is Work of Art Tattoo & Piercing, 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119, 725-224-1240, booking@workofarttattoo.com.
+- Canonical host is `https://www.workofarttattoo.com/`.
 
-## Redirects Created
+## Thin Pages Merged
 
-None. Redirects are mapped as pending in `audits/url-migration-plan.csv`.
+- 55 pages remain classified `MERGE` in the index-quality audit.
+- 99 retired overlap slugs are mapped in `woa_page_consolidation.py`.
+- Healing database overlap pages are removed from the sitemap and routed to the closest stronger resource, primarily `/las-vegas-tattoo-healing-guide/`, preserving usable evidence in stronger hubs.
 
-## Schema Implemented
+## 301 Redirects Created
 
-No new schema types were added in this pass. Existing JSON-LD is validated by `tools/seo_qa.py`.
+- 99 source redirects are mapped in `CONSOLIDATION_REDIRECTS`.
+- The FTP `.htaccess` path can emit these as 301s through `deploy_stitch_site_root.py`.
+- GitHub Pages does not support server-side 301s directly; production 301s need equivalent Cloudflare redirect rules or a Pages deployment mechanism that can apply them.
 
-## Internal Links Added
+## Schema Added
 
-The prior editorial pass added contextual internal links to 15 major guides. This pass generated `audits/internal-link-map.csv` for full graph review.
+- Homepage/location entity graph now uses Organization/LocalBusiness, PostalAddress, WebSite, and three Person entities.
+- Artist pages use Person schema with verified `sameAs` only from `siteData/social.json`.
+- Editorial pages use supported Article/FAQ/Breadcrumb-style schema where visible content exists.
+- No AggregateRating was fabricated.
 
-## Performance Changes
+## Duplicate Code Removed
 
-No performance code changes yet. Image/video/performance work remains P2 after consolidation and entity cleanup.
+- Desktop navigation CSS injection is idempotent.
+- Shared injected component checks now fail QA on duplicate unique `data-*` component IDs.
+- Duplicate sitemap homepage URL was removed.
 
-## Content Requiring Human Facts
+## QA Test Count
 
-See `content-needed/factual-verification-needed.md` and `content-needed/artist-information.md`.
+- `tools/seo_qa.py` validated 170 indexable HTML routes plus sitemap/canonical/schema/siteData/component consistency checks.
+- `tools/seo_audit.py` inventoried 276 generated HTML pages.
 
-## Content Requiring Original Photography
+## QA Result
 
-See `content-needed/photography-needed.md`.
-
-## Off-Site Tasks
-
-- GBP checklist: `growth/google-business-profile-checklist.md`
-- Review playbook: `growth/review-growth-playbook.md`
-- Citation cleanup tracker: `growth/citation-cleanup.csv`
-- Link earning plan: `growth/link-earning-plan.md`
-- Content distribution plan: `growth/content-distribution-plan.md`
-
-## Tests
+Passed:
 
 ```bash
 python3 tools/seo_audit.py
 python3 tools/seo_qa.py
 ```
 
-Latest result: SEO QA passed for 276 HTML pages.
+Results:
 
-## Next 20 Highest-ROI Actions
+- `Inventoried 276 pages`
+- `Recommended actions Counter({'KEEP': 171, 'MERGE': 55, 'IMPROVE': 50})`
+- `SEO QA passed for 170 indexable HTML pages.`
 
-| Rank | Action | Impact | Effort | Confidence | Priority Score |
-|---:|---|---:|---:|---:|---:|
-| 1 | Consolidate thin healing database pages into one evidence-rich healing hub after redirect map approval | 10 | 6 | 9 | 15.0 |
-| 2 | Build `/visit/` location hub and merge weak geo variants | 9 | 5 | 8 | 14.4 |
-| 3 | Add structured case-study data for fresh vs healed tattoo examples | 10 | 7 | 9 | 12.9 |
-| 4 | Strengthen homepage as commercial entity hub | 9 | 6 | 8 | 12.0 |
-| 5 | Create/strengthen `/tattoos/` hub without keyword bloat | 9 | 6 | 8 | 12.0 |
-| 6 | Create/strengthen `/piercing/` hub | 9 | 6 | 8 | 12.0 |
-| 7 | Normalize canonical host across sitemap/canonical/GitHub Pages policy | 8 | 4 | 9 | 18.0 |
-| 8 | Remove unsupported superlatives from artist and service pages | 8 | 5 | 8 | 12.8 |
-| 9 | Add visible breadcrumbs and BreadcrumbList to stable hub pages | 7 | 4 | 8 | 14.0 |
-| 10 | Improve piercing jewelry guide with verified material facts | 8 | 5 | 8 | 12.8 |
-| 11 | Improve tattoo pain page with real studio observations and medical boundaries | 7 | 5 | 7 | 9.8 |
-| 12 | Add image width/height/lazy/eager audit fixes for LCP images | 8 | 6 | 8 | 10.7 |
-| 13 | Add robust sitemap generation from inventory | 8 | 4 | 8 | 16.0 |
-| 14 | Add link checking for images/video assets | 7 | 4 | 8 | 14.0 |
-| 15 | Update About page as canonical organizational trust page | 8 | 5 | 8 | 12.8 |
-| 16 | Build real case-study template and first evidence-backed case | 9 | 7 | 8 | 10.3 |
-| 17 | Add author/reviewer metadata where genuinely supported | 7 | 5 | 8 | 11.2 |
-| 18 | Prepare Search Console import and run first cannibalization pass with real data | 8 | 4 | 7 | 14.0 |
-| 19 | Create conversion-event naming spec tied to current GTM/gtag | 7 | 3 | 8 | 18.7 |
-| 20 | Start original research data collection workflow | 8 | 6 | 7 | 9.3 |
+## Build Result
 
+Passed:
+
+```bash
+python3 prepare_seo.py && python3 prepare_site_deploy.py
+```
+
+Result:
+
+- `[verify] OK homepage (134,291 bytes)`
+
+## Production Deploy Status
+
+Not deployed to production from this turn. The completed work is committed to the SEO branch only; main and `gh-pages` were not merged or force-pushed.
+
+Exact legacy FTP deployment command identified by the build:
+
+```bash
+FTP_USER='...' FTP_PASS='...' python3 deploy_stitch_site_root.py
+```
+
+Current GitHub Pages production branch remains `origin/gh-pages`, which is older than this branch.
+
+## Live Spot Check Results
+
+Live production at `https://www.workofarttattoo.com/` still differs from this generated branch:
+
+- Live homepage still contains old two-person copy: true.
+- Live fine-line page still contains malformed FAQ: true.
+- Generated branch output contains neither defect.
+
+This confirms the old production output was not built from the corrected commit and that production must be redeployed from the rebuilt source output.
+
+## Remaining Human-Verification Items
+
+See `content-needed/OWNER-VERIFY-NOW.md`.
+
+Highest-risk items: current hours, minor policies, parking, landmark travel estimates, jewelry material claims, artist awards/credentials, case-study timelines, and the meaning of any "2012" reference.

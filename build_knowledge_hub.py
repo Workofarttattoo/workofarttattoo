@@ -12,7 +12,7 @@ from woa_entity_schema import faq_page_graph, schema_script
 
 ROOT = Path(__file__).resolve().parent
 KNOWLEDGE = ROOT / "knowledge"
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 
 HEAD_LINKS = """<link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-typography.css" rel="stylesheet"/>"""

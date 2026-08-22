@@ -7,7 +7,7 @@ import csv
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 
 PRIORITY_URLS: tuple[tuple[str, str, str], ...] = (
     ("Homepage", "/", "Primary local entity and strongest branded result"),
@@ -167,31 +167,31 @@ Use one post every 2-3 days. Add a real studio/client image when posting.
 Wondering what affects tattoo pricing in Las Vegas? Size, placement, detail, cover-up needs, and drawing time all matter. We wrote a plain-English pricing guide so you can send a better request before booking.
 
 CTA: Learn more
-Link: https://workofarttattoo.com/how_much_do_tattoos_cost_in_las_vegas_authority_guide/
+Link: https://www.workofarttattoo.com/how_much_do_tattoos_cost_in_las_vegas_authority_guide/
 
 ## Cover-Up Tattoos
 Cover-ups need planning, not guesswork. Bring a clear photo of the old tattoo, the size you want, and the style you are open to. We will tell you honestly what can be covered and what needs more prep.
 
 CTA: Book
-Link: https://workofarttattoo.com/cover-up-tattoos-las-vegas/
+Link: https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/
 
 ## Piercing & Jewelry
 A good piercing starts with anatomy and jewelry that can heal cleanly. Katelyn handles piercings, ear styling, jewelry changes, and placement checks at Work of Art on E. Tropicana.
 
 CTA: Book
-Link: https://workofarttattoo.com/piercing-guide-las-vegas/
+Link: https://www.workofarttattoo.com/piercing-guide-las-vegas/
 
 ## Fine Line Tattoos
 Fine line tattoos need the right size, placement, and expectations so the work stays readable as it heals. Send references and we will help shape the idea before tattoo day.
 
 CTA: Book
-Link: https://workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/
+Link: https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/
 
 ## Near the Strip
 Staying near the Strip? Work of Art Tattoo & Piercing is a short ride from the resort corridor, with tattoos, piercings, consultations, and real studio portfolio work on display.
 
 CTA: Directions
-Link: https://workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/
+Link: https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/
 """,
         encoding="utf-8",
     )
@@ -232,8 +232,8 @@ Glad to see it healing well. If you have a minute, a review that mentions the he
         ("Bing Places", "Sync NAP and add website/service links", "https://www.bingplaces.com/"),
         ("Apple Business Connect", "Verify NAP, hours, photos", "https://businessconnect.apple.com/"),
         ("Yelp", "Check categories and service descriptions", "https://biz.yelp.com/"),
-        ("Las Vegas local/event blogs", "Pitch offsite/private event tattoo page", "https://workofarttattoo.com/offsite_bookings/"),
-        ("Tattoo/piercing resource mentions", "Pitch piercing guide and jewelry standards page", "https://workofarttattoo.com/piercing-guide-las-vegas/"),
+        ("Las Vegas local/event blogs", "Pitch offsite/private event tattoo page", "https://www.workofarttattoo.com/offsite_bookings/"),
+        ("Tattoo/piercing resource mentions", "Pitch piercing guide and jewelry standards page", "https://www.workofarttattoo.com/piercing-guide-las-vegas/"),
     ]
     with citations.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh)

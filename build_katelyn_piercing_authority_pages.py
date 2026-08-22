@@ -24,7 +24,7 @@ from woa_katelyn_piercing_topics import (
 )
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 OG = "/studio_gallery/ear-lobe-piercing-session-da19eec5"
 
@@ -33,10 +33,10 @@ def patch_meta(page_html: str, slug: str, title: str, description: str) -> str:
     canon = f"{SITE}/{slug}/"
     page_html = re.sub(r"<title>.*?</title>", f"<title>{html.escape(title)} | Work of Art</title>", page_html, count=1)
     page_html = re.sub(r'<meta content="[^"]*" name="description"/>', f'<meta content="{html.escape(description)}" name="description"/>', page_html, count=1)
-    page_html = re.sub(r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>', f'<link href="{canon}" rel="canonical"/>', page_html, count=1)
+    page_html = re.sub(r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>', f'<link href="{canon}" rel="canonical"/>', page_html, count=1)
     og = f"{SITE}{OG}.webp"
-    page_html = re.sub(r'<meta content="https://workofarttattoo.com/how_much[^"]*" property="og:image"/>', f'<meta content="{og}" property="og:image"/>', page_html, count=1)
-    page_html = re.sub(r'<meta content="https://workofarttattoo.com/tattoo_healing[^"]*" property="og:url"/>', f'<meta content="{canon}" property="og:url"/>', page_html, count=1)
+    page_html = re.sub(r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" property="og:image"/>', f'<meta content="{og}" property="og:image"/>', page_html, count=1)
+    page_html = re.sub(r'<meta content="https://www.workofarttattoo.com/tattoo_healing[^"]*" property="og:url"/>', f'<meta content="{canon}" property="og:url"/>', page_html, count=1)
     return page_html
 
 

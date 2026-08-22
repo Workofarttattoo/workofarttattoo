@@ -16,7 +16,7 @@ HOME_HTML = HOME / "code.html"
 ROOT_HTML = ROOT / "code.html"
 PORTFOLIO = HOME / "client-portfolio"
 HERO_DIR = HOME / "hero-premium"
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 
 CARD_W = 1200
 CARD_H = 1600

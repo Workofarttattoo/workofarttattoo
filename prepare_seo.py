@@ -24,6 +24,7 @@ PIPELINE: list[str] = [
     "inject_tattoo_seo_conversion.py",
     "build_artists_index_page.py",
     "enhance_artist_entity_pages.py",
+    "fix_social_links.py",
     "inject_entity_schema.py",
     "fix_yoast_seo_meta.py",
     "inject_internal_links.py",
@@ -49,6 +50,7 @@ PIPELINE: list[str] = [
     "inject_robots_and_llms_discovery.py",
     "fix_homepage_seo.py",
     "fix_marketing_superlatives.py",
+    "fix_social_links.py",
     "fix_studio_nap.py",
 ]
 

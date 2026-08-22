@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent
 SLUG = "tattoo_healing_before_after_real_results"
 OUT_DIR = ROOT / SLUG
 OUT = OUT_DIR / "code.html"
-CANON = f"https://workofarttattoo.com/{SLUG}/"
+CANON = f"https://www.workofarttattoo.com/{SLUG}/"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 DESERT_GUIDE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 
@@ -145,13 +145,13 @@ def patch_meta(html: str) -> str:
         count=1,
     )
     html = re.sub(
-        r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>',
+        r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>',
         f'<link href="{CANON}" rel="canonical"/>',
         html,
         count=1,
     )
     html = re.sub(
-        r'<meta content="https://workofarttattoo.com/tattoo_healing_in_desert_climate[^"]*" property="og:url"/>',
+        r'<meta content="https://www.workofarttattoo.com/tattoo_healing_in_desert_climate[^"]*" property="og:url"/>',
         f'<meta content="{CANON}" property="og:url"/>',
         html,
         count=1,
@@ -169,7 +169,7 @@ def patch_meta(html: str) -> str:
         count=1,
     )
     html = re.sub(
-        r'<meta content="https://workofarttattoo.com/how_much[^"]*" property="og:image"/>',
+        r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" property="og:image"/>',
         f'<meta content="{OG_IMG}" property="og:image"/>',
         html,
         count=1,
@@ -187,7 +187,7 @@ def patch_meta(html: str) -> str:
         count=1,
     )
     html = re.sub(
-        r'<meta content="https://workofarttattoo.com/how_much[^"]*" name="twitter:image"/>',
+        r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" name="twitter:image"/>',
         f'<meta content="{OG_IMG}" name="twitter:image"/>',
         html,
         count=1,

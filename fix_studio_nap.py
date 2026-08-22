@@ -39,7 +39,7 @@ SKIP_FILES = frozenset({
     "woa_nav_config.py",
     "woa_ai_crawl.py",
 })
-SKIP_PATH_PARTS = frozenset({"skipped_upload_build"})
+SKIP_PATH_PARTS = frozenset({"skipped_upload_build", "tools"})
 
 # Literal wrong values seen in listings / Stitch exports (→ canonical)
 TEXT_REPLACEMENTS: list[tuple[str, str]] = [
@@ -103,7 +103,6 @@ TEXT_REPLACEMENTS: list[tuple[str, str]] = [
         "Directions to Work of Art at 2375 E. Tropicana Ave",
         f"Directions to Work of Art at {STUDIO_STREET_ADDRESS}",
     ),
-    ("2375 E. Tropicana Ave", STUDIO_STREET_ADDRESS),
     (
         "Located at 2375 E. Tropicana, we offer",
         f"Located at {STUDIO_STREET_ADDRESS}, we offer",
@@ -245,6 +244,16 @@ def process_file(path: Path) -> bool:
     for old, new in TEXT_REPLACEMENTS:
         text = text.replace(old, new)
 
+    text = re.sub(
+        r"2375 E\. Tropicana Ave(?!,\s*Suite 3)",
+        STUDIO_STREET_ADDRESS,
+        text,
+    )
+    text = re.sub(
+        r"2375 E\. Tropicana Ave, Suite 3(?:,\s*Suite 3)+",
+        STUDIO_STREET_ADDRESS,
+        text,
+    )
     text = replace_phones_regex(text)
 
     if path.suffix.lower() == ".html":

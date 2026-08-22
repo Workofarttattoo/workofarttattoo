@@ -10,8 +10,8 @@ from woa_nav_config import STUDIO_ADDRESS_SINGLE_LINE
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "cover_up_tattoos_las_vegas_master_authority_guide" / "code.html"
 SLUG = "cover_up_tattoos_las_vegas_master_authority_guide"
-CANON = f"https://workofarttattoo.com/{SLUG}/"
-OG_IMG = f"https://workofarttattoo.com/{SLUG}/cover-up-tattoo-phoenix-hand-las-vegas-after.webp"
+CANON = f"https://www.workofarttattoo.com/{SLUG}/"
+OG_IMG = f"https://www.workofarttattoo.com/{SLUG}/cover-up-tattoo-phoenix-hand-las-vegas-after.webp"
 COVER_STEM = f"/{SLUG}/cover-up-tattoo-phoenix-hand-las-vegas-after"
 COVER_IMG = COVER_STEM
 COVER_WEBP = f"{COVER_STEM}.webp"
@@ -60,13 +60,13 @@ META_HEAD = f"""<!DOCTYPE html>
       "url": "{CANON}",
       "name": "Cover Up Tattoos Las Vegas | Work of Art Tattoo & Piercing",
       "description": "Las Vegas tattoo cover up specialists — before and after transformations, scar cover tattoo, pricing, and consultation booking.",
-      "isPartOf": {{ "@id": "https://workofarttattoo.com/#website" }},
-      "about": {{ "@id": "https://workofarttattoo.com/#localbusiness" }}
+      "isPartOf": {{ "@id": "https://www.workofarttattoo.com/#website" }},
+      "about": {{ "@id": "https://www.workofarttattoo.com/#localbusiness" }}
     }},
     {{
       "@type": "Service",
       "name": "Tattoo Cover-Up Las Vegas",
-      "provider": {{ "@id": "https://workofarttattoo.com/#localbusiness" }},
+      "provider": {{ "@id": "https://www.workofarttattoo.com/#localbusiness" }},
       "areaServed": "Las Vegas, NV",
       "description": "Professional tattoo cover up and scar camouflage tattooing with custom redesign consults.",
       "offers": {{

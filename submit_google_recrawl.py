@@ -35,7 +35,7 @@ def main() -> int:
     print()
     print("Submit in Google Search Console (required for recrawl):")
     print("  1. Open https://search.google.com/search-console")
-    print("  2. Property: https://workofarttattoo.com/")
+    print("  2. Property: https://www.workofarttattoo.com/")
     print(f"  3. Sitemaps → Add: {SITEMAP_STATIC_NAME}")
     print("  4. URL Inspection → enter homepage → Request indexing")
     print(f"  5. Repeat URL Inspection for: {SITE_ORIGIN}/geo_hub_ai_source_of_truth_work_of_art/")

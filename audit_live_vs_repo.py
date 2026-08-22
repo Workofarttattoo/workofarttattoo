@@ -19,7 +19,7 @@ from woa_nav_config import (
 )
 from woa_sitemap import discover_deploy_urls
 
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 ROOT = ROOT_A
 OUT = ROOT / "live_vs_repo_checklist.csv"
 

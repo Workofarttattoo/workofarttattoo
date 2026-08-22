@@ -9,9 +9,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from woa_nav_config import STUDIO_ADDRESS_DIRECTORY, STUDIO_ADDRESS_SINGLE_LINE
+from woa_nav_config import SITE_CANONICAL_HOST, STUDIO_ADDRESS_DIRECTORY, STUDIO_ADDRESS_SINGLE_LINE
 
-SITE_ORIGIN = "https://workofarttattoo.com"
+SITE_ORIGIN = SITE_CANONICAL_HOST
 SITEMAP_STATIC_NAME = "sitemap-static-pages.xml"
 GEO_SLUG = "geo_hub_ai_source_of_truth_work_of_art"
 GEO_PATH = f"/{GEO_SLUG}/"

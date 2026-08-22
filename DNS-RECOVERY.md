@@ -6,7 +6,7 @@ Last checked: 2026-08-21 16:40 America/Los_Angeles
 
 Use:
 
-`https://workofarttattoo.com/`
+`https://www.workofarttattoo.com/`
 
 The repository `CNAME` file has been set to:
 
@@ -26,7 +26,7 @@ This aligns GitHub Pages with the site's canonical tags, sitemap URLs, robots.tx
 - `https://www.workofarttattoo.com/robots.txt` returned `200` from GitHub Pages.
 - `https://www.workofarttattoo.com/sitemap.xml` returned `200` from GitHub Pages.
 - Before this commit, the repo CNAME pointed to `www.workofarttattoo.com`, so GitHub Pages treated `www` as the configured custom domain and redirected the apex toward `www`.
-- A normal curl to `https://workofarttattoo.com/` still returned a Bluehost suspended-page response during the check, while forcing GitHub's Pages IP returned GitHub. That indicates stale resolver/cache/proxy state or an external DNS/hosting record outside this repo, not a static HTML problem.
+- A normal curl to `https://www.workofarttattoo.com/` still returned a Bluehost suspended-page response during the check, while forcing GitHub's Pages IP returned GitHub. That indicates stale resolver/cache/proxy state or an external DNS/hosting record outside this repo, not a static HTML problem.
 
 ## DNS records to keep in Cloudflare
 
@@ -69,9 +69,9 @@ In GitHub repository settings:
 
 Expected final redirects:
 
-- `http://workofarttattoo.com/*` -> `https://workofarttattoo.com/*`
-- `http://www.workofarttattoo.com/*` -> `https://workofarttattoo.com/*`
-- `https://www.workofarttattoo.com/*` -> `https://workofarttattoo.com/*`
+- `http://workofarttattoo.com/*` -> `https://www.workofarttattoo.com/*`
+- `http://www.workofarttattoo.com/*` -> `https://www.workofarttattoo.com/*`
+- `https://www.workofarttattoo.com/*` -> `https://www.workofarttattoo.com/*`
 
 If GitHub Pages keeps `www` as the required custom domain after this deployment, reverse the repo `CNAME` and site canonical host together. Do not leave repo `CNAME`, canonical tags, sitemap URLs, and GitHub Pages settings split across different hostnames.
 

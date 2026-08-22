@@ -525,6 +525,10 @@ def _deploy_all(
     for slug in sorted(merged.keys()):
         if slug == "artists_build":
             continue
+        if slug == home_slug:
+            print(f"[skip] {slug} — homepage source deployed at /")
+            skipped += 1
+            continue
         if slug in SKIP_DEPLOY_SLUGS:
             print(f"[skip] {slug} — excluded from deploy")
             skipped += 1
@@ -625,12 +629,12 @@ def _deploy_all(
         f"artist pages: {uploaded_artists}; skipped: {skipped}. "
         f"Homepage from {home_slug!r} ({home_bytes:,} bytes on server)."
     )
-    print("Try: https://workofarttattoo.com/")
+    print("Try: https://www.workofarttattoo.com/")
     print("View Source → search for WOA_BUILD_STAMP and id=\"studio-interview\"")
     print("Then run: python3 verify_live_deploy.py")
     print(
         "Example slug: "
-        "https://workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/"
+        "https://www.workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/"
     )
     return 0
 

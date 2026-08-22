@@ -12,6 +12,7 @@ REPLACEMENTS: tuple[tuple[str, str], ...] = (
     ("<title>Work of Art Tattoo &amp; Piercing — Official Location, Hours &amp; Contact | Work of Art</title>", "<title>Work of Art Tattoo &amp; Piercing — Location &amp; Hours</title>"),
     ("<title>Choosing a Tattoo Artist — Joshua Cole | Work of Art Las Vegas | Work of Art</title>", "<title>Choosing a Tattoo Artist — Joshua Cole | Work of Art</title>"),
     ("Verified Social Proof", "Client reviews"),
+    ("LAS VEGAS' HIGHEST RATED WALK-IN STUDIO", "323 GOOGLE REVIEWS, 5.0 RATING"),
     ("Real Google Reviews — Las Vegas Collectors", "Real Google reviews from people who booked here"),
     ("Strategic Insights", "Quick answers"),
     ("Frequently Asked Artistry Questions", "Questions people ask before they book"),
@@ -61,7 +62,7 @@ def ensure_home_canonical(path: Path, html: str) -> str:
     }
     if not is_home or 'rel="canonical"' in html:
         return html
-    canonical = '<link href="https://workofarttattoo.com/" rel="canonical"/>\n'
+    canonical = '<link href="https://www.workofarttattoo.com/" rel="canonical"/>\n'
     if "</title>" in html:
         return html.replace("</title>", "</title>\n" + canonical, 1)
     if "</head>" in html:
@@ -75,7 +76,7 @@ def ensure_known_canonicals(path: Path, html: str) -> str:
     slug = path.parent.name if path.name == "code.html" else ""
     known = {
         "fine_line_tattoos_las_vegas_master_authority_guide": (
-            "https://workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/"
+            "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/"
         ),
     }
     href = known.get(slug)
@@ -120,7 +121,7 @@ def ensure_basic_seo_head(path: Path, html: str) -> str:
         return html
 
     if 'rel="canonical"' not in html:
-        canonical = f'<link href="https://workofarttattoo.com/{slug}/" rel="canonical"/>\n'
+        canonical = f'<link href="https://www.workofarttattoo.com/{slug}/" rel="canonical"/>\n'
         html = _insert_after_title_or_head(html, canonical)
 
     if 'name="description"' not in html:

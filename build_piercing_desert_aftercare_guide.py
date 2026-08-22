@@ -12,7 +12,7 @@ from woa_entity_schema import ID_KATELYN, guide_article_graph, schema_script
 
 ROOT = Path(__file__).resolve().parent
 SLUG = "piercing_aftercare_desert_climate_las_vegas_expert_guide"
-CANON = f"https://workofarttattoo.com/{SLUG}/"
+CANON = f"https://www.workofarttattoo.com/{SLUG}/"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 TITLE = "Piercing Aftercare Las Vegas | Desert Climate Guide — Book Online"
 DESCRIPTION = (
@@ -65,7 +65,7 @@ def main() -> int:
     page = TEMPLATE.read_text(encoding="utf-8")
     page = re.sub(r"<title>.*?</title>", f"<title>{html.escape(TITLE)} | Work of Art</title>", page, count=1)
     page = re.sub(r'<meta content="[^"]*" name="description"/>', f'<meta content="{html.escape(DESCRIPTION)}" name="description"/>', page, count=1)
-    page = re.sub(r'<link href="https://workofarttattoo.com/[^"]*" rel="canonical"/>', f'<link href="{CANON}" rel="canonical"/>', page, count=1)
+    page = re.sub(r'<link href="https://www.workofarttattoo.com/[^"]*" rel="canonical"/>', f'<link href="{CANON}" rel="canonical"/>', page, count=1)
     page = re.sub(r'<main class="relative pt-20">.*?</main>', main_html.strip(), page, count=1, flags=re.DOTALL)
     page = re.sub(r'<script data-woa-entity-schema="1" type="application/ld\+json">.*?</script>\s*', "", page, flags=re.DOTALL)
     graph = guide_article_graph(slug=SLUG, title=TITLE, description=DESCRIPTION, author_id=ID_KATELYN)

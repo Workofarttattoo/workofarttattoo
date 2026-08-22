@@ -10,7 +10,7 @@ from pathlib import Path
 from woa_nav_config import GUIDE_META
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://workofarttattoo.com"
+SITE = "https://www.workofarttattoo.com"
 DEFAULT_OG = (
     f"{SITE}/home_work_of_art_tattoo_piercing/"
     "las-vegas-tattoo-hero-background.webp"

@@ -80,8 +80,8 @@ def update_internal_links() -> int:
             new = f"/{alias.short_slug}/"
             if old in updated:
                 updated = updated.replace(old, new)
-            old_canon = f"https://workofarttattoo.com{old.rstrip('/')}/"
-            new_canon = f"https://workofarttattoo.com{new}"
+            old_canon = f"https://www.workofarttattoo.com{old.rstrip('/')}/"
+            new_canon = f"https://www.workofarttattoo.com{new}"
             updated = updated.replace(old_canon, new_canon)
         if updated != raw:
             path.write_text(updated, encoding="utf-8")
