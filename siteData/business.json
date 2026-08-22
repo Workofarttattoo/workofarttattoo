@@ -1,0 +1,19 @@
+{
+  "name": "Work of Art Tattoo & Piercing",
+  "url": "https://www.workofarttattoo.com/",
+  "canonicalHost": "https://www.workofarttattoo.com",
+  "address": {
+    "streetAddress": "2375 E. Tropicana Ave, Suite 3",
+    "addressLocality": "Las Vegas",
+    "addressRegion": "NV",
+    "postalCode": "89119",
+    "addressCountry": "US"
+  },
+  "phoneDisplay": "725-224-1240",
+  "phoneE164": "+17252241240",
+  "bookingEmail": "booking@workofarttattoo.com",
+  "residentArtistCount": 3,
+  "googleRating": 5.0,
+  "googleReviewCount": 323,
+  "dataSourceNote": "Values supplied by owner in SEO implementation brief; update here first, then run tools/seo_qa.py."
+}

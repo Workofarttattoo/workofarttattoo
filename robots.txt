@@ -1,7 +1,7 @@
-# Work of Art Tattoo & Piercing — https://workofarttattoo.com
+# Work of Art Tattoo & Piercing — https://www.workofarttattoo.com
 # Single robots policy for Google, Bing, and AI crawlers.
 # Third-party chat widgets (ElevenLabs, etc.) load external scripts; their robots.txt
-# does NOT control indexing of pages on https://workofarttattoo.com.
+# does NOT control indexing of pages on https://www.workofarttattoo.com.
 
 User-agent: *
 Allow: /
@@ -48,10 +48,10 @@ User-agent: cohere-ai
 Allow: /
 
 # Sitemaps (primary index for Google + static HTML export)
-Sitemap: https://workofarttattoo.com/sitemap.xml
-Sitemap: https://workofarttattoo.com/sitemap-static-pages.xml
+Sitemap: https://www.workofarttattoo.com/sitemap.xml
+Sitemap: https://www.workofarttattoo.com/sitemap-static-pages.xml
 
 # AI / LLM discovery (human-readable indexes — not robots directives)
-# LLM index: https://workofarttattoo.com/llms.txt
-# AI permissions: https://workofarttattoo.com/ai.txt
+# LLM index: https://www.workofarttattoo.com/llms.txt
+# AI permissions: https://www.workofarttattoo.com/ai.txt
 # GEO source of truth: /geo_hub_ai_source_of_truth_work_of_art/
