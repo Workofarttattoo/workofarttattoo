@@ -30,6 +30,7 @@ Continued the existing `seo/master-authority-rebuild` branch, fetched origin, me
 - Generated production output has 0 QA failures across 170 indexable HTML pages.
 - Canonical review count is `323`; canonical artist count is `3`.
 - Canonical roster is Joshua Cole, Katelyn Cole, and Teralyn.
+- Verified artist social handles remain Joshua `@workofarttattoo`, Katelyn `@stabislifee`, and Teralyn `@mischiefmodifies`.
 - Canonical NAP is Work of Art Tattoo & Piercing, 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119, 725-224-1240, booking@workofarttattoo.com.
 - Canonical host is `https://www.workofarttattoo.com/`.
 
@@ -55,8 +56,12 @@ Continued the existing `seo/master-authority-rebuild` branch, fetched origin, me
 ## Duplicate Code Removed
 
 - Desktop navigation CSS injection is idempotent.
+- Material Symbols head injection is normalized to one active preload/onload stylesheet request.
+- Page spotlight Instagram reel selection is deterministic per slug instead of Python hash-randomized.
+- Homepage footer cleanup removes repeated empty divider rows instead of appending them on each build.
 - Shared injected component checks now fail QA on duplicate unique `data-*` component IDs.
 - Duplicate sitemap homepage URL was removed.
+- Consecutive deploy-prep builds now produce identical HTML hashes for 279 generated HTML files after stripping only the build timestamp.
 
 ## QA Test Count
 
@@ -83,16 +88,17 @@ Results:
 Passed:
 
 ```bash
-python3 prepare_seo.py && python3 prepare_site_deploy.py
+python3 prepare_site_deploy.py
 ```
 
 Result:
 
-- `[verify] OK homepage (134,291 bytes)`
+- `[verify] OK homepage (129,768 bytes)`
+- Idempotency: `changed html files between idem builds: 0`
 
 ## Production Deploy Status
 
-Not deployed to production from this turn. The completed work is committed to the SEO branch only; main and `gh-pages` were not merged or force-pushed.
+Not deployed to production from this pass. Main and `gh-pages` were not merged or force-pushed.
 
 Exact legacy FTP deployment command identified by the build:
 
@@ -104,13 +110,18 @@ Current GitHub Pages production branch remains `origin/gh-pages`, which is older
 
 ## Live Spot Check Results
 
-Live production at `https://www.workofarttattoo.com/` still differs from this generated branch:
+Generated/local spot checks:
 
-- Live homepage still contains old two-person copy: true.
-- Live fine-line page still contains malformed FAQ: true.
-- Generated branch output contains neither defect.
+- Homepage H1: `Tattoo & Piercing Studio in Las Vegas`
+- Sitemap URLs: 170; all 170 use `https://www.workofarttattoo.com/`
+- Public generated HTML checked for canonical/social/schema issues: 170 indexable routes
+- Removed generated defects: malformed fine-line FAQ, stale two-person homepage copy, stale 300+ review copy, duplicate Suite 3, and misassigned social handles.
 
-This confirms the old production output was not built from the corrected commit and that production must be redeployed from the rebuilt source output.
+Live production spot check:
+
+- `https://www.workofarttattoo.com/` still shows stale deployed homepage copy: `Joshua & Katelyn Cole in-studio` and `300+ verified five-star reviews`.
+- This confirms production is still older than the corrected local branch output.
+- Live production must be redeployed from this rebuilt source output before these generated fixes are visible publicly.
 
 ## Remaining Human-Verification Items
 

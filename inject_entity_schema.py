@@ -95,10 +95,6 @@ def inject_schema(html: str, graph: dict, *, replace_all: bool = True) -> str:
     return cleaned.replace("</body>", block + "\n</body>", 1)
 
 
-def patch_geo_hub_employee_count(html: str) -> str:
-    return html.replace('"numberOfEmployees": 3,', '"numberOfEmployees": 2,')
-
-
 def main() -> int:
     changed = 0
     for path in iter_targets():
@@ -107,11 +103,6 @@ def main() -> int:
         if path.relative_to(ROOT).parts[0] == "artists_build":
             slug = path.stem
         if slug in SKIP_SCHEMA_REPLACE:
-            updated = patch_geo_hub_employee_count(raw) if "geo_hub" in slug else raw
-            if updated != raw:
-                path.write_text(updated, encoding="utf-8")
-                changed += 1
-                print(f"[patch] {path.relative_to(ROOT)}")
             continue
         graph = pick_graph(path, raw)
         updated = inject_schema(raw, graph, replace_all=True)

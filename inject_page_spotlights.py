@@ -13,6 +13,7 @@ Run after:  python3 refresh_videos_catalog.py
 from __future__ import annotations
 
 import re
+import hashlib
 from pathlib import Path
 
 from client_videos import (
@@ -58,7 +59,7 @@ def embed_count(html: str) -> int:
 def pick_video(slug: str, pool: list) -> object | None:
     if not pool:
         return None
-    h = abs(hash(slug))
+    h = int(hashlib.sha256(slug.encode("utf-8")).hexdigest(), 16)
     return pool[h % len(pool)]
 
 

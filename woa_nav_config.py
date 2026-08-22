@@ -37,7 +37,7 @@ STUDIO_ROSTER_BLURB = (
     "Three resident artists work in-studio today — Joshua Cole (tattoo & piercing; "
     "studio lead), Katelyn Cole (master piercer), and Teralyn (fineline floral, script, "
     "custom drawings by commission, and high-detail small tattoos). Book tattoo "
-    "and piercing consults at our Tropicana studio seven nights a week."
+    "and piercing consults at our Tropicana studio."
 )
 STUDIO_ROSTER_LEGACY = (
     "Seven artists trained at Work of Art now run their own shops or travel as guest "
