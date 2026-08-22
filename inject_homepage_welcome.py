@@ -42,6 +42,9 @@ We know what walking into a strange tattoo shop can feel like: the cool kids fro
 <p class="font-body-md text-on-surface-variant leading-relaxed">
 Before I was a successful artist, I — <strong class="text-on-surface font-semibold">Joshua Cole</strong> — was a successful waiter at high-end fine-dining rooms: Spago, Jonathan Bentley's, Ruth's Chris Steak House, and The Shore Room at the Renaissance (Greek-inspired). Each taught me to take real pleasure in helping people, getting to know them, and making them feel appreciated and valued.
 </p>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+I also attended art school, oil painting school, and illustration school, along with numerous seminars and other continuing-education opportunities to keep progressing as an artist. I design our merchandise, T-shirts, and all of our advertising.
+</p>
 <p class="font-body-md text-on-surface leading-relaxed border-l-2 border-secondary pl-5">
 Don't just get a tattoo or piercing — leave feeling valued. Like you made a lifelong friend, or reconnected with an old one.
 </p>

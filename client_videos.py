@@ -1269,11 +1269,14 @@ def render_joshua_education_section() -> str:
 <div class="space-y-6 order-2 lg:order-1">
 <span class="text-label-caps font-label-caps text-secondary uppercase tracking-[0.2em]">Never standing still</span>
 <h2 class="text-headline-lg font-headline-lg text-on-surface">Advancing the Craft — Seminars &amp; Mastery</h2>
-<p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">Joshua Cole does not coast on reputation. He regularly attends and <strong class="text-on-surface">pays out of pocket</strong> for advanced art and tattoo seminars, workshops, and industry intensives — investing in drawing, realism, color theory, and technical innovation so every collector at Work of Art gets current-world skill, not yesterday&apos;s tricks.</p>
+<p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">Joshua Cole does not coast on reputation. He attended art school, oil painting school, and illustration school, and he regularly attends and <strong class="text-on-surface">pays out of pocket</strong> for advanced art and tattoo seminars, workshops, and industry intensives — investing in drawing, realism, color theory, and technical innovation so every collector at Work of Art gets current-world skill, not yesterday&apos;s tricks.</p>
+<p class="text-body-md text-on-surface-variant leading-relaxed">That fine-art background also shows up beyond the tattoo chair: Joshua designs Work of Art merchandise, T-shirts, and advertising, keeping the studio&apos;s visual identity in the hands of an artist who works with the brand every day.</p>
 <p class="text-body-md text-on-surface-variant leading-relaxed">That commitment is why Joshua trains artists in-studio, pushes large-scale realism further each year, and treats every session like a masterclass. When you book Joshua, you are booking an artist who is still in the room learning — on purpose.</p>
 <ul class="text-body-md text-on-surface-variant space-y-2 list-disc pl-5">
 <li>Ongoing tattoo and fine-art education beyond the chair</li>
+<li>Art school, oil painting school, and illustration school foundation</li>
 <li>Seminars focused on realism, composition, and advanced technique</li>
+<li>Studio merchandise, T-shirt, and advertising design by Joshua</li>
 <li>Skills brought straight back to Las Vegas for your custom work</li>
 </ul>
 <a class="inline-flex items-center gap-2 text-secondary font-label-caps text-label-caps uppercase tracking-widest underline hover:no-underline mt-4 min-h-[48px]" href="{permalink}" rel="noopener noreferrer" target="_blank">See seminar reel on Instagram</a>
