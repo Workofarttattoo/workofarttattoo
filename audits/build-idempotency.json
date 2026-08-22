@@ -1,0 +1,7 @@
+{
+  "scope": "python3 prepare_seo.py && python3 prepare_site_deploy.py",
+  "fileCount": 279,
+  "build1Hash": "8a23caf402b9f6e1937efcc89c3d7199cea3f569c3088e7179d542c873a1a8ab",
+  "build2Hash": "8a23caf402b9f6e1937efcc89c3d7199cea3f569c3088e7179d542c873a1a8ab",
+  "differences": []
+}

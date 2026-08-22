@@ -32,6 +32,18 @@ COPYRIGHT_RE = re.compile(
     r"©\s*20\d{2}\s*Work of Art Tattoo\s*&(?:amp;)?\s*Piercing[^<]*",
     re.I,
 )
+EMPTY_FOOTER_ROW_CLASSES = {
+    "mt-12",
+    "pt-8",
+    "border-t",
+    "border-outline-variant/10",
+    "flex",
+    "flex-col",
+    "md:flex-row",
+    "justify-between",
+    "items-center",
+    "gap-4",
+}
 
 SLIM_FOOTER_INNER = f"""
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -87,13 +99,29 @@ def trim_footer(soup: BeautifulSoup) -> bool:
     grid = parent.find_next("div", class_=lambda c: c and "grid" in c)
     if not grid:
         return False
+    changed = remove_empty_footer_rows(soup)
     slim = BeautifulSoup(SLIM_FOOTER_INNER, "html.parser")
     grid.replace_with(slim)
     # Drop duplicate copyright row if still present above slim block
     for p in parent.find_all("p", class_=lambda c: c and "text-[12px]" in (c or [])):
         if p.get_text() and "©" in p.get_text():
             p.decompose()
-    return True
+            changed = True
+    changed |= remove_empty_footer_rows(soup)
+    return True or changed
+
+
+def remove_empty_footer_rows(soup: BeautifulSoup) -> bool:
+    changed = False
+    for div in list(soup.find_all("div")):
+        classes = set(div.get("class") or [])
+        if not EMPTY_FOOTER_ROW_CLASSES.issubset(classes):
+            continue
+        if div.get_text(" ", strip=True):
+            continue
+        div.decompose()
+        changed = True
+    return changed
 
 
 def trim_internal_links(soup: BeautifulSoup) -> bool:

@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import csv
+import hashlib
 from pathlib import Path
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
@@ -22,6 +23,15 @@ CANONICAL_NETLOC = urlparse(CANONICAL_HOST).netloc
 REVIEW_COUNT = int(REVIEWS["googleReviewCount"])
 ARTIST_NAMES = [artist["name"] for artist in ARTISTS]
 ARTIST_COUNT = int(DATA["residentArtistCount"])
+STUDIO_SAMEAS = {
+    SOCIAL.get("studioInstagram", "").rstrip("/"),
+    SOCIAL.get("facebook", "").rstrip("/"),
+} - {""}
+PERSON_SAMEAS = {
+    "Joshua Cole": {SOCIAL.get("joshuaInstagram", "").rstrip("/")} - {""},
+    "Katelyn Cole": {SOCIAL.get("katelynInstagram", "").rstrip("/")} - {""},
+    "Teralyn": {SOCIAL.get("teralynInstagram", "").rstrip("/")} - {""},
+}
 FORBIDDEN = {
     "legacy placeholder address": r"123\s+LV\s+Blvd",
     "wrong zip 89109": r"\b89109\b",
@@ -60,6 +70,14 @@ UNIQUE_DATA_ATTRS = (
     "data-woa-home-review-proof",
     "data-woa-google-tag-manager",
 )
+UNVERIFIED_SCHEMA_RE = re.compile(
+    r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
+    r"APP[-\s]aligned|APP piercing standards|Master Body Piercer|master piercer|"
+    r"medical-grade piercing|medical-grade hygiene|hospital-grade",
+    re.I,
+)
+APPOINTMENT_SOCIAL_RE = re.compile(r"Book an Appointment\s*\|", re.I)
+BUILD_STAMP_RE = re.compile(rb"<!-- WOA_BUILD_STAMP: [^>]+ -->\n?")
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -108,6 +126,127 @@ def assert_host(url: str, context: str, failures: list[str]) -> None:
     if netloc and netloc != CANONICAL_NETLOC:
         failures.append(f"{context}: canonical host mismatch: {url}")
 
+def as_graph_nodes(parsed) -> list[dict]:
+    if isinstance(parsed, dict) and isinstance(parsed.get("@graph"), list):
+        return [node for node in parsed["@graph"] if isinstance(node, dict)]
+    if isinstance(parsed, list):
+        return [node for node in parsed if isinstance(node, dict)]
+    if isinstance(parsed, dict):
+        return [parsed]
+    return []
+
+def node_types(node: dict) -> set[str]:
+    raw = node.get("@type")
+    if isinstance(raw, list):
+        return {str(item) for item in raw}
+    if raw:
+        return {str(raw)}
+    return set()
+
+def normalized_url(url: str) -> str:
+    return (url or "").rstrip("/")
+
+def validate_sameas(node: dict, context: str, failures: list[str]) -> None:
+    same_as = node.get("sameAs")
+    if not same_as:
+        return
+    urls = [normalized_url(url) for url in (same_as if isinstance(same_as, list) else [same_as]) if url]
+    if len(urls) != len(set(urls)):
+        failures.append(f"{context}: duplicate sameAs values")
+    types = node_types(node)
+    if "LocalBusiness" in types or "TattooParlor" in types or "Organization" in types:
+        extra = sorted(set(urls) - STUDIO_SAMEAS)
+        if extra:
+            failures.append(f"{context}: LocalBusiness/Organization sameAs includes non-studio profile(s): {', '.join(extra)}")
+    if "Person" in types:
+        name = node.get("name", "")
+        expected = PERSON_SAMEAS.get(name)
+        if expected is not None:
+            extra = sorted(set(urls) - expected)
+            missing = sorted(expected - set(urls))
+            if extra:
+                failures.append(f"{context}: Person {name} sameAs includes profile(s) not owned by that person: {', '.join(extra)}")
+            if missing:
+                failures.append(f"{context}: Person {name} sameAs missing verified profile(s): {', '.join(missing)}")
+
+def validate_head(soup: BeautifulSoup, raw: str, route: str, context: str, failures: list[str]) -> None:
+    head = soup.head
+    if not head:
+        failures.append(f"{context}: missing head")
+        return
+    if len(head.find_all("title")) != 1:
+        failures.append(f"{context}: expected exactly 1 title, found {len(head.find_all('title'))}")
+    if len(head.find_all("link", rel=lambda rel: rel and "canonical" in rel)) != 1:
+        failures.append(f"{context}: expected exactly 1 canonical")
+    if len(head.find_all("meta", charset=True)) > 1:
+        failures.append(f"{context}: duplicate charset meta")
+    if len(head.find_all("meta", attrs={"name": "viewport"})) > 1:
+        failures.append(f"{context}: duplicate viewport meta")
+    title_text = soup.title.string.strip() if soup.title and soup.title.string else ""
+    meta_description = (head.find("meta", attrs={"name": "description"}) or {}).get("content", "").strip()
+    for selector, label in (
+        (lambda: head.find("meta", attrs={"name": "description"}), "meta description"),
+        (lambda: head.find("meta", property="og:url"), "og:url"),
+        (lambda: head.find("meta", property="og:title"), "og:title"),
+        (lambda: head.find("meta", property="og:description"), "og:description"),
+        (lambda: head.find("meta", attrs={"name": "twitter:title"}), "twitter:title"),
+        (lambda: head.find("meta", attrs={"name": "twitter:description"}), "twitter:description"),
+    ):
+        if not selector():
+            failures.append(f"{context}: missing {label}")
+    social_pairs = (
+        ("og:title", (head.find("meta", property="og:title") or {}).get("content", "").strip(), title_text),
+        (
+            "og:description",
+            (head.find("meta", property="og:description") or {}).get("content", "").strip(),
+            meta_description,
+        ),
+        (
+            "twitter:title",
+            (head.find("meta", attrs={"name": "twitter:title"}) or {}).get("content", "").strip(),
+            title_text,
+        ),
+        (
+            "twitter:description",
+            (head.find("meta", attrs={"name": "twitter:description"}) or {}).get("content", "").strip(),
+            meta_description,
+        ),
+    )
+    for label, actual, expected in social_pairs:
+        if actual and expected and actual != expected:
+            failures.append(f"{context}: social metadata mismatch for {label}")
+    for rel in ("preconnect",):
+        hrefs = [tag.get("href", "").strip() for tag in head.find_all("link", rel=lambda val: val and rel in val)]
+        dupes = sorted({href for href in hrefs if href and hrefs.count(href) > 1})
+        if dupes:
+            failures.append(f"{context}: duplicate {rel} URL(s): {', '.join(dupes)}")
+    active_asset_hrefs = [
+        tag.get("href", "").strip()
+        for tag in head.find_all("link", href=True)
+        if not tag.find_parent("noscript")
+        if "stylesheet" in (tag.get("rel") or []) or "preload" in (tag.get("rel") or [])
+    ]
+    dupes = sorted({href for href in active_asset_hrefs if href and active_asset_hrefs.count(href) > 1})
+    if dupes:
+        failures.append(f"{context}: duplicate stylesheet/preload URL(s): {', '.join(dupes[:5])}")
+    if raw.count("GTM-TZTQSQBB") > 2:
+        failures.append(f"{context}: duplicate GTM references")
+    if raw.count("mixpanel.init(") > 1:
+        failures.append(f"{context}: duplicate Mixpanel initialization")
+    if re.search(r"<noscript\b[^>]*>[\s\S]*?<noscript\b", raw, re.I):
+        failures.append(f"{context}: malformed nested noscript")
+    if "&lt;&gt;" in raw or "&lt; &gt;" in raw:
+        failures.append(f"{context}: literal encoded empty markup artifact")
+    fields = [
+        soup.title.string.strip() if soup.title and soup.title.string else "",
+        (head.find("meta", property="og:title") or {}).get("content", ""),
+        (head.find("meta", property="og:description") or {}).get("content", ""),
+        (head.find("meta", attrs={"name": "twitter:title"}) or {}).get("content", ""),
+        (head.find("meta", attrs={"name": "twitter:description"}) or {}).get("content", ""),
+    ]
+    if route != "/appointments/" and any(APPOINTMENT_SOCIAL_RE.search(field or "") for field in fields):
+        failures.append(f"{context}: unrelated appointment social metadata")
+
 def validate_sitewide_files(failures: list[str]) -> None:
     for name in ("sitemap.xml", "sitemap-static-pages.xml"):
         path = ROOT / name
@@ -120,6 +259,29 @@ def validate_sitewide_files(failures: list[str]) -> None:
         for slug in load_merge_slugs():
             if f"/{slug}/" in text:
                 failures.append(f"{name}: MERGE URL still appears in sitemap: /{slug}/")
+
+def validate_idempotency_artifact(failures: list[str]) -> None:
+    path = ROOT / "audits" / "build-idempotency.json"
+    if not path.is_file():
+        return
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        failures.append(f"{path.relative_to(ROOT)}: malformed idempotency artifact: {exc}")
+        return
+    required = ("build1Hash", "build2Hash", "differences")
+    missing = [key for key in required if key not in data]
+    if missing:
+        failures.append(f"{path.relative_to(ROOT)}: missing {', '.join(missing)}")
+        return
+    if not re.fullmatch(r"[0-9a-f]{64}", str(data["build1Hash"])):
+        failures.append(f"{path.relative_to(ROOT)}: invalid build1Hash")
+    if not re.fullmatch(r"[0-9a-f]{64}", str(data["build2Hash"])):
+        failures.append(f"{path.relative_to(ROOT)}: invalid build2Hash")
+    if data["build1Hash"] != data["build2Hash"]:
+        failures.append(f"{path.relative_to(ROOT)}: complete-build hash mismatch")
+    if data["differences"]:
+        failures.append(f"{path.relative_to(ROOT)}: complete-build differences are not empty")
 
 def published_routes() -> set[str]:
     path = ROOT / "sitemap.xml"
@@ -156,6 +318,7 @@ def main() -> int:
             if re.search(pattern, haystack, re.I):
                 failures.append(f"{path.relative_to(ROOT)}: forbidden pattern: {label}")
         soup = BeautifulSoup(text, "html.parser")
+        validate_head(soup, text, route, str(path.relative_to(ROOT)), failures)
         if "Google" in body_text and "review" in body_text.lower():
             visible_counts = {int(m.group(1).replace(",", "")) for m in re.finditer(r"\b(\d{2,4}(?:,\d{3})?)\s+(?:verified\s+)?(?:five-star\s+)?(?:Google\s+)?reviews?\b", body_text, re.I)}
             for count in visible_counts:
@@ -191,6 +354,7 @@ def main() -> int:
         if og_url:
             assert_host(og_url.get("content", ""), f"{path.relative_to(ROOT)} og:url", failures)
         schema_serialized: list[str] = []
+        schema_fingerprints: set[str] = set()
         for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
             raw = script.string or script.get_text()
             if raw.strip():
@@ -200,7 +364,24 @@ def main() -> int:
                     failures.append(f"{path.relative_to(ROOT)}: malformed JSON-LD: {exc}")
                     continue
                 serialized = json.dumps(parsed)
+                if serialized in schema_fingerprints:
+                    failures.append(f"{path.relative_to(ROOT)}: duplicate identical JSON-LD block")
+                schema_fingerprints.add(serialized)
                 schema_serialized.append(serialized)
+                if '"AggregateRating"' in serialized:
+                    failures.append(f"{path.relative_to(ROOT)}: unapproved AggregateRating schema")
+                if UNVERIFIED_SCHEMA_RE.search(serialized):
+                    failures.append(f"{path.relative_to(ROOT)}: unverified hours/material claim in JSON-LD")
+                for node in as_graph_nodes(parsed):
+                    validate_sameas(node, str(path.relative_to(ROOT)), failures)
+                    types = node_types(node)
+                    if "LocalBusiness" in types or "TattooParlor" in types:
+                        if int(node.get("numberOfEmployees", ARTIST_COUNT)) != ARTIST_COUNT:
+                            failures.append(f"{path.relative_to(ROOT)}: LocalBusiness numberOfEmployees does not match siteData")
+                        employees = json.dumps(node.get("employee", []))
+                        missing = [name for name in ("joshua-cole", "katelyn-cole", "teralyn") if name not in employees]
+                        if missing:
+                            failures.append(f"{path.relative_to(ROOT)}: LocalBusiness employee missing {', '.join(missing)}")
                 for url in re.findall(r"https?://[^\"'\\s<>]+", serialized):
                     assert_host(url, f"{path.relative_to(ROOT)} JSON-LD", failures)
         combined_schema = "\n".join(schema_serialized)
@@ -211,6 +392,7 @@ def main() -> int:
             if missing:
                 failures.append(f"{path.relative_to(ROOT)}: organization/location schema missing roster: {', '.join(missing)}")
     validate_sitewide_files(failures)
+    validate_idempotency_artifact(failures)
     if failures:
         print("SEO QA failed:")
         for f in failures[:250]:

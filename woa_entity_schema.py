@@ -40,6 +40,12 @@ FAQ_DETAILS_RE = re.compile(
     re.DOTALL | re.IGNORECASE,
 )
 STRIP_TAGS_RE = re.compile(r"<[^>]+>")
+UNVERIFIED_SCHEMA_FACT_RE = re.compile(
+    r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
+    r"APP[-\s]aligned|APP piercing standards|Master Body Piercer|master piercer|"
+    r"medical-grade piercing|medical-grade hygiene|hospital-grade",
+    re.I,
+)
 
 SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
     "realism_tattoos_las_vegas_master_authority_guide": (
@@ -60,7 +66,7 @@ SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
     ),
     "best_piercing_shop_las_vegas_updated_jewelry_standards": (
         "Body Piercing",
-        "Medical-grade body piercing and ear curation with implant-grade jewelry.",
+        "Body piercing and ear curation with anatomy-first placement planning.",
     ),
     "piercing_types_las_vegas_authority_hub": (
         "Complete Piercing Guide",
@@ -88,7 +94,7 @@ SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
     ),
     "piercing_jewelry_guide_las_vegas": (
         "Piercing Jewelry Guide",
-        "Implant-grade titanium, threadless jewelry, and downsizing standards.",
+        "Piercing jewelry, fit, finish, and downsizing standards.",
     ),
     "piercing_healing_guide_las_vegas": (
         "Piercing Healing Guide",
@@ -222,9 +228,8 @@ JOSHUA_KNOWS_ABOUT = (
 KATELYN_KNOWS_ABOUT = (
     "Body piercing",
     "Ear curation",
-    "Implant-grade titanium jewelry",
-    "316L surgical steel jewelry",
-    "APP piercing standards",
+    "Anatomy-first piercing consults",
+    "Piercing jewelry fit",
     "Las Vegas piercing",
 )
 
@@ -242,23 +247,6 @@ TERALYN_KNOWS_ABOUT = (
     "Las Vegas tattoo artist",
     "Female piercing team",
 )
-
-
-def _opening_hours() -> list[dict]:
-    return [
-        {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
-            "opens": "12:00",
-            "closes": "00:00",
-        },
-        {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Friday", "Saturday", "Sunday"],
-            "opens": "12:00",
-            "closes": "00:00",
-        },
-    ]
 
 
 def _postal_address() -> dict:
@@ -294,13 +282,35 @@ def extract_faqs_from_html(html: str, *, limit: int = 8) -> list[tuple[str, str]
     return faqs
 
 
+def verified_schema_faqs(faqs: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    return [(q, a) for q, a in faqs if not UNVERIFIED_SCHEMA_FACT_RE.search(f"{q} {a}")]
+
+
+def sanitize_schema_text(text: str) -> str:
+    text = re.sub(r"\bMaster Body Piercer\b", "Body Piercer", text, flags=re.I)
+    text = re.sub(r"\bmaster piercer\b", "piercer", text, flags=re.I)
+    text = re.sub(r"\bimplant-grade\s+titanium\b", "piercing jewelry", text, flags=re.I)
+    text = re.sub(r"\bimplant-grade\s+jewelry\b", "piercing jewelry", text, flags=re.I)
+    text = re.sub(r"\bimplant-grade\s+starter\s+jewelry\b", "starter jewelry", text, flags=re.I)
+    text = re.sub(r"\bimplant\s+grade\s+titanium\b", "piercing jewelry", text, flags=re.I)
+    text = re.sub(r"\b316L\s+surgical\s+steel\b", "piercing jewelry", text, flags=re.I)
+    text = re.sub(r"\bsurgical\s+steel\b", "piercing jewelry", text, flags=re.I)
+    text = re.sub(r"\bAPP[-\s]aligned\s+", "", text, flags=re.I)
+    text = re.sub(r"\bAPP\s+piercing\s+standards\b", "piercing standards", text, flags=re.I)
+    text = re.sub(r"\bmedical-grade\s+piercing\b", "piercing", text, flags=re.I)
+    text = re.sub(r"\bmedical-grade\s+hygiene\b", "studio hygiene", text, flags=re.I)
+    text = re.sub(r"\bhospital-grade\b", "studio", text, flags=re.I)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
 def service_node(*, slug: str, name: str, description: str) -> dict:
     page_url = f"{SITE}/{slug}/"
     return {
         "@type": "Service",
         "@id": f"{page_url}#service",
         "name": name,
-        "description": description,
+        "description": sanitize_schema_text(description),
         "url": page_url,
         "provider": {"@id": ID_BUSINESS},
         "areaServed": {"@type": "City", "name": "Las Vegas"},
@@ -342,7 +352,7 @@ def person_joshua() -> dict:
             "offers piercing consults in-studio."
         ),
         "knowsAbout": list(JOSHUA_KNOWS_ABOUT),
-        "sameAs": [HREF_INSTAGRAM_JOSHUA, HREF_FACEBOOK_STUDIO],
+        "sameAs": [HREF_INSTAGRAM_JOSHUA],
         "worksFor": {"@id": ID_BUSINESS},
     }
 
@@ -354,13 +364,13 @@ def person_katelyn() -> dict:
         "name": "Katelyn Cole",
         "url": KATELYN_PAGE,
         "image": KATELYN_IMAGE,
-        "jobTitle": "Master Body Piercer",
-        "description": (
-            "Katelyn Cole is Work of Art's master piercer in Las Vegas — ear curation, "
-            "implant-grade titanium and surgical steel jewelry, and APP-aligned sterile technique."
+        "jobTitle": "Body Piercer",
+        "description": sanitize_schema_text(
+            "Katelyn Cole is Work of Art's piercer in Las Vegas — ear curation, "
+            "anatomy-first placement planning, jewelry fit, and piercing technique."
         ),
         "knowsAbout": list(KATELYN_KNOWS_ABOUT),
-        "sameAs": [HREF_INSTAGRAM_KATELYN, HREF_FACEBOOK_STUDIO],
+        "sameAs": [HREF_INSTAGRAM_KATELYN],
         "worksFor": {"@id": ID_BUSINESS},
     }
 
@@ -404,12 +414,9 @@ def local_business_node() -> dict:
             "latitude": 36.1008,
             "longitude": -115.1189,
         },
-        "openingHoursSpecification": _opening_hours(),
         "sameAs": [
             HREF_INSTAGRAM_STUDIO,
             HREF_FACEBOOK_STUDIO,
-            HREF_INSTAGRAM_JOSHUA,
-            HREF_INSTAGRAM_TERALYN,
         ],
         "numberOfEmployees": RESIDENT_ARTIST_COUNT,
         "employee": [{"@id": ID_JOSHUA}, {"@id": ID_KATELYN}, {"@id": ID_TERALYN}],
@@ -453,7 +460,7 @@ def artist_profile_graph(artist: str, *, root: Path | None = None) -> dict:
     elif artist == "katelyn":
         person = person_katelyn()
         page_url = KATELYN_PAGE
-        page_name = "Katelyn Cole — Master Piercer Las Vegas"
+        page_name = "Katelyn Cole — Piercer Las Vegas"
     else:
         person = person_teralyn()
         page_url = TERALYN_PAGE
@@ -516,7 +523,7 @@ def artist_profile_graph(artist: str, *, root: Path | None = None) -> dict:
             service_node(
                 slug="best_piercing_shop_las_vegas_updated_jewelry_standards",
                 name="Body Piercing",
-                description="Ear curation and medical-grade piercing by Katelyn Cole.",
+                description="Ear curation and anatomy-first body piercing by Katelyn Cole.",
             )
         )
     else:
@@ -576,6 +583,58 @@ def artists_index_graph() -> dict:
     }
 
 
+def geo_source_graph() -> dict:
+    page_url = f"{SITE}/geo_hub_ai_source_of_truth_work_of_art/"
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            website_node(),
+            local_business_node(),
+            person_joshua(),
+            person_katelyn(),
+            person_teralyn(),
+            {
+                "@type": "WebPage",
+                "@id": f"{page_url}#webpage",
+                "url": page_url,
+                "name": "GEO Hub & AI Source of Truth - Work of Art Tattoo & Piercing",
+                "description": sanitize_schema_text(
+                    "Official generative engine optimization source for verified studio identity, "
+                    "NAP, current artist roster, and canonical service guides."
+                ),
+                "isPartOf": {"@id": ID_WEBSITE},
+                "about": {"@id": ID_BUSINESS},
+                "alternateUrl": [
+                    f"{page_url}?source=openai",
+                    f"{page_url}?source_openai=1",
+                    f"{page_url}?source=anthropic",
+                    f"{page_url}?source=perplexity",
+                    f"{page_url}?source=google",
+                ],
+                "isBasedOn": f"{SITE}/llms.txt",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{page_url}#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": f"{SITE}/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "AI Source",
+                        "item": page_url,
+                    },
+                ],
+            },
+        ],
+    }
+
+
 def guide_article_graph(
     *,
     slug: str,
@@ -586,6 +645,7 @@ def guide_article_graph(
     root: Path | None = None,
 ) -> dict:
     page_url = f"{SITE}/{slug}/"
+    safe_description = sanitize_schema_text(description)
     article_about: list[dict] = [{"@id": ID_BUSINESS}]
     graph: list[dict] = [
         website_node(),
@@ -605,7 +665,7 @@ def guide_article_graph(
                 "@type": "Article",
                 "@id": f"{page_url}#article",
                 "headline": title,
-                "description": description,
+                "description": safe_description,
                 "url": page_url,
                 "mainEntityOfPage": f"{page_url}#webpage",
                 "author": {"@id": author_id or ID_JOSHUA},
@@ -619,7 +679,7 @@ def guide_article_graph(
                 "@id": f"{page_url}#webpage",
                 "url": page_url,
                 "name": title,
-                "description": description,
+                "description": safe_description,
                 "isPartOf": {"@id": ID_WEBSITE},
                 "about": {"@id": ID_BUSINESS},
             },
@@ -717,7 +777,8 @@ def guide_article_graph(
             )
         )
 
-    if faqs:
+    safe_faqs = verified_schema_faqs(faqs or [])
+    if safe_faqs:
         graph.append(
             {
                 "@type": "FAQPage",
@@ -730,7 +791,7 @@ def guide_article_graph(
                         "name": q,
                         "acceptedAnswer": {"@type": "Answer", "text": a},
                     }
-                    for q, a in faqs
+                    for q, a in safe_faqs
                 ],
             }
         )
@@ -743,6 +804,7 @@ def guide_article_graph(
 
 def faq_page_graph(*, slug: str, title: str, faqs: list[tuple[str, str]]) -> dict:
     page_url = f"{SITE}/{slug}/"
+    safe_faqs = verified_schema_faqs(faqs)
     return {
         "@context": "https://schema.org",
         "@graph": [
@@ -759,7 +821,7 @@ def faq_page_graph(*, slug: str, title: str, faqs: list[tuple[str, str]]) -> dic
                         "name": q,
                         "acceptedAnswer": {"@type": "Answer", "text": a},
                     }
-                    for q, a in faqs
+                    for q, a in safe_faqs
                 ],
             },
             {
