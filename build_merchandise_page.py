@@ -21,7 +21,7 @@ TEMPLATE = ROOT / "offsite_bookings" / "code.html"
 TITLE = "Merchandise & Original Art | Work of Art Tattoo Las Vegas"
 DESCRIPTION = (
     "Original drawings and fine art by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. "
-    "Inquire in-studio or email booking@workofarttattoo.com. Work of Art Tattoo & Piercing, Las Vegas."
+    "Inquire in-studio or email thewhiteknight702@gmail.com. Work of Art Tattoo & Piercing, Las Vegas."
 )
 
 MERCH_CSS = """

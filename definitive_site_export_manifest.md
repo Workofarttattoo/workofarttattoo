@@ -41,4 +41,4 @@ This document lists the definitive, production-ready screens for your GitHub and
 ### Bluehost (Live .com)
 - **Protocol**: Since these are high-fidelity HTML/CSS files, you can upload them directly to your `public_html` folder using Bluehost's File Manager or FTP (FileZilla).
 - **SEO Assets**: All image alt-text and metadata are embedded in the code.
-- **Form Routing**: The Appointment forms are configured to route inquiries to booking@workofarttattoo.com.
+- **Form Routing**: The Appointment forms are configured to route inquiries to thewhiteknight702@gmail.com.

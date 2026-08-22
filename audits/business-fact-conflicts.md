@@ -7,7 +7,7 @@ Generated: 2026-08-21T14:22:33
 - Business: Work of Art Tattoo & Piercing
 - Address: 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
 - Phone: 725-224-1240
-- Email: booking@workofarttattoo.com
+- Email: thewhiteknight702@gmail.com
 - Google rating/reviews: 5.0 stars, 323 reviews
 - Resident artist count: 3
 

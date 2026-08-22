@@ -42,7 +42,7 @@ FORBIDDEN = {
     "deprecated phone 725-224-1240": r"725[-\s.]224[-\s.]2931",
     "deprecated phone 725-260-6376": r"725[-\s.]260[-\s.]6376",
     "deprecated phone 725-224-1240": r"702[-\s.]960[-\s.]9607",
-    "legacy email": r"Thewhiteknight702@gmail\.com",
+    "disconnected webmail email": r"booking@workofarttattoo\.com",
     "tattoo/piercing contamination": r"where\s+do\s+you\s+(pierce|tattoo)\b|where\s+do\s+you\s+pierce\s+[^?<]{0,80}\btattoo\b|pierce\s+(fine[-\s]?line|realism|cover[-\s]?up)\s+tattoo",
     "old two-person roster": r"Joshua\s*(?:&amp;|&|and)\s*Katelyn\s+Cole\s+in-studio",
     "old rounded review claim": r"300\+\s+verified\s+five-star\s+reviews",

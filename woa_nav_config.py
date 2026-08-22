@@ -55,7 +55,7 @@ HREF_INSTAGRAM_TERALYN_HANDLE = "mischiefmodifies"
 HREF_FACEBOOK_STUDIO = _SOCIAL.get("facebook", "https://www.facebook.com/workofarttattoo/")
 
 # Public booking inbox (sitewide NAP, footers, schema — not personal Gmail)
-STUDIO_BOOKING_EMAIL = _BUSINESS.get("bookingEmail", "booking@workofarttattoo.com")
+STUDIO_BOOKING_EMAIL = _BUSINESS.get("bookingEmail", "thewhiteknight702@gmail.com")
 HREF_BOOKING_MAILTO = f"mailto:{STUDIO_BOOKING_EMAIL}"
 
 # Canonical NAP — must match Google Business Profile & every directory exactly
