@@ -222,7 +222,7 @@ def main() -> int:
     with (audits / "entity-conflicts.md").open("w", encoding="utf-8") as f:
         f.write("# Entity / NAP Conflict Audit\n\n")
         f.write("Verified source of truth: `siteData/*.json`.\n\n")
-        f.write("Correct business values: Work of Art Tattoo & Piercing; 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119; 725-224-1240; booking@workofarttattoo.com; 3 resident artists; 5.0 rating; 323 Google reviews.\n\n")
+        f.write("Correct business values: Work of Art Tattoo & Piercing; 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119; 725-224-1240; thewhiteknight702@gmail.com; 3 resident artists; 5.0 rating; 323 Google reviews.\n\n")
         for label, pattern in LEGACY_PATTERNS.items():
             hits = []
             rx = re.compile(pattern, re.I)

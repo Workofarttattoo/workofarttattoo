@@ -16,7 +16,7 @@ def main_body() -> str:
     cards = artist_cards_html()
     return f"""<h1 class="font-headline-lg text-on-surface mb-6">Artists at Work of Art</h1>
 <p class="font-body-lg text-on-surface-variant mb-6">Three in-studio residents at 2375 E. Tropicana Ave, Suite 3 — Joshua Cole (tattoo &amp; piercing; studio lead), Katelyn Cole (master piercer), and Teralyn (fineline floral work, script, custom drawings by commission, and detailed smaller tattoos). Tap a portrait to open their bio or portfolio.</p>
-<p class="font-body-md text-on-surface-variant mb-12"><a class="text-secondary underline hover:no-underline" href="/appointments/">Book an appointment</a> · <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">725-224-1240</a> · <a class="text-secondary underline hover:no-underline" href="mailto:booking@workofarttattoo.com">booking@workofarttattoo.com</a></p>
+<p class="font-body-md text-on-surface-variant mb-12"><a class="text-secondary underline hover:no-underline" href="/appointments/">Book an appointment</a> · <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">725-224-1240</a> · <a class="text-secondary underline hover:no-underline" href="mailto:thewhiteknight702@gmail.com">thewhiteknight702@gmail.com</a></p>
 <section aria-labelledby="woa-artists-roster-heading" class="mb-16">
 <h2 class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-8 text-center" id="woa-artists-roster-heading">In-Studio Residents</h2>
 {cards}

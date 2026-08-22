@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Standardize studio contact email to booking@workofarttattoo.com sitewide.
+Standardize studio contact email from siteData/business.json sitewide.
 
-- Replaces legacy Gmail / info@ addresses in HTML, Markdown, and JSON-LD
+- Replaces legacy booking/info addresses in HTML, Markdown, and JSON-LD
 - Adds schema.org email on LocalBusiness / TattooParlor blocks when missing
 - Injects footer mailto links where phone is listed but email is not
 

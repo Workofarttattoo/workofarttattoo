@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var BOOKING_EMAIL = "booking@workofarttattoo.com";
+  var BOOKING_EMAIL = "thewhiteknight702@gmail.com";
   var PHP_ENDPOINT = "/appointments/booking-mail.php";
   var FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/" + encodeURIComponent(BOOKING_EMAIL);
 
