@@ -8,11 +8,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 
+UNSUPPORTED_WALKIN_LABEL_RE = re.compile(
+    r"LAS VEGAS'\s+HIGHEST\s+RATED\s+WALK-IN\s+STUDIO",
+    re.IGNORECASE,
+)
+
 REPLACEMENTS: tuple[tuple[str, str], ...] = (
     ("<title>Work of Art Tattoo &amp; Piercing — Official Location, Hours &amp; Contact | Work of Art</title>", "<title>Work of Art Tattoo &amp; Piercing — Location &amp; Hours</title>"),
     ("<title>Choosing a Tattoo Artist — Joshua Cole | Work of Art Las Vegas | Work of Art</title>", "<title>Choosing a Tattoo Artist — Joshua Cole | Work of Art</title>"),
     ("Verified Social Proof", "Client reviews"),
-    ("LAS VEGAS' HIGHEST RATED WALK-IN STUDIO", "323 GOOGLE REVIEWS, 5.0 RATING"),
     ("Real Google Reviews — Las Vegas Collectors", "Real Google reviews from people who booked here"),
     ("Strategic Insights", "Quick answers"),
     ("Frequently Asked Artistry Questions", "Questions people ask before they book"),
@@ -39,6 +43,7 @@ STICKY_LINK_RE = re.compile(
 
 
 def polish_text(html: str) -> str:
+    html = UNSUPPORTED_WALKIN_LABEL_RE.sub("323 GOOGLE REVIEWS, 5.0 RATING", html)
     for old, new in REPLACEMENTS:
         html = html.replace(old, new)
     return html

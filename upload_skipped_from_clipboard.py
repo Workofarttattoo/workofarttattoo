@@ -18,6 +18,10 @@ from pathlib import Path
 HOST = "ftp.workofarttattoo.com"
 CLIPBOARD_HTML = Path(__file__).resolve().parent / "skipped_pages_clipboard.html"
 BUILD_DIR = Path(__file__).resolve().parent / "skipped_upload_build"
+UNSUPPORTED_WALKIN_LABEL_RE = re.compile(
+    r"LAS VEGAS'\s+HIGHEST\s+RATED\s+WALK-IN\s+STUDIO",
+    re.IGNORECASE,
+)
 
 
 def ftp_mkdir_p(ftp: FTP, remote_path: str) -> None:
@@ -80,10 +84,7 @@ def classify(chunk: str) -> str | None:
 
 
 def prepare_html(slug: str, html: str) -> bytes:
-    html = html.replace(
-        "LAS VEGAS' HIGHEST RATED WALK-IN STUDIO",
-        "323 GOOGLE REVIEWS, 5.0 RATING",
-    )
+    html = UNSUPPORTED_WALKIN_LABEL_RE.sub("323 GOOGLE REVIEWS, 5.0 RATING", html)
     if slug == "how_to_choose_a_tattoo_artist_master_selection_guide_1":
         html = fix_stitch_placeholders(html)
         html = strip_article_p_apply(html)
