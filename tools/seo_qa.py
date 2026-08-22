@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import csv
+import hashlib
 from pathlib import Path
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
@@ -70,10 +71,13 @@ UNIQUE_DATA_ATTRS = (
     "data-woa-google-tag-manager",
 )
 UNVERIFIED_SCHEMA_RE = re.compile(
-    r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|APP piercing standards",
+    r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
+    r"APP[-\s]aligned|APP piercing standards|Master Body Piercer|master piercer|"
+    r"medical-grade piercing|medical-grade hygiene|hospital-grade",
     re.I,
 )
 APPOINTMENT_SOCIAL_RE = re.compile(r"Book an Appointment\s*\|", re.I)
+BUILD_STAMP_RE = re.compile(rb"<!-- WOA_BUILD_STAMP: [^>]+ -->\n?")
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -178,6 +182,8 @@ def validate_head(soup: BeautifulSoup, raw: str, route: str, context: str, failu
         failures.append(f"{context}: duplicate charset meta")
     if len(head.find_all("meta", attrs={"name": "viewport"})) > 1:
         failures.append(f"{context}: duplicate viewport meta")
+    title_text = soup.title.string.strip() if soup.title and soup.title.string else ""
+    meta_description = (head.find("meta", attrs={"name": "description"}) or {}).get("content", "").strip()
     for selector, label in (
         (lambda: head.find("meta", attrs={"name": "description"}), "meta description"),
         (lambda: head.find("meta", property="og:url"), "og:url"),
@@ -188,6 +194,27 @@ def validate_head(soup: BeautifulSoup, raw: str, route: str, context: str, failu
     ):
         if not selector():
             failures.append(f"{context}: missing {label}")
+    social_pairs = (
+        ("og:title", (head.find("meta", property="og:title") or {}).get("content", "").strip(), title_text),
+        (
+            "og:description",
+            (head.find("meta", property="og:description") or {}).get("content", "").strip(),
+            meta_description,
+        ),
+        (
+            "twitter:title",
+            (head.find("meta", attrs={"name": "twitter:title"}) or {}).get("content", "").strip(),
+            title_text,
+        ),
+        (
+            "twitter:description",
+            (head.find("meta", attrs={"name": "twitter:description"}) or {}).get("content", "").strip(),
+            meta_description,
+        ),
+    )
+    for label, actual, expected in social_pairs:
+        if actual and expected and actual != expected:
+            failures.append(f"{context}: social metadata mismatch for {label}")
     for rel in ("preconnect",):
         hrefs = [tag.get("href", "").strip() for tag in head.find_all("link", rel=lambda val: val and rel in val)]
         dupes = sorted({href for href in hrefs if href and hrefs.count(href) > 1})
@@ -204,6 +231,8 @@ def validate_head(soup: BeautifulSoup, raw: str, route: str, context: str, failu
         failures.append(f"{context}: duplicate stylesheet/preload URL(s): {', '.join(dupes[:5])}")
     if raw.count("GTM-TZTQSQBB") > 2:
         failures.append(f"{context}: duplicate GTM references")
+    if raw.count("mixpanel.init(") > 1:
+        failures.append(f"{context}: duplicate Mixpanel initialization")
     if re.search(r"<noscript\b[^>]*>[\s\S]*?<noscript\b", raw, re.I):
         failures.append(f"{context}: malformed nested noscript")
     if "&lt;&gt;" in raw or "&lt; &gt;" in raw:
@@ -230,6 +259,29 @@ def validate_sitewide_files(failures: list[str]) -> None:
         for slug in load_merge_slugs():
             if f"/{slug}/" in text:
                 failures.append(f"{name}: MERGE URL still appears in sitemap: /{slug}/")
+
+def validate_idempotency_artifact(failures: list[str]) -> None:
+    path = ROOT / "audits" / "build-idempotency.json"
+    if not path.is_file():
+        return
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        failures.append(f"{path.relative_to(ROOT)}: malformed idempotency artifact: {exc}")
+        return
+    required = ("build1Hash", "build2Hash", "differences")
+    missing = [key for key in required if key not in data]
+    if missing:
+        failures.append(f"{path.relative_to(ROOT)}: missing {', '.join(missing)}")
+        return
+    if not re.fullmatch(r"[0-9a-f]{64}", str(data["build1Hash"])):
+        failures.append(f"{path.relative_to(ROOT)}: invalid build1Hash")
+    if not re.fullmatch(r"[0-9a-f]{64}", str(data["build2Hash"])):
+        failures.append(f"{path.relative_to(ROOT)}: invalid build2Hash")
+    if data["build1Hash"] != data["build2Hash"]:
+        failures.append(f"{path.relative_to(ROOT)}: complete-build hash mismatch")
+    if data["differences"]:
+        failures.append(f"{path.relative_to(ROOT)}: complete-build differences are not empty")
 
 def published_routes() -> set[str]:
     path = ROOT / "sitemap.xml"
@@ -340,6 +392,7 @@ def main() -> int:
             if missing:
                 failures.append(f"{path.relative_to(ROOT)}: organization/location schema missing roster: {', '.join(missing)}")
     validate_sitewide_files(failures)
+    validate_idempotency_artifact(failures)
     if failures:
         print("SEO QA failed:")
         for f in failures[:250]:

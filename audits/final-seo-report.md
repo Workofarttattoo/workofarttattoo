@@ -55,6 +55,8 @@ Continued the existing `seo/master-authority-rebuild` branch, fetched origin, me
 
 ## Duplicate Code Removed
 
+- Duplicate head items before: walk-in page had repeated Material Symbols stylesheet resources reported by remote review.
+- Duplicate head items after: 0 duplicate stylesheet/preload/preconnect URLs in QA; `walk-in-tattoos-las-vegas/code.html` now has 1 Material Symbols stylesheet path.
 - Desktop navigation CSS injection is idempotent.
 - Material Symbols head injection is normalized to one active preload/onload stylesheet request.
 - Page spotlight Instagram reel selection is deterministic per slug instead of Python hash-randomized.
@@ -73,6 +75,8 @@ Continued the existing `seo/master-authority-rebuild` branch, fetched origin, me
 Passed:
 
 ```bash
+python3 prepare_seo.py
+python3 prepare_site_deploy.py
 python3 tools/seo_audit.py
 python3 tools/seo_qa.py
 ```
@@ -82,23 +86,33 @@ Results:
 - `Inventoried 276 pages`
 - `Recommended actions Counter({'KEEP': 171, 'MERGE': 55, 'IMPROVE': 50})`
 - `SEO QA passed for 170 indexable HTML pages.`
+- QA failures: 0
+- Unverified schema facts after: 0
+- Social entity conflicts after: 0
+- Metadata mismatches after: 0
 
 ## Build Result
 
 Passed:
 
 ```bash
+python3 prepare_seo.py
+python3 prepare_site_deploy.py
+python3 prepare_seo.py
 python3 prepare_site_deploy.py
 ```
 
 Result:
 
-- `[verify] OK homepage (129,768 bytes)`
-- Idempotency: `changed html files between idem builds: 0`
+- `[verify] OK homepage (129,746 bytes)`
+- Build 1 hash: `8a23caf402b9f6e1937efcc89c3d7199cea3f569c3088e7179d542c873a1a8ab`
+- Build 2 hash: `8a23caf402b9f6e1937efcc89c3d7199cea3f569c3088e7179d542c873a1a8ab`
+- Build differences: 0
+- Idempotency artifact: `audits/build-idempotency.json`
 
 ## Production Deploy Status
 
-Not deployed to production from this pass. Main and `gh-pages` were not merged or force-pushed.
+Ready for deployment after this commit is pushed to `origin/seo/master-authority-rebuild`. Not deployed to production from this pass. Main and `gh-pages` were not merged or force-pushed.
 
 Exact legacy FTP deployment command identified by the build:
 
@@ -123,8 +137,24 @@ Live production spot check:
 - This confirms production is still older than the corrected local branch output.
 - Live production must be redeployed from this rebuilt source output before these generated fixes are visible publicly.
 
+## Final Pre-Deployment Gate
+
+- Before URL count: 171 deployable sitemap URLs.
+- After URL count / indexable URLs: 170 deployable sitemap URLs.
+- Fact conflicts before: malformed fine-line FAQ, stale artist count, stale review count, duplicate Suite 3, social ownership conflict, unverified schema facts.
+- Fact conflicts after: 0 QA-detected conflicts.
+- Duplicate head resources before: duplicate Material Symbols resources on the walk-in page.
+- Duplicate head resources after: 0 QA-detected duplicate head resources.
+- Unverified schema facts before: hours, Katelyn credential/material claims, and mixed social identity were present in generated structured data.
+- Unverified schema facts after: 0 QA-detected unverified schema claims.
+- Social conflicts before: LocalBusiness `sameAs` mixed studio and artist handles and duplicated `@workofarttattoo`.
+- Social conflicts after: 0 QA-detected ownership conflicts.
+- Metadata mismatches before: social metadata did not consistently match canonical title/description/URL output.
+- Metadata mismatches after: 0 QA-detected mismatches.
+- Explicit result: READY FOR DEPLOYMENT once the remote branch head matches the committed local head.
+
 ## Remaining Human-Verification Items
 
 See `content-needed/OWNER-VERIFY-NOW.md`.
 
-Highest-risk items: current hours, minor policies, parking, landmark travel estimates, jewelry material claims, artist awards/credentials, case-study timelines, and the meaning of any "2012" reference.
+Highest-risk items: current hours, minor policies, parking, landmark travel estimates, jewelry material claims, artist awards/credentials, case-study timelines, and the meaning of any "2012" reference. Visible educational copy may still mention jewelry material practices; these are not published as verified structured-data claims until the owner verification item is closed.

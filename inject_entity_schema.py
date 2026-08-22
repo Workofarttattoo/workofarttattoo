@@ -10,6 +10,7 @@ from woa_entity_schema import (
     artist_profile_graph,
     artists_index_graph,
     extract_faqs_from_html,
+    geo_source_graph,
     guide_article_graph,
     schema_script,
     sitewide_graph,
@@ -51,6 +52,8 @@ def pick_graph(path: Path, html: str) -> dict:
     slug = rel.parts[0] if len(rel.parts) > 1 else ""
     if slug == "official_location_hours_contact":
         return sitewide_graph()
+    if slug == "geo_hub_ai_source_of_truth_work_of_art":
+        return geo_source_graph()
     if rel.parts[0] == "knowledge" and len(rel.parts) >= 3:
         slug = rel.parts[1]
     if slug in GUIDE_META:
@@ -75,7 +78,6 @@ def pick_graph(path: Path, html: str) -> dict:
 SKIP_SCHEMA_REPLACE = frozenset(
     {
         "cover_up_tattoos_las_vegas_master_authority_guide",
-        "geo_hub_ai_source_of_truth_work_of_art",
     }
 )
 

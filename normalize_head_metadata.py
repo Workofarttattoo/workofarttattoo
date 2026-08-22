@@ -115,7 +115,7 @@ def repair_meta(head, soup: BeautifulSoup, *, attr: str, key: str, content: str)
     if not tag:
         return upsert_meta(head, soup, attr=attr, key=key, content=content)
     current = (tag.get("content") or "").strip()
-    if content and (not current or APPOINTMENT_SOCIAL_RE.search(current)):
+    if content and current != content:
         tag["content"] = content
         return True
     return False

@@ -196,11 +196,11 @@ def main() -> int:
     audits.mkdir(exist_ok=True)
     inv_fields = ["url","source_file","http_intent","page_type","title","meta_description","h1","canonical","robots","indexable","author","reviewer","primary_topic","primary_intent","local_intent","original_photos","original_video","original_case_study","firsthand_experience","duplicate_cluster","internal_links_in","internal_links_out","recommended_action","notes"]
     with (audits / "url-inventory.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=inv_fields)
+        w = csv.DictWriter(f, fieldnames=inv_fields, lineterminator="\n")
         w.writeheader(); w.writerows(pages)
 
     with (audits / "internal-link-map.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["source","target","anchor","relationship","priority"])
+        w = csv.DictWriter(f, fieldnames=["source","target","anchor","relationship","priority"], lineterminator="\n")
         w.writeheader()
         for source, targets in sorted(links_out.items()):
             for target, anchor in targets:
@@ -209,7 +209,7 @@ def main() -> int:
                 w.writerow({"source": SITE + source, "target": target, "anchor": anchor, "relationship": relationship, "priority": priority})
 
     with (audits / "broken-links.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["source","target","type","status","notes"])
+        w = csv.DictWriter(f, fieldnames=["source","target","type","status","notes"], lineterminator="\n")
         w.writeheader()
         for source, targets in sorted(links_out.items()):
             for target, anchor in targets:
@@ -244,7 +244,7 @@ def main() -> int:
                 f.write("No repository hits found.\n\n")
 
     with (audits / "content-consolidation.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["current_url","topic","overlap_url","unique_value","original_evidence","decision","target_url","redirect_required","reason"])
+        w = csv.DictWriter(f, fieldnames=["current_url","topic","overlap_url","unique_value","original_evidence","decision","target_url","redirect_required","reason"], lineterminator="\n")
         w.writeheader()
         for row in pages:
             if row["page_type"] == "healing-database":
@@ -253,14 +253,14 @@ def main() -> int:
                 w.writerow({"current_url": row["url"], "topic": "local/landmark page", "overlap_url": SITE + "/visit/", "unique_value": "needs route/parking/visitor logistics", "original_evidence": row["original_photos"], "decision": "MERGE", "target_url": SITE + "/visit/", "redirect_required": "yes-after-map", "reason": "Avoid near-identical geo pages without unique visitor utility."})
 
     with (audits / "url-migration-plan.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["old_url","new_url","reason","existing_internal_links","redirect","canonical_change","sitemap_change"])
+        w = csv.DictWriter(f, fieldnames=["old_url","new_url","reason","existing_internal_links","redirect","canonical_change","sitemap_change"], lineterminator="\n")
         w.writeheader()
         for row in pages:
             if row["page_type"] == "healing-database" and row["recommended_action"] == "MERGE":
                 w.writerow({"old_url": row["url"], "new_url": SITE + "/las-vegas-tattoo-healing-guide/", "reason": "Consolidate thin healing variants after content merge", "existing_internal_links": row["internal_links_in"], "redirect": "301 required before removing old page", "canonical_change": "pending", "sitemap_change": "pending"})
 
     with (audits / "content-gap-opportunities.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["topic","user_intent","current_best_page","coverage_score","commercial_value","expert_available","original_evidence_available","recommended_action","priority"])
+        w = csv.DictWriter(f, fieldnames=["topic","user_intent","current_best_page","coverage_score","commercial_value","expert_available","original_evidence_available","recommended_action","priority"], lineterminator="\n")
         w.writeheader()
         topics = [
             ("Tattoo pain", "Understand pain by placement and plan appointment", "/tattoo_pain_chart_placement_sensitivity_guide/", 55, "high", "Joshua Cole", "partial", "Improve existing page with real studio observations and sourced health boundaries", "P1"),

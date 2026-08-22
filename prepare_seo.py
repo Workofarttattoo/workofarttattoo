@@ -52,6 +52,9 @@ PIPELINE: list[str] = [
     "fix_marketing_superlatives.py",
     "fix_social_links.py",
     "fix_studio_nap.py",
+    "fix_yoast_seo_meta.py",
+    "inject_entity_schema.py",
+    "normalize_head_metadata.py",
 ]
 
 

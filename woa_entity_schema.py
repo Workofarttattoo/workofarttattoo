@@ -41,7 +41,9 @@ FAQ_DETAILS_RE = re.compile(
 )
 STRIP_TAGS_RE = re.compile(r"<[^>]+>")
 UNVERIFIED_SCHEMA_FACT_RE = re.compile(
-    r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|APP piercing standards",
+    r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
+    r"APP[-\s]aligned|APP piercing standards|Master Body Piercer|master piercer|"
+    r"medical-grade piercing|medical-grade hygiene|hospital-grade",
     re.I,
 )
 
@@ -285,12 +287,19 @@ def verified_schema_faqs(faqs: list[tuple[str, str]]) -> list[tuple[str, str]]:
 
 
 def sanitize_schema_text(text: str) -> str:
+    text = re.sub(r"\bMaster Body Piercer\b", "Body Piercer", text, flags=re.I)
+    text = re.sub(r"\bmaster piercer\b", "piercer", text, flags=re.I)
     text = re.sub(r"\bimplant-grade\s+titanium\b", "piercing jewelry", text, flags=re.I)
     text = re.sub(r"\bimplant-grade\s+jewelry\b", "piercing jewelry", text, flags=re.I)
+    text = re.sub(r"\bimplant-grade\s+starter\s+jewelry\b", "starter jewelry", text, flags=re.I)
     text = re.sub(r"\bimplant\s+grade\s+titanium\b", "piercing jewelry", text, flags=re.I)
     text = re.sub(r"\b316L\s+surgical\s+steel\b", "piercing jewelry", text, flags=re.I)
     text = re.sub(r"\bsurgical\s+steel\b", "piercing jewelry", text, flags=re.I)
+    text = re.sub(r"\bAPP[-\s]aligned\s+", "", text, flags=re.I)
     text = re.sub(r"\bAPP\s+piercing\s+standards\b", "piercing standards", text, flags=re.I)
+    text = re.sub(r"\bmedical-grade\s+piercing\b", "piercing", text, flags=re.I)
+    text = re.sub(r"\bmedical-grade\s+hygiene\b", "studio hygiene", text, flags=re.I)
+    text = re.sub(r"\bhospital-grade\b", "studio", text, flags=re.I)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
 
@@ -355,10 +364,10 @@ def person_katelyn() -> dict:
         "name": "Katelyn Cole",
         "url": KATELYN_PAGE,
         "image": KATELYN_IMAGE,
-        "jobTitle": "Master Body Piercer",
-        "description": (
-            "Katelyn Cole is Work of Art's master piercer in Las Vegas — ear curation, "
-            "anatomy-first placement planning, jewelry fit, and sterile piercing technique."
+        "jobTitle": "Body Piercer",
+        "description": sanitize_schema_text(
+            "Katelyn Cole is Work of Art's piercer in Las Vegas — ear curation, "
+            "anatomy-first placement planning, jewelry fit, and piercing technique."
         ),
         "knowsAbout": list(KATELYN_KNOWS_ABOUT),
         "sameAs": [HREF_INSTAGRAM_KATELYN],
@@ -451,7 +460,7 @@ def artist_profile_graph(artist: str, *, root: Path | None = None) -> dict:
     elif artist == "katelyn":
         person = person_katelyn()
         page_url = KATELYN_PAGE
-        page_name = "Katelyn Cole — Master Piercer Las Vegas"
+        page_name = "Katelyn Cole — Piercer Las Vegas"
     else:
         person = person_teralyn()
         page_url = TERALYN_PAGE
@@ -569,6 +578,58 @@ def artists_index_graph() -> dict:
                         },
                     ],
                 },
+            },
+        ],
+    }
+
+
+def geo_source_graph() -> dict:
+    page_url = f"{SITE}/geo_hub_ai_source_of_truth_work_of_art/"
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            website_node(),
+            local_business_node(),
+            person_joshua(),
+            person_katelyn(),
+            person_teralyn(),
+            {
+                "@type": "WebPage",
+                "@id": f"{page_url}#webpage",
+                "url": page_url,
+                "name": "GEO Hub & AI Source of Truth - Work of Art Tattoo & Piercing",
+                "description": sanitize_schema_text(
+                    "Official generative engine optimization source for verified studio identity, "
+                    "NAP, current artist roster, and canonical service guides."
+                ),
+                "isPartOf": {"@id": ID_WEBSITE},
+                "about": {"@id": ID_BUSINESS},
+                "alternateUrl": [
+                    f"{page_url}?source=openai",
+                    f"{page_url}?source_openai=1",
+                    f"{page_url}?source=anthropic",
+                    f"{page_url}?source=perplexity",
+                    f"{page_url}?source=google",
+                ],
+                "isBasedOn": f"{SITE}/llms.txt",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{page_url}#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": f"{SITE}/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "AI Source",
+                        "item": page_url,
+                    },
+                ],
             },
         ],
     }
