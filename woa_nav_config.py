@@ -97,11 +97,16 @@ HOME_META_DESCRIPTION = (
     f"Joshua, Katelyn & Teralyn in-studio. Questions encouraged. {STUDIO_PHONE_PARENS}."
 )
 
-STUDIO_HOURS_SUMMARY = "Daily 12 PM - 12 AM"
+_HOURS = _BUSINESS.get("hours", {})
+STUDIO_HOURS_SUMMARY = _HOURS.get("summary", "Daily 12 PM - 12 AM")
+_HOUR_ROWS = _HOURS.get("displayRows") or [{"label": "DAILY", "value": "12:00 PM - 12:00 AM"}]
 STUDIO_HOURS_HTML_GRID = (
     '<div class="grid grid-cols-2 gap-4">'
-    '<p class="text-on-surface-variant">DAILY</p><p>12:00 PM - 12:00 AM</p>'
-    "</div>"
+    + "".join(
+        f'<p class="text-on-surface-variant">{row.get("label", "")}</p><p>{row.get("value", "")}</p>'
+        for row in _HOUR_ROWS
+    )
+    + "</div>"
 )
 
 # Primary links (sitewide; use root-relative anchors that work across pages)
@@ -178,14 +183,24 @@ NAV_PIERCING_GUIDE_SLUGS: tuple[str, ...] = (
 NAV_LOCATION_SLUGS: tuple[str, ...] = (
     "official_location_hours_contact",
     "tattoo_shop_near_the_strip_nap_corrected",
+    "tattoo_shop_serving_summerlin_las_vegas",
+    "tattoo_shop_serving_downtown_las_vegas",
+    "tattoo_piercing_shop_near_unlv",
     "tattoo_shop_near_mgm_grand_las_vegas",
+    "tattoo_shop_near_mandalay_bay_las_vegas",
+    "tattoo_shop_near_t_mobile_arena_las_vegas",
     "tattoo_shop_near_allegiant_stadium_las_vegas",
+    "tattoo_shop_near_las_vegas_convention_center",
     "tattoo_shop_near_las_vegas_airport",
     "tattoo_shop_near_the_sphere_las_vegas",
+    "tattoo_shop_near_fashion_show_las_vegas",
+    "tattoo_shop_near_fremont_street_las_vegas",
     "tattoo_shop_paradise_nevada",
     "tattoo_shop_spring_valley_las_vegas",
     "tattoo_shop_enterprise_las_vegas",
     "tattoo_shop_green_valley_henderson",
+    "tattoo_shop_serving_henderson_nevada",
+    "tattoo_shop_serving_north_las_vegas",
     "geo_hub_ai_source_of_truth_work_of_art",
 )
 
@@ -455,6 +470,30 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Near MGM Grand",
         "Directions from MGM Grand to Work of Art on E. Tropicana.",
     ),
+    "tattoo_shop_serving_summerlin_las_vegas": (
+        "Serving Summerlin",
+        "Cross-valley planning for Summerlin collectors choosing artist fit over the closest chair.",
+    ),
+    "tattoo_shop_serving_downtown_las_vegas": (
+        "Serving Downtown Las Vegas",
+        "Downtown, Arts District, and hospitality-worker planning for trips to the Tropicana studio.",
+    ),
+    "tattoo_piercing_shop_near_unlv": (
+        "Near UNLV",
+        "Tattoo and piercing planning near UNLV, Thomas & Mack, Maryland Parkway, and Tropicana.",
+    ),
+    "tattoo_shop_near_mandalay_bay_las_vegas": (
+        "Near Mandalay Bay",
+        "South Strip, airport, pool, and stadium-adjacent tattoo planning from Mandalay Bay.",
+    ),
+    "tattoo_shop_near_t_mobile_arena_las_vegas": (
+        "Near T-Mobile Arena",
+        "Event-night tattoo and piercing planning around Park MGM, New York-New York, and T-Mobile Arena.",
+    ),
+    "tattoo_shop_near_las_vegas_convention_center": (
+        "Near Convention Center",
+        "Convention-week scheduling advice for LVCC attendees, exhibitors, and business travelers.",
+    ),
     "tattoo_shop_near_allegiant_stadium_las_vegas": (
         "Near Allegiant Stadium",
         "Directions from Allegiant Stadium to Work of Art on E. Tropicana.",
@@ -466,6 +505,14 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     "tattoo_shop_near_the_sphere_las_vegas": (
         "Near the Sphere",
         "Directions from the Sphere to Work of Art on E. Tropicana.",
+    ),
+    "tattoo_shop_near_fashion_show_las_vegas": (
+        "Near Fashion Show",
+        "North Strip and shopping-day planning for Fashion Show Las Vegas visitors.",
+    ),
+    "tattoo_shop_near_fremont_street_las_vegas": (
+        "Near Fremont Street",
+        "Fremont Street tourist planning with sober timing, rideshare notes, and aftercare advice.",
     ),
     "tattoo_shop_paradise_nevada": (
         "Paradise, NV",
@@ -480,8 +527,16 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Local route and studio details for Enterprise visitors.",
     ),
     "tattoo_shop_green_valley_henderson": (
-        "Green Valley / Henderson",
-        "Local route and studio details for Green Valley and Henderson visitors.",
+        "Green Valley, Henderson",
+        "Local route and studio details for Green Valley clients choosing Work of Art.",
+    ),
+    "tattoo_shop_serving_henderson_nevada": (
+        "Serving Henderson",
+        "Broader Henderson planning for custom tattoos, cover-ups, piercing, and healed-work proof.",
+    ),
+    "tattoo_shop_serving_north_las_vegas": (
+        "Serving North Las Vegas",
+        "Cross-valley planning for North Las Vegas clients choosing expertise over proximity.",
     ),
     "realism-tattoos-las-vegas": (
         "Realism Tattoos Las Vegas",

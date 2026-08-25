@@ -351,7 +351,7 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
     "tattoo_shop_near_the_strip_nap_corrected": [
         (
             "Looking for a tattoo or piercing studio from the Strip? Work of Art at 2375 E. Tropicana is a short drive from Caesars, Bellagio, and airport arrivals, with one address for custom tattoos and piercing.",
-            "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Ave, Suite 3 is a short drive from Caesars, Bellagio, and McCarran — licensed tattoo and piercing under one roof.",
+            "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Ave, Suite 3 is a straightforward Tropicana-area trip from Caesars, Bellagio, and Harry Reid Airport — licensed tattoo and piercing under one roof.",
         ),
     ],
 }

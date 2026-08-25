@@ -49,7 +49,7 @@ FAQS: list[tuple[str, str]] = [
     ),
     (
         "What are your hours?",
-        f"{STUDIO_HOURS_SUMMARY}. We are open seven nights a week.",
+        f"Current published hours: {STUDIO_HOURS_SUMMARY}. Holiday hours may shift, so call or text before you drive over.",
     ),
     (
         "Do you take walk-ins?",
@@ -115,7 +115,7 @@ def main_html() -> str:
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background border-b border-outline-variant/20">
 <div class="max-w-4xl mx-auto space-y-6">
 <h2 class="font-headline-md text-on-surface text-2xl">Map &amp; parking</h2>
-<p class="font-body-md text-on-surface-variant">We are on E. Tropicana east of the Strip — about five minutes from major resorts and McCarran. Suite 3 is inside the retail plaza at {html_lib.escape(STUDIO_STREET_ADDRESS)}.</p>
+<p class="font-body-md text-on-surface-variant">We are on E. Tropicana east of the Strip and near Harry Reid Airport. Suite 3 is inside the retail plaza at {html_lib.escape(STUDIO_STREET_ADDRESS)}.</p>
 <div class="aspect-video w-full border border-outline-variant/40 overflow-hidden bg-surface-container">
 <iframe allowfullscreen="" height="100%" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="{MAP_EMBED}" style="border:0;" title="Work of Art Tattoo &amp; Piercing on Google Maps" width="100%"></iframe>
 </div>

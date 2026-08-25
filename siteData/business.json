@@ -12,6 +12,17 @@
   "phoneDisplay": "725-224-1240",
   "phoneE164": "+17252241240",
   "bookingEmail": "thewhiteknight702@gmail.com",
+  "hours": {
+    "summary": "Daily 12 PM - 12 AM",
+    "displayRows": [
+      {
+        "label": "DAILY",
+        "value": "12:00 PM - 12:00 AM"
+      }
+    ],
+    "verificationStatus": "owner-verification-needed",
+    "sourceNote": "Current visible sitewide hours centralized here from existing shared config; owner should verify before changing schema or external directory hours."
+  },
   "residentArtistCount": 3,
   "googleRating": 5.0,
   "googleReviewCount": 323,
