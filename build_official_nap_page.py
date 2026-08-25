@@ -12,8 +12,6 @@ from woa_nav_config import (
     STUDIO_ADDRESS_HTML,
     STUDIO_ADDRESS_SINGLE_LINE,
     STUDIO_BOOKING_EMAIL,
-    STUDIO_HOURS_HTML_GRID,
-    STUDIO_HOURS_SUMMARY,
     STUDIO_LEGAL_NAME,
     STUDIO_PHONE_DISPLAY,
     STUDIO_PHONE_PARENS,
@@ -35,7 +33,7 @@ CANON = f"{SITE}/{SLUG}/"
 TITLE = "Work of Art Tattoo & Piercing — Official Location, Hours & Contact"
 DESCRIPTION = (
     "Official NAP for Work of Art Tattoo & Piercing — 2375 E. Tropicana Ave, Suite 3, Las Vegas. "
-    f"Phone {STUDIO_PHONE_PARENS}. Hours, parking, walk-ins, and piercing age policy."
+    f"Phone {STUDIO_PHONE_PARENS}. Address, parking, walk-ins, and booking contact."
 )
 
 MAP_QUERY = "2375+E+Tropicana+Suite+3+Las+Vegas+NV+89119"
@@ -49,7 +47,7 @@ FAQS: list[tuple[str, str]] = [
     ),
     (
         "What are your hours?",
-        f"Current published hours: {STUDIO_HOURS_SUMMARY}. Holiday hours may shift, so call or text before you drive over.",
+        "Hours should be confirmed before you drive over, especially around holidays, shows, conventions, and event traffic. Call or text the studio for the current schedule.",
     ),
     (
         "Do you take walk-ins?",
@@ -104,10 +102,9 @@ def main_html() -> str:
 <p class="font-body-md text-on-surface-variant text-sm">Copy for citations: {html_lib.escape(STUDIO_LEGAL_NAME)} · {html_lib.escape(STUDIO_ADDRESS_SINGLE_LINE)} · {html_lib.escape(STUDIO_PHONE_DISPLAY)} · {html_lib.escape(STUDIO_BOOKING_EMAIL)}</p>
 </div>
 <div class="space-y-4">
-<h2 class="font-headline-md text-on-surface text-2xl">Hours</h2>
-<p class="font-body-md text-on-surface-variant">{html_lib.escape(STUDIO_HOURS_SUMMARY)}</p>
-{STUDIO_HOURS_HTML_GRID}
-<p class="font-body-md text-on-surface-variant text-sm">Holiday hours may shift — call or text before you drive over.</p>
+<h2 class="font-headline-md text-on-surface text-2xl">Current schedule</h2>
+<p class="font-body-md text-on-surface-variant">Call or text the studio before you drive over, especially around holidays, shows, conventions, or event traffic.</p>
+<p class="font-body-md text-on-surface-variant text-sm">Exact public hours remain an owner-verification item before they should be used in structured data or directories.</p>
 </div>
 </div>
 </section>

@@ -7,8 +7,8 @@ import html
 from pathlib import Path
 
 from woa_entity_schema import guide_article_graph, schema_script
-from woa_geo_pages import GEO_PAGES, GeoPage
-from woa_nav_config import STUDIO_ADDRESS_SINGLE_LINE, STUDIO_HOURS_SUMMARY, STUDIO_PHONE_DISPLAY
+from woa_geo_pages import GeoPage, indexable_geo_pages
+from woa_nav_config import STUDIO_ADDRESS_SINGLE_LINE, STUDIO_PHONE_DISPLAY
 
 ROOT = Path(__file__).resolve().parent
 SITE = "https://www.workofarttattoo.com"
@@ -46,6 +46,135 @@ PIERCING_PROOF = (
     ),
 )
 
+UNIQUE_SECTIONS: dict[str, tuple[tuple[str, tuple[str, ...]], ...]] = {
+    "tattoo_shop_near_mgm_grand_las_vegas": (
+        (
+            "MGM and south Strip planning",
+            (
+                "Book before drinking, club plans, or late show plans. A good Vegas tattoo decision needs a clear head and time for placement changes.",
+                "If your group is staying near MGM Grand, Park MGM, or New York-New York, nominate one sober ride plan before the appointment.",
+                "Small script, fine line, or flash may fit a short trip. Realism, cover-ups, and sleeves usually need a consult-first plan.",
+            ),
+        ),
+        (
+            "Pool, sun, and show timing",
+            (
+                "Fresh tattoos and fresh piercings do not belong in hotel pools or hot tubs.",
+                "South Strip days often involve long walks and sun. Ask about placement if clothing, bags, or show outfits will rub the fresh area.",
+                "If the tattoo is tied to a trip memory, it still deserves the same planning as a local appointment.",
+            ),
+        ),
+    ),
+    "tattoo_shop_near_allegiant_stadium_las_vegas": (
+        (
+            "Stadium event logistics",
+            (
+                "Game days and concert nights can make short map distances feel unpredictable. Keep the tattoo appointment separate from stadium entry or exit timing.",
+                "Plan clothing around the placement. Jerseys, waistbands, shoulder straps, and long walks can irritate fresh work.",
+                "If you want a Raiders, concert, or trip tattoo, bring references before the event starts rather than after alcohol.",
+            ),
+        ),
+        (
+            "South Strip crossover",
+            (
+                "Mandalay Bay, Luxor, Excalibur, and Allegiant visitors often have similar route and aftercare concerns.",
+                "A quick idea can still be custom-drawn when the scope is realistic. Larger pieces should be scheduled as a consult and tattoo plan.",
+                "Piercing clients should consider headphones, helmets, hats, and sleep position before choosing placement on an event weekend.",
+            ),
+        ),
+    ),
+    "tattoo_shop_near_las_vegas_airport": (
+        (
+            "Airport-day decisions",
+            (
+                "Do not book tattoo or piercing work so close to a flight that cleaning, bandaging, or comfort gets rushed.",
+                "Bring flight timing, hotel timing, and rental-car timing into the booking conversation.",
+                "If you are flying after a session, ask about clothing, luggage straps, airplane dryness, and when to clean the area.",
+            ),
+        ),
+        (
+            "Visitor aftercare checklist",
+            (
+                "Pack loose clothing for the tattoo or piercing placement.",
+                "Avoid pool, hot tub, and heavy sun plans after fresh work.",
+                "Use the official appointment page for current availability instead of assuming walk-in space during travel days.",
+            ),
+        ),
+    ),
+    "tattoo_shop_near_the_sphere_las_vegas": (
+        (
+            "Sphere and north Strip timing",
+            (
+                "The Sphere, Venetian, Wynn, and convention corridors create event traffic waves. Book the studio visit outside the tightest show window.",
+                "A daytime consult before an evening show is usually calmer than trying to add a tattoo after doors close.",
+                "Fine line, script, and small detailed pieces can fit a trip when the idea is already focused.",
+            ),
+        ),
+        (
+            "After-show reality check",
+            (
+                "We do not tattoo or pierce intoxicated clients.",
+                "If a show inspired the design, save the references and book the next clear, unrushed opening.",
+                "Fresh work needs clean aftercare, not a late-night crowd, hotel pool, or sun-heavy next day.",
+            ),
+        ),
+    ),
+    "tattoo_shop_paradise_nevada": (
+        (
+            "Why Paradise matters",
+            (
+                "Paradise is the actual locality for many Strip-adjacent addresses, including Work of Art's E. Tropicana studio address.",
+                "This page exists to clarify the real studio location, not to claim a second storefront.",
+                "Use it when maps, local search, or rideshare apps describe the area differently from the City of Las Vegas.",
+            ),
+        ),
+        (
+            "Local client use case",
+            (
+                "Paradise clients often need follow-up access for multi-session tattoos, healed checks, piercing questions, and jewelry-fit conversations.",
+                "The studio roster is Joshua Cole, Katelyn Cole, and Teralyn.",
+                "Visitors staying nearby should still plan around sobriety, sun, pools, and travel timing.",
+            ),
+        ),
+    ),
+    "tattoo_shop_spring_valley_las_vegas": (
+        (
+            "West-valley appointment planning",
+            (
+                "Spring Valley clients often reach us by Tropicana, Flamingo, Decatur, Jones, or I-215 depending on where they start.",
+                "For sleeves and cover-ups, the value is artist continuity across sessions, not shaving a few minutes off the first drive.",
+                "Bring healed photos, old tattoo photos, and reference images to make the consult worth the trip.",
+            ),
+        ),
+        (
+            "What belongs here",
+            (
+                "Joshua Cole fits realism, black and grey, blackwork, cover-ups, and color realistic imagery.",
+                "Teralyn fits fine line floral work, script, detailed smaller tattoos, flash, and custom drawings by commission.",
+                "Katelyn Cole handles piercing and ear curation when placement needs a longer plan.",
+            ),
+        ),
+    ),
+    "tattoo_shop_serving_henderson_nevada": (
+        (
+            "Henderson-to-Tropicana fit",
+            (
+                "This page stays indexed because Henderson clients often plan larger tattoos around artist fit and repeat sessions.",
+                "Green Valley is consolidated here so Henderson searchers get one stronger page instead of thin neighborhood duplicates.",
+                "Use the consult to discuss project sequence, not only a single appointment date.",
+            ),
+        ),
+        (
+            "When the drive is worth it",
+            (
+                "Large realism, sleeves, portraits, cover-ups, and detailed custom work benefit from a consistent artist relationship.",
+                "Piercing clients should bring current jewelry and irritation questions rather than guessing from generic online advice.",
+                "If the project is impulsive or budget-sensitive, start with questions before committing to the drive.",
+            ),
+        ),
+    ),
+}
+
 
 def _list_section(title: str, items: tuple[str, ...]) -> str:
     rows = "".join(
@@ -56,6 +185,13 @@ def _list_section(title: str, items: tuple[str, ...]) -> str:
 <h2 class="font-headline-md text-on-surface text-xl">{html.escape(title)}</h2>
 <ul class="space-y-2 list-disc pl-5 marker:text-secondary">{rows}</ul>
 </section>"""
+
+
+def _unique_sections(page: GeoPage) -> str:
+    sections = []
+    for title, items in UNIQUE_SECTIONS.get(page.slug, ()):
+        sections.append(_list_section(title, items))
+    return "\n".join(sections)
 
 
 def _proof_section() -> str:
@@ -128,6 +264,7 @@ def page_html(page: GeoPage) -> str:
 {_list_section("Directions from your area", page.directions)}
 {_list_section("Parking", page.parking)}
 {_list_section("Why collectors choose Work of Art", page.why_choose)}
+{_unique_sections(page)}
 {_proof_section()}
 {_piercing_planning_section(page)}
 <section class="space-y-3">
@@ -137,7 +274,7 @@ def page_html(page: GeoPage) -> str:
 <div class="border border-outline-variant/30 p-6 bg-surface-container-low space-y-3">
 <p class="font-label-caps text-secondary uppercase tracking-widest text-sm">Studio NAP</p>
 <p class="font-body-md text-on-surface">{html.escape(STUDIO_ADDRESS_SINGLE_LINE)}</p>
-<p class="font-body-md text-on-surface-variant">{html.escape(STUDIO_HOURS_SUMMARY)}</p>
+<p class="font-body-md text-on-surface-variant">Check the official location page before planning around shows, flights, work shifts, or event traffic.</p>
 <p class="font-body-md"><a class="text-secondary underline hover:no-underline" href="tel:+17252241240">{STUDIO_PHONE_DISPLAY}</a> · <a class="text-secondary underline hover:no-underline" href="/appointments/">Book appointment</a></p>
 </div>
 <section class="space-y-3">
@@ -153,12 +290,13 @@ def page_html(page: GeoPage) -> str:
 
 
 def main() -> int:
-    for page in GEO_PAGES:
+    pages = indexable_geo_pages()
+    for page in pages:
         out_dir = ROOT / page.slug
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "code.html").write_text(page_html(page), encoding="utf-8")
         print(f"[ok] {page.slug}/")
-    print(f"Done: {len(GEO_PAGES)} geo landing page(s)")
+    print(f"Done: {len(pages)} indexable geo landing page(s)")
     return 0
 
 

@@ -12,6 +12,12 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from woa_geo_pages import GEO_PAGE_ACTIONS, GEO_PAGE_REDIRECTS
+from woa_nav_config import STUDIO_STREET_ADDRESS
+from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
+
 HTML_FILES = sorted(p for p in ROOT.rglob("code.html") if ".git" not in p.parts)
 INTERNAL_HOSTS = {"workofarttattoo.com", "www.workofarttattoo.com"}
 DATA = json.loads((ROOT / "siteData" / "business.json").read_text(encoding="utf-8"))
@@ -107,6 +113,31 @@ OLD_COVERUP_IMAGE_RE = re.compile(
 )
 ELEVENLABS_RE = re.compile(
     r"elevenlabs|convai-widget|woa-convai-widget|<elevenlabs-convai\b|@elevenlabs/convai-widget-embed",
+    re.I,
+)
+GEO_EXTRA_SLUGS = {
+    "official_location_hours_contact",
+    "tattoo_shop_near_the_strip_nap_corrected",
+    "tattoo_shop_near_the_strip_geo_seo_optimized",
+    "vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know",
+    "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison",
+}
+GEO_SLUGS = set(GEO_PAGE_ACTIONS) | GEO_EXTRA_SLUGS
+MERGED_GEO_SLUGS = {
+    slug for slug, action in GEO_PAGE_ACTIONS.items() if action == "MERGE_301"
+} | set(GEO_PAGE_REDIRECTS)
+GEO_STALE_RE = re.compile(r"\bMcCarran\b", re.I)
+GEO_EXACT_TIME_RE = re.compile(
+    r"(?:about\s+|~)?\b\d{1,2}\s*[–-]\s*\d{1,2}\s*(?:min|mins|minutes)\b|"
+    r"(?:about\s+|~)\b\d{1,2}\s*(?:min|mins|minutes)\b|"
+    r"\b\d{1,2}\+\s*(?:min|mins|minutes)\b",
+    re.I,
+)
+GEO_PRICE_RE = re.compile(r"(?:taxi|cab|rideshare|uber|lyft|parking|fare)[^.<]{0,80}\$\d+", re.I)
+GEO_HOURS_RE = re.compile(r"Mon-Thu starts at 3 PM|Daily\s+12\s*pm\s*-\s*12\s*am|12:00\s*-\s*00:00", re.I)
+GEO_UNSUPPORTED_RE = re.compile(r"\b(?:best tattoo shop|best piercing shop|highest rated|#1|number one)\b", re.I)
+GEO_FAKE_BRANCH_RE = re.compile(
+    r"\b(?:inside|located in|located at)\s+(?:MGM|Mandalay|Luxor|Sphere|Fashion Show|Allegiant|T-Mobile|Fremont|UNLV)\b",
     re.I,
 )
 
@@ -355,6 +386,9 @@ def validate_sitewide_files(failures: list[str]) -> None:
         for slug in load_merge_slugs():
             if f"/{slug}/" in text:
                 failures.append(f"{name}: MERGE URL still appears in sitemap: /{slug}/")
+        for slug in sorted(MERGED_GEO_SLUGS | RETIRE_OVERLAP_SLUGS):
+            if f"/{slug}/" in text:
+                failures.append(f"{name}: retired geo/overlap URL still appears in sitemap: /{slug}/")
         if WEEKLY_PROMO_URL_RE.search(text):
             failures.append(f"{name}: weekly/date-based piercing specials URL found")
         for slug in PROMO_SLUGS:
@@ -486,6 +520,61 @@ def validate_search_console_targets(failures: list[str]) -> None:
             if required not in html:
                 failures.append(f"{rel}: missing cover-up evidence content {required}")
 
+def validate_geo_page(
+    soup: BeautifulSoup,
+    raw: str,
+    body_text: str,
+    slug: str,
+    context: str,
+    failures: list[str],
+    geo_intros: dict[str, list[str]],
+    geo_faqs: dict[str, list[str]],
+) -> None:
+    if slug not in GEO_SLUGS:
+        return
+    if GEO_STALE_RE.search(raw):
+        failures.append(f"{context}: stale McCarran airport reference")
+    for label, pattern in (
+        ("exact/unverified drive time", GEO_EXACT_TIME_RE),
+        ("exact/unverified fare or parking price", GEO_PRICE_RE),
+        ("contradictory/unverified hours", GEO_HOURS_RE),
+        ("unsupported geo superlative", GEO_UNSUPPORTED_RE),
+        ("fake branch/location wording", GEO_FAKE_BRANCH_RE),
+    ):
+        if pattern.search(body_text):
+            failures.append(f"{context}: {label}")
+    h1 = soup.find("h1")
+    intro_tag = h1.find_next("p") if h1 else soup.find("p")
+    intro = " ".join(intro_tag.get_text(" ").split()) if intro_tag else ""
+    if len(intro) > 80:
+        geo_intros.setdefault(intro.lower(), []).append(context)
+    faq_texts = [
+        " ".join(tag.get_text(" ").split()).lower()
+        for tag in soup.find_all(["details", "summary"])
+        if len(" ".join(tag.get_text(" ").split())) > 40
+    ]
+    if faq_texts:
+        fingerprint = hashlib.sha256("\n".join(faq_texts).encode("utf-8")).hexdigest()
+        geo_faqs.setdefault(fingerprint, []).append(context)
+    for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
+        raw_schema = script.string or script.get_text()
+        if not raw_schema.strip():
+            continue
+        try:
+            parsed = json.loads(raw_schema)
+        except Exception:
+            continue
+        for node in as_graph_nodes(parsed):
+            types = node_types(node)
+            if "LocalBusiness" not in types and "TattooParlor" not in types:
+                continue
+            serialized = json.dumps(node)
+            address = json.dumps(node.get("address", {}))
+            if STUDIO_STREET_ADDRESS not in address and STUDIO_STREET_ADDRESS not in serialized:
+                failures.append(f"{context}: geo LocalBusiness schema does not use canonical studio address")
+            if re.search(r"\b(MGM|Sphere|Allegiant|Mandalay|Fremont|UNLV|Henderson|Spring Valley|Summerlin)\b", address, re.I):
+                failures.append(f"{context}: geo LocalBusiness schema appears to publish a fake location")
+
 def published_routes() -> set[str]:
     path = ROOT / "sitemap.xml"
     if not path.is_file():
@@ -504,6 +593,8 @@ def main() -> int:
     failures = []
     validate_promotion_model(failures)
     titles = {}
+    geo_intros: dict[str, list[str]] = {}
+    geo_faqs: dict[str, list[str]] = {}
     retired_slugs = load_retired_slugs()
     published = published_routes()
     checked_pages = 0
@@ -530,6 +621,16 @@ def main() -> int:
         soup = BeautifulSoup(text, "html.parser")
         validate_head(soup, text, route, str(path.relative_to(ROOT)), failures)
         validate_piercing_page(soup, text, route, str(path.relative_to(ROOT)), failures)
+        validate_geo_page(
+            soup,
+            text,
+            body_text,
+            slug,
+            str(path.relative_to(ROOT)),
+            failures,
+            geo_intros,
+            geo_faqs,
+        )
         if "Google" in body_text and "review" in body_text.lower():
             visible_counts = {int(m.group(1).replace(",", "")) for m in re.finditer(r"\b(\d{2,4}(?:,\d{3})?)\s+(?:verified\s+)?(?:five-star\s+)?(?:Google\s+)?reviews?\b", body_text, re.I)}
             for count in visible_counts:
@@ -602,6 +703,12 @@ def main() -> int:
             missing = [name for name in ARTIST_NAMES if name not in combined_schema]
             if missing:
                 failures.append(f"{path.relative_to(ROOT)}: organization/location schema missing roster: {', '.join(missing)}")
+    for intro, contexts in geo_intros.items():
+        if len(contexts) > 1:
+            failures.append(f"geo pages: duplicate intro across {', '.join(contexts[:5])}")
+    for contexts in geo_faqs.values():
+        if len(contexts) > 2:
+            failures.append(f"geo pages: duplicate FAQ block across {', '.join(contexts[:5])}")
     validate_sitewide_files(failures)
     validate_idempotency_artifact(failures)
     validate_analytics_source(failures)

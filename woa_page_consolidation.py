@@ -5,6 +5,17 @@ from __future__ import annotations
 # Legacy slug -> canonical public path (301 on deploy)
 CONSOLIDATION_REDIRECTS: tuple[tuple[str, str], ...] = (
     ("tattoo_shop_near_the_strip_geo_seo_optimized", "/tattoo_shop_near_the_strip_nap_corrected/"),
+    ("tattoo_shop_serving_summerlin_las_vegas", "/tattoo_shop_spring_valley_las_vegas/"),
+    ("tattoo_shop_serving_downtown_las_vegas", "/tattoo_shop_near_the_strip_nap_corrected/"),
+    ("tattoo_piercing_shop_near_unlv", "/tattoo_shop_paradise_nevada/"),
+    ("tattoo_shop_enterprise_las_vegas", "/tattoo_shop_near_the_strip_nap_corrected/"),
+    ("tattoo_shop_green_valley_henderson", "/tattoo_shop_serving_henderson_nevada/"),
+    ("tattoo_shop_serving_north_las_vegas", "/tattoo_shop_near_the_strip_nap_corrected/"),
+    ("tattoo_shop_near_las_vegas_convention_center", "/tattoo_shop_near_the_sphere_las_vegas/"),
+    ("tattoo_shop_near_mandalay_bay_las_vegas", "/tattoo_shop_near_allegiant_stadium_las_vegas/"),
+    ("tattoo_shop_near_t_mobile_arena_las_vegas", "/tattoo_shop_near_mgm_grand_las_vegas/"),
+    ("tattoo_shop_near_fashion_show_las_vegas", "/tattoo_shop_near_the_sphere_las_vegas/"),
+    ("tattoo_shop_near_fremont_street_las_vegas", "/tattoo_shop_near_the_strip_nap_corrected/"),
     ("how_to_choose_a_tattoo_artist_master_selection_guide", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/"),
     ("walk_in_tattoos_las_vegas_nap_corrected", "/walk-in-tattoos-las-vegas/"),
     ("healing_database_black_grey_day_1_las_vegas", "/las-vegas-tattoo-healing-guide/"),

@@ -137,22 +137,21 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         title="Tattoo Shop Near MGM Grand Las Vegas",
         intro=(
             "Staying at MGM Grand or walking the south Strip? Work of Art is on E. Tropicana — "
-            "a short rideshare east of the resort, not a booth inside a casino mall."
+            "a practical rideshare east of the resort, not a booth inside a casino mall."
         ),
         directions=(
-            "From MGM Grand front desk: exit onto Tropicana Ave and head east ~1.5 miles. "
-            "We are on the north side of Tropicana at 2375 E. Tropicana Ave, Suite 3 — look for the Work of Art signage.",
+            "From MGM Grand, use the studio address in maps and route east on Tropicana Ave instead of searching for a generic Strip tattoo pin.",
             "Rideshare drop-off: use the studio address directly; do not use Strip valet addresses.",
-            "From Las Vegas Blvd: turn east on Tropicana; studio is past Maryland Pkwy on your right.",
+            "From Las Vegas Blvd: turn east on Tropicana and keep enough schedule room for resort traffic, stencil changes, and aftercare.",
         ),
         parking=(
-            "Private lot behind the studio — pull in and walk to the front door.",
-            "Avoid Strip hotel parking fees for a consult; our lot is free for clients during appointments.",
-            "If the lot is full (Friday night), street parking on side streets off Tropicana usually opens within a block.",
+            "Use the studio address for arrival instead of a resort garage or valet pin.",
+            "If you are coming from a hotel, ask the rideshare driver to take you to the studio address, not to a nearby casino entrance.",
+            "Check current traffic before leaving the Strip, especially on fight nights, concert nights, and big convention weeks.",
         ),
         why_choose=(
             "Strip walk-ins optimize turnover — we book consults and show healed portfolio photos before you commit.",
-            "Same address for Joshua Cole (tattoo & piercing) and Katelyn Cole (piercing) — one trip, not two shops.",
+            "Same address for Joshua Cole, Katelyn Cole, and Teralyn — one real studio, not a fake neighborhood branch page.",
             "Check the official hours page before planning around a show; evening traffic near Tropicana can change quickly.",
         ),
         landmarks=(
@@ -162,7 +161,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "Convention and show visitors often book a consult on night one and tattoo on a return trip — "
             "we plan session length so you are not rushed before a flight home."
         ),
-        drive_time="About 8–12 minutes from MGM Grand depending on Strip traffic",
+        drive_time="MGM Grand to E. Tropicana studio trip; timing changes with resort and event traffic",
         related_guides=(
             ("Walk-in vs appointment", "/walk_in_tattoos_las_vegas_authority_guide/"),
             ("Strip vs studio comparison", "/vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison/"),
@@ -177,12 +176,12 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "Work of Art on Tropicana is an easy cross-town stop before or after an event."
         ),
         directions=(
-            "From Allegiant Stadium: take I-15 south to Tropicana Ave eastbound (~15–20 min without major events).",
-            "Event nights: leave 45+ minutes before kickoff if you have a same-day piercing — swelling checks cannot be rushed.",
-            "From Mandalay Bay / Luxor corridor: east on Tropicana ~10 minutes to 2375 E. Tropicana Ave, Suite 3.",
+            "From Allegiant Stadium, Mandalay Bay, or Luxor, route toward Tropicana and use the studio address directly.",
+            "Event nights change traffic quickly. Schedule tattoo or piercing work when you are sober and not racing a kickoff, concert, or flight.",
+            "For stadium weekends, compare your hotel, rideshare pickup zone, and post-event plans before assuming the map route will stay easy.",
         ),
         parking=(
-            "Use our private lot — stadium event parking downtown runs $40–80; our consult parking is free.",
+            "Avoid treating stadium parking, resort garages, and tattoo appointment arrival as the same plan.",
             "Post-game rideshare pickup works cleanly from Tropicana; share the studio address, not the stadium lot.",
         ),
         why_choose=(
@@ -196,7 +195,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         audience_note=(
             "Sports weekend clients: we will not tattoo drunk — book sober consult windows and plan heal time before your flight."
         ),
-        drive_time="About 15–25 minutes from Allegiant Stadium (longer on event egress)",
+        drive_time="Allegiant Stadium corridor to E. Tropicana trip; timing changes sharply on event days",
         related_guides=(
             ("Desert tattoo aftercare", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
             ("Piercing aftercare desert", "/piercing_aftercare_desert_climate_las_vegas_expert_guide/"),
@@ -205,19 +204,19 @@ GEO_PAGES: tuple[GeoPage, ...] = (
     ),
     GeoPage(
         slug="tattoo_shop_near_las_vegas_airport",
-        title="Tattoo Shop Near Harry Reid International Airport (LAS)",
+        title="Tattoo Shop Near Harry Reid International Airport",
         intro=(
-            "Landing at Harry Reid International Airport (formerly McCarran International Airport)? Work of Art is a straightforward trip on Tropicana — "
+            "Landing at Harry Reid International Airport? Work of Art is a straightforward Tropicana-area studio to plan around arrival, rental car timing, or a return flight — "
             "closer than fighting Strip traffic for a serious consult."
         ),
         directions=(
-            "From LAS Terminal 1 or 3: rideshare or rental ~8–12 minutes east on Tropicana to 2375 E. Tropicana Ave, Suite 3.",
+            "From Harry Reid airport terminals, use the studio address in maps and compare the terminal route with your hotel or rental-car route.",
             "Do not detour through the Strip for navigation — Tropicana is the direct route from the airport.",
             "Returning rental: most agencies are airport-side; plan tattoo sessions before drop-off if you fly same day.",
         ),
         parking=(
-            "Private client lot — no airport long-term fees for a 30-minute consult.",
-            "If you are picking up family from LAS after a session, they can wait in the lot while you finish aftercare instructions.",
+            "If you are combining a consult with an airport pickup or drop-off, leave room for terminal delays and aftercare instructions.",
+            "Do not book a fresh tattoo or piercing so close to a flight that cleaning, covering, or comfort become rushed.",
         ),
         why_choose=(
             "Airport visitors often underestimate desert heal — we coach sun and pool rules before you fly to humid climates.",
@@ -230,7 +229,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         audience_note=(
             "Flying out within 48 hours of a fresh tattoo? Ask us — cabin pressure and dry airplane air change aftercare timing."
         ),
-        drive_time="About 8–12 minutes from LAS terminals",
+        drive_time="Harry Reid airport-to-Tropicana route; timing varies by terminal, rental-car plans, and traffic",
         related_guides=(
             ("Tattoo flying after session", "/knowledge/tattoo-flying-after-session/"),
             ("First tattoo tips", "/knowledge/first-tattoo-tips-before-you-book/"),
@@ -242,15 +241,15 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         title="Tattoo Shop Near The Sphere Las Vegas",
         intro=(
             "Seeing a show at The Sphere? The venue sits on Sands Ave — Work of Art on Tropicana is a quick "
-            "rideshare east, ideal for a daytime consult before an evening performance."
+            "rideshare-style trip east, ideal for a daytime consult before an evening performance."
         ),
         directions=(
-            "From The Sphere: east on Sands or via I-15 to Tropicana eastbound — ~10–15 minutes to the studio.",
-            "From Venetian / Wynn corridor: cut south to Tropicana, then east ~8 minutes.",
+            "From The Sphere, Venetian, Wynn, or the north Strip, use the studio address in maps and leave room for venue traffic.",
+            "North Strip routes change during show entry, show exit, and convention traffic; avoid squeezing tattoo planning into a narrow window.",
             "Use 2375 E. Tropicana Ave, Suite 3 in maps — not a generic 'tattoo near Sphere' pin on the Strip.",
         ),
         parking=(
-            "Sphere parking is expensive and time-limited — park at our lot for consults instead.",
+            "Keep venue parking and appointment arrival separate in your plan.",
             "Evening show plus tattoo planning works best when you check current studio hours and leave a buffer before doors.",
         ),
         why_choose=(
@@ -265,7 +264,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "Visiting for one weekend? We will tell you honestly if your timeline is too tight for a custom piece — "
             "small fine line or a piercing consult often fits; a full sleeve does not."
         ),
-        drive_time="About 10–15 minutes from The Sphere",
+        drive_time="Sphere and north Strip to E. Tropicana trip; timing depends on event and resort traffic",
         related_guides=(
             ("Fine line tattoos", "/fine_line_tattoos_las_vegas_master_authority_guide/"),
             ("Realism portfolio", "/realism_tattoos_las_vegas_master_authority_guide/"),
@@ -280,18 +279,18 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "on E. Tropicana between Maryland Pkwy and Eastern Ave. Locals know us; visitors find us by address."
         ),
         directions=(
-            "From Maryland Pkwy & Tropicana: head east one block — studio on the north side.",
-            "From UNLV: north on Maryland or Swenson to Tropicana, then east ~5 minutes.",
+            "From Maryland Pkwy, UNLV, or Paradise-area hotels, use 2375 E. Tropicana Ave, Suite 3 as the destination.",
+            "Surface streets around UNLV, Thomas & Mack, and Tropicana can change with class, event, and commute traffic.",
             "From Desert Inn Rd corridor: south to Tropicana, east to 2375.",
         ),
         parking=(
-            "Dedicated client lot — no shared strip-mall guessing about which unit is ours.",
-            "Paradise residents: save our number for same-day piercing checks when a bump shows up.",
+            "Use the studio address and look for the Work of Art storefront when you arrive.",
+            "Paradise residents can call before coming in with piercing irritation, jewelry-fit, or tattoo-healing questions so the visit is routed correctly.",
         ),
         why_choose=(
             "Three in-studio residents today — Joshua Cole, Katelyn Cole, and Teralyn — not a rotating guest-artist wall.",
-            "Seven artists trained here now run their own shops; we mentor, we do not inflate roster numbers.",
             "One studio for tattoos, piercing consults, follow-up questions, and aftercare guidance.",
+            "This is the exact city/locality context for the studio address, not a doorway page pretending to be another branch.",
         ),
         landmarks=(
             "UNLV · Thomas & Mack · Boulevard Mall · Paradise Rd · Tropicana corridor",
@@ -314,26 +313,26 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "to Work of Art for sleeves, cover-ups, and curated ears rather than nearest-mall booths."
         ),
         directions=(
-            "From Spring Valley Pkwy: take Jones or Decatur north to Tropicana, east to 2375 (~15–20 min).",
-            "From Rainbow & Tropicana: head east ~10 minutes — we are east of Rainbow on Tropicana.",
+            "From Spring Valley, compare Tropicana, Flamingo, Decatur, Jones, and I-215 routes before leaving.",
+            "West-valley traffic changes with commute patterns and Strip events, so give yourself space for stencil changes and consultation.",
             "From Rhodes Ranch area: I-215 east to Decatur north, then Tropicana east.",
         ),
         parking=(
-            "Free client lot — worth the drive vs fighting Spring Valley retail parking for a rushed walk-in.",
-            "Large-scale session days: you can leave your car for multi-hour sits without meter stress.",
+            "Plan the drive as part of the appointment, especially for larger work or cover-up consultations.",
+            "If you are coming after work, avoid stacking another commitment immediately after the tattoo or piercing appointment.",
         ),
         why_choose=(
             "Spring Valley clients doing cover-ups need consult time — Joshua redesigns composition, not dark rectangles.",
             "Ear curation plans span months — Katelyn maps spacing so future helix/conch work still fits.",
-            "Healed galleries document Vegas sun at 1 year — critical for fine line and realism choices.",
+            "Healed galleries document Las Vegas sun and dry-air realities over time — critical for fine line and realism choices.",
         ),
         landmarks=(
             "Spring Valley · Rhodes Ranch · Silverado Ranch · Chinatown (west valley) · Strip (north)",
         ),
         audience_note=(
-            "We see Spring Valley clients weekly for session two of sleeves — artist continuity matters more than the closest chair."
+            "Spring Valley clients are usually choosing artist continuity for multi-session work rather than the closest open chair."
         ),
-        drive_time="About 15–22 minutes from central Spring Valley",
+        drive_time="Spring Valley to E. Tropicana trip; timing varies by west-valley starting point",
         related_guides=(
             ("Cover-up guide", "/cover_up_tattoos_las_vegas_master_authority_guide/"),
             ("Sleeve planning", "/best_tattoo_styles_for_sleeves_large_scale_project_hub/"),
@@ -437,7 +436,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         ),
         drive_time="Cross-valley trip from Henderson; timing depends heavily on neighborhood and commute traffic",
         related_guides=(
-            ("Green Valley guide", "/tattoo_shop_green_valley_henderson/"),
+            ("Near-Strip visitor hub", "/tattoo_shop_near_the_strip_nap_corrected/"),
             ("Large-scale tattoo planning", "/best_tattoo_styles_for_sleeves_large_scale_project_hub/"),
             ("Cover-up tattoos", "/cover_up_tattoos_las_vegas_master_authority_guide/"),
             ("Piercing guide", "/piercing_types_las_vegas_authority_hub/"),
@@ -655,6 +654,52 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         ),
     ),
 )
+
+
+GEO_PAGE_ACTIONS: dict[str, str] = {
+    "tattoo_shop_serving_summerlin_las_vegas": "MERGE_301",
+    "tattoo_shop_serving_downtown_las_vegas": "MERGE_301",
+    "tattoo_piercing_shop_near_unlv": "MERGE_301",
+    "tattoo_shop_near_mgm_grand_las_vegas": "KEEP_IMPROVE",
+    "tattoo_shop_near_allegiant_stadium_las_vegas": "KEEP_IMPROVE",
+    "tattoo_shop_near_las_vegas_airport": "KEEP_IMPROVE",
+    "tattoo_shop_near_the_sphere_las_vegas": "KEEP_IMPROVE",
+    "tattoo_shop_paradise_nevada": "KEEP",
+    "tattoo_shop_spring_valley_las_vegas": "KEEP_IMPROVE",
+    "tattoo_shop_enterprise_las_vegas": "MERGE_301",
+    "tattoo_shop_green_valley_henderson": "MERGE_301",
+    "tattoo_shop_serving_henderson_nevada": "KEEP_IMPROVE",
+    "tattoo_shop_serving_north_las_vegas": "MERGE_301",
+    "tattoo_shop_near_las_vegas_convention_center": "MERGE_301",
+    "tattoo_shop_near_mandalay_bay_las_vegas": "MERGE_301",
+    "tattoo_shop_near_t_mobile_arena_las_vegas": "MERGE_301",
+    "tattoo_shop_near_fashion_show_las_vegas": "MERGE_301",
+    "tattoo_shop_near_fremont_street_las_vegas": "MERGE_301",
+}
+
+GEO_PAGE_REDIRECTS: dict[str, str] = {
+    "tattoo_shop_serving_summerlin_las_vegas": "/tattoo_shop_spring_valley_las_vegas/",
+    "tattoo_shop_serving_downtown_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+    "tattoo_piercing_shop_near_unlv": "/tattoo_shop_paradise_nevada/",
+    "tattoo_shop_enterprise_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+    "tattoo_shop_green_valley_henderson": "/tattoo_shop_serving_henderson_nevada/",
+    "tattoo_shop_serving_north_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+    "tattoo_shop_near_las_vegas_convention_center": "/tattoo_shop_near_the_sphere_las_vegas/",
+    "tattoo_shop_near_mandalay_bay_las_vegas": "/tattoo_shop_near_allegiant_stadium_las_vegas/",
+    "tattoo_shop_near_t_mobile_arena_las_vegas": "/tattoo_shop_near_mgm_grand_las_vegas/",
+    "tattoo_shop_near_fashion_show_las_vegas": "/tattoo_shop_near_the_sphere_las_vegas/",
+    "tattoo_shop_near_fremont_street_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+}
+
+INDEXABLE_GEO_ACTIONS = frozenset({"KEEP", "KEEP_IMPROVE"})
+
+
+def indexable_geo_pages() -> tuple[GeoPage, ...]:
+    return tuple(
+        page
+        for page in GEO_PAGES
+        if GEO_PAGE_ACTIONS.get(page.slug, "KEEP_IMPROVE") in INDEXABLE_GEO_ACTIONS
+    )
 
 
 def geo_by_slug(slug: str) -> GeoPage | None:
