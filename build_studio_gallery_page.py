@@ -56,7 +56,7 @@ SECTIONS: list[tuple[MediaCategory, str, str, str]] = [
     (
         MediaCategory.KATELYN_PIERCING,
         "Katelyn Cole · Piercing",
-        "Ear curation, facial piercing, and implant-grade jewelry — documented in studio.",
+        "Ear curation, facial piercing, and jewelry-fit planning — documented in studio.",
         "katelyn-piercing",
     ),
     (

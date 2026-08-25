@@ -98,11 +98,11 @@ SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
     ),
     "piercing_healing_guide_las_vegas": (
         "Piercing Healing Guide",
-        "Healing times by placement — honest timelines from master piercer Katelyn Cole.",
+        "Healing times by placement — honest timelines from Katelyn Cole.",
     ),
     "katelyn_cole_piercing_authority_hub_las_vegas": (
-        "Katelyn Cole Piercing Authority",
-        "Expert topics on titanium, ear curation, anatomy, downsizing, and piercing safety.",
+        "Katelyn Cole Piercing Topics",
+        "Topics on jewelry fit, ear curation, anatomy, downsizing, and piercing planning.",
     ),
     "piercing_aftercare_desert_climate_las_vegas_expert_guide": (
         "Desert Piercing Aftercare",

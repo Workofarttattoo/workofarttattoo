@@ -148,7 +148,7 @@ PILLARS: tuple[PiercingPillar, ...] = (
         title="Oral Piercing Guide — Las Vegas",
         meta_description=(
             "Tongue, labret, philtrum, monroe, and lip piercing guides — downsizing timelines, "
-            "swelling, and tooth-safe jewelry from master piercer Katelyn Cole."
+            "swelling, and tooth-safe jewelry planning from Katelyn Cole."
         ),
         intro=(
             "Oral piercings swell predictably — tongue peaks day two, lips day one through four. "
@@ -219,11 +219,11 @@ PILLARS: tuple[PiercingPillar, ...] = (
         slug="piercing_jewelry_guide_las_vegas",
         title="Piercing Jewelry Guide — Las Vegas",
         meta_description=(
-            "Implant-grade titanium, threadless ends, downsizing, gold vs titanium — "
+            "Starter jewelry fit, threadless ends, downsizing, and healed upgrades — "
             "jewelry standards at Work of Art Las Vegas from Katelyn Cole."
         ),
         intro=(
-            "Fresh piercings start in implant-grade titanium (ASTM F136) or 316L steel — never mystery metal. "
+            "Fresh piercings start with properly fitted starter jewelry — never mystery metal. "
             "Jewelry length accounts for swelling; downsizing protects the fistula."
         ),
         body_paragraphs=(
@@ -232,7 +232,7 @@ PILLARS: tuple[PiercingPillar, ...] = (
         ),
         cluster_filter="none",
         related_pillars=(
-            ("Why I only use implant-grade titanium", "/katelyn_implant_grade_titanium_las_vegas_authority_guide/"),
+            ("How I choose starter jewelry", "/katelyn_implant_grade_titanium_las_vegas_authority_guide/"),
             ("Threadless jewelry explained", "/katelyn_threadless_jewelry_las_vegas_authority_guide/"),
             ("Gold vs titanium", "/katelyn_gold_vs_titanium_las_vegas_authority_guide/"),
             ("Studio jewelry standards", "/best_piercing_shop_las_vegas_updated_jewelry_standards/"),

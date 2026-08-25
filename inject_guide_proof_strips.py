@@ -25,8 +25,15 @@ LEGACY_PHOTOS_RE = re.compile(
     re.DOTALL,
 )
 
+# Older pipeline runs injected a proof block without the current idempotent marker.
+LEGACY_PROOF_BLOCK_RE = re.compile(
+    r'<section[^>]*data-woa-proof-block="1"[\s\S]*?</section>\s*',
+    re.DOTALL,
+)
+
 
 def inject(html_text: str, slug: str) -> str:
+    html_text = LEGACY_PROOF_BLOCK_RE.sub("", html_text)
     block = proof_strip_html(slug)
     if not block:
         if MARKER in html_text:

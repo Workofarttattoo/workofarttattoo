@@ -45,11 +45,11 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "A premier studio is a collective of resident artists with decades of combined experience. These are professionals who have spent years mastering specific styles—Realism, Traditional, Neo-Traditional, or Fine Line.",
-        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (master piercer).",
+        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
     ),
     (
-        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: two tattooists (Joshua Cole and Jay Jay) and master piercer Katelyn Cole, each with a clear specialty.",
-        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (master piercer).",
+        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: two tattooists (Joshua Cole and Jay Jay) and professional piercer Katelyn Cole, each with a clear specialty.",
+        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
     ),
     (
         "At Work of Art, our collective is comprised of classically trained painters and illustrators. We believe that the ability to create original work on a canvas is the ultimate prerequisite for creating a masterpiece on the skin.",
@@ -62,20 +62,20 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ("Followed Mark's desert healing guide", "Followed Work of Art's desert healing guide"),
     ("Artist: Thorne", "Artist: Joshua Cole"),
     ("Artist: Elara", "Artist: Jay Jay"),
-    ("Piercing &amp; Fine Line", "Master Piercer"),
-    ("Piercing & Fine Line", "Master Piercer"),
-    ("Katelyn Cole — Piercing &amp; Fine Line", "Katelyn Cole — Master Piercer"),
-    ("Katelyn Cole — Piercing & Fine Line", "Katelyn Cole — Master Piercer"),
+    ("Piercing &amp; Fine Line", "Professional Piercer"),
+    ("Piercing & Fine Line", "Professional Piercer"),
+    ("Katelyn Cole — Piercing &amp; Fine Line", "Katelyn Cole — Professional Piercer"),
+    ("Katelyn Cole — Piercing & Fine Line", "Katelyn Cole — Professional Piercer"),
     (
         "Joshua Cole, Katelyn Cole, and Jay Jay — the resident masters behind every piece at Work of Art Tattoo &amp; Piercing.",
-        "Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (master piercer). Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
+        "Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer). Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
     ),
     (
-        "Joshua Cole and Jay Jay tattoo in-studio; Katelyn Cole is our master piercer. Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
+        "Joshua Cole and Jay Jay tattoo in-studio; Katelyn Cole is our professional piercer. Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
         f"{STUDIO_ROSTER_BLURB} {STUDIO_ROSTER_LEGACY}",
     ),
     (
-        "Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (master piercer). Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
+        "Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer). Seven artists trained at Work of Art now own shops or travel as guest artists — we're proud of that legacy without pretending we have a dozen chairs filled today.",
         f"{STUDIO_ROSTER_BLURB} {STUDIO_ROSTER_LEGACY}",
     ),
     ("New Artist Coming Soon", ""),
@@ -90,19 +90,19 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "Joshua Cole (tattoo & piercing), Jay Jay (tattoo), and Katelyn Cole (piercing) — our three in-studio residents. Joshua trains artists across the studio and alumni network. Seven alumni trained here now lead their own studios or travel as guest artists.",
     ),
     (
-        "two tattooists (Joshua Cole and Jay Jay) and master piercer Katelyn Cole",
-        "Joshua Cole (tattoo & piercing; studio lead), Jay Jay (tattoo), and Katelyn Cole (master piercer)",
+        "two tattooists (Joshua Cole and Jay Jay) and professional piercer Katelyn Cole",
+        "Joshua Cole (tattoo & piercing; studio lead), Jay Jay (tattoo), and Katelyn Cole (professional piercer)",
     ),
     (
         "Joshua Cole and Jay Jay lead tattoo work; Katelyn Cole leads piercing.",
         "Joshua Cole offers tattoo and piercing and trains the team; Katelyn Cole leads piercing.",
     ),
     (
-        "Joshua Cole and Jay Jay tattoo in-studio; Katelyn Cole is our master piercer.",
-        "Joshua Cole (tattoo & piercing; studio lead), Jay Jay (tattoo), and Katelyn Cole (master piercer).",
+        "Joshua Cole and Jay Jay tattoo in-studio; Katelyn Cole is our professional piercer.",
+        "Joshua Cole (tattoo & piercing; studio lead), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
     ),
     (
-        "2 tattoo artists and 1 master piercer",
+        "2 tattoo artists and 1 professional piercer",
         "Joshua Cole (tattoo & piercing; trains the team), Jay Jay (tattoo), and Katelyn Cole (piercing)",
     ),
     (
@@ -122,8 +122,8 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "Tattoo work with Joshua Cole and Teralyn; Joshua also offers piercing and trains artists at the studio.",
     ),
     (
-        "Every tattoo at Work of Art is a collaboration with one of our two in-studio tattoo artists — Joshua Cole or Jay Jay — backed by a master piercer, Katelyn Cole.",
-        "Work of Art is led by Joshua Cole (tattoo, piercing, and artist training), Katelyn Cole as master piercer, and Teralyn for fineline floral, script, custom drawings by commission, and high-detail small tattoos. Three residents today; seven alumni we trained now run their own shops or travel as guests.",
+        "Every tattoo at Work of Art is a collaboration with one of our two in-studio tattoo artists — Joshua Cole or Jay Jay — backed by a professional piercer, Katelyn Cole.",
+        "Work of Art is led by Joshua Cole (tattoo, piercing, and artist training), Katelyn Cole as professional piercer, and Teralyn for fineline floral, script, custom drawings by commission, and high-detail small tattoos. Three residents today; seven alumni we trained now run their own shops or travel as guests.",
     ),
     (
         "Three in-studio residents — Joshua Cole and Jay Jay (tattoo), Katelyn Cole (piercing)",

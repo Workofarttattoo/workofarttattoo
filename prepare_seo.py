@@ -35,6 +35,7 @@ PIPELINE: list[str] = [
     ("inject_guides_hub.py", ("--refresh",)),
     "inject_guide_videos.py",
     "inject_guide_proof_strips.py",
+    "tools/piercing_seo_inventory.py",
     "build_url_aliases.py",
     "build_studio_gallery_page.py",
     "inject_studio_portfolio.py",
@@ -55,6 +56,7 @@ PIPELINE: list[str] = [
     "fix_yoast_seo_meta.py",
     "inject_entity_schema.py",
     "normalize_head_metadata.py",
+    "fix_piercing_content_integrity.py",
 ]
 
 

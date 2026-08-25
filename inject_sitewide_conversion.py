@@ -35,7 +35,12 @@ BLOCK_RE = re.compile(
 
 
 def inject(html: str) -> str:
-    block = sitewide_conversion_block()
+    is_piercing = (
+        "best_piercing_shop_las_vegas_updated_jewelry_standards" in html
+        or "piercing guide" in html.lower()
+        or "data-woa-piercing-cta" in html
+    )
+    block = sitewide_conversion_block(service="piercing" if is_piercing else "tattoo")
     if MARKER in html:
         return BLOCK_RE.sub(block + "\n", html, count=1)
 

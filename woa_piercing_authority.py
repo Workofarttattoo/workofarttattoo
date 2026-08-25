@@ -72,7 +72,7 @@ VEGAS_DRY = (
     "Do not pick them; let saline do the work."
 )
 DOWNSIZE = "I schedule a downsizing check around 6–8 weeks when swelling is gone — shorter posts prevent angle irritation."
-IMPLANT = "Fresh piercings start in implant-grade titanium (ASTM F136) or 316L steel — never mystery metal from a kiosk."
+IMPLANT = "Fresh piercings start with properly fitted starter jewelry — never mystery metal from a kiosk."
 
 
 PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
@@ -87,7 +87,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
         pain_label="Quick pinch — most clients say it is easier than they expected",
         intro=(
             "Ear lobes are where most people start — and they should be done with a sterile needle, not a gun. "
-            "I pierce lobes every week in-studio: symmetrical marks, implant-grade studs, and aftercare you can "
+            "I pierce lobes every week in-studio: symmetrical marks, well-fitted studs, and aftercare you can "
             "actually follow in Vegas heat."
         ),
         quirks=(
@@ -262,7 +262,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Starter jewelry is a labret, not a ring — rings twist and cause bumps on fresh conch work.",
             "If you want a conch ring eventually, we plan diameter at consult so you are not disappointed later.",
         ),
-        jewelry_notes="Implant-grade labret; gem size chosen for weight as well as look.",
+        jewelry_notes="Flat-back labret; gem size chosen for weight as well as look.",
         aftercare_summary="Strict no-touch, saline spray, no in-ear headphones on inner conch for 6+ weeks.",
         related=("flat", "daith", "ear_curation"),
     ),
@@ -343,7 +343,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Do not change your own rook jewelry for at least 6 months unless I check it.",
             "If irritation starts, swap habits before swapping jewelry — pressure is usually the cause.",
         ),
-        jewelry_notes="Curved barbell in implant-grade titanium; decorative ends after heal.",
+        jewelry_notes="Curved barbell; decorative ends after heal.",
         aftercare_summary="Saline, strict side-sleeping avoidance, patience — rook rewards slow healers.",
         related=("daith", "flat", "ear_curation"),
     ),
@@ -371,7 +371,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Clean both entry points equally; do not ignore the hole you cannot see in the mirror.",
             "No sleeping on the ear — non-negotiable for industrial healing.",
         ),
-        jewelry_notes="Implant-grade titanium industrial bar; anodized ends optional after initial heal.",
+        jewelry_notes="Industrial bar fitted to your anatomy; decorative ends optional after initial heal.",
         aftercare_summary="Saline both holes, no twisting the bar, downsizing appointment required.",
         related=("helix", "cartilage", "ear_curation"),
     ),
@@ -400,7 +400,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "I document your curation map in consult notes — symmetry, metal, and order of work.",
             "Budget for quality jewelry upfront; swapping cheap studs later costs more in bump visits.",
         ),
-        jewelry_notes="Implant-grade titanium jewelry for fresh and healed piercings.",
+        jewelry_notes="Properly fitted jewelry for fresh and healed piercings.",
         aftercare_summary="Follow each placement's guide; one irritated piercing can pause the whole curation plan.",
         faqs=(
             (
@@ -461,7 +461,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Circular barbells or retainers for healing — decorative clickers after downsizing.",
             "Do not flip or play with the jewelry during healing — movement delays the fistula.",
         ),
-        jewelry_notes="Implant-grade circular barbell sized for swell; anodized titanium popular for septum.",
+        jewelry_notes="Circular barbell sized for swelling; decorative options after healing.",
         aftercare_summary="Saline soak or mist, no flipping, no nose picking around the ring.",
         related=("nostril", "philtrum", "labret"),
     ),
@@ -516,7 +516,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Sleep on your back; pillow pressure is the main migration driver for anti-eyebrow work.",
             "Come in at the first sign of thinning skin at an entry — early removal beats a scar.",
         ),
-        jewelry_notes="Surface bar or high-quality curved barbell — implant-grade only, no mystery metal.",
+        jewelry_notes="Surface bar or high-quality curved barbell — no mystery metal.",
         aftercare_summary="Strict saline, zero pressure, no playing with the bar — monitor for migration monthly.",
         related=("eyebrow", "bridge", "surface"),
     ),
@@ -570,7 +570,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Downsize at 4–6 weeks — philtrum bumps often trace back to jewelry that is too long.",
             "No kissing or sharing drinks during initial heal — oral bacteria slows everything.",
         ),
-        jewelry_notes="Flat-back labret with a low-profile gem; implant-grade titanium for fresh and healed wear.",
+        jewelry_notes="Flat-back labret with a low-profile gem; fitted for fresh and healed wear.",
         aftercare_summary="Saline rinse after eating, no lip products on the wound, downsizing required.",
         related=("labret", "nostril", "septum"),
     ),
@@ -597,7 +597,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Keep sunscreen and skincare off the entries; product buildup causes bumps.",
             "If you wear heavy glasses, we talk alternatives before piercing day.",
         ),
-        jewelry_notes="Straight barbell, implant-grade titanium; shorter bar after downsizing.",
+        jewelry_notes="Straight barbell; shorter bar after downsizing.",
         aftercare_summary="Saline both sides, no glasses pressure if avoidable, monitor for migration.",
         related=("anti_eyebrow", "eyebrow", "nostril"),
     ),
@@ -652,7 +652,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Rinse with saline after every meal; smoking and alcohol slow heal significantly.",
             "Come in for downsizing on schedule — a long bar is a tooth chip risk once swelling drops.",
         ),
-        jewelry_notes="Implant-grade titanium barbell, long for heal; shorter bar at downsizing.",
+        jewelry_notes="Barbell long enough for healing; shorter bar at downsizing.",
         aftercare_summary="Cold fluids, saline rinses, soft food, no oral contact, mandatory downsizing visit.",
         related=("labret", "frog_eyes_tongue"),
     ),
@@ -680,7 +680,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             "Surface work requires check-ins at 4 and 8 weeks — do not ghost your piercer on these.",
             "If an entry looks angry, come in early — removal beats a split scar.",
         ),
-        jewelry_notes="Surface bar in implant-grade titanium; custom length per anatomy.",
+        jewelry_notes="Surface bar with custom length per anatomy.",
         aftercare_summary="Saline, zero pressure on the bar, strict monitoring for rejection signs.",
         related=("anti_eyebrow", "navel"),
     ),
@@ -747,7 +747,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
             (
                 "Do you do venom or frog eye tongue piercings?",
                 "No. Work of Art does not perform frog eyes, venom bites, or paired surface tongue piercings. "
-                "We do offer standard center tongue piercings with implant-grade jewelry and scheduled downsizing.",
+                "We do offer standard center tongue piercings with properly fitted jewelry and scheduled downsizing.",
             ),
         ),
         related=("tongue", "labret"),

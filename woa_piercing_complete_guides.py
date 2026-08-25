@@ -34,7 +34,7 @@ def _industrial(name: str, base: EncyclopediaSections) -> EncyclopediaSections:
         ),
         jewelry_sizing=(
             "Starter industrial bar is long for swelling — typically 1.5–2\" depending on ear width; never guess at a mall kiosk.",
-            "Implant-grade titanium (ASTM F136); gauge usually 14G for initial heal.",
+            "Starter jewelry fitted to anatomy; gauge usually 14G for initial heal.",
             "Bar length must clear both entries without pulling tissue inward — custom measure every ear.",
         ),
         swelling_expectations=(
@@ -77,7 +77,7 @@ def _default_complete(slug_id: str, name: str, base: EncyclopediaSections) -> En
         "I decline when anatomy cannot support a safe 90-degree piercing — not every trend placement fits every body.",
     )
     jewelry = (
-        "Starter length accounts for swelling — implant-grade titanium flat-back or bar sized at consult.",
+        "Starter length accounts for swelling — flat-back or bar jewelry sized at consult.",
         "Gauge and length are chosen for your anatomy, not copied from a photo on Pinterest.",
     )
     if not base.swelling:

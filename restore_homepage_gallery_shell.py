@@ -76,9 +76,9 @@ GALLERY_SHELL = """<!-- Portfolio Showcase Section -->
 <!-- Piercing Section -->
 <section class="py-16 md:py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container border-y border-outline-variant/10" id="piercing">
 <div class="max-w-3xl mx-auto text-center space-y-4">
-<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Master Piercer</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Professional Piercer</span>
 <h2 class="font-headline-lg text-headline-lg text-on-surface">Ear Curation &amp; Body Piercing</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant">Katelyn Cole — implant-grade titanium, anatomical placement, and jewelry styling.</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Katelyn Cole — jewelry fit, anatomical placement, and styling.</p>
 <a class="inline-flex bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest" href="/artists/katelyn-cole/">Meet Katelyn</a>
 </div>
 </section>

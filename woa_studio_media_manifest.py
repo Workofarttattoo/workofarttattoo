@@ -80,7 +80,7 @@ KNOWN: dict[str, tuple[MediaCategory, str, str]] = {
     "C65AAED1": (MediaCategory.KATELYN_PIERCING, "Facial piercing work", "Katelyn Cole facial piercing — Work of Art Las Vegas"),
     "C611F77C": (MediaCategory.KATELYN_PIERCING, "Body piercing work", "Katelyn Cole body piercing — Work of Art Las Vegas"),
     "0F5998BE": (MediaCategory.KATELYN_PIERCING, "Ear piercing healed result", "Healed ear piercing by Katelyn Cole — Work of Art Las Vegas"),
-    "86D3F26F": (MediaCategory.KATELYN_PIERCING, "Jewelry upgrade", "Implant-grade jewelry piercing by Katelyn Cole — Work of Art Las Vegas"),
+    "86D3F26F": (MediaCategory.KATELYN_PIERCING, "Jewelry upgrade", "Jewelry upgrade and piercing fit by Katelyn Cole — Work of Art Las Vegas"),
     "B525678D": (MediaCategory.KATELYN_PIERCING, "Piercing session prep", "Katelyn Cole preparing piercing jewelry — Work of Art Las Vegas"),
     "69C261AF": (MediaCategory.KATELYN_PIERCING, "Ear piercing in studio", "Katelyn Cole ear piercing session — Work of Art Las Vegas"),
     # Studio life

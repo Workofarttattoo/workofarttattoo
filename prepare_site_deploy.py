@@ -53,11 +53,13 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "fix_social_links.py")],
     ["python3", str(ROOT / "fix_yoast_seo_meta.py")],
     ["python3", str(ROOT / "inject_entity_schema.py")],
+    ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "inject_google_tag_manager.py")],
     ["python3", str(ROOT / "inject_mixpanel.py")],
     # Last: banner markup + woa-home.css + repaired <img> tags (earlier steps may drop the CSS link)
     ["python3", str(ROOT / "repair_homepage_banner_and_images.py")],
     ["python3", str(ROOT / "normalize_head_metadata.py")],
+    ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
 ]
 
 

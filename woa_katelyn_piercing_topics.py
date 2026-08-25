@@ -6,9 +6,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 HUB_SLUG = "katelyn_cole_piercing_authority_hub_las_vegas"
-HUB_TITLE = "Katelyn Cole — Piercing Authority"
+HUB_TITLE = "Katelyn Cole — Piercing Topics"
 HUB_INTRO = (
-    "Master piercer Katelyn Cole on implant-grade jewelry, ear curation, anatomy, and aftercare — "
+    "Professional piercer Katelyn Cole on jewelry fit, ear curation, anatomy, and aftercare — "
     "the topics clients search before they sit in my chair."
 )
 
@@ -35,28 +35,28 @@ def slug_for(topic: KatelynTopic) -> str:
 KATELYN_TOPICS: tuple[KatelynTopic, ...] = (
     KatelynTopic(
         slug_id="katelyn_implant_grade_titanium",
-        title="Why I Only Use Implant-Grade Titanium",
+        title="How I Choose Starter Jewelry",
         intro=(
-            "Fresh piercings deserve metal that will not fight your body. I start nearly every piercing in "
-            "ASTM F136 implant-grade titanium — not because it is trendy, but because it is what I would put in my own ear."
+            "Fresh piercings deserve jewelry selected for anatomy, swelling, and sensitivity. "
+            "This page keeps material claims general until the studio owner verifies current jewelry documentation."
         ),
         sections=(
-            ("What implant-grade means", (
-                "ASTM F136 titanium is tested for long-term wear in the body — the same standard used in medical implants.",
-                "It is hypoallergenic for most clients — no nickel bleed like cheap fashion jewelry.",
-                "It is lightweight — important for cartilage that already heals slowly.",
+            ("What I check before choosing jewelry", (
+                "Post length needs room for expected swelling without leaving enough leverage to snag constantly.",
+                "Ends should sit comfortably against the anatomy and stay practical during cleaning.",
+                "Metal sensitivity history matters, so tell me about reactions before we choose a starter piece.",
             )),
             ("What I will not use on day one", (
-                "Mystery 'surgical steel' from online retailers with no mill certificates.",
-                "Gold-plated fashion studs — the plating flakes inside an open wound.",
+                "Mystery jewelry from online retailers with no reliable documentation.",
+                "Gold-plated fashion studs — plating is not a good plan for fresh work.",
                 "Butterfly backs on fresh cartilage — see my butterfly back guide.",
             )),
             ("Katelyn's recommendation", (
-                "Start with implant-grade titanium and keep upgrades titanium-based when you are ready.",
+                "Start with properly fitted starter jewelry and save decorative upgrades for a stable piercing.",
                 "Keep every starter piece on file at the studio so downsizing is a swap, not a guess.",
             )),
         ),
-        faqs=(("Is surgical steel the same as titanium?", "No — 316L steel is fine for many healed piercings, but titanium is my first choice for fresh work and sensitive skin."),),
+        faqs=(("Can I bring my own jewelry for a fresh piercing?", "Usually no. Bring photos or packaging and I can review it, but fresh jewelry needs to fit the anatomy, swelling, and safety requirements for that placement."),),
         related=("katelyn_implant_grade_titanium", "katelyn_threadless_jewelry"),
     ),
     KatelynTopic(
@@ -118,7 +118,7 @@ KATELYN_TOPICS: tuple[KatelynTopic, ...] = (
             )),
             ("What clients get wrong", (
                 "Copying a Pinterest ear on incompatible anatomy.",
-                "Mixing cheap healed jewelry with fresh titanium — metal reactions ripple across the ear.",
+                "Mixing cheap healed jewelry with fresh work — irritation can ripple across the ear.",
                 "Skipping downsizing because the long post 'does not hurt.'",
             )),
             ("Book an ear curation consult", (
@@ -155,9 +155,9 @@ KATELYN_TOPICS: tuple[KatelynTopic, ...] = (
             "Both can be excellent — timing matters. Titanium for fresh work and titanium-based upgrades when you want a decorative healed look."
         ),
         sections=(
-            ("Fresh piercings", ("Implant-grade titanium (ASTM F136) — always my starter unless you have a documented metal plan we build together.",)),
+            ("Fresh piercings", ("Starter jewelry needs proper length, polish, and fit for swelling; material specifics should be verified at the consult.",)),
             ("Healed upgrades", (
-                "Implant-grade titanium from reputable piercing jewelry makers — not plated fashion jewelry.",
+                "Reputable piercing jewelry makers — not plated fashion jewelry.",
                 "Gold is heavier — I check cartilage healed enough to support decorative ends.",
             )),
             ("Allergies", (
@@ -179,7 +179,7 @@ KATELYN_TOPICS: tuple[KatelynTopic, ...] = (
             )),
             ("How it works", (
                 "Post has a slight bend; end pins in with hand pressure — I adjust tension in-studio.",
-                "Comes in implant-grade titanium from reputable piercing jewelry makers.",
+                "Comes from reputable piercing jewelry makers and is fitted in-studio.",
             )),
         ),
         related=("katelyn_downsizing_jewelry", "katelyn_implant_grade_titanium"),
@@ -241,7 +241,7 @@ KATELYN_TOPICS: tuple[KatelynTopic, ...] = (
             )),
             ("What we use", (
                 "Sterile needle technique — never a piercing gun.",
-                "Implant-grade titanium starter studs with flat backs.",
+                "Properly fitted starter studs with flat backs.",
             )),
             ("Why standards matter", (
                 "Mall guns cannot be sterilized between clients the way our setup is.",

@@ -70,11 +70,11 @@ SOFTEN: tuple[tuple[str, str], ...] = (
     ),
     (
         "<h2 class=\"font-headline-lg text-headline-lg text-on-surface\">Expert Piercing &amp; Luxury Jewelry</h2>",
-        "<h2 class=\"font-headline-lg text-headline-lg text-on-surface\">Piercing with patience &amp; implant-grade jewelry</h2>",
+        "<h2 class=\"font-headline-lg text-headline-lg text-on-surface\">Piercing with patience &amp; jewelry-fit planning</h2>",
     ),
     (
-        "We provide a wide range of piercing services using only the implant-grade titanium jewelry. Our studio at Work of Art Tattoo &amp; Piercing adheres to the strictest hospital-level sterilization protocols.",
-        "Katelyn Cole pierces with calm, clear explanations — implant-grade titanium, sterile technique you can see, and aftercare you can actually follow in Vegas heat. Questions welcome at every step.",
+        "We provide a wide range of piercing services with placement planning, jewelry-fit guidance, and clear aftercare.",
+        "Katelyn Cole pierces with calm, clear explanations — starter jewelry sized for swelling, a clean setup, and aftercare you can actually follow in Vegas heat. Questions welcome at every step.",
     ),
     (
         "<span class=\"font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]\">The Experience</span>\n<h2 class=\"font-headline-lg text-headline-lg text-on-surface\">A Legacy of Creative Vision</h2>",

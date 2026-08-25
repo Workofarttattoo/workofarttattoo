@@ -303,7 +303,7 @@ def hub_main() -> str:
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background text-center">
 <div class="max-w-2xl mx-auto space-y-6">
 <h2 class="font-headline-md text-on-surface">Ready to book?</h2>
-<p class="font-body-md text-on-surface-variant">Ear curation consults and single piercings — implant-grade jewelry, sterile technique, seven nights a week on Tropicana.</p>
+<p class="font-body-md text-on-surface-variant">Ear curation consults and single piercings — anatomy-first placement, starter jewelry sized for swelling, and follow-up planning on Tropicana.</p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center">
 <a class="bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest" href="{BOOK}">Book piercing</a>
 <a class="border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors" href="{PIERCING_HUB}">Jewelry standards</a>

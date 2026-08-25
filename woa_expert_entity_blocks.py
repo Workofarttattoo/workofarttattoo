@@ -8,7 +8,7 @@ import html
 KATELYN_LINKS: tuple[tuple[str, str], ...] = (
     ("Katelyn Cole", "/artists/katelyn-cole/"),
     ("Ear curation", "/katelyn_ear_curation_las_vegas_authority_guide/"),
-    ("Implant-grade titanium", "/katelyn_implant_grade_titanium_las_vegas_authority_guide/"),
+    ("Starter jewelry fit", "/katelyn_implant_grade_titanium_las_vegas_authority_guide/"),
     ("Luxury jewelry", "/piercing_jewelry_guide_las_vegas/"),
     ("Piercing healing", "/piercing_healing_guide_las_vegas/"),
     ("Anatomy", "/katelyn_anatomy_matters_las_vegas_authority_guide/"),
@@ -50,7 +50,7 @@ def _graph_block(title: str, links: tuple[tuple[str, str], ...], marker: str) ->
 
 def katelyn_entity_block() -> str:
     return _graph_block(
-        "Katelyn Cole — piercing authority",
+        "Katelyn Cole — piercing topics",
         KATELYN_LINKS,
         'data-woa-katelyn-entity="1"',
     )

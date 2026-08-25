@@ -10,7 +10,7 @@ SKIP = frozenset({"artists_raw", "skipped_upload_build", ".git"})
 
 REPLACEMENTS: list[tuple[str, str]] = [
     (
-        "Located at 2375 E. Tropicana Ave, Suite 3, we offer elite artistry and medical-grade hygiene for every client.",
+        "Located at 2375 E. Tropicana Ave, Suite 3, we offer consult-first artistry and clean studio procedures for every client.",
         "Located at 2375 E. Tropicana Ave, Suite 3 — three in-studio artists, healed portfolio photos, and a consult-first studio visit.",
     ),
     (
@@ -22,7 +22,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "Three in-studio artists, consult-first booking, piercing consultations, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
     ),
     (
-        "Three in-studio artists, consult-first booking, implant-grade piercing jewelry, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
+        "Three in-studio artists, consult-first booking, piercing jewelry-fit planning, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
         "Three in-studio artists, consult-first booking, piercing consultations, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
     ),
     (

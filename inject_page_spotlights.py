@@ -17,6 +17,7 @@ import hashlib
 from pathlib import Path
 
 from client_videos import (
+    KATELYN_VIDEOS,
     PAGE_SPOTLIGHT_MARKER_END,
     PAGE_SPOTLIGHT_MARKER_START,
     load_spotlight_pool,
@@ -51,6 +52,11 @@ SKIP_HEAVY_SLUGS = frozenset(
 
 MAX_EXISTING_INSTAGRAM_EMBEDS = 5
 
+PIERCING_SLUG_RE = re.compile(
+    r"(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial|cartilage|lobe|tongue|monroe|eyebrow)",
+    re.I,
+)
+
 
 def embed_count(html: str) -> int:
     return len(re.findall(r'instagram\.com/[^"\s>]+/embed', html))
@@ -61,6 +67,13 @@ def pick_video(slug: str, pool: list) -> object | None:
         return None
     h = int(hashlib.sha256(slug.encode("utf-8")).hexdigest(), 16)
     return pool[h % len(pool)]
+
+
+def spotlight_pool_for_slug(slug: str, default_pool: list) -> list:
+    if PIERCING_SLUG_RE.search(slug):
+        piercing_pool = [v for v in default_pool if getattr(v, "media_id", "") in {row["media_id"] for row in KATELYN_VIDEOS}]
+        return piercing_pool or default_pool
+    return default_pool
 
 
 def inject_block(html: str, slug: str, pool: list) -> tuple[str, bool]:
@@ -116,11 +129,12 @@ def main() -> None:
         code = folder / "code.html"
         if not code.is_file():
             continue
-        ok = process_file(code, name, pool)
+        page_pool = spotlight_pool_for_slug(name, pool)
+        ok = process_file(code, name, page_pool)
         mir = mirror_rel(code.relative_to(ROOT))
         if mir:
             mraw = mir.read_text(encoding="utf-8")
-            mh, mok = inject_block(mraw, name, pool)
+            mh, mok = inject_block(mraw, name, page_pool)
             if mok:
                 mir.write_text(mh, encoding="utf-8")
                 print(f"mirror {mir}")
@@ -133,13 +147,14 @@ def main() -> None:
             raw = path.read_text(encoding="utf-8")
             if embed_count(raw) > MAX_EXISTING_INSTAGRAM_EMBEDS and PAGE_SPOTLIGHT_MARKER_START not in raw:
                 continue
-            new_html, ok = inject_block(raw, key, pool)
+            page_pool = spotlight_pool_for_slug(key, pool)
+            new_html, ok = inject_block(raw, key, page_pool)
             if ok:
                 path.write_text(new_html, encoding="utf-8")
                 print(f"spotlight {path}")
                 mir = mirror_rel(Path("artists_build") / path.name)
                 if mir:
-                    mh, mok = inject_block(mir.read_text(encoding="utf-8"), key, pool)
+                    mh, mok = inject_block(mir.read_text(encoding="utf-8"), key, page_pool)
                     if mok:
                         mir.write_text(mh, encoding="utf-8")
                         print(f"mirror {mir}")

@@ -175,7 +175,7 @@ _EXTRA: list[tuple] = [
         "Firm — sensitive tissue",
         (
             "Nipple piercings are appointment-first with a private consult — anatomy, bar length, and aftercare "
-            "are discussed before we schedule. Implant-grade barbells only."
+            "are discussed before we schedule. Proper jewelry fit is required."
         ),
         ("navel", "surface"),
     ),
@@ -199,7 +199,7 @@ def _make(spec: tuple) -> PiercingGuide:
             "Anatomy-first marking — I decline when tissue cannot support a safe angle.",
         ),
         tips=(
-            f"I use sterile needle technique and implant-grade starter jewelry for every {name.lower()}.",
+            f"I use clean technique and properly fitted starter jewelry for every {name.lower()}.",
             DOWNSIZE,
             "Saline mist — no twisting the jewelry during heal.",
         ),

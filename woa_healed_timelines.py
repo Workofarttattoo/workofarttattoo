@@ -97,7 +97,7 @@ KATELYN_CASE_STUDIES: tuple[CaseStudy, ...] = (
         sessions="Two appointments (planning + install)",
         summary=(
             "Client wanted a balanced constellation without crowding the helix. We measured anatomy, "
-            "picked implant-grade titanium, and staged piercings so swelling on one side did not "
+            "picked starter jewelry for fit, and staged piercings so swelling on one side did not "
             "complicate the other."
         ),
         stages=(

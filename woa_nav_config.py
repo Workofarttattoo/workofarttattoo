@@ -35,7 +35,7 @@ TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
     "Three resident artists work in-studio today — Joshua Cole (tattoo & piercing; "
-    "studio lead), Katelyn Cole (master piercer), and Teralyn (fineline floral, script, "
+    "studio lead), Katelyn Cole (professional piercer), and Teralyn (fineline floral, script, "
     "custom drawings by commission, and high-detail small tattoos). Book tattoo "
     "and piercing consults at our Tropicana studio."
 )
@@ -117,7 +117,7 @@ HREF_PIERCING = "/best_piercing_shop_las_vegas_updated_jewelry_standards/"
 ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
     ("All Artists & Gallery", HREF_ARTISTS),
     ("Joshua Cole — Tattoo & Piercing", "/artists/joshua-cole/"),
-    ("Katelyn Cole — Master Piercer", "/artists/katelyn-cole/"),
+    ("Katelyn Cole — Professional Piercer", "/artists/katelyn-cole/"),
     ("Teralyn — Fineline Floral & Script", "/artists/teralyn/"),
 ]
 
@@ -256,7 +256,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "best_piercing_shop_las_vegas_updated_jewelry_standards": (
         "Piercing Shop & Jewelry Standards",
-        "Implant-grade jewelry, sterile technique, and what separates a premium Vegas piercing studio.",
+        "Jewelry fit, clean placement planning, and what separates a serious Vegas piercing studio.",
     ),
     "piercing_types_las_vegas_authority_hub": (
         "Complete Piercing Guide",
@@ -284,15 +284,15 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "piercing_jewelry_guide_las_vegas": (
         "Piercing Jewelry Guide",
-        "Implant-grade titanium, threadless ends, downsizing, and gold vs titanium.",
+        "Starter jewelry fit, threadless ends, downsizing, and when to upgrade healed piercings.",
     ),
     "piercing_healing_guide_las_vegas": (
         "Piercing Healing Guide",
         "Healing timelines by placement — lobe, cartilage, oral, and body piercings.",
     ),
     "katelyn_cole_piercing_authority_hub_las_vegas": (
-        "Katelyn Cole Piercing Authority",
-        "Implant-grade titanium, ear curation, anatomy, downsizing, and piercing expertise from Katelyn Cole.",
+        "Katelyn Cole Piercing Topics",
+        "Ear curation, anatomy, downsizing, jewelry fit, and piercing planning from Katelyn Cole.",
     ),
     "piercing_aftercare_desert_climate_las_vegas_expert_guide": (
         "Desert Piercing Aftercare",

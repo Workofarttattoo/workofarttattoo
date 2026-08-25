@@ -147,16 +147,16 @@ def update_katelyn(path: Path) -> bool:
         [
             ("Ear Piercing Las Vegas | Katelyn Cole | Work of Art", "Female Piercer Las Vegas | Katelyn Cole | Work of Art"),
             (
-                "Katelyn Cole — master piercer at Work of Art Las Vegas. Ear curation, implant-grade titanium, APP-aligned technique. Book a consult.",
-                "Katelyn Cole is a female piercer in Las Vegas at Work of Art near the Strip. Ear curation, implant-grade titanium, calm consults, and anatomy-first piercing.",
+                "Katelyn Cole — professional piercer at Work of Art Las Vegas. Ear curation, jewelry-fit planning, and calm consults. Book a consult.",
+                "Katelyn Cole is a female piercer in Las Vegas at Work of Art near the Strip. Ear curation, quality starter jewelry, calm consults, and anatomy-first piercing.",
             ),
             (
                 "Katelyn Cole — Ear Piercing in Las Vegas",
                 "Katelyn Cole — Female Piercer in Las Vegas",
             ),
             (
-                "Work of Art's dedicated piercing specialist. Katelyn Cole combines medical-grade safety with high-fashion jewelry design — anatomical ear curation, facial and body piercing, and luxury implant-grade jewelry.",
-                "Work of Art's dedicated piercing specialist and a female piercer in Las Vegas. Katelyn Cole combines medical-grade safety with high-fashion jewelry design - anatomical ear curation, facial and body piercing, calm consults, and luxury implant-grade jewelry.",
+                "Work of Art's dedicated piercing specialist. Katelyn Cole combines calm placement planning with jewelry styling — anatomical ear curation, facial and body piercing, and quality starter jewelry.",
+                "Work of Art's dedicated piercing specialist and a female piercer in Las Vegas. Katelyn Cole combines calm placement planning with jewelry styling - anatomical ear curation, facial and body piercing, calm consults, and quality starter jewelry.",
             ),
         ],
     )
@@ -205,11 +205,11 @@ def main() -> int:
         ),
         "body_piercing_guide_las_vegas/code.html": (
             "Body Piercing Las Vegas | Consults Near the Strip | Work of Art",
-            "Body piercing in Las Vegas near the Strip with private consults, anatomy checks, implant-grade jewelry, walk-ins when available, and online booking.",
+            "Body piercing in Las Vegas near the Strip with private consults, anatomy checks, quality starter jewelry, walk-ins when available, and online booking.",
         ),
         "best_piercing_shop_las_vegas_updated_jewelry_standards/code.html": (
             "Tattoo and Piercing Shop Near the Strip Las Vegas | Work of Art",
-            "Tattoo and piercing shop near the Las Vegas Strip on E. Tropicana. Implant-grade jewelry, sterile piercing, walk-ins when available, and online booking.",
+            "Tattoo and piercing shop near the Las Vegas Strip on E. Tropicana. Jewelry-fit planning, piercing appointments, walk-ins when available, and online booking.",
         ),
     }
     for file, (title, desc) in piercing_updates.items():

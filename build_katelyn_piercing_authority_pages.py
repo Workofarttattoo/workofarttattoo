@@ -69,7 +69,7 @@ def hub_main() -> str:
     return f"""<main class="relative pt-20">
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background">
 <div class="max-w-4xl space-y-6">
-<span class="font-label-caps text-secondary uppercase tracking-[0.2em]">Katelyn Cole · master piercer</span>
+<span class="font-label-caps text-secondary uppercase tracking-[0.2em]">Katelyn Cole · professional piercer</span>
 <h1 class="font-headline-xl text-on-surface">{html.escape(HUB_TITLE)}</h1>
 {reviewed_by_block(expert="katelyn")}
 <p class="font-body-lg text-on-surface-variant">{html.escape(HUB_INTRO)}</p>
@@ -108,10 +108,10 @@ def topic_main(topic: KatelynTopic) -> str:
         ) + "</section>"
     return f"""<main class="relative pt-20">
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background max-w-3xl mx-auto space-y-8">
-<p><a class="text-secondary underline" href="/{HUB_SLUG}/">← Katelyn Cole piercing authority</a></p>
+<p><a class="text-secondary underline" href="/{HUB_SLUG}/">← Katelyn Cole piercing topics</a></p>
 <h1 class="font-headline-xl text-on-surface">{html.escape(topic.title)}</h1>
 <p class="font-body-lg text-on-surface-variant">{html.escape(topic.intro)}</p>
-<p class="font-body-md text-on-surface-variant italic">— Katelyn Cole, master piercer, Work of Art Las Vegas</p>
+<p class="font-body-md text-on-surface-variant italic">— Katelyn Cole, professional piercer, Work of Art Las Vegas</p>
 </section>
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-3xl mx-auto space-y-10">
 {"".join(sections)}

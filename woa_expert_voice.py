@@ -41,7 +41,7 @@ def katelyn_meta(guide: "PiercingGuide") -> str:
     if guide.offered:
         return _trim(
             f"{label} with Katelyn Cole at Work of Art, Las Vegas — anatomy-first, "
-            f"implant-grade titanium, desert aftercare. Typical heal: {heal}. "
+            f"starter jewelry sized for swelling, desert aftercare. Typical heal: {heal}. "
             f"Book: {STUDIO_PHONE_PARENS}.",
             155,
         )
@@ -62,7 +62,7 @@ def katelyn_cta_blurb(guide: "PiercingGuide") -> str:
             f"desert aftercare before you leave. {label} appointments at {STUDIO_STREET_ADDRESS}."
         )
     return (
-        f"Browse piercings we actually perform — same sterile setup and titanium standards, "
+        f"Browse piercings we actually perform — same clean setup and placement-first standards, "
         f"reviewed by me at {STUDIO_STREET_ADDRESS}."
     )
 
