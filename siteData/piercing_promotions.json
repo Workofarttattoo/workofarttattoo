@@ -1,5 +1,28 @@
 [
   {
+    "id": "nipple-piercing-45-jewelry-included-2026-08",
+    "name": "Nipple Piercing Special",
+    "slug": "piercing-specials-las-vegas",
+    "headline": "$45 nipple piercings with jewelry included",
+    "description": "For one month, Work of Art is featuring nipple piercings for $45 with starter jewelry included. Text or book online to confirm same-day availability, anatomy fit, and current piercer schedule before heading in.",
+    "startDate": "2026-08-24",
+    "endDate": "2026-09-25",
+    "status": "ACTIVE",
+    "discountType": "featured_price",
+    "discountValue": "45",
+    "displayPrice": "$45 jewelry included",
+    "eligiblePiercings": [
+      "nipple piercings"
+    ],
+    "jewelryTerms": "Starter jewelry is included; upgrades or anatomy-specific fit changes are confirmed during the consult.",
+    "exclusions": "Offer depends on anatomy, age policy, healing history, piercer availability, and jewelry fit. Upgrades may cost more.",
+    "ctaText": "See the nipple piercing special",
+    "bookingUrl": "/appointments/",
+    "image": "/piercing-specials-las-vegas/nipple-piercing-special-45-jewelry-included-las-vegas.webp",
+    "altText": "$45 nipple piercing special with jewelry included at Work of Art Tattoo and Piercing in Las Vegas",
+    "analyticsCampaign": "nipple_piercing_45_jewelry_included_2026_08"
+  },
+  {
     "id": "weekly-piercing-feature",
     "name": "Weekly Piercing Feature",
     "slug": "piercing-specials-las-vegas",
