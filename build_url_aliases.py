@@ -10,6 +10,7 @@ from woa_url_aliases import ALIASES_BY_SHORT, SITE, UrlAlias
 
 ROOT = Path(__file__).resolve().parent
 ASSET_EXT = {".png", ".webp", ".jpg", ".jpeg", ".gif", ".svg"}
+COMPANION_FILES = {"index.html.md"}
 
 
 def copy_alias_assets(alias: UrlAlias) -> int:
@@ -21,7 +22,7 @@ def copy_alias_assets(alias: UrlAlias) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     n = 0
     for fpath in sorted(src_dir.iterdir()):
-        if fpath.is_file() and fpath.suffix.lower() in ASSET_EXT:
+        if fpath.is_file() and (fpath.suffix.lower() in ASSET_EXT or fpath.name in COMPANION_FILES):
             dest = out_dir / fpath.name
             if not dest.exists() or fpath.stat().st_mtime > dest.stat().st_mtime:
                 dest.write_bytes(fpath.read_bytes())

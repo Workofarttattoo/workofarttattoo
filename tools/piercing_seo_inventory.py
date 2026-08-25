@@ -103,7 +103,7 @@ def row_for(path: Path) -> dict[str, str]:
         contamination.append("tattoo proof image")
     if re.search(r"send\s+a\s+reference\s+photo[^.]{0,100}timeline", text, re.I) and "piercing" in route.lower():
         contamination.append("tattoo reference-photo CTA")
-    if re.search(r"master piercer|medical-grade|APP-aligned|surgical steel|316L", text, re.I):
+    if re.search(r"professional piercer|medical-grade|APP-aligned|surgical steel|316L", text, re.I):
         contamination.append("unverified piercing credential/material wording")
     commercial = bool(COMMERCIAL_TERMS.search(text))
     local = bool(LOCAL_TERMS.search(text))

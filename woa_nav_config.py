@@ -34,7 +34,7 @@ RESIDENT_ARTIST_COUNT = int(_BUSINESS.get("residentArtistCount", 3))
 TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
-    "Our in-studio team includes Joshua Cole (tattoo artist, studio lead, and piercing trainer), "
+    "Our in-studio team includes Joshua Cole (tattoo and piercing, studio lead), "
     "Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline "
     "floral, script, custom drawings by commission, and high-detail small tattoos). Book tattoo "
     "and piercing consults at our Tropicana studio."
@@ -111,7 +111,7 @@ STUDIO_HOURS_HTML_GRID = (
 
 # Primary links (sitewide; use root-relative anchors that work across pages)
 HREF_ARTISTS = "/#gallery"
-HREF_PIERCING = "/best_piercing_shop_las_vegas_updated_jewelry_standards/"
+HREF_PIERCING = "/piercing-shop-standards/"
 
 # (label, href) — sitewide Artists dropdown
 ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
@@ -128,7 +128,7 @@ def discover_artist_nav_entries() -> list[tuple[str, str]]:
 
 
 MERCH_HREF = "/merchandise/"
-HREF_REVIEWS = "/reviews_vault_100_verified_masterpieces/"
+HREF_REVIEWS = "/reviews/"
 HREF_APPOINTMENTS = "/appointments/"
 HREF_OFFICIAL_NAP = "/official_location_hours_contact/"
 

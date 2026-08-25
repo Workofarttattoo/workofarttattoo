@@ -62,10 +62,10 @@ PIERCING_IMAGE_GRID = """<!-- WOA_CURATED_PORTFOLIO_START -->
 <!-- WOA_CURATED_PORTFOLIO_END -->"""
 
 REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
-    (re.compile(r"\bMaster Body Piercer\b"), "Professional Piercer"),
+    (re.compile(r"\bProfessional Piercer\b"), "Professional Piercer"),
     (re.compile(r"\bMaster Piercers\b"), "Professional Piercing"),
     (re.compile(r"\bMaster Piercer\b"), "Professional Piercer"),
-    (re.compile(r"\bmaster piercer\b"), "professional piercer"),
+    (re.compile(r"\bprofessional piercer\b"), "professional piercer"),
     (re.compile(r"\bmedical-grade ear piercing\b", re.I), "calm ear piercing"),
     (re.compile(r"\bmedical-grade piercing\b", re.I), "piercing"),
     (re.compile(r"\bmedical-grade safety\b", re.I), "calm placement planning"),
@@ -95,12 +95,12 @@ REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bprecision ear curation and medical-grade piercing\b", re.I), "calm ear curation and piercing placement"),
     (re.compile(r"We use starter jewelry selected for the placement jewelry\. We never use &quot;starter jewelry&quot; or plated metals,[^.]*\.", re.I), "We choose starter jewelry by anatomy, swelling room, placement, and sensitivity history. Ask the studio to confirm current material options before booking."),
     (re.compile(r"We use implant-grade titanium jewelry\. We never use &quot;surgical steel&quot; or plated metals,[^.]*\.", re.I), "We choose starter jewelry by anatomy, swelling room, placement, and sensitivity history. Ask the studio to confirm current material options before booking."),
-    (re.compile(r"At Work of Art Tattoo &amp; Piercing, Katelyn Cole uses high-quality starter jewelry, including ASTM F-136 titanium\.[^<]*", re.I), "At Work of Art Tattoo &amp; Piercing, Katelyn Cole plans starter jewelry around anatomy, placement, swelling room, and current studio availability."),
+    (re.compile(r"At Work of Art Tattoo &amp; Piercing, Katelyn Cole uses high-quality starter jewelry, including specific titanium material claims\.[^<]*", re.I), "At Work of Art Tattoo &amp; Piercing, Katelyn Cole plans starter jewelry around anatomy, placement, swelling room, and current studio availability."),
     (re.compile(r"Katelyn Cole leads ear curation and piercing at Work of Art in Las Vegas\. Katelyn Cole leads the industry here,[^<]*", re.I), "Katelyn Cole leads ear curation and piercing planning at Work of Art in Las Vegas, using each client's anatomy and style goals to shape a balanced layout."),
     (re.compile(r"picked starter jewelry, and staged piercings", re.I), "planned starter jewelry fit and staged piercings"),
     (re.compile(r"Katelyn Cole's ear curation and implant-grade jewelry", re.I), "Katelyn Cole's ear curation and jewelry-fit planning"),
-    (re.compile(r"Katelyn Cole \(master piercer\)", re.I), "Katelyn Cole (professional piercer)"),
-    (re.compile(r"Joshua Cole \(tattoo &amp; piercing; studio lead who trains the team\) and Katelyn Cole \(professional piercer\)", re.I), "Joshua Cole (tattoo artist, studio lead, and piercing trainer), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline floral work and script)"),
+    (re.compile(r"Katelyn Cole \(professional piercer\)", re.I), "Katelyn Cole (professional piercer)"),
+    (re.compile(r"Joshua Cole \(tattoo &amp; piercing; studio lead who trains the team\) and Katelyn Cole \(professional piercer\)", re.I), "Joshua Cole (tattoo and piercing, studio lead), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline floral work and script)"),
 )
 
 

@@ -12,7 +12,7 @@ This document lists the definitive, production-ready screens for your GitHub and
 
 ## 2. Artist Portfolios
 - **Joshua Cole (Master Portfolio)**: {{DATA:SCREEN:SCREEN_366}} (20-Year Master of Realism)
-- **Katelyn Cole (Piercing & Reviews)**: {{DATA:SCREEN:SCREEN_362}} (Master Body Piercer & Ear Curation)
+- **Katelyn Cole (Piercing & Reviews)**: {{DATA:SCREEN:SCREEN_362}} (Professional Piercer & Ear Curation)
 - **Jay Jay (Realism & Walk-Ins)**: {{DATA:SCREEN:SCREEN_230}} (Rising Star & Late-Night Specialist)
 
 ## 3. Trust & Utility Pages

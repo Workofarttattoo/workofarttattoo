@@ -42,8 +42,8 @@ FAQ_DETAILS_RE = re.compile(
 STRIP_TAGS_RE = re.compile(r"<[^>]+>")
 UNVERIFIED_SCHEMA_FACT_RE = re.compile(
     r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
-    r"APP[-\s]aligned|APP piercing standards|Master Body Piercer|master piercer|"
-    r"medical-grade piercing|medical-grade hygiene|hospital-grade",
+    r"APP[-\s]aligned|APP piercing standards|medical-grade piercing|medical-grade hygiene|"
+    r"hospital-grade",
     re.I,
 )
 
@@ -212,7 +212,7 @@ TERALYN_PAGE = f"{SITE}/artists/teralyn/"
 JOSHUA_IMAGE = f"{SITE}/artists/joshua-cole/joshua-cole-tattooing-portrait-las-vegas.webp"
 KATELYN_IMAGE = (
     f"{SITE}/artists/katelyn-cole/"
-    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp"
+    "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp"
 )
 TERALYN_IMAGE = f"{SITE}/artists/teralyn/teralyn-fine-line-tattoo-artist-las-vegas.webp"
 
@@ -293,8 +293,6 @@ def verified_schema_faqs(faqs: list[tuple[str, str]]) -> list[tuple[str, str]]:
 
 
 def sanitize_schema_text(text: str) -> str:
-    text = re.sub(r"\bMaster Body Piercer\b", "Body Piercer", text, flags=re.I)
-    text = re.sub(r"\bmaster piercer\b", "piercer", text, flags=re.I)
     text = re.sub(r"\bimplant-grade\s+titanium\b", "piercing jewelry", text, flags=re.I)
     text = re.sub(r"\bimplant-grade\s+jewelry\b", "piercing jewelry", text, flags=re.I)
     text = re.sub(r"\bimplant-grade\s+starter\s+jewelry\b", "starter jewelry", text, flags=re.I)
@@ -354,8 +352,8 @@ def person_joshua() -> dict:
         "jobTitle": "Studio Lead — Tattoo & Piercing Artist",
         "description": (
             "Joshua Cole leads Work of Art Tattoo & Piercing in Las Vegas with black & grey "
-            "realism, portrait work, sleeves, and cover-ups. He trained the in-studio "
-            "piercing team and mentors resident artists."
+            "realism, portrait work, sleeves, cover-ups, and piercing. He mentors the "
+            "in-studio team and trained alumni."
         ),
         "knowsAbout": list(JOSHUA_KNOWS_ABOUT),
         "sameAs": [HREF_INSTAGRAM_JOSHUA],
@@ -370,7 +368,7 @@ def person_katelyn() -> dict:
         "name": "Katelyn Cole",
         "url": KATELYN_PAGE,
         "image": KATELYN_IMAGE,
-        "jobTitle": "Body Piercer",
+        "jobTitle": "Professional Piercer",
         "description": sanitize_schema_text(
             "Katelyn Cole is Work of Art's piercer in Las Vegas — ear curation, "
             "anatomy-first placement planning, jewelry fit, and piercing technique."

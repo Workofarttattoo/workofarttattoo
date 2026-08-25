@@ -36,7 +36,7 @@ Implemented the piercing SEO growth sprint on `seo/master-authority-rebuild` wit
 ## Source Guards Added
 
 - Piercing routes fail QA if tattoo proof imagery or tattoo CTAs return.
-- Piercing routes fail QA if unsupported terms such as “master piercer,” “medical-grade,” “hospital-grade,” “APP-aligned,” “surgical steel,” or “316L” return.
+- Piercing routes fail QA if unsupported terms such as “professional piercer,” “medical-grade,” “hospital-grade,” “APP-aligned,” “surgical steel,” or “316L” return.
 - Shared generation now runs a final integrity pass after schema/head/marketing injections so late scripts cannot reintroduce stale piercing claims.
 
 ## Verification

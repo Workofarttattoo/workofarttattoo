@@ -33,7 +33,7 @@ GALLERY_SHELL = """<!-- Portfolio Showcase Section -->
 </a>
 <a class="group text-center" href="/artists/katelyn-cole/">
 <div class="aspect-[3/4] bg-surface-container mb-4 overflow-hidden relative border border-outline-variant/30">
-<picture><source srcset="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img width="800" height="1067" alt="Katelyn Cole — Work of Art Las Vegas" class="w-full h-full object-cover object-top" decoding="async" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg"/></picture>
+<picture><source srcset="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img width="800" height="1067" alt="Katelyn Cole — Work of Art Las Vegas" class="w-full h-full object-cover object-top" decoding="async" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg"/></picture>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface">Katelyn Cole</span>
 </a>

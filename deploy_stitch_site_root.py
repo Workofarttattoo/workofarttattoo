@@ -253,14 +253,14 @@ def deploy_artists_roster_media(ftp: FTP, artists_dir: Path) -> int:
             ftp_dele_file(
                 ftp,
                 remote,
-                "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png",
+                "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.png",
             )
         for fpath in sorted(sub.iterdir()):
             if not fpath.is_file() or fpath.suffix.lower() not in SLUG_ASSET_EXT:
                 continue
             # Bluehost rewrites large portrait PNG to WebP at the same path — deploy webp + jpg only.
             if sub.name == "katelyn-cole" and fpath.suffix.lower() == ".png":
-                if "master-body-piercer" in fpath.name:
+                if "professional-piercer" in fpath.name:
                     continue
             if sub.name == "katelyn-cole":
                 ftp_dele_file(ftp, remote, fpath.name)

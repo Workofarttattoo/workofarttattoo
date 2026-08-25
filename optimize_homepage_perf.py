@@ -21,7 +21,7 @@ RULES: list[tuple[str, int, int]] = [
     ("professional-tattoo-artist-work-of-art", 900, 80),
     ("artist-portfolio", 640, 82),
     ("masterpiece-wall", 640, 82),
-    ("master-body-piercer", 640, 82),
+    ("professional-piercer", 640, 82),
 ]
 DEFAULT_MAX_W = 800
 DEFAULT_Q = 78

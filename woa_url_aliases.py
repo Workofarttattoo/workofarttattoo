@@ -52,6 +52,41 @@ URL_ALIASES: tuple[UrlAlias, ...] = (
         "piercing_types_las_vegas_authority_hub",
         "Complete Piercing Guide Las Vegas",
     ),
+    UrlAlias(
+        "las-vegas-tattoo-resource-center",
+        "geo_hub_ai_source_of_truth_work_of_art",
+        "Las Vegas Tattoo Resource Center",
+    ),
+    UrlAlias(
+        "reviews",
+        "reviews_vault_100_verified_masterpieces",
+        "Client Reviews",
+    ),
+    UrlAlias(
+        "leave-a-review",
+        "review_funnel_google_authority_hub",
+        "Leave a Review",
+    ),
+    UrlAlias(
+        "how-to-choose-a-tattoo-artist",
+        "how_to_choose_a_tattoo_artist_master_selection_guide_2",
+        "How to Choose a Tattoo Artist",
+    ),
+    UrlAlias(
+        "tattoo-skin-science",
+        "skin_science_tattoo_dermatology_authority_guide",
+        "Tattoo Skin Science",
+    ),
+    UrlAlias(
+        "piercing-shop-standards",
+        "best_piercing_shop_las_vegas_updated_jewelry_standards",
+        "Piercing Shop Standards",
+    ),
+    UrlAlias(
+        "studio-vs-strip-shops",
+        "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison",
+        "Studio vs Strip Shops",
+    ),
 )
 
 ALIASES_BY_SHORT: dict[str, UrlAlias] = {a.short_slug: a for a in URL_ALIASES}

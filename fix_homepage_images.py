@@ -214,7 +214,7 @@ def fix_artist_roster() -> None:
                 save_artist_portrait(closeup, joshua_dest)
                 print("[artist] joshua-cole-portrait from studio closeup")
 
-    katelyn_dest = katelyn_dir / "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png"
+    katelyn_dest = katelyn_dir / "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.png"
     if is_bad_asset(katelyn_dest):
         tmp = katelyn_dir / ".katelyn-dl.png"
         if curl_download(KATELYN_PORTRAIT_URL, tmp):

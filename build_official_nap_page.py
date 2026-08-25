@@ -145,7 +145,7 @@ def main_html() -> str:
 <p><a class="text-secondary underline hover:no-underline" href="/katelyn_piercing_minors_las_vegas_authority_guide/">Minor piercing guide</a></p>
 </div>
 </div>
-{sitewide_conversion_block()}
+{sitewide_conversion_block(service="neutral")}
 </div>
 </section>
 
@@ -181,6 +181,16 @@ def patch_meta(page_html: str) -> str:
         page_html = re.sub(
             rf'<meta content="[^"]*" property="{prop}"/>',
             f'<meta content="{html_lib.escape(val)}" property="{prop}"/>',
+            page_html,
+            count=1,
+        )
+    for name, val in (
+        ("twitter:title", f"{TITLE} | Work of Art"),
+        ("twitter:description", DESCRIPTION),
+    ):
+        page_html = re.sub(
+            rf'<meta content="[^"]*" name="{name}"/>',
+            f'<meta content="{html_lib.escape(val)}" name="{name}"/>',
             page_html,
             count=1,
         )

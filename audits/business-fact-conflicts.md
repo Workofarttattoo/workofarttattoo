@@ -13,7 +13,7 @@ Generated: 2026-08-21T14:22:33
 
 ## Business Fact Mismatches
 
-- `business fact mismatch` in `fix_artist_roster_copy.py:125`: "Every tattoo at Work of Art is a collaboration with one of our two in-studio tattoo artists — Joshua Cole or Jay Jay — backed by a master piercer, Katelyn Cole.",
+- `business fact mismatch` in `fix_artist_roster_copy.py:125`: "Every tattoo at Work of Art is a collaboration with one of our two in-studio tattoo artists — Joshua Cole or Jay Jay — backed by a professional piercer, Katelyn Cole.",
 - `business fact mismatch` in `remove_jay_jay_from_site.py:97`: ("one of our two in-studio tattoo artists — Joshua Cole or Jay Jay", "one of our two in-studio tattoo artists — Joshua Cole or Teralyn"),
 - `business fact mismatch` in `fix_studio_nap.py:76`: "2375 E. Tropicana Ave, Suite 3<br/>Las Vegas, NV 89119",
 - `business fact mismatch` in `fix_studio_nap.py:115`: ('"postalCode": "89119"', f'"postalCode": "{STUDIO_POSTAL_CODE}"'),

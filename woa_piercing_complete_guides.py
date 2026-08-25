@@ -74,7 +74,7 @@ def _default_complete(slug_id: str, name: str, base: EncyclopediaSections) -> En
     low = name.lower()
     anatomy = (
         f"I assess {low} anatomy before marking — tissue depth, angle, and lifestyle (sleep, headphones, helmets).",
-        "I decline when anatomy cannot support a safe 90-degree piercing — not every trend placement fits every body.",
+        "I decline when anatomy cannot support stable placement — not every trend placement fits every body.",
     )
     jewelry = (
         "Starter length accounts for swelling — flat-back or bar jewelry sized at consult.",

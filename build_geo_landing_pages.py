@@ -256,6 +256,11 @@ def page_html(page: GeoPage) -> str:
 <title>{html.escape(page.title)} | Work of Art</title>
 <meta content="{html.escape(meta)}" name="description"/>
 <link href="{SITE}/{page.slug}/" rel="canonical"/>
+<meta content="{SITE}/{page.slug}/" property="og:url"/>
+<meta content="{html.escape(page.title)} | Work of Art" property="og:title"/>
+<meta content="{html.escape(meta)}" property="og:description"/>
+<meta content="{html.escape(page.title)} | Work of Art" name="twitter:title"/>
+<meta content="{html.escape(meta)}" name="twitter:description"/>
 {HEAD_LINKS}
 {schema_script(graph)}
 </head>

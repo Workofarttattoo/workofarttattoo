@@ -52,7 +52,7 @@ def main_html() -> str:
 <p class="font-body-md text-on-surface-variant">Katelyn is the Work of Art piercer clients book for anatomy-based placement, ear curation, jewelry-fit planning, aftercare questions, and downsizing timing.</p>
 <a class="text-secondary underline font-body-md" href="{KATELYN_URL}" data-woa-katelyn-profile-click="1">See Katelyn's piercing portfolio</a>
 </div>
-<img alt="Katelyn Cole professional piercer at Work of Art Las Vegas" class="aspect-[4/5] w-full object-cover border border-outline-variant/30" decoding="async" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp"/>
+<img alt="Katelyn Cole professional piercer at Work of Art Las Vegas" class="aspect-[4/5] w-full object-cover border border-outline-variant/30" decoding="async" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp"/>
 </div>
 </section>
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background">

@@ -34,13 +34,27 @@ BLOCK_RE = re.compile(
 )
 
 
-def inject(html: str) -> str:
-    is_piercing = (
-        "best_piercing_shop_las_vegas_updated_jewelry_standards" in html
-        or "piercing guide" in html.lower()
-        or "data-woa-piercing-cta" in html
-    )
-    block = sitewide_conversion_block(service="piercing" if is_piercing else "tattoo")
+PIERCING_SLUGS = {
+    "best_piercing_shop_las_vegas_updated_jewelry_standards",
+}
+
+NEUTRAL_SLUGS = {
+    "home_work_of_art_tattoo_piercing",
+    "appointments",
+    "official_location_hours_contact",
+}
+
+
+def service_for_slug(slug: str) -> str:
+    if slug in NEUTRAL_SLUGS:
+        return "neutral"
+    if slug in PIERCING_SLUGS:
+        return "piercing"
+    return "tattoo"
+
+
+def inject(html: str, *, service: str) -> str:
+    block = sitewide_conversion_block(service=service)
     if MARKER in html:
         return BLOCK_RE.sub(block + "\n", html, count=1)
 
@@ -60,7 +74,7 @@ def main() -> int:
         if not path.is_file():
             continue
         raw = path.read_text(encoding="utf-8")
-        updated = inject(raw)
+        updated = inject(raw, service=service_for_slug(slug))
         if updated != raw:
             path.write_text(updated, encoding="utf-8")
             print(f"[ok] {slug}")

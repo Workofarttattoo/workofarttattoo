@@ -132,6 +132,11 @@ def main() -> int:
 <title>{TITLE} | Work of Art</title>
 <meta content="{DESCRIPTION}" name="description"/>
 <link href="{SITE}/{SLUG}/" rel="canonical"/>
+<meta content="{SITE}/{SLUG}/" property="og:url"/>
+<meta content="{TITLE} | Work of Art" property="og:title"/>
+<meta content="{DESCRIPTION}" property="og:description"/>
+<meta content="{TITLE} | Work of Art" name="twitter:title"/>
+<meta content="{DESCRIPTION}" name="twitter:description"/>
 {HEAD_LINKS}
 {schema_script(graph)}
 </head>

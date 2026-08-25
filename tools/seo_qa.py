@@ -81,7 +81,7 @@ UNIQUE_DATA_ATTRS = (
 )
 UNVERIFIED_SCHEMA_RE = re.compile(
     r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
-    r"APP[-\s]aligned|APP piercing standards|Master Body Piercer|master piercer|"
+    r"APP[-\s]aligned|APP piercing standards|Professional Piercer|professional piercer|"
     r"medical-grade piercing|medical-grade hygiene|hospital-grade",
     re.I,
 )
@@ -334,7 +334,7 @@ def validate_piercing_page(soup: BeautifulSoup, raw: str, route: str, context: s
     if PIERCING_CTA_BAD_RE.search(raw):
         failures.append(f"{context}: piercing page contains tattoo reference-photo CTA copy")
     visible = visible_text(BeautifulSoup(raw, "html.parser"))
-    for phrase in ("master piercer", "medical-grade", "hospital-grade", "APP-aligned", "surgical steel", "316L"):
+    for phrase in ("professional piercer", "medical-grade", "hospital-grade", "APP-aligned", "surgical steel", "316L"):
         if phrase.lower() in visible.lower():
             failures.append(f"{context}: piercing page contains unverified visible claim: {phrase}")
     if route not in {"/artists/katelyn-cole/"} and "Joshua Cole's chair" in raw:
