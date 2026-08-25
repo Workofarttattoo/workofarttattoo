@@ -483,6 +483,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     } catch (e) {}
   }
 
+  function storageSetOnce(key, value) {
+    if (!storageGet(key)) storageSet(key, value);
+  }
+
+  function safeSlug(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "")
+      .slice(0, 80);
+  }
+
+  storageSetOnce("woa_first_landing_page", location.pathname || "/");
+
+  function firstLandingPage() {
+    return storageGet("woa_first_landing_page") || location.pathname || "/";
+  }
+
+  function bookingOriginPage() {
+    return storageGet("woa_booking_origin_page") || location.pathname || "/";
+  }
+
+  function serviceInterestFromPath(path) {
+    var value = String(path || location.pathname || "");
+    if (PIERCING_ROUTE_RE.test(value)) return "piercing";
+    if (/(fine[-_]?line|script|floral|small[-_]?tattoo|teralyn)/i.test(value)) return "fine_line_tattoo";
+    if (/(realism|portrait|black[-_]?grey|blackwork|joshua)/i.test(value)) return "tattoo";
+    if (/(cover[-_]?up|flash|walk[-_]?in|tattoo)/i.test(value)) return "tattoo";
+    return "unknown";
+  }
+
+  function attributionParams(params) {
+    return assign(
+      {
+        landing_page: firstLandingPage(),
+        origin_page: bookingOriginPage(),
+        service_interest: serviceInterestFromPath(bookingOriginPage()),
+      },
+      params || {}
+    );
+  }
+
   function baseParams(params) {
     var out = {
       event_source: EVENT_SOURCE,
@@ -549,6 +592,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     return id && id.indexOf("piercing") >= 0 ? "piercing" : "tattoo";
   }
 
+  function formValue(form, names) {
+    for (var i = 0; i < names.length; i += 1) {
+      var field = form.querySelector('[name="' + names[i] + '"]');
+      if (field && field.value) return field.value;
+    }
+    return "";
+  }
+
+  function serviceTypeFromForm(form, id) {
+    var service = serviceFromFormId(id);
+    if (service === "piercing") return safeSlug(formValue(form, ["piercing_type"]) || "piercing");
+    return safeSlug(formValue(form, ["tattoo_request_type"]) || "tattoo");
+  }
+
+  function artistFromForm(form, id) {
+    var raw = formValue(form, serviceFromFormId(id) === "piercing" ? ["preferred_piercer"] : ["preferred_artist"]);
+    var slug = safeSlug(raw);
+    if (!slug || slug === "no_preference") return "no_preference";
+    if (slug.indexOf("joshua") >= 0) return "joshua";
+    if (slug.indexOf("katelyn") >= 0 || slug.indexOf("katie") >= 0) return "katelyn";
+    if (slug.indexOf("teralyn") >= 0) return "teralyn";
+    return slug;
+  }
+
+  function bookingParamsFromForm(form, id, extras) {
+    var service = serviceFromFormId(id);
+    return attributionParams(assign(
+      {
+        form_id: id,
+        form_destination: "formsubmit",
+        service_category: service,
+        service_type: serviceTypeFromForm(form, id),
+        artist: artistFromForm(form, id),
+      },
+      extras || {}
+    ));
+  }
+
   function closestPromo(el) {
     return el && el.closest ? el.closest("[data-woa-piercing-special]") : null;
   }
@@ -562,22 +643,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       service_type: "piercing",
       promo_action: action || (link ? link.getAttribute("data-woa-promo-click") || "" : ""),
       promo_context: link ? link.getAttribute("data-woa-promo-context") || "" : "",
+      promotion_id: "",
     };
     if (promo) {
       params.promo_id = promo.getAttribute("data-woa-promo-id") || "";
+      params.promotion_id = params.promo_id;
       params.promo_campaign = promo.getAttribute("data-woa-promo-campaign") || "";
       params.promo_variant = promo.getAttribute("data-woa-promo-variant") || "";
     }
-    return params;
+    return attributionParams(params);
   }
 
   function persistPiercingAttribution(link) {
     var params = promoParams(link, "booking_start");
+    storageSet("woa_booking_origin_page", location.pathname || "/");
     storageSet("woa_piercing_attribution", JSON.stringify({
       promo_id: params.promo_id || "",
+      promotion_id: params.promotion_id || params.promo_id || "",
       promo_campaign: params.promo_campaign || "",
       promo_context: params.promo_context || "",
       page_path: location.pathname,
+      landing_page: firstLandingPage(),
+      origin_page: location.pathname || "/",
     }));
     return params;
   }
@@ -599,12 +686,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       var id = block.getAttribute("data-woa-promo-id") || "";
       if (!id || seen[id + location.pathname]) return;
       seen[id + location.pathname] = true;
-      send("piercing_deal_view", {
+      var params = attributionParams({
         service_type: "piercing",
         promo_id: id,
+        promotion_id: id,
         promo_campaign: block.getAttribute("data-woa-promo-campaign") || "",
         promo_variant: block.getAttribute("data-woa-promo-variant") || "",
       });
+      send("piercing_special_view", params);
+      send("piercing_deal_view", assign({ legacy_event: true }, params));
     }
     if (!("IntersectionObserver" in window)) {
       blocks.forEach(view);
@@ -633,32 +723,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         click_text: linkText(link),
         click_location: clickLocation(link),
       };
+      if (h.indexOf("/appointments") >= 0) {
+        storageSet("woa_booking_origin_page", location.pathname || "/");
+      }
 
       if (link.hasAttribute("data-woa-promo-click")) {
-        send("piercing_deal_click", promoParams(link));
+        var specialParams = promoParams(link);
+        send("piercing_special_click", specialParams);
+        send("piercing_deal_click", assign({ legacy_event: true }, specialParams));
       }
       if (link.hasAttribute("data-woa-piercing-booking-start") || (h.indexOf("/appointments") >= 0 && closestPromo(link))) {
         send("piercing_booking_start", persistPiercingAttribution(link));
       }
       if (link.hasAttribute("data-woa-katelyn-profile-click")) {
-        send("piercing_katelyn_profile_click", assign({ service_type: "piercing" }, base));
+        send("piercing_katelyn_click", attributionParams(assign({ service_type: "piercing" }, base)));
+        send("piercing_katelyn_profile_click", attributionParams(assign({ service_type: "piercing", legacy_event: true }, base)));
       }
       if (link.hasAttribute("data-woa-piercing-jewelry-click")) {
-        send("piercing_jewelry_click", assign({ service_type: "piercing" }, base));
+        send("piercing_jewelry_click", attributionParams(assign({ service_type: "piercing" }, base)));
       }
       if (link.hasAttribute("data-woa-piercing-directions-click")) {
-        send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+        send("piercing_directions_click", attributionParams(assign({ service_type: "piercing" }, base)));
+      }
+      if (link.hasAttribute("data-woa-start-here-selection")) {
+        send("start_here_selection", attributionParams(assign({
+          selection: link.getAttribute("data-woa-start-here-selection") || "",
+          selection_link_type: link.getAttribute("data-woa-start-here-link-type") || "content",
+        }, base)));
       }
 
       if (h.indexOf("tel:") === 0) {
         if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
-          send("piercing_call_click", assign({ service_type: "piercing" }, base));
+          send("piercing_call_click", attributionParams(assign({ service_type: "piercing" }, base)));
+          send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "call" }, base)));
         }
         send("call_click", base);
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
-        send("piercing_text_click", assign({ service_type: "piercing" }, base));
+        send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
+        send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
       }
       if (h.indexOf("mailto:") === 0) {
@@ -666,6 +770,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         return;
       }
       if (h.indexOf("/appointments") >= 0) {
+        if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link) || link.hasAttribute("data-woa-piercing-booking-start")) {
+          send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "book" }, base)));
+        }
+        send("booking_start", attributionParams(assign({
+          service_category: serviceInterestFromPath(location.pathname) === "piercing" ? "piercing" : "unknown",
+          service_type: serviceInterestFromPath(location.pathname),
+          source_action: "appointment_link_click",
+        }, base)));
         send("book_click", base);
         return;
       }
@@ -676,7 +788,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         h.indexOf("maps.google.com") >= 0
       ) {
         if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
-          send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+          send("piercing_directions_click", attributionParams(assign({ service_type: "piercing" }, base)));
+          send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "directions" }, base)));
         }
         send("directions_click", base);
         return;
@@ -698,35 +811,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     function markStarted() {
       if (started) return;
       started = true;
-      send("form_start", {
-        form_id: id,
-        service_type: serviceFromFormId(id),
-      });
+      var params = bookingParamsFromForm(form, id);
+      send("booking_start", params);
+      send("form_start", assign({ legacy_event: true }, params));
+      if (params.service_category === "piercing") send("piercing_booking_start", assign(storedPiercingAttribution(), params));
     }
     ["focusin", "input", "change"].forEach(function (eventName) {
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
-      var service = serviceFromFormId(id);
-      send("booking_form_submit", {
-        form_id: id,
-        form_destination: "formsubmit",
-        service_type: service,
-      });
-      if (service === "piercing") {
-        send("piercing_booking_submit", assign(storedPiercingAttribution(), {
-          form_id: id,
-          form_destination: "formsubmit",
-          service_type: "piercing",
-        }));
-      }
+      send("booking_submit_attempt", bookingParamsFromForm(form, id, { conversion_origin: "submit_attempt" }));
     });
   });
 
   observePiercingDeals();
 
   if (/^\/appointments\/?$/.test(location.pathname)) {
-    send("booking_page_view", {}, { allowRepeat: true });
+    send("booking_view", attributionParams({ interface_present: !!document.getElementById("woa-booking-app") }), { allowRepeat: true });
   }
 
   var sent = "";
@@ -740,12 +841,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var completeKey = "woa_booking_complete_" + sent + "_" + location.pathname;
     if (!storageGet(completeKey)) {
       storageSet(completeKey, "1");
-      send("booking_complete", {
+      var submitParams = attributionParams(assign(storedPiercingAttribution(), {
         conversion_origin: "formsubmit_redirect",
+        service_category: sent,
         service_type: sent,
-      });
+        form_destination: "formsubmit",
+      }));
+      send("booking_submit", submitParams);
+      send("booking_complete", assign({ legacy_event: true }, submitParams));
+      if (sent === "piercing") send("piercing_booking_submit", submitParams);
     }
   }
+
+  document.addEventListener("woa_booking_submit_success", function (e) {
+    var detail = (e && e.detail) || {};
+    var service = detail.service_category === "piercing" ? "piercing" : detail.service_category === "tattoo" ? "tattoo" : "unknown";
+    var successParams = attributionParams(assign(storedPiercingAttribution(), {
+      conversion_origin: detail.conversion_origin || "ajax_success",
+      form_id: detail.form_id || "",
+      form_destination: detail.form_destination || "",
+      service_category: service,
+      service_type: safeSlug(detail.service_type || service),
+      artist: safeSlug(detail.artist || "no_preference"),
+    }));
+    send("booking_submit", successParams);
+    if (service === "piercing") send("piercing_booking_submit", successParams);
+  });
 
   Array.prototype.forEach.call(document.querySelectorAll("iframe[src]"), function (iframe) {
     var src = iframe.getAttribute("src") || "";

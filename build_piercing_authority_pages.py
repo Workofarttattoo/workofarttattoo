@@ -318,6 +318,8 @@ def hub_main() -> str:
 
 def type_main(guide: PiercingGuide) -> str:
     h1 = complete_guide_h1(guide)
+    if guide.slug_id == "helix":
+        h1 = "Helix Piercing in Las Vegas"
     title = page_title(guide)
     sec = complete_sections_for(guide.slug_id, guide.name)
     breadcrumb = pillar_breadcrumb(guide)
@@ -437,8 +439,8 @@ def type_main(guide: PiercingGuide) -> str:
 <h2 class="font-headline-md text-on-surface text-2xl">Book appointment</h2>
 <p class="font-body-md text-on-surface-variant">{html.escape(guide.offer_note)}</p>
 <div class="flex flex-col sm:flex-row gap-4 pt-2">
-<a class="inline-flex bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest justify-center" href="{BOOK}">Book {html.escape(guide.name.lower())}</a>
-<a class="inline-flex border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors justify-center" href="{KATELYN_PAGE}">Katelyn's portfolio</a>
+<a class="inline-flex bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest justify-center" href="{BOOK}" data-woa-piercing-booking-start="1">Book {html.escape(guide.name.lower())}</a>
+<a class="inline-flex border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors justify-center" href="{KATELYN_PAGE}" data-woa-katelyn-profile-click="1">Katelyn's portfolio</a>
 </div>
 </section>"""
     else:
@@ -447,7 +449,7 @@ def type_main(guide: PiercingGuide) -> str:
 <p class="font-body-md text-on-surface-variant">{html.escape(guide.offer_note)}</p>
 <div class="flex flex-col sm:flex-row gap-4 pt-2">
 <a class="inline-flex bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest justify-center" href="/{HUB_SLUG}/">Browse offered piercings</a>
-<a class="inline-flex border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors justify-center" href="{BOOK}">Book appointment</a>
+<a class="inline-flex border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors justify-center" href="{BOOK}" data-woa-piercing-booking-start="1">Book appointment</a>
 </div>
 </section>"""
 

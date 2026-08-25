@@ -158,3 +158,65 @@ Live production spot check:
 See `content-needed/OWNER-VERIFY-NOW.md`.
 
 Highest-risk items: current hours, minor policies, parking, landmark travel estimates, jewelry material claims, artist awards/credentials, case-study timelines, and the meaning of any "2012" reference. Visible educational copy may still mention jewelry material practices; these are not published as verified structured-data claims until the owner verification item is closed.
+
+## GA4 Funnel Weaponization Addendum - 2026-08-24
+
+### Architecture
+
+- Source event system: `woa_ga4_conversions.py`, injected by `inject_ga4_conversions.py`.
+- Booking form success bridge: `appointments/woa-booking.js`.
+- Generated targets verified: appointments, Start Here, piercing specials, helix piercing, skin science, and commercial piercing pages.
+- Event parameters preserve first landing page, booking origin page, service category, source page, CTA context, and selected safe service/artist slugs.
+- Analytics payloads intentionally exclude names, email addresses, phone numbers, notes, medical fields, reference links, and tattoo-description free text.
+
+### Lead Conversion Audit
+
+- Repo search found no literal `ads_conversion_Submit_lead_form_1`.
+- Current source contains GA4/GTM injection, so the 210-count conversion is most likely configured in Google Tag Manager, GA4 Admin, or Google Ads import rather than hardcoded in the repository.
+- The previous submit-attempt event path has been replaced with `booking_submit_attempt`; it is diagnostic only.
+- The only event that should be marked as the real booking completion conversion is `booking_submit`, fired only after a confirmed `sent=` return state or the successful AJAX/PHP submission bridge.
+
+### Funnel Events Added
+
+- Booking: `booking_view`, `booking_start`, `booking_submit_attempt`, `booking_submit`.
+- Piercing: `piercing_cta_click`, `piercing_booking_start`, `piercing_booking_submit`, `piercing_call_click`, `piercing_text_click`, `piercing_directions_click`, `piercing_katelyn_click`, `piercing_special_view`, `piercing_special_click`, `piercing_jewelry_click`.
+- Start Here: `start_here_selection` using real visible choices from the Start Here hub.
+- Legacy aliases retained only where needed and marked with `legacy_event: true`.
+
+### Content And UX Updates
+
+- Helix page now uses the above-fold H1 `Helix Piercing in Las Vegas`, keeps Katelyn and booking CTAs prominent, and shows a real helix piercing image before the long-form guide.
+- Skin Science pages keep their informational intent; a concise planning bridge was added after the relevant intro context rather than turning them into sales pages.
+- `/piercing-specials-las-vegas/` remains the permanent specials URL and now has explicit special view/click tracking.
+- Commercial piercing pages include the compact Katelyn `MeetYourPiercer` module through the reusable promotion system.
+
+### GA Admin Recommendations
+
+- Mark `booking_submit` as the primary key event/conversion.
+- Do not mark `booking_submit_attempt` as a key event.
+- Retire or remap `ads_conversion_Submit_lead_form_1` after confirming where the existing count is coming from.
+- If GA enhanced measurement `scroll` is enabled, treat the existing custom `scroll_depth` as diagnostic only or disable one path to avoid duplicate scroll interpretation.
+
+### Weekly Acquisition Scorecard
+
+- New spec: `audits/weekly-acquisition-scorecard-spec.md`.
+- Core formulas cover booking view-to-start rate, start-to-submit rate, booking submit rate, piercing CTA engagement, specials engagement, Katelyn profile engagement, and source/landing attribution.
+
+### Validation Results
+
+- Build 1 hash: `ffa16c9299096815bfe4e5537b6e69327650f165ef5a80b83797b44cdc9c2c33`
+- Build 2 hash: `ffa16c9299096815bfe4e5537b6e69327650f165ef5a80b83797b44cdc9c2c33`
+- Build differences: 0
+- Generated HTML files hashed: 287
+- Audit result: `Inventoried 287 pages`; `Recommended actions Counter({'KEEP': 183, 'MERGE': 55, 'IMPROVE': 49})`
+- QA result: `SEO QA passed for 181 indexable HTML pages.`
+- QA failures: 0
+- Duplicate head resources: 0 QA-detected failures
+- Social entity conflicts: 0 QA-detected failures
+- Metadata mismatches: 0 QA-detected failures
+- Unverified schema claims: 0 QA-detected failures
+
+### Deployment Status
+
+- Latest source branch is ready to commit and push to `origin/seo/master-authority-rebuild`.
+- Production should be published by copying this built output to `gh-pages` with `CNAME` set to `www.workofarttattoo.com`.

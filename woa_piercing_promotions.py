@@ -116,12 +116,28 @@ def render_current_piercing_special(*, variant: str = "standard", context: str =
 </aside>"""
 
 
+def render_meet_your_piercer(*, context: str = "content") -> str:
+    return f"""<aside class="border border-outline-variant/30 bg-background p-5 md:p-6 space-y-4" data-woa-meet-your-piercer="katelyn" data-woa-piercing-context="{html.escape(context)}">
+<div class="space-y-2">
+<p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-[10px]">Meet your piercer</p>
+<h2 class="font-headline-md text-on-surface text-xl">Katelyn Cole at Work of Art</h2>
+<p class="font-body-md text-on-surface-variant leading-relaxed">Katelyn handles professional piercing consults, anatomy checks, jewelry planning, and follow-up questions at our Tropicana studio. Start with her portfolio, current piercing specials, or a direct booking request.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-3">
+{_cta(KATELYN_URL, "Katelyn's portfolio", primary=True, extra='data-woa-katelyn-profile-click="1"')}
+{_cta("/appointments/", "Book piercing", extra='data-woa-piercing-booking-start="1"')}
+{_cta(STUDIO_PHONE_TEL.replace("tel:", "sms:"), "Text for today", extra='data-woa-piercing-text-click="1"')}
+</div>
+</aside>"""
+
+
 def render_piercing_decision_module() -> str:
     return f"""<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant/20" data-woa-piercing-decision="1">
 <div class="max-w-5xl mx-auto space-y-6">
 <p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-xs">Piercing in Las Vegas</p>
 <h2 class="font-headline-md text-on-surface text-3xl">Professional piercing with Katelyn Cole</h2>
 <p class="font-body-lg text-on-surface-variant max-w-3xl">Start with the current weekly piercing feature, then choose booking, same-day availability, portfolio proof, or jewelry education based on what you need before you commit.</p>
+{render_meet_your_piercer(context="decision-module")}
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
 {_cta(SPECIALS_URL, "This week's special", primary=True, extra='data-woa-promo-click="main-page-special"')}
 {_cta("/appointments/", "Book piercing", extra='data-woa-piercing-booking-start="1"')}
