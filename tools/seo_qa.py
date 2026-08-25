@@ -6,6 +6,7 @@ import re
 import sys
 import csv
 import hashlib
+from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
@@ -322,6 +323,21 @@ def validate_promotion_model(failures: list[str]) -> None:
             failures.append(f"siteData/piercing_promotions.json[{i}]: invalid status")
         if str(promo.get("slug", "")).strip("/") != "piercing-specials-las-vegas":
             failures.append(f"siteData/piercing_promotions.json[{i}]: promotions must use permanent specials slug")
+        parsed_dates = {}
+        for field in ("startDate", "endDate"):
+            value = str(promo.get(field, "")).strip()
+            if value:
+                try:
+                    parsed_dates[field] = date.fromisoformat(value)
+                except ValueError:
+                    failures.append(f"siteData/piercing_promotions.json[{i}]: invalid {field}")
+        start = parsed_dates.get("startDate")
+        end = parsed_dates.get("endDate")
+        if start and end and start > end:
+            failures.append(f"siteData/piercing_promotions.json[{i}]: startDate after endDate")
+        image = str(promo.get("image", "")).strip()
+        if image.startswith("/") and not (ROOT / image.lstrip("/")).is_file():
+            failures.append(f"siteData/piercing_promotions.json[{i}]: missing promotion image {image}")
 
 def validate_sitewide_files(failures: list[str]) -> None:
     for name in ("sitemap.xml", "sitemap-static-pages.xml"):

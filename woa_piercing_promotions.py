@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import html
 import json
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -23,8 +24,41 @@ def load_promotions() -> list[dict[str, Any]]:
     return json.loads(PROMO_PATH.read_text(encoding="utf-8"))
 
 
+def _date_value(value: Any) -> date | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        return date.fromisoformat(text)
+    except ValueError:
+        return None
+
+
+def _is_current(promo: dict[str, Any], today: date) -> bool:
+    if str(promo.get("status", "")).upper() != "ACTIVE":
+        return False
+    start = _date_value(promo.get("startDate"))
+    end = _date_value(promo.get("endDate"))
+    if start and today < start:
+        return False
+    if end and today > end:
+        return False
+    return True
+
+
 def current_promotion() -> dict[str, Any]:
     promos = load_promotions()
+    today = date.today()
+    for promo in promos:
+        if _is_current(promo, today):
+            return promo
+    for promo in promos:
+        if (
+            str(promo.get("status", "")).upper() == "ACTIVE"
+            and _date_value(promo.get("startDate")) is None
+            and _date_value(promo.get("endDate")) is None
+        ):
+            return promo
     for promo in promos:
         if str(promo.get("status", "")).upper() == "ACTIVE":
             return promo
@@ -86,12 +120,26 @@ def render_current_piercing_special(*, variant: str = "standard", context: str =
 
     image = str(promo.get("image") or "")
     alt = str(promo.get("altText") or "Piercing work at Work of Art Tattoo and Piercing")
-    image_html = (
-        f'<img alt="{html.escape(alt)}" class="aspect-[4/5] w-full object-cover border border-outline-variant/30" '
-        f'decoding="async" loading="lazy" src="{html.escape(image)}"/>'
-        if image
-        else ""
-    )
+    image_html = ""
+    if image:
+        src = html.escape(image)
+        if image.endswith(".webp"):
+            base = image[:-5]
+            image_html = (
+                '<picture>'
+                f'<source srcset="{html.escape(base)}-480.webp 480w, {html.escape(base)}-900.webp 900w, {src} 1080w" '
+                'sizes="(min-width: 1024px) 36vw, 100vw" type="image/webp"/>'
+                f'<source srcset="{html.escape(base)}-480.jpg 480w, {html.escape(base)}-900.jpg 900w" '
+                'sizes="(min-width: 1024px) 36vw, 100vw" type="image/jpeg"/>'
+                f'<img alt="{html.escape(alt)}" class="aspect-[4/5] w-full object-cover border border-outline-variant/30" '
+                f'decoding="async" height="1920" loading="lazy" src="{src}" width="1080"/>'
+                '</picture>'
+            )
+        else:
+            image_html = (
+                f'<img alt="{html.escape(alt)}" class="aspect-[4/5] w-full object-cover border border-outline-variant/30" '
+                f'decoding="async" loading="lazy" src="{src}"/>'
+            )
     hero_class = "grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center" if variant == "hero" else "space-y-6"
     return f"""<aside class="border border-secondary/40 bg-surface-container-low p-6 md:p-8 {hero_class}" {data} data-woa-promo-variant="{html.escape(variant)}">
 <div class="space-y-5">
