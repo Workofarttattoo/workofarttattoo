@@ -61,7 +61,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         anchor="piercing",
         title="I want a piercing",
         summary=(
-            "Placement guides, implant-grade jewelry, and desert aftercare from "
+            "Placement guides, jewelry-fit planning, and desert aftercare from "
             "Katelyn Cole — ear, facial, oral, and body."
         ),
         primary_label="Complete piercing guide",
@@ -123,7 +123,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         title="I want to meet the artists",
         summary=(
             "Three resident artists in-studio — Joshua Cole (tattoo and piercing), Katelyn Cole "
-            "(master piercer), and Teralyn (fineline floral work, script, custom drawings by "
+            "(professional piercer), and Teralyn (fineline floral work, script, custom drawings by "
             "commission, and detailed smaller tattoos). Portfolios, videos, and booking."
         ),
         primary_label="Meet our artists",

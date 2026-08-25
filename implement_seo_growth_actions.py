@@ -113,7 +113,7 @@ BLOCKS: dict[str, str] = {
         "The best-looking piercing is the one that is placed for your anatomy and fitted with jewelry that can heal cleanly.",
         (
             ("Helix piercing guide", "/helix-piercing-las-vegas/", "Cartilage placement, sleeping pressure, downsizing, and healing expectations."),
-            ("Piercing jewelry guide", "/piercing_jewelry_guide_las_vegas/", "Why implant-grade jewelry and sizing matter."),
+            ("Piercing jewelry guide", "/piercing_jewelry_guide_las_vegas/", "Why quality starter jewelry and sizing matter."),
             ("Katelyn Cole", "/artists/katelyn-cole/", "Meet the piercer for anatomy checks, ear styling, and jewelry changes."),
         ),
     ),

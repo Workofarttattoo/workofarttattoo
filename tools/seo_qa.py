@@ -76,6 +76,15 @@ UNVERIFIED_SCHEMA_RE = re.compile(
     r"medical-grade piercing|medical-grade hygiene|hospital-grade",
     re.I,
 )
+PIERCING_ROUTE_RE = re.compile(r"(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial)", re.I)
+TATTOO_PROOF_IMAGE_RE = re.compile(
+    r"(skull-hourglass|roaring-lion|all-seeing-eye|eagle-memorial|cover-up-tattoo|black-grey-lion|fresh-vs-healed|forearm-realism)",
+    re.I,
+)
+PIERCING_CTA_BAD_RE = re.compile(
+    r"send\s+a\s+reference\s+photo[^<]{0,120}(placement,\s*size,\s*and\s*timeline|timeline)",
+    re.I,
+)
 APPOINTMENT_SOCIAL_RE = re.compile(r"Book an Appointment\s*\|", re.I)
 BUILD_STAMP_RE = re.compile(rb"<!-- WOA_BUILD_STAMP: [^>]+ -->\n?")
 
@@ -247,6 +256,30 @@ def validate_head(soup: BeautifulSoup, raw: str, route: str, context: str, failu
     if route != "/appointments/" and any(APPOINTMENT_SOCIAL_RE.search(field or "") for field in fields):
         failures.append(f"{context}: unrelated appointment social metadata")
 
+def validate_piercing_page(soup: BeautifulSoup, raw: str, route: str, context: str, failures: list[str]) -> None:
+    if not PIERCING_ROUTE_RE.search(route):
+        return
+    image_refs: list[str] = []
+    for tag in soup.find_all(["img", "source"]):
+        for attr in ("src", "srcset"):
+            val = tag.get(attr)
+            if val:
+                image_refs.append(str(val))
+    for tag in soup.find_all(style=True):
+        style = str(tag.get("style") or "")
+        if "background-image" in style:
+            image_refs.append(style)
+    if any(TATTOO_PROOF_IMAGE_RE.search(ref) for ref in image_refs):
+        failures.append(f"{context}: piercing page contains tattoo proof imagery")
+    if PIERCING_CTA_BAD_RE.search(raw):
+        failures.append(f"{context}: piercing page contains tattoo reference-photo CTA copy")
+    visible = visible_text(BeautifulSoup(raw, "html.parser"))
+    for phrase in ("master piercer", "medical-grade", "hospital-grade", "APP-aligned", "surgical steel", "316L"):
+        if phrase.lower() in visible.lower():
+            failures.append(f"{context}: piercing page contains unverified visible claim: {phrase}")
+    if route not in {"/artists/katelyn-cole/"} and "Joshua Cole's chair" in raw:
+        failures.append(f"{context}: piercing page contains tattoo-artist proof-strip intro")
+
 def validate_sitewide_files(failures: list[str]) -> None:
     for name in ("sitemap.xml", "sitemap-static-pages.xml"):
         path = ROOT / name
@@ -319,6 +352,7 @@ def main() -> int:
                 failures.append(f"{path.relative_to(ROOT)}: forbidden pattern: {label}")
         soup = BeautifulSoup(text, "html.parser")
         validate_head(soup, text, route, str(path.relative_to(ROOT)), failures)
+        validate_piercing_page(soup, text, route, str(path.relative_to(ROOT)), failures)
         if "Google" in body_text and "review" in body_text.lower():
             visible_counts = {int(m.group(1).replace(",", "")) for m in re.finditer(r"\b(\d{2,4}(?:,\d{3})?)\s+(?:verified\s+)?(?:five-star\s+)?(?:Google\s+)?reviews?\b", body_text, re.I)}
             for count in visible_counts:

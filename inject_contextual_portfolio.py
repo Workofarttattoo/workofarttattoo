@@ -56,7 +56,7 @@ def section_heading(topic: str) -> str:
 
 def section_blurb(topic: str) -> str:
     return {
-        "piercing": "Ear curation, facial piercing, and implant-grade jewelry — documented by Katelyn Cole in our Las Vegas studio.",
+        "piercing": "Ear curation, facial piercing, and jewelry-fit planning — documented by Katelyn Cole in our Las Vegas studio.",
         "healing": "Fresh and healed photos from the same clients — what desert-climate aftercare looks like when it is done right.",
         "cover_up": "Redesigns and camouflage work from consult through healed photos.",
         "realism": "Portraits, wildlife, and large-scale black and grey pieces by Joshua Cole.",

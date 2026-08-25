@@ -51,12 +51,12 @@ REPAIRS: list[tuple[str, str]] = [
         "Three in-studio residents today — Joshua Cole, Katelyn Cole, and Teralyn — not a rotating guest-artist wall.",
     ),
     (
-        "Work of Art has two in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead who trains the team) and Katelyn Cole (master piercer).",
-        "Work of Art has three in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead), Katelyn Cole (master piercer), and Teralyn (fineline floral, script, custom drawings by commission, and high-detail small tattoos).",
+        "Work of Art has two in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead who trains the team) and Katelyn Cole (professional piercer).",
+        "Work of Art has three in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead), Katelyn Cole (professional piercer), and Teralyn (fineline floral, script, custom drawings by commission, and high-detail small tattoos).",
     ),
     (
-        "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — master piercer &amp; ear curation. Two resident artists, one address.",
-        "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — master piercer &amp; ear curation. Teralyn — fineline floral, script, commissioned custom drawings, and high-detail small tattoos. Three resident artists, one address.",
+        "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — professional piercer &amp; ear curation. Two resident artists, one address.",
+        "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — professional piercer &amp; ear curation. Teralyn — fineline floral, script, commissioned custom drawings, and high-detail small tattoos. Three resident artists, one address.",
     ),
     (
         "Where do you pierce realism tattoo in Las Vegas?",

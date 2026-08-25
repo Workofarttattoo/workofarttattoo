@@ -304,7 +304,7 @@ def artist_cards_html() -> str:
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Katelyn Cole</span>
-<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Master Piercer</span>
+<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Professional Piercer</span>
 </a>
 <a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/stabislifee/" rel="noopener noreferrer" target="_blank">@stabislifee</a>
 </div>

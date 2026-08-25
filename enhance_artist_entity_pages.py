@@ -105,14 +105,14 @@ KATELYN_EEAT = """
 <h3 class="font-label-caps text-secondary uppercase tracking-widest text-sm">Specialties</h3>
 <ul class="font-body-md text-on-surface-variant space-y-2 list-disc pl-5">
 <li>Ear curation and constellation piercing</li>
-<li>Implant-grade titanium &amp; 316L surgical steel jewelry</li>
-<li>APP-aligned sterile technique and aftercare education</li>
+<li>Starter jewelry fit and downsizing planning</li>
+<li>Clean placement process and aftercare education</li>
 <li>Healed piercing troubleshooting and jewelry upgrades</li>
 </ul>
 </div>
 <div class="space-y-4">
 <h3 class="font-label-caps text-secondary uppercase tracking-widest text-sm">Safety &amp; standards</h3>
-<p class="font-body-md text-on-surface-variant">Single-use needles, autoclave-processed instruments, and jewelry matched to anatomy — not mall-kiosk shortcuts. Every appointment includes placement planning and written aftercare for Las Vegas heat and travel schedules.</p>
+<p class="font-body-md text-on-surface-variant">Every appointment includes placement planning, jewelry matched to anatomy, and written aftercare for Las Vegas heat and travel schedules. We keep the language factual until owner-verified credential and material documentation is added.</p>
 </div>
 </div>
 <div class="space-y-4">

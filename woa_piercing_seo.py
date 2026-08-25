@@ -75,7 +75,7 @@ def pillar_title(pillar_title: str) -> str:
 def pillar_meta(intro_keyword: str) -> str:
     return (
         f"{intro_keyword} in Las Vegas — Work of Art piercing studio on E. Tropicana, "
-        f"implant-grade jewelry, master piercer Katelyn Cole. Book online · {PHONE_DISPLAY}."
+        f"anatomy-first placement with Katelyn Cole. Book online · {PHONE_DISPLAY}."
     )[:160]
 
 
@@ -119,8 +119,8 @@ def seo_faqs(guide: "PiercingGuide") -> tuple[tuple[str, str], ...]:
         )
         add(
             f"What jewelry do you start with?",
-            f"Implant-grade titanium flat-back or bar, sized long for swelling. "
-            f"I downsize at your check-in — decorative titanium ends wait until you are healed.",
+            f"Starter jewelry is sized long enough for normal swelling. "
+            f"I downsize at your check-in and wait on decorative upgrades until the piercing is stable.",
         )
     else:
         add(
@@ -186,7 +186,7 @@ def sticky_book_label(slug: str) -> str | None:
 def hub_conversion_block() -> str:
     return f"""<aside class="border border-secondary/50 bg-secondary/10 p-8 space-y-4 text-center my-8">
 <h2 class="font-headline-md text-on-surface text-2xl">Ready to book?</h2>
-<p class="font-body-md text-on-surface-variant max-w-2xl mx-auto">Ear curation, facial, oral, and body piercings with Katelyn Cole — implant-grade titanium and desert aftercare at {STUDIO_STREET_ADDRESS}.</p>
+<p class="font-body-md text-on-surface-variant max-w-2xl mx-auto">Ear curation, facial, oral, and body piercings with Katelyn Cole — anatomy-first placement, jewelry-fit planning, and desert aftercare at {STUDIO_STREET_ADDRESS}.</p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2">
 <a class="bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest" href="{BOOK}">Book piercing appointment</a>
 <a class="border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary" href="{PHONE_TEL}">Call {PHONE_DISPLAY}</a>

@@ -256,10 +256,10 @@ KNOWLEDGE_QA: list[tuple[str, str, str, str, str]] = [
     ),
     # --- Piercing ---
     (
-        "implant-grade-titanium-vs-surgical-steel",
+        "piercing-starter-jewelry-fit",
         "Piercing",
-        "What is the difference between titanium and surgical steel piercing jewelry?",
-        "Implant-grade titanium (ASTM F136) is hypoallergenic and lightweight — best for fresh piercings and sensitive skin. 316L surgical steel is durable and common for healed piercings. Katelyn Cole selects jewelry by anatomy and metal sensitivity.",
+        "How does Work of Art choose starter jewelry for a piercing?",
+        "Katelyn Cole selects starter jewelry by anatomy, swelling room, placement, and metal-sensitivity history. Specific material and brand claims should be confirmed with the studio during booking.",
         "best_piercing_shop_las_vegas_updated_jewelry_standards",
     ),
     (

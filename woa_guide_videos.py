@@ -32,7 +32,7 @@ GUIDE_VIDEOS: dict[str, GuideVideo] = {
     "katelyn_downsizing_jewelry_las_vegas_authority_guide": GuideVideo(
         question="When can I change my piercing jewelry?",
         embed_url="https://www.instagram.com/reel/C0nNwUkRHz6/embed",
-        caption="Implant-grade jewelry and anatomical placement — why downsizing timing matters.",
+        caption="Jewelry fit and anatomical placement — why downsizing timing matters.",
         studio_href="/studio_videos/#katelyn-piercing",
     ),
     "piercing_jewelry_guide_las_vegas": GuideVideo(

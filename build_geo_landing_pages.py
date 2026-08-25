@@ -31,6 +31,21 @@ PORTFOLIO_PROOF = (
     ),
 )
 
+PIERCING_PROOF = (
+    (
+        "/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp",
+        "Curated helix, tragus, and lobe piercings by Work of Art in Las Vegas",
+    ),
+    (
+        "/studio_gallery/nostril-stud-on-smiling-client-dd626b1d.webp",
+        "Nostril piercing client result from Work of Art Las Vegas",
+    ),
+    (
+        "/studio_gallery/flat-and-conch-cartilage-studs-c317138a.webp",
+        "Flat and conch cartilage piercing jewelry placement at Work of Art",
+    ),
+)
+
 
 def _list_section(title: str, items: tuple[str, ...]) -> str:
     rows = "".join(
@@ -55,6 +70,27 @@ def _proof_section() -> str:
 <h2 class="font-headline-md text-on-surface text-xl">Real Work of Art examples</h2>
 <p class="font-body-md text-on-surface-variant">These pages point visitors to one real studio, so the artwork shown here comes from Work of Art rather than stock photos or fake neighborhood locations.</p>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">{cards}</div>
+</section>"""
+
+
+def _piercing_planning_section(page: GeoPage) -> str:
+    cards = "".join(
+        f"""<figure class="space-y-3">
+<img alt="{html.escape(alt)}" class="aspect-[4/5] w-full object-cover border border-outline-variant/30 bg-surface-container" decoding="async" loading="lazy" src="{html.escape(src)}"/>
+<figcaption class="font-body-sm text-on-surface-variant">{html.escape(alt)}</figcaption>
+</figure>"""
+        for src, alt in PIERCING_PROOF
+    )
+    return f"""<section class="space-y-4">
+<h2 class="font-headline-md text-on-surface text-xl">Piercing planning near this area</h2>
+<p class="font-body-md text-on-surface-variant">If you are coming from {html.escape(page.title.replace('Tattoo Shop ', '').replace('Serving ', '').replace('Near ', 'near '))}, piercing timing matters as much as directions. Katelyn Cole helps clients plan ear curation, nostril, septum, cartilage, body, and jewelry-fit questions around travel, shows, work shifts, pool plans, headphones, helmets, and sleep position.</p>
+<ul class="font-body-md text-on-surface-variant space-y-2 list-disc pl-5">
+<li>For same-day piercing openings, text or call before driving so the studio can confirm schedule room.</li>
+<li>For ear curation, bring photos of your current piercings and any irritation or jewelry problems.</li>
+<li>For tourists, schedule before alcohol and leave time for aftercare instructions before a show, flight, or pool plan.</li>
+</ul>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">{cards}</div>
+<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline hover:no-underline" href="/piercing_types_las_vegas_authority_hub/">Read the complete piercing guide</a> · <a class="text-secondary underline hover:no-underline" href="/artists/katelyn-cole/">Katelyn Cole portfolio</a></p>
 </section>"""
 
 
@@ -93,6 +129,7 @@ def page_html(page: GeoPage) -> str:
 {_list_section("Parking", page.parking)}
 {_list_section("Why collectors choose Work of Art", page.why_choose)}
 {_proof_section()}
+{_piercing_planning_section(page)}
 <section class="space-y-3">
 <h2 class="font-headline-md text-on-surface text-xl">Nearby landmarks</h2>
 <p class="font-body-md text-on-surface-variant">{html.escape(page.landmarks[0])}</p>

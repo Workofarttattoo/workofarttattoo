@@ -204,7 +204,7 @@ def _lobe(name: str) -> EncyclopediaSections:
             "If the hole looks oval instead of round, book a consult before it worsens.",
         ),
         rejection=(
-            "Lobe rejection is uncommon with needle technique and implant-grade jewelry.",
+            "Lobe rejection is uncommon with needle technique and properly fitted jewelry.",
             "Red flags: thinning skin at the exit, jewelry hanging lower over weeks.",
         ),
         common_mistakes=(
@@ -224,7 +224,7 @@ def _lobe(name: str) -> EncyclopediaSections:
         katelyn_recommendations=(
             f"I mark {name.lower()} piercings standing and sitting — your anatomy shifts.",
             "Plan spacing now if you want a curated ear later.",
-            "Implant-grade titanium or 316L steel only for fresh work.",
+            "Fresh jewelry must be fitted and documented in-studio.",
         ),
         video_links=(
             ("Katelyn piercing in the studio", "/studio_videos/#katelyn-piercing"),
@@ -287,7 +287,7 @@ def _cartilage(name: str) -> EncyclopediaSections:
             "Cannot commit to side-sleeping changes for rook, daith, or industrial heal.",
         ),
         katelyn_recommendations=(
-            f"I pierce {name.lower()} with single-use needles and implant-grade flat-back posts sized for your swell.",
+            f"I pierce {name.lower()} with clean technique and flat-back posts sized for your swelling.",
             "One cartilage project at a time unless we map a staged curation plan.",
             "Threadless titanium lets us downsize ends without twisting the fistula.",
         ),
@@ -345,7 +345,7 @@ def _nasal(name: str) -> EncyclopediaSections:
         ),
         katelyn_recommendations=(
             f"I mark {name.lower()} at 90 degrees to tissue — not parallel to the face.",
-            "Implant-grade titanium; anodized titanium options after the fistula stabilizes.",
+            "Starter jewelry sized for swelling; decorative options after the fistula stabilizes.",
         ),
         video_links=(("Studio piercing reels", "/studio_videos/"),),
         photo_links=(("Facial piercing portfolio", "/studio_gallery/#katelyn-piercing"),),

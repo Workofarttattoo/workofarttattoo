@@ -98,7 +98,7 @@ def piercing_strip(
             ProofFrame(
                 f"{placement} close-up",
                 close_caption
-                or f"Placement and angle marked for your anatomy — implant-grade starter jewelry sized for swelling.",
+                or f"Placement and angle marked for your anatomy — starter jewelry sized for swelling.",
                 close[0],
                 close[1],
             ),
@@ -201,7 +201,7 @@ _EAR = piercing_strip(
     week1=_p(IMG["triple_flat_setup"]),
     month2=_p(IMG["ear_healed"]),
     swelling=_p(IMG["flat_conch_fresh"]),
-    week1_caption="Fresh cartilage or lobe — implant-grade studs with extra post length for swelling.",
+    week1_caption="Fresh cartilage or lobe — starter studs with extra post length for swelling.",
     swelling_caption="Flat and conch starters sit long on purpose — shortening too soon causes embedding and bumps.",
 )
 
@@ -459,8 +459,8 @@ PAGE_STRIPS: dict[str, GuideProofStrip] = {
         month2=_p(IMG["jewelry_change"]),
         jewelry=_p(IMG["jewelry_change"]),
         swelling=_p(IMG["triple_flat_setup"]),
-        close_caption="Implant-grade titanium and threadless ends — what we stock for fresh piercings.",
-        week1_caption="Fresh piercings start with longer posts — titanium studs sized for swelling, not fashion length.",
+        close_caption="Threadless ends and jewelry options — what we discuss before fresh piercings.",
+        week1_caption="Fresh piercings start with longer posts sized for swelling, not fashion length.",
         month2_caption="Healed upgrade — shorter posts and decorative ends once the fistula is stable.",
         jewelry_caption="Downsize and upgrade consult — shorter posts and decorative ends once healed.",
         swelling_caption="Starter length shown on flat and conch — downsizing too early is the most common jewelry mistake.",

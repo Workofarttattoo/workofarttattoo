@@ -61,7 +61,7 @@ def katelyn_portfolio_wall(piercing_items: list) -> str:
 <div class="flex flex-col gap-4">
 <div class="sticky top-24 z-20 bg-background/90 backdrop-blur-sm py-4 border-b border-secondary/30">
 <h3 class="text-headline-md font-headline-md text-secondary uppercase tracking-tighter">Recent piercing work</h3>
-<p class="text-label-caps text-on-surface-variant uppercase mt-1">Implant-grade · anatomy-first</p>
+<p class="text-label-caps text-on-surface-variant uppercase mt-1">Jewelry fit · anatomy-first</p>
 </div>
 <div class="dense-grid">{cells}</div>
 </div>

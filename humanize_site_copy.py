@@ -154,7 +154,7 @@ GLOBAL_REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Work of Art Tattoo &amp; Piercing is widely recognized as the premier destination for ear curation in Las Vegas.",
-        "Katelyn Cole leads ear curation and medical-grade piercing at Work of Art in Las Vegas.",
+        "Katelyn Cole leads ear curation and piercing placement at Work of Art in Las Vegas.",
     ),
     (
         'content="Realism tattoo artist &amp; realism tattoo artist near me in Las Vegas — Joshua Cole at Work of Art. Black and grey realism tattoo, realism tattoos, sleeves. Book a consult."',
@@ -162,7 +162,7 @@ GLOBAL_REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         'content="Helix body piercing &amp; body piercing store near me — Katelyn Cole at Work of Art Las Vegas. Tattoo body piercing near me, ear curation, body piercings near me. Book today."',
-        'content="Katelyn Cole — master piercer at Work of Art Las Vegas. Ear curation, implant-grade titanium, APP-aligned technique. Book a consult."',
+        'content="Katelyn Cole — professional piercer at Work of Art Las Vegas. Ear curation, jewelry-fit planning, and calm consults. Book a consult."',
     ),
     (
         "100 Featured 5-Star Experiences",
@@ -185,7 +185,7 @@ GLOBAL_REPLACEMENTS: list[tuple[str, str]] = [
         "Looking for ",
     ),
     (
-        "near the Strip, or a trusted piercing shop that uses implant-grade titanium?",
+        "near the Strip, or a trusted piercing shop that plans placement and jewelry fit carefully?",
         "and want it done with sterile needle technique and titanium starter jewelry?",
     ),
     (
@@ -193,7 +193,7 @@ GLOBAL_REPLACEMENTS: list[tuple[str, str]] = [
         "and want to see healed portfolio work first?",
     ),
     (
-        "Master piercer Katelyn Cole · Implant-grade titanium · Minutes from the Strip · ",
+        "",
         "",
     ),
     (
@@ -295,7 +295,7 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
         ),
         (
             "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Tattoo body piercing near me at one studio: Work of Art on E. Tropicana. Professional ear piercing, helix body piercing, and curated body piercings near me — plus black &amp; grey realism tattoos under the same roof.</p>",
-            "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Work of Art on E. Tropicana pairs Katelyn Cole's ear curation and implant-grade jewelry with Joshua Cole's custom tattoos — one licensed studio, sterile setup, and aftercare coaching built for Vegas heat.</p>",
+            "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Work of Art on E. Tropicana pairs Katelyn Cole's ear curation and jewelry-fit planning with Joshua Cole's custom tattoos — one licensed studio, sterile setup, and aftercare coaching built for Vegas heat.</p>",
         ),
         (
             "<p class=\"font-body-lg text-on-surface-variant\">Searching <strong>tattoo body piercing near me</strong> or <strong>body piercings and tattoos near me</strong> in Vegas? Work of Art is a licensed <strong>body piercing studio</strong> and tattoo and piercing shop at 2375 E. Tropicana Ave, Suite 3 — minutes from the Strip. Book piercing with Katelyn Cole and tattoos with Joshua Cole without bouncing between a body piercing place and a separate tattoo parlor.</p>",
@@ -319,11 +319,11 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
         ),
         (
             "<li>· Body piercing store near me with autoclave sterilization</li>",
-            "<li>· Implant-grade titanium and surgical steel in stock</li>",
+            "<li>· Jewelry-fit planning and downsizing guidance</li>",
         ),
         (
             'content="Helix body piercing &amp; body piercing store near me — Katelyn Cole at Work of Art Las Vegas. Tattoo body piercing near me, ear curation, body piercings near me. Book today."',
-            'content="Ear curation and body piercing at Work of Art Las Vegas — Katelyn Cole, implant-grade jewelry, APP-aligned technique. Book a consult."',
+            'content="Ear curation and body piercing at Work of Art Las Vegas — Katelyn Cole, jewelry-fit planning, and calm consults. Book a consult."',
         ),
         (
             "<h3 class=\"font-headline-md text-headline-md text-on-surface mb-3\">Why locals pick this body piercing store</h3>",

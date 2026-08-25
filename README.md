@@ -11,7 +11,7 @@ To push all changes and pages to the live site, use the master deployment script
 Run the following command from the repository root:
 
 ```bash
-FTP_USER=tattoojosh@workofarttattoo.com FTP_PASS=your_password python3 seo_rewrite_image_alts.py --deploy
+FTP_USER=your_ftp_username FTP_PASS=your_password python3 seo_rewrite_image_alts.py --deploy
 ```
 
 ### Prerequisites
