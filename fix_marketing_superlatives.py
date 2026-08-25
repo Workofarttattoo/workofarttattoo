@@ -11,7 +11,7 @@ SKIP = frozenset({"artists_raw", "skipped_upload_build", ".git"})
 REPLACEMENTS: list[tuple[str, str]] = [
     (
         "Located at 2375 E. Tropicana Ave, Suite 3, we offer elite artistry and medical-grade hygiene for every client.",
-        "Located at 2375 E. Tropicana Ave, Suite 3 — three in-studio artists, healed portfolio photos, and medical-grade hygiene you can see on every visit.",
+        "Located at 2375 E. Tropicana Ave, Suite 3 — three in-studio artists, healed portfolio photos, and a consult-first studio visit.",
     ),
     (
         "<h4 class=\"font-headline-md text-headline-md text-on-surface\">Elite Cleanliness</h4>",
@@ -19,7 +19,11 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "The premier destination for luxury tattoo and piercing experiences in Las Vegas. Expertly crafted, eternally personal.",
+        "Three in-studio artists, consult-first booking, piercing consultations, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
+    ),
+    (
         "Three in-studio artists, consult-first booking, implant-grade piercing jewelry, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
+        "Three in-studio artists, consult-first booking, piercing consultations, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
     ),
     (
         "The premier destination for high-contrast technical tattooing and micro-realism in the heart of Las Vegas.",
@@ -31,11 +35,11 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "The premier destination for high-end artistry and clinical safety in Las Vegas. Excellence isn't an option; it's our standard.",
-        "SNHD-licensed studio, sterile setup, healed galleries, and named artists — Joshua Cole and Katelyn Cole in-studio at 2375 E. Tropicana Ave, Suite 3.",
+        "Consult-first tattoo and piercing planning, healed galleries, and named artists — Joshua Cole, Katelyn Cole, and Teralyn in-studio at 2375 E. Tropicana Ave, Suite 3.",
     ),
     (
         "Work of Art Tattoo &amp; Piercing is widely recognized as the premier destination for ear curation in Las Vegas.",
-        "Katelyn Cole leads ear curation at Work of Art — implant-grade titanium, anatomy-first marking, and downsizing on the calendar.",
+        "Katelyn Cole leads ear curation at Work of Art — anatomy-first marking, jewelry planning, and downsizing on the calendar.",
     ),
     (
         "<p class=\"font-bold\">Elite Artistry</p>",
@@ -43,7 +47,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Premier Tattoo &amp; Piercing Studio in the heart of Las Vegas. Where technical excellence meets elite artistry.",
-        "Tattoo &amp; piercing studio on E. Tropicana — consult-first booking, healed galleries, implant-grade jewelry.",
+        "Tattoo &amp; piercing studio on E. Tropicana — consult-first booking, healed galleries, and jewelry planning.",
     ),
     (
         "Premier Tattoo &amp; Piercing Studio located in the heart of Las Vegas. Artistry without compromise.",

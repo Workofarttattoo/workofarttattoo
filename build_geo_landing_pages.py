@@ -16,6 +16,21 @@ SITE = "https://www.workofarttattoo.com"
 HEAD_LINKS = """<link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-typography.css" rel="stylesheet"/>"""
 
+PORTFOLIO_PROOF = (
+    (
+        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skull-hood-candle-realism-las-vegas.webp",
+        "Black and grey realism tattoo by Work of Art in Las Vegas",
+    ),
+    (
+        "/home_work_of_art_tattoo_piercing/client-portfolio/color-realism-wolf-red-forearm-las-vegas.webp",
+        "Color realism tattoo work from Work of Art Las Vegas",
+    ),
+    (
+        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-portrait-script-text-lower-arm-las-vegas.webp",
+        "Black and grey portrait and script tattoo from Work of Art Las Vegas",
+    ),
+)
+
 
 def _list_section(title: str, items: tuple[str, ...]) -> str:
     rows = "".join(
@@ -25,6 +40,21 @@ def _list_section(title: str, items: tuple[str, ...]) -> str:
     return f"""<section class="space-y-3">
 <h2 class="font-headline-md text-on-surface text-xl">{html.escape(title)}</h2>
 <ul class="space-y-2 list-disc pl-5 marker:text-secondary">{rows}</ul>
+</section>"""
+
+
+def _proof_section() -> str:
+    cards = "".join(
+        f"""<figure class="space-y-3">
+<img alt="{html.escape(alt)}" class="aspect-[4/5] w-full object-cover border border-outline-variant/30 bg-surface-container" decoding="async" loading="lazy" src="{html.escape(src)}"/>
+<figcaption class="font-body-sm text-on-surface-variant">{html.escape(alt)}</figcaption>
+</figure>"""
+        for src, alt in PORTFOLIO_PROOF
+    )
+    return f"""<section class="space-y-4">
+<h2 class="font-headline-md text-on-surface text-xl">Real Work of Art examples</h2>
+<p class="font-body-md text-on-surface-variant">These pages point visitors to one real studio, so the artwork shown here comes from Work of Art rather than stock photos or fake neighborhood locations.</p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">{cards}</div>
 </section>"""
 
 
@@ -62,6 +92,7 @@ def page_html(page: GeoPage) -> str:
 {_list_section("Directions from your area", page.directions)}
 {_list_section("Parking", page.parking)}
 {_list_section("Why collectors choose Work of Art", page.why_choose)}
+{_proof_section()}
 <section class="space-y-3">
 <h2 class="font-headline-md text-on-surface text-xl">Nearby landmarks</h2>
 <p class="font-body-md text-on-surface-variant">{html.escape(page.landmarks[0])}</p>
