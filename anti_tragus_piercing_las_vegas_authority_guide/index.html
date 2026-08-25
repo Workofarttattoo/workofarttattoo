@@ -707,10 +707,10 @@ html.woa-mnav-lock body {
 <nav aria-label="Related guides" class="px-margin-mobile md:px-margin-desktop" data-woa-guide-hub-bar="1" data-woa-guide-hub-compact="1"><div class="woa-guide-hub-scroll"><a class="woa-guide-pill woa-guide-pill-vault" href="/start_here/">Start here</a><a class="woa-guide-pill" href="/piercing_types_las_vegas_authority_hub/">All piercing guides</a><span class="woa-guide-pill-current-label">anti tragus piercing las vegas</span></div></nav><main class="relative pt-20">
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background">
 <div class="max-w-3xl mx-auto space-y-6">
-<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline" href="/piercing-guide-las-vegas/">Complete piercing guide</a> · <a class="text-secondary underline" href="/ear_piercing_guide_las_vegas/">Ear Piercing Guide</a></p>
+<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline" href="/piercing_types_las_vegas_authority_hub/">Complete piercing guide</a> · <a class="text-secondary underline" href="/ear_piercing_guide_las_vegas/">Ear Piercing Guide</a></p>
 <nav aria-label="Related piercing guides" class="border border-outline-variant/30 bg-surface-container-low p-5 space-y-3">
 <p class="font-label-caps text-[10px] uppercase tracking-widest text-secondary">Part of this guide</p>
-<ul class="font-body-md text-on-surface-variant space-y-2"><li><a class="text-secondary underline hover:no-underline" href="/piercing-guide-las-vegas/">Complete Piercing Guide</a></li>
+<ul class="font-body-md text-on-surface-variant space-y-2"><li><a class="text-secondary underline hover:no-underline" href="/piercing_types_las_vegas_authority_hub/">Complete Piercing Guide</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/ear_piercing_guide_las_vegas/">Ear Piercing Guide</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/piercing_jewelry_guide_las_vegas/">Piercing Jewelry Guide</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/piercing_healing_guide_las_vegas/">Piercing Healing Guide</a></li>
@@ -718,7 +718,7 @@ html.woa-mnav-lock body {
 <li><a class="text-secondary underline hover:no-underline" href="/katelyn_cole_piercing_authority_hub_las_vegas/">Katelyn Cole — Piercing Authority</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/tragus_piercing_las_vegas_authority_guide/">Tragus piercing guide</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/conch_piercing_las_vegas_authority_guide/">Conch piercing guide</a></li>
-<li><a class="text-secondary underline hover:no-underline" href="/helix-piercing-las-vegas/">Helix piercing guide</a></li></ul>
+<li><a class="text-secondary underline hover:no-underline" href="/helix_piercing_las_vegas_authority_guide/">Helix piercing guide</a></li></ul>
 </nav>
 <p class="font-body-md text-on-surface-variant border border-outline-variant/30 bg-surface-container-low px-5 py-4 rounded-sm">
 <span class="font-label-caps text-[10px] uppercase tracking-widest text-secondary block mb-1">Reviewed &amp; maintained</span>
@@ -745,7 +745,7 @@ Reviewed by Katelyn Morgen Cole, Professional Piercer · Last updated: June 2026
 </li><li class="flex items-center gap-2 flex-wrap">
 <a class="text-secondary underline hover:no-underline font-body-md" href="/katelyn_anatomy_matters_las_vegas_authority_guide/">Anatomy</a>
 <span aria-hidden="true" class="text-on-surface-variant">→</span>
-</li><li><a class="text-secondary underline hover:no-underline font-body-md" href="/piercing-guide-las-vegas/">Las Vegas piercing</a></li></ol>
+</li><li><a class="text-secondary underline hover:no-underline font-body-md" href="/piercing_types_las_vegas_authority_hub/">Las Vegas piercing</a></li></ol>
 </nav>
 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">From Katelyn Cole</span>
 <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface leading-tight">The Complete Anti-Tragus Piercing Guide</h1>
@@ -980,7 +980,7 @@ Reviewed by Katelyn Morgen Cole, Professional Piercer · Last updated: June 2026
 <h2 class="font-headline-md text-on-surface text-2xl">Related piercing guides</h2>
 <ul class="font-body-md text-on-surface-variant space-y-2"><li><a class="text-secondary underline hover:no-underline" href="/tragus_piercing_las_vegas_authority_guide/">Tragus piercing guide</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/conch_piercing_las_vegas_authority_guide/">Conch piercing guide</a></li>
-<li><a class="text-secondary underline hover:no-underline" href="/helix-piercing-las-vegas/">Helix piercing guide</a></li></ul>
+<li><a class="text-secondary underline hover:no-underline" href="/helix_piercing_las_vegas_authority_guide/">Helix piercing guide</a></li></ul>
 <p class="font-body-md text-on-surface-variant text-sm pt-2"><a class="text-secondary underline" href="/appointments/">Book a piercing</a> · <a class="text-secondary underline" href="/artists/katelyn-cole/">Katelyn's portfolio</a></p>
 </section>
 </div>
@@ -1149,6 +1149,7 @@ elevenlabs-convai::part(button) {
   var EVENT_SOURCE = "woa_site";
   var DEDUPE_MS = 1200;
   var sentRecently = {};
+  var PIERCING_ROUTE_RE = /(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial)/i;
 
   function assign(target, source) {
     Object.keys(source || {}).forEach(function (key) {
@@ -1245,6 +1246,78 @@ elevenlabs-convai::part(button) {
     return id && id.indexOf("piercing") >= 0 ? "piercing" : "tattoo";
   }
 
+  function closestPromo(el) {
+    return el && el.closest ? el.closest("[data-woa-piercing-special]") : null;
+  }
+
+  function promoParams(link, action) {
+    var promo = closestPromo(link);
+    var params = {
+      link_url: link ? link.getAttribute("href") || "" : "",
+      click_text: linkText(link),
+      click_location: clickLocation(link),
+      service_type: "piercing",
+      promo_action: action || (link ? link.getAttribute("data-woa-promo-click") || "" : ""),
+      promo_context: link ? link.getAttribute("data-woa-promo-context") || "" : "",
+    };
+    if (promo) {
+      params.promo_id = promo.getAttribute("data-woa-promo-id") || "";
+      params.promo_campaign = promo.getAttribute("data-woa-promo-campaign") || "";
+      params.promo_variant = promo.getAttribute("data-woa-promo-variant") || "";
+    }
+    return params;
+  }
+
+  function persistPiercingAttribution(link) {
+    var params = promoParams(link, "booking_start");
+    storageSet("woa_piercing_attribution", JSON.stringify({
+      promo_id: params.promo_id || "",
+      promo_campaign: params.promo_campaign || "",
+      promo_context: params.promo_context || "",
+      page_path: location.pathname,
+    }));
+    return params;
+  }
+
+  function storedPiercingAttribution() {
+    try {
+      var raw = storageGet("woa_piercing_attribution");
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function observePiercingDeals() {
+    var blocks = Array.prototype.slice.call(document.querySelectorAll("[data-woa-piercing-special]"));
+    if (!blocks.length) return;
+    var seen = {};
+    function view(block) {
+      var id = block.getAttribute("data-woa-promo-id") || "";
+      if (!id || seen[id + location.pathname]) return;
+      seen[id + location.pathname] = true;
+      send("piercing_deal_view", {
+        service_type: "piercing",
+        promo_id: id,
+        promo_campaign: block.getAttribute("data-woa-promo-campaign") || "",
+        promo_variant: block.getAttribute("data-woa-promo-variant") || "",
+      });
+    }
+    if (!("IntersectionObserver" in window)) {
+      blocks.forEach(view);
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          view(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    blocks.forEach(function (block) { observer.observe(block); });
+  }
+
   document.addEventListener(
     "click",
     function (e) {
@@ -1258,8 +1331,31 @@ elevenlabs-convai::part(button) {
         click_location: clickLocation(link),
       };
 
+      if (link.hasAttribute("data-woa-promo-click")) {
+        send("piercing_deal_click", promoParams(link));
+      }
+      if (link.hasAttribute("data-woa-piercing-booking-start") || (h.indexOf("/appointments") >= 0 && closestPromo(link))) {
+        send("piercing_booking_start", persistPiercingAttribution(link));
+      }
+      if (link.hasAttribute("data-woa-katelyn-profile-click")) {
+        send("piercing_katelyn_profile_click", assign({ service_type: "piercing" }, base));
+      }
+      if (link.hasAttribute("data-woa-piercing-jewelry-click")) {
+        send("piercing_jewelry_click", assign({ service_type: "piercing" }, base));
+      }
+      if (link.hasAttribute("data-woa-piercing-directions-click")) {
+        send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+      }
+
       if (h.indexOf("tel:") === 0) {
+        if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
+          send("piercing_call_click", assign({ service_type: "piercing" }, base));
+        }
         send("call_click", base);
+        return;
+      }
+      if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("piercing_text_click", assign({ service_type: "piercing" }, base));
         return;
       }
       if (h.indexOf("mailto:") === 0) {
@@ -1276,6 +1372,9 @@ elevenlabs-convai::part(button) {
         h.indexOf("g.page") >= 0 ||
         h.indexOf("maps.google.com") >= 0
       ) {
+        if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
+          send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+        }
         send("directions_click", base);
         return;
       }
@@ -1305,13 +1404,23 @@ elevenlabs-convai::part(button) {
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
+      var service = serviceFromFormId(id);
       send("booking_form_submit", {
         form_id: id,
         form_destination: "formsubmit",
-        service_type: serviceFromFormId(id),
+        service_type: service,
       });
+      if (service === "piercing") {
+        send("piercing_booking_submit", assign(storedPiercingAttribution(), {
+          form_id: id,
+          form_destination: "formsubmit",
+          service_type: "piercing",
+        }));
+      }
     });
   });
+
+  observePiercingDeals();
 
   if (/^\/appointments\/?$/.test(location.pathname)) {
     send("booking_page_view", {}, { allowRepeat: true });

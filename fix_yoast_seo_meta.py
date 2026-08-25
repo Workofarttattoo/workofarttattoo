@@ -39,8 +39,10 @@ OG_IMAGE: dict[str, str] = {
         "best-tattoo-las-vegas-custom-sleeve-by-master-artist.webp"
     ),
     "best_piercing_shop_las_vegas_updated_jewelry_standards": (
-        f"{SITE}/best_piercing_shop_las_vegas_updated_jewelry_standards/"
-        "custom-tattoos-las-vegas-vibrant-color-sunflower-design.webp"
+        f"{SITE}/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp"
+    ),
+    "piercing-specials-las-vegas": (
+        f"{SITE}/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp"
     ),
     "best_tattoo_styles_for_sleeves_large_scale_project_hub": (
         f"{SITE}/best_tattoo_styles_for_sleeves_large_scale_project_hub/"
@@ -74,8 +76,12 @@ DESC_EXTRA: dict[str, str] = {
         "black and grey realism, color work, cover-ups, and walk-ins. (725) 224-1240."
     ),
     "artists": (
-        "Meet Joshua Cole and Katelyn Cole at Work of Art in Las Vegas — "
-        "realism tattoo, custom ink, and master piercing. Book at our Tropicana studio."
+        "Meet Joshua Cole, Katelyn Cole, and Teralyn at Work of Art in Las Vegas — "
+        "custom tattoos, piercing, fineline floral work, script, and realism."
+    ),
+    "piercing-specials-las-vegas": (
+        "Current piercing specials at Work of Art Las Vegas with Katelyn Cole — "
+        "same-day availability, booking, jewelry-fit planning, aftercare, and directions."
     ),
 }
 

@@ -59,12 +59,12 @@ KNOWN: dict[str, tuple[MediaCategory, str, str]] = {
     "A1111068": (MediaCategory.JOSHUA_TATTOO, "Icarus falling angel", "Black and grey Icarus falling angel tattoo — Joshua Cole, Work of Art Las Vegas"),
     "5A41DF51": (MediaCategory.JOSHUA_TATTOO, "Dove in flight", "Black and grey dove realism tattoo on shoulder — Joshua Cole, Work of Art Las Vegas"),
     "4107AB02": (MediaCategory.JOSHUA_TATTOO, "Medusa portrait fresh", "Fresh black and grey Medusa realism forearm tattoo — Joshua Cole, Work of Art Las Vegas"),
-    "F28E160A": (MediaCategory.KATELYN_PIERCING, "Triple flat conch lobe ear setup", "Blonde client ear with three flat helix studs, conch barbell and dangling lobe crystal — Joshua Cole, Work of Art Las Vegas"),
-    "DD626B1D": (MediaCategory.KATELYN_PIERCING, "Nostril stud on smiling client", "Smiling woman in camo cadet hat with small silver nostril stud and hoop earrings — Joshua Cole, Work of Art Las Vegas"),
-    "2455FD61": (MediaCategory.KATELYN_PIERCING, "Matching bilateral earlobe piercings", "Fresh silver ball studs in both earlobes on bearded man, shown in paired profile shots — Joshua Cole, Work of Art Las Vegas"),
-    "C6159742": (MediaCategory.KATELYN_PIERCING, "Labret and eyebrow piercing closeup", "Close three-quarter portrait showing silver labret below lip and matching eyebrow stud — Joshua Cole, Work of Art Las Vegas"),
-    "C317138A": (MediaCategory.KATELYN_PIERCING, "Flat and conch cartilage studs", "Side profile of smiling woman with new flat helix and conch crystal studs in studio — Joshua Cole, Work of Art Las Vegas"),
-    "F1DA8B6F": (MediaCategory.KATELYN_PIERCING, "Conch and lobe piercing smile", "Smiling client showing fresh conch and lobe studs beside colorful butterfly shoulder tattoos — Joshua Cole, Work of Art Las Vegas"),
+    "F28E160A": (MediaCategory.KATELYN_PIERCING, "Triple flat conch lobe ear setup", "Blonde client ear with three flat helix studs, conch barbell and dangling lobe crystal — Katelyn Cole piercing, Work of Art Las Vegas"),
+    "DD626B1D": (MediaCategory.KATELYN_PIERCING, "Nostril stud on smiling client", "Smiling woman in camo cadet hat with small silver nostril stud and hoop earrings — Katelyn Cole piercing, Work of Art Las Vegas"),
+    "2455FD61": (MediaCategory.KATELYN_PIERCING, "Matching bilateral earlobe piercings", "Fresh silver ball studs in both earlobes on bearded man, shown in paired profile shots — Katelyn Cole piercing, Work of Art Las Vegas"),
+    "C6159742": (MediaCategory.KATELYN_PIERCING, "Labret and eyebrow piercing closeup", "Close three-quarter portrait showing silver labret below lip and matching eyebrow stud — Katelyn Cole piercing, Work of Art Las Vegas"),
+    "C317138A": (MediaCategory.KATELYN_PIERCING, "Flat and conch cartilage studs", "Side profile of smiling woman with new flat helix and conch crystal studs in studio — Katelyn Cole piercing, Work of Art Las Vegas"),
+    "F1DA8B6F": (MediaCategory.KATELYN_PIERCING, "Conch and lobe piercing smile", "Smiling client showing fresh conch and lobe studs beside colorful butterfly shoulder tattoos — Katelyn Cole piercing, Work of Art Las Vegas"),
     # Joshua · original art
     "25BD710F": (MediaCategory.JOSHUA_ART, "Psychedelic chameleon painting", "Original chameleon painting — Joshua Cole fine art, Work of Art Las Vegas"),
     "7E01A1B0": (MediaCategory.JOSHUA_ART, "Grim reaper with violin", "Original grim reaper violin painting on canvas — Joshua Cole, Work of Art Las Vegas"),
@@ -85,8 +85,8 @@ KNOWN: dict[str, tuple[MediaCategory, str, str]] = {
     "69C261AF": (MediaCategory.KATELYN_PIERCING, "Ear piercing in studio", "Katelyn Cole ear piercing session — Work of Art Las Vegas"),
     # Studio life
     "70837687": (MediaCategory.JOSHUA_TATTOOING, "Tattoo session in progress", "Joshua Cole tattooing at Work of Art Las Vegas studio"),
-    "88475D3E": (MediaCategory.KATELYN_PIERCING, "Curated helix tragus lobe piercings", "Ear curated with twin helix crystals, gold tragus hoop and square-cut lobe stud in studio — Joshua Cole, Work of Art Las Vegas"),
-    "A704B2D4": (MediaCategory.KATELYN_PIERCING, "Industrial bar and decorative hoop", "Blonde freckled client with silver industrial barbell and decorative lobe hoop earring — Joshua Cole, Work of Art Las Vegas"),
+    "88475D3E": (MediaCategory.KATELYN_PIERCING, "Curated helix tragus lobe piercings", "Ear curated with twin helix crystals, gold tragus hoop and square-cut lobe stud in studio — Katelyn Cole piercing, Work of Art Las Vegas"),
+    "A704B2D4": (MediaCategory.KATELYN_PIERCING, "Industrial bar and decorative hoop", "Blonde freckled client with silver industrial barbell and decorative lobe hoop earring — Katelyn Cole piercing, Work of Art Las Vegas"),
     "FCEB1FDB": (MediaCategory.STUDIO_LIFE, "Joshua Cole in studio", "Joshua Cole — tattoo artist at Work of Art Las Vegas"),
     "1659A367": (MediaCategory.STUDIO_LIFE, "Work of Art studio", "Inside Work of Art Tattoo & Piercing Las Vegas"),
     "DC47F9F3": (MediaCategory.STUDIO_LIFE, "Studio storefront", "Work of Art Tattoo studio — sign up for classes"),
@@ -116,7 +116,7 @@ KNOWN: dict[str, tuple[MediaCategory, str, str]] = {
     "C19414BD": (MediaCategory.JOSHUA_TATTOO, "Demon tattoo white highlights", "White ink detailing on illustrative demon tattoo — Joshua Cole, Work of Art Las Vegas"),
     "67F63F8A": (MediaCategory.JOSHUA_TATTOOING, "Joshua tattooing lyric piece", "Joshua Cole tattooing illustrative demon and text piece — Work of Art Las Vegas studio"),
     "F39790C4": (MediaCategory.JOSHUA_TATTOOING, "Studio session in progress", "Joshua Cole at work on custom illustrative tattoo — Work of Art Las Vegas"),
-    "07AAD378": (MediaCategory.KATELYN_PIERCING, "Septum piercing session in studio", "Curly-haired client smiling after septum ring as piercer needles the columella below — Joshua Cole, Work of Art Las Vegas"),
+    "07AAD378": (MediaCategory.KATELYN_PIERCING, "Septum piercing session in studio", "Curly-haired client smiling after septum ring as piercer needles the columella below — Katelyn Cole piercing, Work of Art Las Vegas"),
 
     "12A42385": (MediaCategory.STUDIO_LIFE, "Guest viewing studio portrait gallery", "Guest admiring framed portrait art in the Work of Art studio gallery. — Joshua Cole, Work of Art Las Vegas"),
 
@@ -134,7 +134,7 @@ KNOWN: dict[str, tuple[MediaCategory, str, str]] = {
 
     "2C77C6C3": (MediaCategory.JOSHUA_TATTOO, "Black grey bondage portrait tattoo", "Realistic blindfolded woman with collar, chain and wrist shackles in black-grey ink — Joshua Cole, Work of Art Las Vegas"),
 
-    "2E41FC98": (MediaCategory.KATELYN_PIERCING, "Fresh upper cartilage industrial bar", "Silver industrial barbell through upper helix cartilage on short-haired client ear — Joshua Cole, Work of Art Las Vegas"),
+    "2E41FC98": (MediaCategory.KATELYN_PIERCING, "Fresh upper cartilage industrial bar", "Silver industrial barbell through upper helix cartilage on short-haired client ear — Katelyn Cole piercing, Work of Art Las Vegas"),
 
     "31AE60E1": (MediaCategory.JOSHUA_TATTOO, "Archangel wings shoulder blade tattoo", "Detailed black and grey armored archangel with feathered wings on shoulder blade. — Joshua Cole, Work of Art Las Vegas"),
 
@@ -144,7 +144,7 @@ KNOWN: dict[str, tuple[MediaCategory, str, str]] = {
 
     "3D695F6F": (MediaCategory.JOSHUA_ART, "Framed dreadlocked singer portrait art", "Framed color drawing of blonde dreadlocked singer screaming into a mic with smoke swirl — Joshua Cole, Work of Art Las Vegas"),
 
-    "3F1329CC": (MediaCategory.KATELYN_PIERCING, "Client portrait with septum piercings", "Smiling client with magenta curls, septum ring, nostril stud and cheek piercings — Joshua Cole, Work of Art Las Vegas"),
+    "3F1329CC": (MediaCategory.KATELYN_PIERCING, "Client portrait with septum piercings", "Smiling client with magenta curls, septum ring, nostril stud and cheek piercings — Katelyn Cole piercing, Work of Art Las Vegas"),
 
     "4052A62B": (MediaCategory.JOSHUA_TATTOO, "Odin mechanical eye lightning tattoo", "Odin portrait with gem helmet, gear monocle and lightning bolts wrapping shoulder and arm — Joshua Cole, Work of Art Las Vegas"),
 

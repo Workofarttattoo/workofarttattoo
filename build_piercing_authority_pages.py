@@ -31,6 +31,8 @@ from woa_piercing_complete_guides import complete_guide_h1, complete_sections_fo
 from woa_piercing_pillars import ORAL_SLUGS, PILLARS, SKIP_STANDALONE_CLUSTER, pillar_for_slug_id
 from woa_piercing_profiles import sections_for
 from woa_piercing_seo import (
+    PHONE_TEL,
+    STUDIO_LINE,
     conversion_bar,
     hub_conversion_block,
     hub_meta_description,
@@ -38,6 +40,7 @@ from woa_piercing_seo import (
     seo_faqs,
     seo_lead_paragraph,
 )
+from woa_piercing_promotions import render_current_piercing_special
 from woa_guide_proof_strips import proof_strip_html
 
 PIERCING_CATALOG: tuple[PiercingGuide, ...] = _BASE_CATALOG + PIERCING_CATALOG_EXTRA
@@ -332,6 +335,25 @@ def type_main(guide: PiercingGuide) -> str:
     seo_lead = seo_lead_paragraph(guide)
     cta_top = conversion_bar(guide)
     cta_mid = conversion_bar(guide, compact=True)
+    helix_fast_start = ""
+    if guide.slug_id == "helix":
+        helix_fast_start = f"""<div class="border border-outline-variant/30 bg-surface-container-low p-5 space-y-4">
+<p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-[10px]">Helix quick start</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-body-md text-sm text-on-surface-variant">
+<p><strong class="text-on-surface">Healing:</strong> {html.escape(guide.healing_time)}</p>
+<p><strong class="text-on-surface">Starter jewelry:</strong> sized for normal swelling</p>
+<p><strong class="text-on-surface">Anatomy:</strong> outer-rim angle and spacing matter</p>
+<p><strong class="text-on-surface">Downsizing:</strong> usually discussed at the check-in</p>
+<p><strong class="text-on-surface">Location:</strong> {html.escape(STUDIO_LINE)}</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-3">
+<a class="inline-flex bg-secondary text-on-secondary px-8 py-3 font-label-caps text-[11px] tracking-widest uppercase justify-center" href="{BOOK}" data-woa-piercing-booking-start="1">Book helix</a>
+<a class="inline-flex border border-outline px-8 py-3 font-label-caps text-[11px] tracking-widest uppercase justify-center hover:border-secondary" href="{PHONE_TEL.replace('tel:', 'sms:')}" data-woa-piercing-text-click="1">Text for today</a>
+<a class="inline-flex border border-outline px-8 py-3 font-label-caps text-[11px] tracking-widest uppercase justify-center hover:border-secondary" href="/studio_gallery/#katelyn-piercing" data-woa-katelyn-profile-click="1">See helix work</a>
+</div>
+<img alt="Helix and curated ear piercing work by Katelyn Cole at Work of Art Las Vegas" class="aspect-[16/10] w-full object-cover border border-outline-variant/30" decoding="async" loading="lazy" src="/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp"/>
+</div>
+{render_current_piercing_special(variant="compact", context="helix-top")}"""
 
     toc = toc_nav(
         (
@@ -477,6 +499,7 @@ def type_main(guide: PiercingGuide) -> str:
 <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface leading-tight">{html.escape(h1)}</h1>
 {offered_badge(guide)}
 <p class="font-body-lg text-on-surface-variant leading-relaxed">{html.escape(seo_lead)}</p>
+{helix_fast_start}
 {toc}
 {expert_box}
 {cta_mid}

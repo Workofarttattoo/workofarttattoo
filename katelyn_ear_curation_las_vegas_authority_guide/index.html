@@ -719,48 +719,6 @@ html.woa-mnav-lock body {
 <section><h2 class="font-headline-md text-on-surface text-2xl mb-4">Related topics</h2><ul class="font-body-md text-on-surface-variant space-y-2"><li><a class="text-secondary underline" href="/katelyn_anatomy_matters_las_vegas_authority_guide/">Why Anatomy Matters</a></li><li><a class="text-secondary underline" href="/katelyn_downsizing_jewelry_las_vegas_authority_guide/">Downsizing Jewelry</a></li></ul></section>
 <div class="flex gap-4 flex-wrap"><a class="bg-secondary text-on-secondary px-8 py-3 font-label-caps tracking-widest" href="/appointments/">Book consult</a><a class="border border-outline px-8 py-3 font-label-caps tracking-widest" href="/artists/katelyn-cole/">Portfolio</a></div>
 </section>
-<section class="space-y-6 py-4" data-woa-guide-proof-strip="1" id="photos">
-<h2 class="font-headline-md text-on-surface text-2xl">Real heal documentation</h2>
-<p class="font-body-md text-on-surface-variant">Real ear piercing work from our studio — not stock photos. Starter length, swelling room, downsizing, and healed angles documented in Vegas.</p>
-<div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5">
-<figure class="space-y-2" id="proof-ear-piercing-close-up">
-<picture><source srcset="/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp" type="image/webp"/><img alt="Ear piercing close-up — Ear piercing — Work of Art Las Vegas" class="w-full aspect-square object-cover" decoding="async" height="400" loading="lazy" src="/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.png" width="400"/></picture>
-<figcaption class="px-1 space-y-1">
-<span class="font-label-caps text-secondary text-[10px] uppercase tracking-widest block">Ear piercing close-up</span>
-<p class="font-body-md text-on-surface-variant text-sm leading-snug">Placement and angle marked for your anatomy — starter jewelry sized for swelling.</p>
-</figcaption>
-</figure>
-<figure class="space-y-2" id="proof-healing-week-1">
-<picture><source srcset="/studio_gallery/triple-flat-conch-lobe-ear-setup-f28e160a.webp" type="image/webp"/><img alt="Healing week 1 — Ear piercing — Work of Art Las Vegas" class="w-full aspect-square object-cover" decoding="async" height="400" loading="lazy" src="/studio_gallery/triple-flat-conch-lobe-ear-setup-f28e160a.png" width="400"/></picture>
-<figcaption class="px-1 space-y-1">
-<span class="font-label-caps text-secondary text-[10px] uppercase tracking-widest block">Healing week 1</span>
-<p class="font-body-md text-on-surface-variant text-sm leading-snug">Fresh cartilage or lobe — starter studs with extra post length for swelling.</p>
-</figcaption>
-</figure>
-<figure class="space-y-2" id="proof-healing-month-2">
-<picture><source srcset="/studio_gallery/ear-piercing-healed-result-0f5998be.webp" type="image/webp"/><img alt="Healing month 2 — Ear piercing — Work of Art Las Vegas" class="w-full aspect-square object-cover" decoding="async" height="400" loading="lazy" src="/studio_gallery/ear-piercing-healed-result-0f5998be.png" width="400"/></picture>
-<figcaption class="px-1 space-y-1">
-<span class="font-label-caps text-secondary text-[10px] uppercase tracking-widest block">Healing month 2</span>
-<p class="font-body-md text-on-surface-variant text-sm leading-snug">Around 6–8 weeks swelling drops — this is when downsizing protects the angle and prevents bumps.</p>
-</figcaption>
-</figure>
-<figure class="space-y-2" id="proof-jewelry-change">
-<picture><source srcset="/studio_gallery/jewelry-upgrade-86d3f26f.webp" type="image/webp"/><img alt="Jewelry change — Ear piercing — Work of Art Las Vegas" class="w-full aspect-square object-cover" decoding="async" height="400" loading="lazy" src="/studio_gallery/jewelry-upgrade-86d3f26f.png" width="400"/></picture>
-<figcaption class="px-1 space-y-1">
-<span class="font-label-caps text-secondary text-[10px] uppercase tracking-widest block">Jewelry change</span>
-<p class="font-body-md text-on-surface-variant text-sm leading-snug">Downsize to a shorter post or swap ends once the fistula is stable — booked as a check-in, not a mall kiosk.</p>
-</figcaption>
-</figure>
-<figure class="space-y-2" id="proof-swelling-example">
-<picture><source srcset="/studio_gallery/flat-and-conch-cartilage-studs-c317138a.webp" type="image/webp"/><img alt="Swelling example — Ear piercing — Work of Art Las Vegas" class="w-full aspect-square object-cover" decoding="async" height="400" loading="lazy" src="/studio_gallery/flat-and-conch-cartilage-studs-c317138a.png" width="400"/></picture>
-<figcaption class="px-1 space-y-1">
-<span class="font-label-caps text-secondary text-[10px] uppercase tracking-widest block">Swelling example</span>
-<p class="font-body-md text-on-surface-variant text-sm leading-snug">Flat and conch starters sit long on purpose — shortening too soon causes embedding and bumps.</p>
-</figcaption>
-</figure>
-</div>
-<p class="font-body-md text-on-surface-variant text-sm">Photos from Work of Art clients — angles and jewelry length vary by anatomy. <a class="text-secondary underline" href="/studio_gallery/">Studio gallery</a> · <a class="text-secondary underline" href="/artists/katelyn-cole/">Katelyn's portfolio</a></p>
-</section>
 </main>
 <!-- Footer -->
 <!-- WOA_PAGE_SPOTLIGHT_VIDEO_START -->
@@ -925,6 +883,7 @@ elevenlabs-convai::part(button) {
   var EVENT_SOURCE = "woa_site";
   var DEDUPE_MS = 1200;
   var sentRecently = {};
+  var PIERCING_ROUTE_RE = /(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial)/i;
 
   function assign(target, source) {
     Object.keys(source || {}).forEach(function (key) {
@@ -1021,6 +980,78 @@ elevenlabs-convai::part(button) {
     return id && id.indexOf("piercing") >= 0 ? "piercing" : "tattoo";
   }
 
+  function closestPromo(el) {
+    return el && el.closest ? el.closest("[data-woa-piercing-special]") : null;
+  }
+
+  function promoParams(link, action) {
+    var promo = closestPromo(link);
+    var params = {
+      link_url: link ? link.getAttribute("href") || "" : "",
+      click_text: linkText(link),
+      click_location: clickLocation(link),
+      service_type: "piercing",
+      promo_action: action || (link ? link.getAttribute("data-woa-promo-click") || "" : ""),
+      promo_context: link ? link.getAttribute("data-woa-promo-context") || "" : "",
+    };
+    if (promo) {
+      params.promo_id = promo.getAttribute("data-woa-promo-id") || "";
+      params.promo_campaign = promo.getAttribute("data-woa-promo-campaign") || "";
+      params.promo_variant = promo.getAttribute("data-woa-promo-variant") || "";
+    }
+    return params;
+  }
+
+  function persistPiercingAttribution(link) {
+    var params = promoParams(link, "booking_start");
+    storageSet("woa_piercing_attribution", JSON.stringify({
+      promo_id: params.promo_id || "",
+      promo_campaign: params.promo_campaign || "",
+      promo_context: params.promo_context || "",
+      page_path: location.pathname,
+    }));
+    return params;
+  }
+
+  function storedPiercingAttribution() {
+    try {
+      var raw = storageGet("woa_piercing_attribution");
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function observePiercingDeals() {
+    var blocks = Array.prototype.slice.call(document.querySelectorAll("[data-woa-piercing-special]"));
+    if (!blocks.length) return;
+    var seen = {};
+    function view(block) {
+      var id = block.getAttribute("data-woa-promo-id") || "";
+      if (!id || seen[id + location.pathname]) return;
+      seen[id + location.pathname] = true;
+      send("piercing_deal_view", {
+        service_type: "piercing",
+        promo_id: id,
+        promo_campaign: block.getAttribute("data-woa-promo-campaign") || "",
+        promo_variant: block.getAttribute("data-woa-promo-variant") || "",
+      });
+    }
+    if (!("IntersectionObserver" in window)) {
+      blocks.forEach(view);
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          view(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    blocks.forEach(function (block) { observer.observe(block); });
+  }
+
   document.addEventListener(
     "click",
     function (e) {
@@ -1034,8 +1065,31 @@ elevenlabs-convai::part(button) {
         click_location: clickLocation(link),
       };
 
+      if (link.hasAttribute("data-woa-promo-click")) {
+        send("piercing_deal_click", promoParams(link));
+      }
+      if (link.hasAttribute("data-woa-piercing-booking-start") || (h.indexOf("/appointments") >= 0 && closestPromo(link))) {
+        send("piercing_booking_start", persistPiercingAttribution(link));
+      }
+      if (link.hasAttribute("data-woa-katelyn-profile-click")) {
+        send("piercing_katelyn_profile_click", assign({ service_type: "piercing" }, base));
+      }
+      if (link.hasAttribute("data-woa-piercing-jewelry-click")) {
+        send("piercing_jewelry_click", assign({ service_type: "piercing" }, base));
+      }
+      if (link.hasAttribute("data-woa-piercing-directions-click")) {
+        send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+      }
+
       if (h.indexOf("tel:") === 0) {
+        if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
+          send("piercing_call_click", assign({ service_type: "piercing" }, base));
+        }
         send("call_click", base);
+        return;
+      }
+      if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("piercing_text_click", assign({ service_type: "piercing" }, base));
         return;
       }
       if (h.indexOf("mailto:") === 0) {
@@ -1052,6 +1106,9 @@ elevenlabs-convai::part(button) {
         h.indexOf("g.page") >= 0 ||
         h.indexOf("maps.google.com") >= 0
       ) {
+        if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
+          send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+        }
         send("directions_click", base);
         return;
       }
@@ -1081,13 +1138,23 @@ elevenlabs-convai::part(button) {
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
+      var service = serviceFromFormId(id);
       send("booking_form_submit", {
         form_id: id,
         form_destination: "formsubmit",
-        service_type: serviceFromFormId(id),
+        service_type: service,
       });
+      if (service === "piercing") {
+        send("piercing_booking_submit", assign(storedPiercingAttribution(), {
+          form_id: id,
+          form_destination: "formsubmit",
+          service_type: "piercing",
+        }));
+      }
     });
   });
+
+  observePiercingDeals();
 
   if (/^\/appointments\/?$/.test(location.pathname)) {
     send("booking_page_view", {}, { allowRepeat: true });

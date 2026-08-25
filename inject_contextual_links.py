@@ -91,6 +91,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
             ("Piercing aftercare", "/piercing_aftercare_guide_las_vegas/"),
             ("Piercing healing timelines", "/piercing_healing_guide_las_vegas/"),
             ("Jewelry guide", "/piercing_jewelry_guide_las_vegas/"),
+            ("This week's piercing special", "/piercing-specials-las-vegas/"),
             ("Desert piercing aftercare", "/piercing_aftercare_desert_climate_las_vegas_expert_guide/"),
             ("Katelyn Cole authority topics", "/katelyn_cole_piercing_authority_hub_las_vegas/"),
             ("Helix piercing guide", "/helix_piercing_las_vegas_authority_guide/"),

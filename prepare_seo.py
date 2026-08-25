@@ -20,6 +20,7 @@ PIPELINE: list[str] = [
     "build_piercing_pillar_pages.py",
     "build_katelyn_piercing_authority_pages.py",
     "build_piercing_desert_aftercare_guide.py",
+    "build_piercing_specials_page.py",
     "build_skin_science_pages.py",
     "inject_tattoo_seo_conversion.py",
     "build_artists_index_page.py",
@@ -55,6 +56,9 @@ PIPELINE: list[str] = [
     "fix_studio_nap.py",
     "fix_yoast_seo_meta.py",
     "inject_entity_schema.py",
+    "normalize_head_metadata.py",
+    "inject_piercing_promotions.py",
+    "inject_ga4_conversions.py",
     "normalize_head_metadata.py",
     "fix_piercing_content_integrity.py",
 ]

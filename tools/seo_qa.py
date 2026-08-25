@@ -69,6 +69,7 @@ UNIQUE_DATA_ATTRS = (
     "data-woa-home-welcome",
     "data-woa-home-review-proof",
     "data-woa-google-tag-manager",
+    "data-woa-piercing-decision",
 )
 UNVERIFIED_SCHEMA_RE = re.compile(
     r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
@@ -87,6 +88,9 @@ PIERCING_CTA_BAD_RE = re.compile(
 )
 APPOINTMENT_SOCIAL_RE = re.compile(r"Book an Appointment\s*\|", re.I)
 BUILD_STAMP_RE = re.compile(rb"<!-- WOA_BUILD_STAMP: [^>]+ -->\n?")
+PROMO_DATA = json.loads((ROOT / "siteData" / "piercing_promotions.json").read_text(encoding="utf-8")) if (ROOT / "siteData" / "piercing_promotions.json").is_file() else []
+PROMO_SLUGS = {str(p.get("slug", "")).strip("/") for p in PROMO_DATA if p.get("slug")}
+WEEKLY_PROMO_URL_RE = re.compile(r"/piercing-specials-las-vegas[-_/](?:20\d{2}|\d{1,2}[-_]\d{1,2}|week|weekly)", re.I)
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -279,6 +283,32 @@ def validate_piercing_page(soup: BeautifulSoup, raw: str, route: str, context: s
             failures.append(f"{context}: piercing page contains unverified visible claim: {phrase}")
     if route not in {"/artists/katelyn-cole/"} and "Joshua Cole's chair" in raw:
         failures.append(f"{context}: piercing page contains tattoo-artist proof-strip intro")
+    if route == "/piercing-specials-las-vegas/":
+        if soup.find("h1", string=re.compile(r"Piercing Specials in Las Vegas", re.I)) is None:
+            failures.append(f"{context}: permanent specials page missing expected H1")
+        if 'data-woa-piercing-special="1"' not in raw:
+            failures.append(f"{context}: permanent specials page missing reusable promotion component")
+        if re.search(r"\bcheap\s+piercings?\b", visible, re.I):
+            failures.append(f"{context}: piercing specials competes on cheap")
+
+def validate_promotion_model(failures: list[str]) -> None:
+    required = {
+        "id", "name", "slug", "headline", "description", "startDate", "endDate", "status",
+        "discountType", "discountValue", "displayPrice", "eligiblePiercings", "jewelryTerms",
+        "exclusions", "ctaText", "bookingUrl", "image", "altText", "analyticsCampaign",
+    }
+    statuses = {"ACTIVE", "UPCOMING", "EXPIRED"}
+    if not PROMO_DATA:
+        failures.append("siteData/piercing_promotions.json: missing promotion data")
+        return
+    for i, promo in enumerate(PROMO_DATA):
+        missing = sorted(required - set(promo))
+        if missing:
+            failures.append(f"siteData/piercing_promotions.json[{i}]: missing {', '.join(missing)}")
+        if str(promo.get("status", "")).upper() not in statuses:
+            failures.append(f"siteData/piercing_promotions.json[{i}]: invalid status")
+        if str(promo.get("slug", "")).strip("/") != "piercing-specials-las-vegas":
+            failures.append(f"siteData/piercing_promotions.json[{i}]: promotions must use permanent specials slug")
 
 def validate_sitewide_files(failures: list[str]) -> None:
     for name in ("sitemap.xml", "sitemap-static-pages.xml"):
@@ -292,6 +322,11 @@ def validate_sitewide_files(failures: list[str]) -> None:
         for slug in load_merge_slugs():
             if f"/{slug}/" in text:
                 failures.append(f"{name}: MERGE URL still appears in sitemap: /{slug}/")
+        if WEEKLY_PROMO_URL_RE.search(text):
+            failures.append(f"{name}: weekly/date-based piercing specials URL found")
+        for slug in PROMO_SLUGS:
+            if slug and f"/{slug}/" not in text:
+                failures.append(f"{name}: permanent promotion URL missing from sitemap: /{slug}/")
 
 def validate_idempotency_artifact(failures: list[str]) -> None:
     path = ROOT / "audits" / "build-idempotency.json"
@@ -332,6 +367,7 @@ def published_routes() -> set[str]:
 
 def main() -> int:
     failures = []
+    validate_promotion_model(failures)
     titles = {}
     retired_slugs = load_retired_slugs()
     published = published_routes()
@@ -350,6 +386,10 @@ def main() -> int:
             haystack = body_text if label in VISIBLE_ONLY_FORBIDDEN else text
             if re.search(pattern, haystack, re.I):
                 failures.append(f"{path.relative_to(ROOT)}: forbidden pattern: {label}")
+        if WEEKLY_PROMO_URL_RE.search(text):
+            failures.append(f"{path.relative_to(ROOT)}: weekly/date-based piercing specials URL found")
+        if route != "/piercing-specials-las-vegas/" and "Piercing Specials in Las Vegas" in body_text:
+            failures.append(f"{path.relative_to(ROOT)}: duplicate piercing-specials H1/intent outside permanent URL")
         soup = BeautifulSoup(text, "html.parser")
         validate_head(soup, text, route, str(path.relative_to(ROOT)), failures)
         validate_piercing_page(soup, text, route, str(path.relative_to(ROOT)), failures)

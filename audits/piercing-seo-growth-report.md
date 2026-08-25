@@ -4,8 +4,8 @@ Generated from local repository HTML after the source audit. This sprint should 
 
 ## Inventory Summary
 
-- Piercing-related pages found: 286
-- KEEP/FIX/IMPROVE counts: {'FIX': 4, 'IMPROVE': 158, 'KEEP': 124}
+- Piercing-related pages found: 287
+- KEEP/FIX/IMPROVE counts: {'FIX': 4, 'IMPROVE': 157, 'KEEP': 126}
 - New large-scale page creation recommended: no
 - Recommended new pages: none until pricing, jewelry-material, and same-day availability facts are owner-verified
 
