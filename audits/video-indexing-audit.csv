@@ -1,0 +1,3 @@
+url,current_state,missing_or_risk,action
+/studio_videos/,page has embedded video/listing content; GSC reports 0 indexed video results,"Video enhancement invalid URLs require GSC export; VideoObject should not be fabricated without verified uploadDate, thumbnailUrl, duration/contentUrl/embedUrl",inspect video metadata source before adding VideoObject; preserve existing valid structured data
+sitewide,video enhancement has valid and invalid items per pasted brief,invalid item URLs not present in repository context,export GSC Video indexing report and map invalid URLs to generator

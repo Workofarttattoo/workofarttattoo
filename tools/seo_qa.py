@@ -91,6 +91,7 @@ BUILD_STAMP_RE = re.compile(rb"<!-- WOA_BUILD_STAMP: [^>]+ -->\n?")
 PROMO_DATA = json.loads((ROOT / "siteData" / "piercing_promotions.json").read_text(encoding="utf-8")) if (ROOT / "siteData" / "piercing_promotions.json").is_file() else []
 PROMO_SLUGS = {str(p.get("slug", "")).strip("/") for p in PROMO_DATA if p.get("slug")}
 WEEKLY_PROMO_URL_RE = re.compile(r"/piercing-specials-las-vegas[-_/](?:20\d{2}|\d{1,2}[-_]\d{1,2}|week|weekly)", re.I)
+SLEEVE_BRIDGE_MARKER = 'data-woa-sleeve-commercial-bridge="1"'
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -423,6 +424,18 @@ def validate_analytics_source(failures: list[str]) -> None:
             if event not in appointments:
                 failures.append(f"appointments/code.html: missing generated analytics event {event}")
 
+def validate_search_console_targets(failures: list[str]) -> None:
+    sleeve_path = ROOT / "best_tattoo_styles_for_sleeves_large_scale_project_hub" / "code.html"
+    if not sleeve_path.is_file():
+        failures.append("best_tattoo_styles_for_sleeves_large_scale_project_hub/code.html: missing sleeve winner page")
+        return
+    sleeve_html = sleeve_path.read_text(encoding="utf-8", errors="ignore")
+    if SLEEVE_BRIDGE_MARKER not in sleeve_html:
+        failures.append("best_tattoo_styles_for_sleeves_large_scale_project_hub/code.html: missing sleeve commercial bridge")
+    for required in ("/artists/joshua-cole/", "/healed_sleeve_tattoos_las_vegas/", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/", "/appointments/"):
+        if required not in sleeve_html:
+            failures.append(f"best_tattoo_styles_for_sleeves_large_scale_project_hub/code.html: missing sleeve bridge link {required}")
+
 def published_routes() -> set[str]:
     path = ROOT / "sitemap.xml"
     if not path.is_file():
@@ -540,6 +553,7 @@ def main() -> int:
     validate_sitewide_files(failures)
     validate_idempotency_artifact(failures)
     validate_analytics_source(failures)
+    validate_search_console_targets(failures)
     if failures:
         print("SEO QA failed:")
         for f in failures[:250]:

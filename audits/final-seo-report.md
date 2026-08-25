@@ -233,3 +233,13 @@ Highest-risk items: current hours, minor policies, parking, landmark travel esti
 - Start Here page contained `data-woa-start-here-selection` and `start_here_selection`.
 - Helix page contained `Helix Piercing in Las Vegas`, the curated helix image, and `piercing_cta_click`.
 - Skin Science page contained the contextual `Planning a tattoo` bridge.
+
+## Search Console + GA4 Sprint Addendum - 2026-08-25
+
+- Visible GSC winner protected: `/best_tattoo_styles_for_sleeves_large_scale_project_hub/`.
+- Source-generated sleeve bridge added to portfolio, healed sleeve proof, pricing, and appointments.
+- GSC non-indexed baseline recorded as 89 URLs, but exact URL-level classification requires a Search Console export.
+- GA4 landing-page priorities recorded: appointments 420 views, piercing guide 162, Joshua 96, cover-up 94, Katelyn 94, Skin Science 92, Helix 78.
+- No destructive consolidation, redirects, or page retirements were performed in this sprint.
+- Detailed outputs are in `audits/search-console-ga4-sprint-report.md` and companion CSVs.
+
