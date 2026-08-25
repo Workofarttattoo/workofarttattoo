@@ -166,8 +166,6 @@ Contact: 725-224-1240 | 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
 def _build_robots_txt() -> str:
     return f"""# Work of Art Tattoo & Piercing — {SITE_ORIGIN}
 # Single robots policy for Google, Bing, and AI crawlers.
-# Third-party chat widgets (ElevenLabs, etc.) load external scripts; their robots.txt
-# does NOT control indexing of pages on {SITE_ORIGIN}.
 
 User-agent: *
 Allow: /

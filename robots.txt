@@ -1,7 +1,5 @@
 # Work of Art Tattoo & Piercing — https://www.workofarttattoo.com
 # Single robots policy for Google, Bing, and AI crawlers.
-# Third-party chat widgets (ElevenLabs, etc.) load external scripts; their robots.txt
-# does NOT control indexing of pages on https://www.workofarttattoo.com.
 
 User-agent: *
 Allow: /

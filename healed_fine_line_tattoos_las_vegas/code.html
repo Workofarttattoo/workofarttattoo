@@ -895,64 +895,6 @@ var base=i<0?s:s.slice(0,i);
 t.src=base+"?woa-retry="+Date.now();
 },true);
 })();</script>
-<!-- ElevenLabs ConvAI Widget -->
-<style data-woa-convai-widget="1">
-elevenlabs-convai {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  animation: convai-glow 3s ease-in-out infinite, convai-bob 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(233, 195, 73, 0.4)) drop-shadow(0 0 16px rgba(233, 195, 73, 0.2));
-  --ev-color-brand: #e9c349;
-  --ev-color-text: #e5e2e1;
-  --ev-color-text-secondary: #c4c7c7;
-  --ev-color-background: #131313;
-  --ev-color-background-secondary: #20201f;
-  --ev-color-border: #444748;
-  color-scheme: dark;
-}
-
-elevenlabs-convai::part(root) {
-  background: #131313 !important;
-  color: #e5e2e1 !important;
-}
-
-elevenlabs-convai::part(conversation) {
-  background: #131313 !important;
-}
-
-elevenlabs-convai::part(input) {
-  background: #20201f !important;
-  color: #e5e2e1 !important;
-  border-color: #444748 !important;
-}
-
-elevenlabs-convai::part(button) {
-  background: #e9c349 !important;
-  color: #1c1b1b !important;
-}
-
-@keyframes convai-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(233, 195, 73, 0.4)) drop-shadow(0 0 16px rgba(233, 195, 73, 0.2));
-  }
-  50% {
-    filter: drop-shadow(0 0 16px rgba(233, 195, 73, 0.6)) drop-shadow(0 0 24px rgba(233, 195, 73, 0.4));
-  }
-}
-
-@keyframes convai-bob {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-</style>
-<script async="" src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
-<elevenlabs-convai agent-id="TJz0pp7opUc4JvMXMXob"></elevenlabs-convai>
 <script data-woa-ga4-conversions="1" type="text/javascript">
 (function () {
   "use strict";

@@ -105,6 +105,10 @@ OLD_COVERUP_IMAGE_RE = re.compile(
     r"black-grey-realism-snake-sleeve-tattoo",
     re.I,
 )
+ELEVENLABS_RE = re.compile(
+    r"elevenlabs|convai-widget|woa-convai-widget|<elevenlabs-convai\b|@elevenlabs/convai-widget-embed",
+    re.I,
+)
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -512,6 +516,8 @@ def main() -> int:
         if published and route not in published:
             continue
         checked_pages += 1
+        if ELEVENLABS_RE.search(text):
+            failures.append(f"{path.relative_to(ROOT)}: retired ElevenLabs call widget still present")
         body_text = visible_text(BeautifulSoup(text, "html.parser"))
         for label, pattern in FORBIDDEN.items():
             haystack = body_text if label in VISIBLE_ONLY_FORBIDDEN else text
