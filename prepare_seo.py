@@ -38,6 +38,7 @@ PIPELINE: list[str] = [
     "inject_guide_proof_strips.py",
     "tools/piercing_seo_inventory.py",
     "build_url_aliases.py",
+    "refresh_cover_up_evidence.py",
     "build_studio_gallery_page.py",
     "inject_studio_portfolio.py",
     "fix_homepage_portfolio.py",

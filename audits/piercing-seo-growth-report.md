@@ -5,7 +5,7 @@ Generated from local repository HTML after the source audit. This sprint should 
 ## Inventory Summary
 
 - Piercing-related pages found: 287
-- KEEP/FIX/IMPROVE counts: {'FIX': 4, 'IMPROVE': 157, 'KEEP': 126}
+- KEEP/FIX/IMPROVE counts: {'FIX': 4, 'IMPROVE': 159, 'KEEP': 124}
 - New large-scale page creation recommended: no
 - Recommended new pages: none until pricing, jewelry-material, and same-day availability facts are owner-verified
 
@@ -20,6 +20,8 @@ Generated from local repository HTML after the source audit. This sprint should 
 
 - /artists/katelyn-cole/ — IMPROVE — Katelyn piercing entity
 - /body_piercing_guide_las_vegas/ — IMPROVE — local visitor mixed tattoo/piercing
+- /cover-up-tattoos-las-vegas/ — IMPROVE — piercing commercial hub
+- /cover_up_tattoos_las_vegas_master_authority_guide/ — IMPROVE — piercing commercial hub
 - /facial_piercing_guide_las_vegas/ — IMPROVE — local visitor mixed tattoo/piercing
 - /flat_piercing_las_vegas_authority_guide/ — IMPROVE — Katelyn piercing entity
 - /genital_piercing_las_vegas_authority_guide/ — IMPROVE — Katelyn piercing entity
@@ -36,8 +38,6 @@ Generated from local repository HTML after the source audit. This sprint should 
 - /healing_database_color_day_2_las_vegas/ — IMPROVE — piercing aftercare/healing
 - /healing_database_color_day_3_las_vegas/ — IMPROVE — piercing aftercare/healing
 - /healing_database_color_day_4_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_color_month_1_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_color_month_6_las_vegas/ — IMPROVE — piercing aftercare/healing
 
 ## Pages Worth Creating
 

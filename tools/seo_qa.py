@@ -92,6 +92,18 @@ PROMO_DATA = json.loads((ROOT / "siteData" / "piercing_promotions.json").read_te
 PROMO_SLUGS = {str(p.get("slug", "")).strip("/") for p in PROMO_DATA if p.get("slug")}
 WEEKLY_PROMO_URL_RE = re.compile(r"/piercing-specials-las-vegas[-_/](?:20\d{2}|\d{1,2}[-_]\d{1,2}|week|weekly)", re.I)
 SLEEVE_BRIDGE_MARKER = 'data-woa-sleeve-commercial-bridge="1"'
+COVERUP_EVIDENCE_MARKER = 'data-woa-coverup-evidence="2026-08"'
+OLD_COVERUP_IMAGE_RE = re.compile(
+    r"cover-up-tattoo-phoenix-hand-las-vegas-after|"
+    r"cover-up-tattoo-sunflower-over-black-ink-las-vegas|"
+    r"cover-up-tattoo-faded-butterflies-hand-before|"
+    r"cover-up-tattoo-faded-floral-leg-before|"
+    r"healed-realism-seraphim-eye-wings-tattoo|"
+    r"healed-black-grey-chain-heart-tattoo|"
+    r"black-grey-collarbone-thorns-wreath-tattoo|"
+    r"black-grey-realism-snake-sleeve-tattoo",
+    re.I,
+)
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -435,6 +447,24 @@ def validate_search_console_targets(failures: list[str]) -> None:
     for required in ("/artists/joshua-cole/", "/healed_sleeve_tattoos_las_vegas/", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/", "/appointments/"):
         if required not in sleeve_html:
             failures.append(f"best_tattoo_styles_for_sleeves_large_scale_project_hub/code.html: missing sleeve bridge link {required}")
+    for rel in ("cover-up-tattoos-las-vegas/code.html", "cover_up_tattoos_las_vegas_master_authority_guide/code.html"):
+        path = ROOT / rel
+        if not path.is_file():
+            failures.append(f"{rel}: missing cover-up page")
+            continue
+        html = path.read_text(encoding="utf-8", errors="ignore")
+        if COVERUP_EVIDENCE_MARKER not in html:
+            failures.append(f"{rel}: missing Joshua-supplied cover-up evidence section")
+        if OLD_COVERUP_IMAGE_RE.search(html):
+            failures.append(f"{rel}: old generic cover-up imagery still referenced")
+        for required in (
+            "floral-tattoo-cover-up-before-after-las-vegas",
+            "large-scale-arm-rework-praying-hands-rose-las-vegas",
+            "dark-pigment-black-grey-wing-eye-rework-las-vegas",
+            "Send Joshua a Photo",
+        ):
+            if required not in html:
+                failures.append(f"{rel}: missing cover-up evidence content {required}")
 
 def published_routes() -> set[str]:
     path = ROOT / "sitemap.xml"
