@@ -30,6 +30,7 @@ CANONICAL_NETLOC = urlparse(CANONICAL_HOST).netloc
 REVIEW_COUNT = int(REVIEWS["googleReviewCount"])
 ARTIST_NAMES = [artist["name"] for artist in ARTISTS]
 ARTIST_COUNT = int(DATA["residentArtistCount"])
+HOURS_VERIFIED = str(DATA.get("hours", {}).get("verificationStatus", "")).lower() == "verified"
 STUDIO_SAMEAS = {
     SOCIAL.get("studioInstagram", "").rstrip("/"),
     SOCIAL.get("facebook", "").rstrip("/"),
@@ -45,10 +46,10 @@ FORBIDDEN = {
     "wrong zip 89101": r"\b89101\b",
     "old review count 2400": r"\b2,400\s+(google\s+)?reviews?\b|\b2400\s+(google\s+)?reviews?\b",
     "wrong artist count two": r"\btwo\s+(resident\s+artists|in-studio\s+artists|artists\s+in\s+studio)\b",
-    "deprecated phone 725-224-1240": r"725[-\s.]224[-\s.]2617",
-    "deprecated phone 725-224-1240": r"725[-\s.]224[-\s.]2931",
+    "deprecated phone (725) 224-1240": r"725[-\s.]224[-\s.]2617",
+    "deprecated phone (725) 224-1240": r"725[-\s.]224[-\s.]2931",
     "deprecated phone 725-260-6376": r"725[-\s.]260[-\s.]6376",
-    "deprecated phone 725-224-1240": r"702[-\s.]960[-\s.]9607",
+    "deprecated phone (725) 224-1240": r"702[-\s.]960[-\s.]9607",
     "disconnected webmail email": r"booking@workofarttattoo\.com",
     "tattoo/piercing contamination": r"where\s+do\s+you\s+(pierce|tattoo)\b|where\s+do\s+you\s+pierce\s+[^?<]{0,80}\btattoo\b|pierce\s+(fine[-\s]?line|realism|cover[-\s]?up)\s+tattoo",
     "old two-person roster": r"Joshua\s*(?:&amp;|&|and)\s*Katelyn\s+Cole\s+in-studio",
@@ -134,12 +135,18 @@ GEO_EXACT_TIME_RE = re.compile(
     re.I,
 )
 GEO_PRICE_RE = re.compile(r"(?:taxi|cab|rideshare|uber|lyft|parking|fare)[^.<]{0,80}\$\d+", re.I)
-GEO_HOURS_RE = re.compile(r"Mon-Thu starts at 3 PM|Daily\s+12\s*pm\s*-\s*12\s*am|12:00\s*-\s*00:00", re.I)
+GEO_HOURS_RE = re.compile(
+    r"Mon-Thu starts at 3 PM|Daily\s+12\s*pm\s*-\s*12\s*am|12:00\s*(?:PM)?\s*-\s*(?:12:00\s*AM|00:00)",
+    re.I,
+)
 GEO_UNSUPPORTED_RE = re.compile(r"\b(?:best tattoo shop|best piercing shop|highest rated|#1|number one)\b", re.I)
 GEO_FAKE_BRANCH_RE = re.compile(
     r"\b(?:inside|located in|located at)\s+(?:MGM|Mandalay|Luxor|Sphere|Fashion Show|Allegiant|T-Mobile|Fremont|UNLV)\b",
     re.I,
 )
+GEO_MINOR_POLICY_RE = re.compile(r"\b(?:minors?\s*14\+|parent\s*/\s*guardian|legal guardian|valid ID for both|consent on file)\b", re.I)
+GEO_UNVERIFIED_OPERATIONS_RE = re.compile(r"\b(?:private lot|street parking|free studio lot|sterile setup)\b", re.I)
+GEO_CABIN_PRESSURE_RE = re.compile(r"\bcabin pressure\b[^.]{0,120}\b(?:heal|healing|aftercare timing)\b", re.I)
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -537,12 +544,31 @@ def validate_geo_page(
     for label, pattern in (
         ("exact/unverified drive time", GEO_EXACT_TIME_RE),
         ("exact/unverified fare or parking price", GEO_PRICE_RE),
-        ("contradictory/unverified hours", GEO_HOURS_RE),
         ("unsupported geo superlative", GEO_UNSUPPORTED_RE),
         ("fake branch/location wording", GEO_FAKE_BRANCH_RE),
+        ("unverified minor-policy detail", GEO_MINOR_POLICY_RE),
+        ("unverified operational claim", GEO_UNVERIFIED_OPERATIONS_RE),
+        ("unsupported cabin-pressure healing implication", GEO_CABIN_PRESSURE_RE),
     ):
         if pattern.search(body_text):
             failures.append(f"{context}: {label}")
+    if not HOURS_VERIFIED and GEO_HOURS_RE.search(body_text):
+        failures.append(f"{context}: unverified exact hours published")
+    if not HOURS_VERIFIED and re.search(r"OpeningHoursSpecification|openingHours", raw, re.I):
+        failures.append(f"{context}: unverified exact hours in schema")
+    if slug in MERGED_GEO_SLUGS:
+        robots = soup.find("meta", attrs={"name": "robots"})
+        robots_content = (robots.get("content", "") if robots else "").lower()
+        canonical = soup.find("link", rel="canonical")
+        canonical_href = canonical.get("href", "") if canonical else ""
+        expected = GEO_PAGE_REDIRECTS.get(slug) or "/tattoo_shop_near_the_strip_nap_corrected/"
+        if "noindex" not in robots_content:
+            failures.append(f"{context}: retired geo page is not noindex")
+        if f"/{slug}/" in canonical_href:
+            failures.append(f"{context}: retired geo page canonical points to itself")
+        if expected not in raw:
+            failures.append(f"{context}: retired geo page missing redirect target {expected}")
+        return
     h1 = soup.find("h1")
     intro_tag = h1.find_next("p") if h1 else soup.find("p")
     intro = " ".join(intro_tag.get_text(" ").split()) if intro_tag else ""
@@ -556,6 +582,11 @@ def validate_geo_page(
     if faq_texts:
         fingerprint = hashlib.sha256("\n".join(faq_texts).encode("utf-8")).hexdigest()
         geo_faqs.setdefault(fingerprint, []).append(context)
+    for heading in soup.find_all(["h2", "h3"]):
+        section_text = " ".join(heading.find_parent().get_text(" ").split()) if heading.find_parent() else ""
+        if len(section_text) > 220:
+            fingerprint = hashlib.sha256(section_text.lower().encode("utf-8")).hexdigest()
+            geo_faqs.setdefault(f"section:{fingerprint}", []).append(context)
     for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
         raw_schema = script.string or script.get_text()
         if not raw_schema.strip():
@@ -600,10 +631,24 @@ def main() -> int:
     checked_pages = 0
     for path in HTML_FILES:
         slug = slug_for_path(path)
-        if slug in retired_slugs:
-            continue
         text = path.read_text(encoding="utf-8", errors="ignore")
         route = route_for(path)
+        if slug in MERGED_GEO_SLUGS:
+            soup = BeautifulSoup(text, "html.parser")
+            body_text = visible_text(BeautifulSoup(text, "html.parser"))
+            validate_geo_page(
+                soup,
+                text,
+                body_text,
+                slug,
+                str(path.relative_to(ROOT)),
+                failures,
+                geo_intros,
+                geo_faqs,
+            )
+            continue
+        if slug in retired_slugs:
+            continue
         if published and route not in published:
             continue
         checked_pages += 1
@@ -616,6 +661,9 @@ def main() -> int:
                 failures.append(f"{path.relative_to(ROOT)}: forbidden pattern: {label}")
         if WEEKLY_PROMO_URL_RE.search(text):
             failures.append(f"{path.relative_to(ROOT)}: weekly/date-based piercing specials URL found")
+        for retired_slug in MERGED_GEO_SLUGS:
+            if f"/{retired_slug}/" in text:
+                failures.append(f"{path.relative_to(ROOT)}: stale retired geo internal link: /{retired_slug}/")
         if route != "/piercing-specials-las-vegas/" and "Piercing Specials in Las Vegas" in body_text:
             failures.append(f"{path.relative_to(ROOT)}: duplicate piercing-specials H1/intent outside permanent URL")
         soup = BeautifulSoup(text, "html.parser")

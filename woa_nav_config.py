@@ -34,9 +34,9 @@ RESIDENT_ARTIST_COUNT = int(_BUSINESS.get("residentArtistCount", 3))
 TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
-    "Three resident artists work in-studio today — Joshua Cole (tattoo & piercing; "
-    "studio lead), Katelyn Cole (professional piercer), and Teralyn (fineline floral, script, "
-    "custom drawings by commission, and high-detail small tattoos). Book tattoo "
+    "Our in-studio team includes Joshua Cole (tattoo artist, studio lead, and piercing trainer), "
+    "Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline "
+    "floral, script, custom drawings by commission, and high-detail small tattoos). Book tattoo "
     "and piercing consults at our Tropicana studio."
 )
 STUDIO_ROSTER_LEGACY = (
@@ -84,11 +84,11 @@ STUDIO_ADDRESS_HTML = (
 )
 
 # Single studio line — do not publish artist/mobile lines on the public site
-STUDIO_PHONE_DISPLAY = _BUSINESS.get("phoneDisplay", "725-224-1240")
-STUDIO_PHONE_PARENS = f"({STUDIO_PHONE_DISPLAY[:3]}) {STUDIO_PHONE_DISPLAY[4:]}" if re.match(r"^\d{3}-\d{3}-\d{4}$", STUDIO_PHONE_DISPLAY) else "(725) 224-1240"
-STUDIO_PHONE_E164 = _BUSINESS.get("phoneE164", "+17252241240").replace("+1", "+1-")
+STUDIO_PHONE_DISPLAY = _BUSINESS.get("phoneDisplay", "(725) 224-1240")
+STUDIO_PHONE_PARENS = f"({STUDIO_PHONE_DISPLAY[:3]}) {STUDIO_PHONE_DISPLAY[4:]}" if re.match(r"^\d{3}-\d{3}-\d{4}$", STUDIO_PHONE_DISPLAY) else STUDIO_PHONE_DISPLAY
+STUDIO_PHONE_E164 = _BUSINESS.get("phoneE164", "+17252241240")
 STUDIO_PHONE_TEL = f"tel:{_BUSINESS.get('phoneE164', '+17252241240')}"
-STUDIO_PHONE_SCHEMA = STUDIO_PHONE_E164
+STUDIO_PHONE_SCHEMA = STUDIO_PHONE_PARENS
 
 # Homepage SEO — evidence-led, not "Best Tattoo Shop" superlative stacking
 HOME_TITLE = "Work of Art Tattoo & Piercing | Las Vegas | Walk-Ins on E. Tropicana"
@@ -116,9 +116,9 @@ HREF_PIERCING = "/best_piercing_shop_las_vegas_updated_jewelry_standards/"
 # (label, href) — sitewide Artists dropdown
 ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
     ("All Artists & Gallery", HREF_ARTISTS),
-    ("Joshua Cole — Tattoo & Piercing", "/artists/joshua-cole/"),
+    ("Joshua Cole — Tattoo Artist / Studio Lead", "/artists/joshua-cole/"),
     ("Katelyn Cole — Professional Piercer", "/artists/katelyn-cole/"),
-    ("Teralyn — Fineline Floral & Script", "/artists/teralyn/"),
+    ("Teralyn — Tattoos & Piercing", "/artists/teralyn/"),
 ]
 
 
@@ -241,7 +241,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "cover_up_tattoos_las_vegas_master_authority_guide": (
         "Cover-Up Tattoos in Vegas",
-        "Tattoo cover up, scar camouflage, real studio portfolio photos, pricing, and free consult — minutes from the Strip.",
+        "Cover-up tattoo redesign, scar-aware planning, real studio portfolio photos, and consultation details near the Strip.",
     ),
     "best_piercing_shop_las_vegas_updated_jewelry_standards": (
         "Piercing Shop & Jewelry Standards",
@@ -457,7 +457,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "tattoo_shop_near_mgm_grand_las_vegas": (
         "Near MGM Grand",
-        "Directions from MGM Grand to Work of Art on E. Tropicana.",
+        "From MGM Grand, route east on Tropicana to 2375 E. Tropicana Ave, Suite 3; use the studio address instead of a casino valet pin.",
     ),
     "tattoo_shop_serving_summerlin_las_vegas": (
         "Serving Summerlin",
@@ -485,15 +485,15 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "tattoo_shop_near_allegiant_stadium_las_vegas": (
         "Near Allegiant Stadium",
-        "Directions from Allegiant Stadium to Work of Art on E. Tropicana.",
+        "From Allegiant Stadium or Mandalay Bay, plan the Tropicana ride before event traffic and arrive sober with time for setup.",
     ),
     "tattoo_shop_near_las_vegas_airport": (
         "Near Las Vegas Airport",
-        "Directions from Harry Reid airport to Work of Art on E. Tropicana.",
+        "From Harry Reid terminals, stay on the Tropicana route toward 2375 E. Tropicana Ave and leave room for flight timing.",
     ),
     "tattoo_shop_near_the_sphere_las_vegas": (
         "Near the Sphere",
-        "Directions from the Sphere to Work of Art on E. Tropicana.",
+        "From The Sphere, Venetian, Wynn, or the north Strip, rideshare to 2375 E. Tropicana Ave before show traffic builds.",
     ),
     "tattoo_shop_near_fashion_show_las_vegas": (
         "Near Fashion Show",
@@ -557,7 +557,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "studio_gallery": (
         "Studio Gallery",
-        "Completed tattoos, original art, designs to book, and piercing work from Joshua and Katelyn Cole at Work of Art Las Vegas.",
+        "Completed tattoos, original art, designs to book, and piercing work from Katelyn Cole at Work of Art Las Vegas.",
     ),
     "offsite_bookings": (
         "Offsite Bookings",

@@ -113,9 +113,9 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "Bring valid ID. Do not schedule a tattoo or piercing between classes so tightly that aftercare instructions get rushed.",
         ),
         why_choose=(
-            "Small tattoos and script can be great when they are planned carefully; Teralyn handles fine line, script, florals, and detailed smaller tattoos.",
+            "Small tattoos and script can be great when they are planned carefully; Teralyn handles piercing plus fine line, script, florals, and detailed smaller tattoos.",
             "Bigger work like sleeves, portraits, and cover-ups should start with Joshua Cole so the design fits the body and the long-term plan.",
-            "Katelyn Cole and Teralyn are part of the female piercing team for clients who want calm placement discussion and follow-up guidance.",
+            "Katelyn Cole and Teralyn offer piercing services for clients who want calm placement discussion and follow-up guidance.",
         ),
         landmarks=(
             "UNLV · Thomas & Mack Center · Maryland Parkway · Tropicana corridor · Paradise area",
@@ -150,7 +150,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "Check current traffic before leaving the Strip, especially on fight nights, concert nights, and big convention weeks.",
         ),
         why_choose=(
-            "Strip walk-ins optimize turnover — we book consults and show healed portfolio photos before you commit.",
+            "Strip-front shops are built for walk-in volume. We're built for a real consult — reference photos, healed results, and enough time to get the design right before you commit.",
             "Same address for Joshua Cole, Katelyn Cole, and Teralyn — one real studio, not a fake neighborhood branch page.",
             "Check the official hours page before planning around a show; evening traffic near Tropicana can change quickly.",
         ),
@@ -227,7 +227,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "Harry Reid International (LAS) · UNLV campus · Thomas & Mack · Welcome sign",
         ),
         audience_note=(
-            "Flying out within 48 hours of a fresh tattoo? Ask us — cabin pressure and dry airplane air change aftercare timing."
+            "Flying soon after a fresh tattoo or piercing? Ask us about clothing, cleaning access, luggage straps, and dry airplane air before you commit to timing."
         ),
         drive_time="Harry Reid airport-to-Tropicana route; timing varies by terminal, rental-car plans, and traffic",
         related_guides=(
@@ -344,19 +344,19 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         title="Tattoo Shop Near Enterprise, Las Vegas",
         intro=(
             "Enterprise and the south valley reach us via I-215 or Las Vegas Blvd to Tropicana — "
-            "one licensed studio for tattoo and piercing under the same sterile setup."
+            "but this page is being consolidated because the current repository does not prove enough Enterprise-specific demand for a separate indexed URL."
         ),
         directions=(
-            "From Enterprise Blvd: north to Tropicana, head east toward Maryland Pkwy (~12–18 min).",
+            "From Enterprise or the south valley, compare I-215, I-15, Las Vegas Blvd, and Tropicana before leaving.",
             "From South Point / south Strip: north on Las Vegas Blvd or I-15 to Tropicana east.",
             "From Henderson border (St Rose Pkwy): north on I-15 or Las Vegas Blvd to Tropicana.",
         ),
         parking=(
-            "Private lot — no casino parking validation needed.",
+            "Use the studio address in navigation instead of a resort, mall, or generic tattoo pin.",
             "Enterprise commuters should check the official hours page before planning after-work appointments.",
         ),
         why_choose=(
-            "Enterprise families use Katelyn for ear work — minors 14+ with guardian for ears, consult-first for anatomy.",
+            "Enterprise and south-valley users are better served by the near-Strip hub until owner/Search Console evidence proves a separate page is useful.",
             "Same phone and address for booking — no franchise call center.",
             "Desert aftercare coaching is non-optional here — Enterprise dry heat matches the rest of the valley.",
         ),
@@ -366,7 +366,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         audience_note=(
             "Enterprise clients often combine a piercing consult with a Joshua tattoo consult in one visit — we schedule both chairs when possible."
         ),
-        drive_time="About 12–20 minutes from central Enterprise",
+        drive_time="South-valley to E. Tropicana trip; timing varies with current traffic",
         related_guides=(
             ("Piercing minors", "/katelyn_piercing_minors_las_vegas_authority_guide/"),
             ("Tattoo pricing", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/"),
@@ -381,13 +381,13 @@ GEO_PAGES: tuple[GeoPage, ...] = (
             "proof and artist continuity — worth the trip for cover-ups and large-scale work."
         ),
         directions=(
-            "From Green Valley Ranch: I-215 north to I-515/US-93 north, exit Tropicana westbound (~20–25 min).",
+            "From Green Valley Ranch, compare I-215, I-515/US-93, Eastern, and surface routes before leaving.",
             "From Henderson Galleria area: Saint Rose Pkwy to I-515 north, Tropicana west to 2375.",
             "From Water Street Henderson: north on I-515, Tropicana west — allow rush-hour buffer.",
         ),
         parking=(
-            "Free studio lot for multi-hour sessions — no Henderson strip-mall time limits.",
-            "Green Valley clients doing sleeve session three appreciate the same parking spot every visit.",
+            "Use the studio address in navigation and confirm current arrival details before longer appointments.",
+            "Green Valley clients doing repeat sleeve or cover-up sessions should plan travel time around the full appointment window.",
         ),
         why_choose=(
             "Henderson has good shops — clients still choose us for Joshua's black & grey realism and documented heal photos.",
@@ -400,7 +400,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         audience_note=(
             "Henderson drives are intentional — you are coming for a specific artist and a long-term project, not convenience ink."
         ),
-        drive_time="About 20–30 minutes from Green Valley; 25–35 from central Henderson",
+        drive_time="Green Valley or Henderson to E. Tropicana trip; timing varies with current traffic",
         related_guides=(
             ("Broader Henderson guide", "/tattoo_shop_serving_henderson_nevada/"),
             ("Real client timeline", "/real_client_tattoo_timeline_las_vegas/"),

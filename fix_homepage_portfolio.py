@@ -300,7 +300,7 @@ def artist_cards_html() -> str:
 <div class="text-center">
 <a class="group block" href="/artists/katelyn-cole/">
 <div class="aspect-[3/4] bg-surface-container mb-4 overflow-hidden relative border border-outline-variant/30">
-<picture><source srcset="{kw}" type="image/webp"/><img width="800" height="1067" alt="Katelyn Cole — master body piercer, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{kat_src}"/></picture>
+<picture><source srcset="{kw}" type="image/webp"/><img width="800" height="1067" alt="Katelyn Cole — professional piercer, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{kat_src}"/></picture>
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Katelyn Cole</span>
@@ -311,11 +311,11 @@ def artist_cards_html() -> str:
 <div class="text-center">
 <a class="group block" href="/artists/teralyn/">
 <div class="aspect-[3/4] bg-surface-container mb-4 overflow-hidden relative border border-outline-variant/30">
-<picture><source srcset="{tw}" type="image/webp"/><img width="800" height="1067" alt="Teralyn — fine line tattoo artist, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{tp}"/></picture>
+<picture><source srcset="{tw}" type="image/webp"/><img width="800" height="1067" alt="Teralyn — tattoo artist and piercer, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{tp}"/></picture>
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Teralyn</span>
-<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Fineline Floral · Script · Custom</span>
+<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Fine Line · Piercing · Script</span>
 </a>
 <a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/mischiefmodifies/" rel="noopener noreferrer" target="_blank">@mischiefmodifies</a>
 </div>

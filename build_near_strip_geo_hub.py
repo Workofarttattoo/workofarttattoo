@@ -58,8 +58,8 @@ SECTIONS = (
         (
             "A dedicated studio gives you artist portfolios, placement discussion, sober decision-making, and aftercare time.",
             "Joshua Cole fits realism, black and grey, blackwork, cover-ups, sleeves, portraits, and color realistic imagery.",
-            "Teralyn fits fine line floral work, script, flash, detailed smaller tattoos, and custom drawings by commission.",
-            "Katelyn Cole and Teralyn are part of the female piercing team for clients who want calm placement and jewelry-fit discussion.",
+            "Teralyn fits piercing plus fine line floral work, script, flash, detailed smaller tattoos, and custom drawings by commission.",
+            "Katelyn Cole and Teralyn offer piercing services for clients who want calm placement and jewelry-fit discussion.",
         ),
     ),
     (

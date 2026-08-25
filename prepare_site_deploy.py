@@ -43,6 +43,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "inject_ga4_conversions.py")],
     ["python3", str(ROOT / "build_start_here_hub.py")],
     ["python3", str(ROOT / "build_geo_landing_pages.py")],
+    ["python3", str(ROOT / "build_retired_geo_redirects.py")],
     ["python3", str(ROOT / "build_near_strip_geo_hub.py")],
     ["python3", str(ROOT / "build_geo_quality_reports.py")],
     ["python3", str(ROOT / "upgrade_site_navigation.py")],

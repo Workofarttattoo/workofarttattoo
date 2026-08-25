@@ -119,7 +119,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Tattoo work at the studio is handled by Joshua Cole and Jay Jay.",
-        "Tattoo work with Joshua Cole and Teralyn; Joshua also offers piercing and trains artists at the studio.",
+        "Tattoo work with Joshua Cole and Teralyn; Joshua trained the in-studio team in piercing fundamentals.",
     ),
     (
         "Every tattoo at Work of Art is a collaboration with one of our two in-studio tattoo artists — Joshua Cole or Jay Jay — backed by a professional piercer, Katelyn Cole.",
@@ -127,7 +127,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Three in-studio residents — Joshua Cole and Jay Jay (tattoo), Katelyn Cole (piercing)",
-        "Three in-studio residents — Joshua Cole (tattoo & piercing; trains the team), Katelyn Cole (piercing), and Teralyn (fineline floral, script, commissioned custom drawings)",
+        "Three in-studio residents — Joshua Cole (tattoo artist, studio lead, and piercing trainer), Katelyn Cole (piercing), and Teralyn (tattoo artist and piercer; fineline floral, script, commissioned custom drawings)",
     ),
 ]
 

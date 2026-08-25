@@ -159,7 +159,7 @@ def encyclopedia_graph_links() -> str:
 <ul class="font-body-md text-on-surface-variant space-y-2">
 <li><a class="text-secondary underline" href="{STUDIO_VIDEOS}">Studio videos — Katelyn piercing</a></li>
 <li><a class="text-secondary underline" href="{DESERT_PIERCING_GUIDE}">Desert climate piercing aftercare</a></li>
-<li><a class="text-secondary underline" href="{HEALED_HUB}">Healed tattoo gallery (client heal proof)</a></li>
+<li><a class="text-secondary underline" href="/piercing_healing_guide_las_vegas/">Piercing healing guide</a></li>
 <li><a class="text-secondary underline" href="/studio_gallery/#katelyn-piercing">Piercing portfolio</a></li>
 <li><a class="text-secondary underline" href="{KATELYN_PAGE}">Katelyn Cole — artist page</a></li>
 <li><a class="text-secondary underline" href="{KATELYN_TOPICS_HUB}">Katelyn's piercing authority topics</a></li>

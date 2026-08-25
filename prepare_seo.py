@@ -16,6 +16,7 @@ PIPELINE: list[str] = [
     "build_knowledge_hub.py",
     "build_start_here_hub.py",
     "build_geo_landing_pages.py",
+    "build_retired_geo_redirects.py",
     "build_near_strip_geo_hub.py",
     "build_geo_quality_reports.py",
     "build_piercing_authority_pages.py",

@@ -59,7 +59,7 @@ FAQS: list[tuple[str, str]] = [
     ),
     (
         "Do you pierce minors?",
-        "Ear and selected facial piercings for minors with a parent or legal guardian present and valid ID for both. See our minors policy guide for details.",
+        "Minor piercing rules remain an owner-verification item. Call or text before visiting so the studio can confirm the current age, consent, and ID requirements.",
     ),
 ]
 
@@ -140,9 +140,9 @@ def main_html() -> str:
 <p><a class="text-secondary underline hover:no-underline" href="/artists/joshua-cole/">Joshua</a> · <a class="text-secondary underline hover:no-underline" href="/artists/katelyn-cole/">Katelyn</a> · <a class="text-secondary underline hover:no-underline" href="/artists/teralyn/">Teralyn</a></p>
 </div>
 <div class="space-y-3">
-<h3 class="font-headline-md text-on-surface text-lg">Piercing minors</h3>
-<p>Selected piercings for minors with parent/guardian present and valid ID. We do not pierce without consent on file.</p>
-<p><a class="text-secondary underline hover:no-underline" href="/katelyn_piercing_minors_las_vegas_authority_guide/">Minors policy</a></p>
+<h3 class="font-headline-md text-on-surface text-lg">Minor piercing questions</h3>
+<p>Minor piercing rules should be confirmed before visiting. Call or text the studio for the current age, consent, and ID requirements.</p>
+<p><a class="text-secondary underline hover:no-underline" href="/katelyn_piercing_minors_las_vegas_authority_guide/">Minor piercing guide</a></p>
 </div>
 </div>
 {sitewide_conversion_block()}

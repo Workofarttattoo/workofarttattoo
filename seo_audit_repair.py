@@ -26,7 +26,7 @@ BUSINESS_FACTS = {
     "city": "Las Vegas",
     "region": "NV",
     "postal_code": "89119",
-    "phone": "725-224-1240",
+    "phone": "(725) 224-1240",
     "phone_parens": "(725) 224-1240",
     "email": "thewhiteknight702@gmail.com",
     "google_rating": "5.0",
@@ -52,11 +52,11 @@ REPAIRS: list[tuple[str, str]] = [
     ),
     (
         "Work of Art has two in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead who trains the team) and Katelyn Cole (professional piercer).",
-        "Work of Art has three in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead), Katelyn Cole (professional piercer), and Teralyn (fineline floral, script, custom drawings by commission, and high-detail small tattoos).",
+        "Work of Art has three in-studio artists: Joshua Cole (tattoo artist, studio lead, and piercing trainer), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline floral, script, custom drawings by commission, and high-detail small tattoos).",
     ),
     (
         "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — professional piercer &amp; ear curation. Two resident artists, one address.",
-        "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — professional piercer &amp; ear curation. Teralyn — fineline floral, script, commissioned custom drawings, and high-detail small tattoos. Three resident artists, one address.",
+        "Joshua Cole — tattoo artist and studio lead. Katelyn Cole — professional piercer &amp; ear curation. Teralyn — tattoo artist and piercer; fineline floral, script, commissioned custom drawings, and high-detail small tattoos. Three resident artists, one address.",
     ),
     (
         "Where do you pierce realism tattoo in Las Vegas?",

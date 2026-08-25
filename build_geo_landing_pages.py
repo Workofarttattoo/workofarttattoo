@@ -16,34 +16,49 @@ SITE = "https://www.workofarttattoo.com"
 HEAD_LINKS = """<link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-typography.css" rel="stylesheet"/>"""
 
-PORTFOLIO_PROOF = (
-    (
-        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skull-hood-candle-realism-las-vegas.webp",
-        "Black and grey realism tattoo by Work of Art in Las Vegas",
+GEO_VISUALS: dict[str, tuple[tuple[str, str], ...]] = {
+    "tattoo_shop_near_mgm_grand_las_vegas": (
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/color-realism-wolf-red-forearm-las-vegas.webp", "Color realism tattoo example for south Strip visitors"),
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-portrait-script-text-lower-arm-las-vegas.webp", "Black and grey portrait and script tattoo example"),
     ),
-    (
-        "/home_work_of_art_tattoo_piercing/client-portfolio/color-realism-wolf-red-forearm-las-vegas.webp",
-        "Color realism tattoo work from Work of Art Las Vegas",
+    "tattoo_shop_near_allegiant_stadium_las_vegas": (
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skull-hood-candle-realism-las-vegas.webp", "Black and grey realism tattoo example for event-weekend planning"),
     ),
-    (
-        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-portrait-script-text-lower-arm-las-vegas.webp",
-        "Black and grey portrait and script tattoo from Work of Art Las Vegas",
+    "tattoo_shop_near_las_vegas_airport": (
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/color-realism-wolf-red-forearm-las-vegas.webp", "Fresh tattoo example with travel-day aftercare planning"),
+        ("/studio_gallery/nostril-stud-on-smiling-client-dd626b1d.webp", "Nostril piercing example for visitors planning around flights"),
     ),
-)
+    "tattoo_shop_near_the_sphere_las_vegas": (
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-portrait-script-text-lower-arm-las-vegas.webp", "Detailed tattoo example for Sphere and north Strip visitors"),
+    ),
+    "tattoo_shop_paradise_nevada": (
+        ("/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp", "Curated ear piercing example from the Paradise-area studio"),
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skull-hood-candle-realism-las-vegas.webp", "Tattoo example from the E. Tropicana studio"),
+    ),
+    "tattoo_shop_spring_valley_las_vegas": (
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skull-hood-candle-realism-las-vegas.webp", "Black and grey tattoo example for west-valley collectors"),
+    ),
+    "tattoo_shop_serving_henderson_nevada": (
+        ("/home_work_of_art_tattoo_piercing/client-portfolio/color-realism-wolf-red-forearm-las-vegas.webp", "Color realism tattoo example for Henderson collectors"),
+        ("/studio_gallery/flat-and-conch-cartilage-studs-c317138a.webp", "Cartilage piercing placement example for repeat clients"),
+    ),
+}
 
-PIERCING_PROOF = (
-    (
-        "/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp",
-        "Curated helix, tragus, and lobe piercings by Work of Art in Las Vegas",
-    ),
-    (
-        "/studio_gallery/nostril-stud-on-smiling-client-dd626b1d.webp",
-        "Nostril piercing client result from Work of Art Las Vegas",
-    ),
-    (
-        "/studio_gallery/flat-and-conch-cartilage-studs-c317138a.webp",
-        "Flat and conch cartilage piercing jewelry placement at Work of Art",
-    ),
+GEO_META_DESCRIPTIONS: dict[str, str] = {
+    "tattoo_shop_near_mgm_grand_las_vegas": "From MGM Grand, route east on Tropicana to 2375 E. Tropicana Ave, Suite 3; use the studio address instead of a casino valet pin.",
+    "tattoo_shop_near_allegiant_stadium_las_vegas": "From Allegiant Stadium or Mandalay Bay, plan the Tropicana ride before event traffic and arrive sober with time for setup.",
+    "tattoo_shop_near_las_vegas_airport": "From Harry Reid terminals, stay on the Tropicana route toward 2375 E. Tropicana Ave and leave room for flight timing.",
+    "tattoo_shop_near_the_sphere_las_vegas": "From The Sphere, Venetian, Wynn, or the north Strip, rideshare to 2375 E. Tropicana Ave before show traffic builds.",
+    "tattoo_shop_paradise_nevada": "Paradise clients can find Work of Art on E. Tropicana between Maryland Parkway and Eastern, with one real studio address.",
+    "tattoo_shop_spring_valley_las_vegas": "From Spring Valley, compare Tropicana, Flamingo, and I-215 before leaving; use the studio lot at 2375 E. Tropicana Ave.",
+    "tattoo_shop_serving_henderson_nevada": "Henderson clients can plan the Tropicana studio drive around Green Valley, Eastern, or I-215 depending on session timing.",
+}
+
+CTA_LABELS = (
+    "Book your free consult",
+    "Check today's availability",
+    "Start your consult",
+    "See if we have room this week",
 )
 
 UNIQUE_SECTIONS: dict[str, tuple[tuple[str, tuple[str, ...]], ...]] = {
@@ -187,6 +202,14 @@ def _list_section(title: str, items: tuple[str, ...]) -> str:
 </section>"""
 
 
+def _directions_cta(page: GeoPage) -> str:
+    label = CTA_LABELS[sum(ord(ch) for ch in page.slug) % len(CTA_LABELS)]
+    return f"""<section class="border border-secondary/30 bg-surface-container-low p-6 space-y-3">
+<p class="font-body-md text-on-surface-variant">Have the route figured out? Send the idea, placement, and timing before you make the drive.</p>
+<a class="inline-flex bg-secondary text-on-secondary px-6 py-3 font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity" href="/appointments/">{html.escape(label)}</a>
+</section>"""
+
+
 def _unique_sections(page: GeoPage) -> str:
     sections = []
     for title, items in UNIQUE_SECTIONS.get(page.slug, ()):
@@ -194,46 +217,31 @@ def _unique_sections(page: GeoPage) -> str:
     return "\n".join(sections)
 
 
-def _proof_section() -> str:
+def _proof_section(page: GeoPage) -> str:
+    visuals = GEO_VISUALS.get(page.slug, ())
+    if not visuals:
+        return ""
     cards = "".join(
         f"""<figure class="space-y-3">
 <img alt="{html.escape(alt)}" class="aspect-[4/5] w-full object-cover border border-outline-variant/30 bg-surface-container" decoding="async" loading="lazy" src="{html.escape(src)}"/>
 <figcaption class="font-body-sm text-on-surface-variant">{html.escape(alt)}</figcaption>
 </figure>"""
-        for src, alt in PORTFOLIO_PROOF
+        for src, alt in visuals
     )
     return f"""<section class="space-y-4">
-<h2 class="font-headline-md text-on-surface text-xl">Real Work of Art examples</h2>
-<p class="font-body-md text-on-surface-variant">These pages point visitors to one real studio, so the artwork shown here comes from Work of Art rather than stock photos or fake neighborhood locations.</p>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">{cards}</div>
-</section>"""
-
-
-def _piercing_planning_section(page: GeoPage) -> str:
-    cards = "".join(
-        f"""<figure class="space-y-3">
-<img alt="{html.escape(alt)}" class="aspect-[4/5] w-full object-cover border border-outline-variant/30 bg-surface-container" decoding="async" loading="lazy" src="{html.escape(src)}"/>
-<figcaption class="font-body-sm text-on-surface-variant">{html.escape(alt)}</figcaption>
-</figure>"""
-        for src, alt in PIERCING_PROOF
-    )
-    return f"""<section class="space-y-4">
-<h2 class="font-headline-md text-on-surface text-xl">Piercing planning near this area</h2>
-<p class="font-body-md text-on-surface-variant">If you are coming from {html.escape(page.title.replace('Tattoo Shop ', '').replace('Serving ', '').replace('Near ', 'near '))}, piercing timing matters as much as directions. Katelyn Cole helps clients plan ear curation, nostril, septum, cartilage, body, and jewelry-fit questions around travel, shows, work shifts, pool plans, headphones, helmets, and sleep position.</p>
-<ul class="font-body-md text-on-surface-variant space-y-2 list-disc pl-5">
-<li>For same-day piercing openings, text or call before driving so the studio can confirm schedule room.</li>
-<li>For ear curation, bring photos of your current piercings and any irritation or jewelry problems.</li>
-<li>For tourists, schedule before alcohol and leave time for aftercare instructions before a show, flight, or pool plan.</li>
-</ul>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">{cards}</div>
-<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline hover:no-underline" href="/piercing_types_las_vegas_authority_hub/">Read the complete piercing guide</a> · <a class="text-secondary underline hover:no-underline" href="/artists/katelyn-cole/">Katelyn Cole portfolio</a></p>
+<h2 class="font-headline-md text-on-surface text-xl">Relevant studio visuals</h2>
+<p class="font-body-md text-on-surface-variant">Every photo below is real client work from our Tropicana studio.</p>
+<div class="grid grid-cols-1 sm:grid-cols-{min(len(visuals), 3)} gap-4">{cards}</div>
 </section>"""
 
 
 def page_html(page: GeoPage) -> str:
-    meta = (
-        f"Tattoo & piercing near {page.title.split(' Near ')[-1].split(' in ')[-1].split(' Serving ')[-1].rstrip('.')} — "
-        f"{page.drive_time}. {STUDIO_ADDRESS_SINGLE_LINE}. Call {STUDIO_PHONE_DISPLAY}."
+    meta = GEO_META_DESCRIPTIONS.get(
+        page.slug,
+        (
+            f"Tattoo & piercing near {page.title.split(' Near ')[-1].split(' in ')[-1].split(' Serving ')[-1].rstrip('.')} — "
+            f"{page.drive_time}. {STUDIO_ADDRESS_SINGLE_LINE}. Call {STUDIO_PHONE_DISPLAY}."
+        ),
     )[:158]
     graph = guide_article_graph(slug=page.slug, title=page.title, description=meta)
     related = "".join(
@@ -262,11 +270,11 @@ def page_html(page: GeoPage) -> str:
 <p class="font-body-lg text-on-surface-variant leading-relaxed">{html.escape(page.intro)}</p>
 <p class="font-body-md text-on-surface-variant border-l-4 border-secondary pl-4">{html.escape(page.audience_note)}</p>
 {_list_section("Directions from your area", page.directions)}
+{_directions_cta(page)}
 {_list_section("Parking", page.parking)}
 {_list_section("Why collectors choose Work of Art", page.why_choose)}
 {_unique_sections(page)}
-{_proof_section()}
-{_piercing_planning_section(page)}
+{_proof_section(page)}
 <section class="space-y-3">
 <h2 class="font-headline-md text-on-surface text-xl">Nearby landmarks</h2>
 <p class="font-body-md text-on-surface-variant">{html.escape(page.landmarks[0])}</p>

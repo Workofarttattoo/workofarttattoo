@@ -7,7 +7,7 @@
 - **Name:** Work of Art Tattoo & Piercing
 - **Address:** 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
 - **Same location (directory alias):** 2375 E. Tropicana Ave, Suite 3 — never 5025 E. Tropicana
-- **Phone:** 725-224-1240
+- **Phone:** (725) 224-1240
 - **Web:** https://www.workofarttattoo.com/
 
 ## Roster (current)
