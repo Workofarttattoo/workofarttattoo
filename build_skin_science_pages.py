@@ -127,6 +127,17 @@ def knowledge_graph_links() -> str:
 </section>"""
 
 
+def planning_bridge() -> str:
+    return f"""<aside class="border border-outline-variant/30 bg-surface-container-low p-6 space-y-3" data-woa-skin-science-bridge="1">
+<p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-[10px]">Planning a tattoo</p>
+<p class="font-body-md text-on-surface-variant leading-relaxed">If you are using this page to decide placement, timing, or whether your skin is ready, compare the science with real healed examples before you book. Joshua can also talk through realistic aging expectations during a consult.</p>
+<div class="flex flex-col sm:flex-row gap-3">
+<a class="inline-flex bg-secondary text-on-secondary px-6 py-3 font-label-caps text-[11px] tracking-widest uppercase justify-center" href="{HEALED_HUB}">See healed work</a>
+<a class="inline-flex border border-outline px-6 py-3 font-label-caps text-[11px] tracking-widest uppercase justify-center hover:border-secondary" href="{BOOK}">Book consult</a>
+</div>
+</aside>"""
+
+
 def topic_card(topic: SkinScienceTopic) -> str:
     return f"""<a class="block border border-outline-variant/30 bg-surface-container-high p-6 hover:border-secondary transition-colors group" href="/{slug_for(topic)}/">
 <h3 class="font-headline-md text-on-surface text-lg group-hover:text-secondary transition-colors">{html.escape(topic.title)}</h3>
@@ -160,6 +171,7 @@ def hub_main() -> str:
 {joshua_entity_block()}
 <p class="font-body-lg text-on-surface-variant max-w-2xl leading-relaxed">{html.escape(HUB_INTRO)}</p>
 <p class="font-body-md text-on-surface-variant">{html.escape(MEDICAL_DISCLAIMER)}</p>
+{planning_bridge()}
 </div>
 </section>
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant/20">
@@ -214,6 +226,7 @@ def topic_main(topic: SkinScienceTopic) -> str:
 <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface leading-tight">{html.escape(topic.title)}</h1>
 <p class="font-body-lg text-on-surface-variant leading-relaxed">{html.escape(topic.intro)}</p>
 {disclaimer}
+{planning_bridge()}
 {toc_nav(tuple(toc_items))}
 {expert}
 </div>

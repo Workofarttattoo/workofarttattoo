@@ -25,21 +25,23 @@ BOOK = "/appointments/"
 
 def path_card(path) -> str:
     link_items = "".join(
-        f'<li><a class="text-secondary underline hover:no-underline" href="{html.escape(href)}">'
+        f'<li><a class="text-secondary underline hover:no-underline" href="{html.escape(href)}" '
+        f'data-woa-start-here-selection="{html.escape(path.anchor)}" data-woa-start-here-link-type="secondary">'
         f"{html.escape(label)}</a></li>"
         for label, href in path.links
     )
     return f"""<article class="woa-start-card border border-outline-variant/30 bg-surface-container-high p-6 md:p-8 flex flex-col gap-4" id="{html.escape(path.anchor)}">
 <h2 class="font-headline-md text-on-surface text-xl md:text-2xl leading-snug">{html.escape(path.title)}</h2>
 <p class="font-body-md text-on-surface-variant leading-relaxed flex-1">{html.escape(path.summary)}</p>
-<a class="inline-flex self-start bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-opacity" href="{html.escape(path.primary_href)}">{html.escape(path.primary_label)}</a>
+<a class="inline-flex self-start bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-opacity" href="{html.escape(path.primary_href)}" data-woa-start-here-selection="{html.escape(path.anchor)}" data-woa-start-here-link-type="primary">{html.escape(path.primary_label)}</a>
 <ul class="font-body-md text-on-surface-variant space-y-1.5 list-none pt-2 border-t border-outline-variant/20">{link_items}</ul>
 </article>"""
 
 
 def jump_nav() -> str:
     items = "".join(
-        f'<a class="woa-start-jump px-3 py-2 border border-outline-variant/40 text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors text-sm whitespace-nowrap" href="#{html.escape(p.anchor)}">{html.escape(p.title)}</a>'
+        f'<a class="woa-start-jump px-3 py-2 border border-outline-variant/40 text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors text-sm whitespace-nowrap" '
+        f'href="#{html.escape(p.anchor)}" data-woa-start-here-selection="{html.escape(p.anchor)}" data-woa-start-here-link-type="jump">{html.escape(p.title)}</a>'
         for p in START_HERE_PATHS
     )
     return f"""<nav aria-label="Jump to your situation" class="flex flex-wrap gap-2 justify-center mb-12">{items}</nav>"""

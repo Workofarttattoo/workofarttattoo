@@ -351,6 +351,78 @@ def validate_idempotency_artifact(failures: list[str]) -> None:
     if data["differences"]:
         failures.append(f"{path.relative_to(ROOT)}: complete-build differences are not empty")
 
+def validate_analytics_source(failures: list[str]) -> None:
+    ga_path = ROOT / "woa_ga4_conversions.py"
+    booking_path = ROOT / "appointments" / "woa-booking.js"
+    start_path = ROOT / "build_start_here_hub.py"
+    for path in (ga_path, booking_path, start_path):
+        if not path.is_file():
+            failures.append(f"{path.relative_to(ROOT)}: missing analytics source")
+            return
+
+    ga = ga_path.read_text(encoding="utf-8", errors="ignore")
+    booking = booking_path.read_text(encoding="utf-8", errors="ignore")
+    start = start_path.read_text(encoding="utf-8", errors="ignore")
+
+    required_events = (
+        "booking_view",
+        "booking_start",
+        "booking_submit_attempt",
+        "booking_submit",
+        "piercing_cta_click",
+        "piercing_booking_start",
+        "piercing_booking_submit",
+        "piercing_call_click",
+        "piercing_text_click",
+        "piercing_directions_click",
+        "piercing_katelyn_click",
+        "piercing_special_view",
+        "piercing_special_click",
+        "piercing_jewelry_click",
+        "start_here_selection",
+    )
+    for event in required_events:
+        if event not in ga:
+            failures.append(f"{ga_path.relative_to(ROOT)}: missing GA4 event {event}")
+
+    if 'send("booking_form_submit"' in ga:
+        failures.append(f"{ga_path.relative_to(ROOT)}: legacy booking_form_submit still fires from source")
+
+    submit_block = re.search(r'form\.addEventListener\("submit"[\s\S]*?\n  \}\}\);', ga)
+    if submit_block and "piercing_booking_submit" in submit_block.group(0):
+        failures.append(f"{ga_path.relative_to(ROOT)}: piercing_booking_submit fires on submit attempt")
+
+    analytics_payload_forbidden = (
+        "full_name",
+        "data.email",
+        "data.phone",
+        "reference_links",
+        "tattoo_description",
+        "piercing_notes",
+        "medical",
+    )
+    for phrase in analytics_payload_forbidden:
+        if phrase in ga:
+            failures.append(f"{ga_path.relative_to(ROOT)}: analytics source references possible PII field {phrase}")
+
+    if "woa_booking_submit_success" not in booking:
+        failures.append(f"{booking_path.relative_to(ROOT)}: booking success event bridge missing")
+    if "dispatchBookingSuccess" not in booking:
+        failures.append(f"{booking_path.relative_to(ROOT)}: AJAX/PHP success does not dispatch analytics completion")
+    if "data-woa-start-here-selection" not in start:
+        failures.append(f"{start_path.relative_to(ROOT)}: Start Here selections lack analytics attributes")
+
+    generated_start = ROOT / "start_here" / "code.html"
+    if generated_start.is_file() and "data-woa-start-here-selection" not in generated_start.read_text(encoding="utf-8", errors="ignore"):
+        failures.append("start_here/code.html: missing generated Start Here selection tracking")
+
+    generated_appointments = ROOT / "appointments" / "code.html"
+    if generated_appointments.is_file():
+        appointments = generated_appointments.read_text(encoding="utf-8", errors="ignore")
+        for event in ("booking_view", "booking_start", "booking_submit", "booking_submit_attempt"):
+            if event not in appointments:
+                failures.append(f"appointments/code.html: missing generated analytics event {event}")
+
 def published_routes() -> set[str]:
     path = ROOT / "sitemap.xml"
     if not path.is_file():
@@ -467,6 +539,7 @@ def main() -> int:
                 failures.append(f"{path.relative_to(ROOT)}: organization/location schema missing roster: {', '.join(missing)}")
     validate_sitewide_files(failures)
     validate_idempotency_artifact(failures)
+    validate_analytics_source(failures)
     if failures:
         print("SEO QA failed:")
         for f in failures[:250]:
