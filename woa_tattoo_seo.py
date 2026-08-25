@@ -75,7 +75,7 @@ def _service_faqs(keyword: str, style: str) -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, about 10 minutes from major Strip resorts. "
+            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic. "
             f"Private parking, licensed studio, desert-climate aftercare coaching included.",
         ),
         (
@@ -149,7 +149,7 @@ def _pricing_faqs() -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, about 10 minutes from major Strip resorts with private parking.",
+            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic with private parking.",
         ),
     )
 
@@ -178,7 +178,7 @@ def _walk_in_faqs() -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, about 10 minutes from major Strip resorts.",
+            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic.",
         ),
     )
 
@@ -237,7 +237,7 @@ def _sleeve_faqs() -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, about 10 minutes from major Strip resorts.",
+            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic.",
         ),
     )
 

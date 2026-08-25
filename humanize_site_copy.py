@@ -11,11 +11,11 @@ ROOT = Path(__file__).resolve().parent
 # (old, new) — applied globally across HTML exports
 GLOBAL_REPLACEMENTS: list[tuple[str, str]] = [
     (
-        "→ This way to the Secret Knowledge Vault",
+        "→ Start with the basics",
         "Browse insider guides",
     ),
     (
-        "Secret Knowledge Vault",
+        "Knowledge Center",
         "Insider guides",
     ),
     (
@@ -236,8 +236,8 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             "<h3 class=\"font-headline-md text-[20px] text-on-surface mb-3\">Where is Work of Art for cover-up consults?</h3>",
         ),
         (
-            'content="Tattoo cover up, scar camouflage, real studio portfolio photos, pricing, and free consult — minutes from the Strip.',
-            'content="Cover-up tattoo planning in Las Vegas — real portfolio photos, pricing ranges, and free consult at Work of Art on E. Tropicana.',
+            'content="Cover-up tattoo redesign, scar-aware planning, real studio portfolio photos, and consultation details near the Strip.',
+            'content="Cover-up tattoo planning in Las Vegas — real portfolio photos and consultation details at Work of Art on E. Tropicana.',
         ),
     ],
     "walk_in_tattoos_las_vegas_authority_guide": [
@@ -294,7 +294,7 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             "<h1 class=\"font-headline-xl text-headline-xl md:text-[96px] mb-6 max-w-4xl leading-[1.1]\">Ear Piercing &amp; Body Piercing — Las Vegas</h1>",
         ),
         (
-            "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Tattoo body piercing near me at one studio: Work of Art on E. Tropicana. Professional ear piercing, helix body piercing, and curated body piercings near me — plus black &amp; grey realism tattoos under the same roof.</p>",
+            "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Tattoo and piercing appointments at one studio: Work of Art on E. Tropicana. Professional ear piercing, helix piercing, curated body piercing, and black &amp; grey realism tattoos under the same roof.</p>",
             "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Work of Art on E. Tropicana pairs Katelyn Cole's ear curation and jewelry-fit planning with Joshua Cole's custom tattoos — one licensed studio, sterile setup, and aftercare coaching built for Vegas heat.</p>",
         ),
         (

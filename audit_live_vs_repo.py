@@ -59,7 +59,7 @@ def evaluate(path: str, check: str, expected: str, html: str) -> tuple[str, str,
         found = STUDIO_PHONE_DISPLAY in html or "(725) 224-1240" in html
         bad = any(x in html for x in ("224-2617", "960-9607", "5025"))
         status = "PASS" if found and not bad else "FAIL"
-        return status, "725-224-1240 found" if found else "missing", expected
+        return status, "(725) 224-1240 found" if found else "missing", expected
     if check == "Canonical address":
         bad = "5025" in html
         good = STUDIO_STREET_ADDRESS in html or "2375 E. Tropicana" in html

@@ -100,7 +100,7 @@ REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"picked starter jewelry, and staged piercings", re.I), "planned starter jewelry fit and staged piercings"),
     (re.compile(r"Katelyn Cole's ear curation and implant-grade jewelry", re.I), "Katelyn Cole's ear curation and jewelry-fit planning"),
     (re.compile(r"Katelyn Cole \(master piercer\)", re.I), "Katelyn Cole (professional piercer)"),
-    (re.compile(r"Joshua Cole \(tattoo &amp; piercing; studio lead who trains the team\) and Katelyn Cole \(professional piercer\)", re.I), "Joshua Cole (tattoo artist and studio lead), Katelyn Cole (professional piercer), and Teralyn (fineline floral work and script)"),
+    (re.compile(r"Joshua Cole \(tattoo &amp; piercing; studio lead who trains the team\) and Katelyn Cole \(professional piercer\)", re.I), "Joshua Cole (tattoo artist, studio lead, and piercing trainer), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline floral work and script)"),
 )
 
 
@@ -144,7 +144,7 @@ def clean_piercing_html(html: str) -> str:
     )
     out = out.replace(
         "Katelyn is our professional piercer only. For tattoos",
-        "Katelyn is our professional piercer. For tattoos",
+        "Katelyn is a professional piercer. For tattoos",
     )
 
     def replace_spotlight(match: re.Match[str]) -> str:

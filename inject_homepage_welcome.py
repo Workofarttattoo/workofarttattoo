@@ -65,7 +65,7 @@ WELCOME_RE = re.compile(
 
 SOFTEN: tuple[tuple[str, str], ...] = (
     (
-        "<span class=\"font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]\">Surgical Precision</span>",
+        "<span class=\"font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]\">Careful Studio Process</span>",
         "<span class=\"font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]\">Warm welcome, expert care</span>",
     ),
     (

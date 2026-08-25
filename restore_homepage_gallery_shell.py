@@ -22,7 +22,7 @@ GALLERY_SHELL = """<!-- Portfolio Showcase Section -->
 <div class="text-center space-y-4 mb-16 max-w-3xl mx-auto">
 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Las Vegas Tattoo &amp; Piercing</span>
 <h2 class="font-headline-lg text-headline-lg text-on-surface">Meet Our Artists</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant">Joshua Cole — black &amp; grey realism. Katelyn Cole — master body piercer &amp; ear curation.</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Joshua Cole — black &amp; grey realism. Katelyn Cole — professional piercer &amp; ear curation.</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter max-w-3xl mx-auto">
 <a class="group text-center" href="/artists/joshua-cole/">

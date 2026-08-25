@@ -34,7 +34,7 @@ META_HEAD = f"""<!DOCTYPE html>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Cover Up Tattoos Las Vegas | Tattoo Cover-Up Artist | Work of Art</title>
-<meta content="Cover up tattoos Las Vegas — expert tattoo cover up, scar cover tattoo, and laser-assisted redesign at Work of Art on E. Tropicana. Before &amp; after gallery, pricing, and free consult." name="description"/>
+<meta content="Cover up tattoos Las Vegas — tattoo redesign, scar-aware planning, and laser-assisted options at Work of Art on E. Tropicana. Before &amp; after gallery and consultation details." name="description"/>
 <link rel="canonical" href="{CANON}"/>
 <meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>
 <meta property="og:type" content="website"/>
@@ -83,7 +83,7 @@ META_HEAD = f"""<!DOCTYPE html>
           "name": "Can any tattoo be covered up in Las Vegas?",
           "acceptedAnswer": {{
             "@type": "Answer",
-            "text": "Most tattoos can be redesigned, but very dark or saturated ink may need laser lightening first. We assess contrast, placement, and skin during a free consult at 2375 E. Tropicana Ave, Suite 3."
+            "text": "Most tattoos can be redesigned, but very dark or saturated ink may need laser lightening first. We assess contrast, placement, and skin during consultation at 2375 E. Tropicana Ave, Suite 3."
           }}
         }},
         {{
@@ -165,8 +165,8 @@ MAIN = f"""
 <div class="max-w-3xl">
 <span class="font-label-caps text-label-caps text-secondary mb-4 block">WHY THIS PAGE EXISTS</span>
 <h2 class="font-headline-lg text-headline-lg mb-8">Reclaim the Skin You Stand In</h2>
-<p class="font-body-lg text-on-surface-variant mb-6">A bad tattoo is not a life sentence — it is a design problem with a solution. Maybe it was a vacation impulse on the Strip. Maybe it marks someone you have moved on from. Maybe a surgery left a scar you hide under sleeves. Whatever brought you here, <strong>cover up tattoo las vegas</strong> clients tell us the same thing after healing: they stop apologizing for their arm.</p>
-<p class="font-body-lg text-on-surface-variant mb-6">Cover-up work is not “go bigger and darker until it disappears.” That is how ink turns into a muddy slab. Real <strong>tattoo cover up las vegas</strong> work is strategic: we read what is already in your skin, plan contrast that survives desert sun, and build a new image you actually want to show off.</p>
+<p class="font-body-lg text-on-surface-variant mb-6">A bad tattoo is not a life sentence — it is a design problem with a solution. Maybe it was a vacation impulse on the Strip. Maybe it marks someone you have moved on from. Maybe an old mark or scar changed how you feel about the area. Clients often tell us the same thing after healing: they stop apologizing for their arm.</p>
+<p class="font-body-lg text-on-surface-variant mb-6">Cover-up work is not “go bigger and darker until it disappears.” That is how ink turns into a muddy slab. Strong cover-up work is strategic: we read what is already in your skin, plan contrast that survives desert sun, and build a new image you actually want to show off.</p>
 <p class="font-body-lg text-on-surface-variant">That is masculine, honest shop talk — no shame, no sales pitch. Just a roadmap from regret to a piece you are proud to wear.</p>
 </div>
 </section>
@@ -199,7 +199,7 @@ MAIN = f"""
 <ul class="space-y-4 font-body-md text-on-surface-variant">
 <li class="flex gap-3"><span class="material-symbols-outlined text-secondary shrink-0">check_circle</span><span>Surgical, accident, and stretch marks (case-by-case)</span></li>
 <li class="flex gap-3"><span class="material-symbols-outlined text-secondary shrink-0">check_circle</span><span>Soft contrast first — aggressive saturation can blow out scar tissue</span></li>
-<li class="flex gap-3"><span class="material-symbols-outlined text-secondary shrink-0">check_circle</span><span>Honest timeline: some pieces need 2–4 sessions spaced for healing</span></li>
+<li class="flex gap-3"><span class="material-symbols-outlined text-secondary shrink-0">check_circle</span><span>Honest planning: some pieces need multiple sessions spaced for healing</span></li>
 </ul>
 <p class="font-body-md text-on-surface-variant mt-6">Read <a class="text-secondary underline" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">desert climate aftercare</a> so your scar cover heals as clean as the design.</p>
 </div>
@@ -313,7 +313,7 @@ MAIN = f"""
 </div>
 <div class="p-8 border border-outline-variant/20 bg-surface-container-high">
 <h3 class="font-headline-md text-[20px] text-on-surface mb-3">Is laser removal required before a cover-up?</h3>
-<p class="font-body-md text-on-surface-variant">Not always. Lightening 2–4 sessions can open design options when black ink is packed solid. We coordinate goals before session one.</p>
+<p class="font-body-md text-on-surface-variant">Not always. Laser lightening can open design options when black ink is packed solid. We coordinate the plan before tattooing so the final recommendation fits the existing piece.</p>
 </div>
 <div class="p-8 border border-outline-variant/20 bg-surface-container-high">
 <h3 class="font-headline-md text-[20px] text-on-surface mb-3">Where is the best tattoo cover up near me in Las Vegas?</h3>

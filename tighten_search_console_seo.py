@@ -145,18 +145,18 @@ def update_katelyn(path: Path) -> bool:
     text = replace_all(
         text,
         [
-            ("Ear Piercing Las Vegas | Katelyn Cole | Work of Art", "Female Piercer Las Vegas | Katelyn Cole | Work of Art"),
+            ("Ear Piercing Las Vegas | Katelyn Cole | Work of Art", "Professional Piercer Las Vegas | Katelyn Cole | Work of Art"),
             (
                 "Katelyn Cole — professional piercer at Work of Art Las Vegas. Ear curation, jewelry-fit planning, and calm consults. Book a consult.",
-                "Katelyn Cole is a female piercer in Las Vegas at Work of Art near the Strip. Ear curation, quality starter jewelry, calm consults, and anatomy-first piercing.",
+                "Katelyn Cole is a professional piercer in Las Vegas at Work of Art near the Strip. Ear curation, quality starter jewelry, calm consults, and anatomy-first piercing.",
             ),
             (
                 "Katelyn Cole — Ear Piercing in Las Vegas",
-                "Katelyn Cole — Female Piercer in Las Vegas",
+                "Katelyn Cole — Professional Piercer in Las Vegas",
             ),
             (
-                "Work of Art's dedicated piercing specialist. Katelyn Cole combines calm placement planning with jewelry styling — anatomical ear curation, facial and body piercing, and quality starter jewelry.",
-                "Work of Art's dedicated piercing specialist and a female piercer in Las Vegas. Katelyn Cole combines calm placement planning with jewelry styling - anatomical ear curation, facial and body piercing, calm consults, and quality starter jewelry.",
+                "Katelyn Cole is Work of Art's professional piercer in Las Vegas. She combines calm placement planning with jewelry styling — anatomical ear curation, facial and body piercing, and quality starter jewelry.",
+                "Katelyn Cole is a professional piercer in Las Vegas. She combines calm placement planning with jewelry styling - anatomical ear curation, facial and body piercing, calm consults, and quality starter jewelry.",
             ),
         ],
     )
@@ -173,8 +173,8 @@ def update_coverup(path: Path) -> bool:
         [
             ("Tattoo Cover-Ups — Joshua Cole | Work of Art Las Vegas | Work of Art", "Cover Up Tattoo Artist Las Vegas | Joshua Cole | Work of Art"),
             (
-                "Tattoo cover up, scar camouflage, real studio portfolio photos, pricing, and free consult — minutes from the Strip. Work of Art Tattoo &amp; Piercing, Las…",
-                "Cover up tattoo artist in Las Vegas near the Strip. Joshua Cole plans cover-ups, scar camouflage, healed proof, pricing, and free consults at Work of Art.",
+                "Cover-up tattoo redesign, scar-aware planning, real studio portfolio photos, and consultation details near the Strip. Work of Art Tattoo &amp; Piercing, Las Vegas.",
+                "Cover-up tattoo artist in Las Vegas near the Strip. Joshua Cole plans cover-ups, scar-aware redesign, healed proof, and consultation details at Work of Art.",
             ),
         ],
     )

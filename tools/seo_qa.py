@@ -12,6 +12,12 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from woa_geo_pages import GEO_PAGE_ACTIONS, GEO_PAGE_REDIRECTS
+from woa_nav_config import STUDIO_STREET_ADDRESS
+from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
+
 HTML_FILES = sorted(p for p in ROOT.rglob("code.html") if ".git" not in p.parts)
 INTERNAL_HOSTS = {"workofarttattoo.com", "www.workofarttattoo.com"}
 DATA = json.loads((ROOT / "siteData" / "business.json").read_text(encoding="utf-8"))
@@ -24,6 +30,7 @@ CANONICAL_NETLOC = urlparse(CANONICAL_HOST).netloc
 REVIEW_COUNT = int(REVIEWS["googleReviewCount"])
 ARTIST_NAMES = [artist["name"] for artist in ARTISTS]
 ARTIST_COUNT = int(DATA["residentArtistCount"])
+HOURS_VERIFIED = str(DATA.get("hours", {}).get("verificationStatus", "")).lower() == "verified"
 STUDIO_SAMEAS = {
     SOCIAL.get("studioInstagram", "").rstrip("/"),
     SOCIAL.get("facebook", "").rstrip("/"),
@@ -39,10 +46,10 @@ FORBIDDEN = {
     "wrong zip 89101": r"\b89101\b",
     "old review count 2400": r"\b2,400\s+(google\s+)?reviews?\b|\b2400\s+(google\s+)?reviews?\b",
     "wrong artist count two": r"\btwo\s+(resident\s+artists|in-studio\s+artists|artists\s+in\s+studio)\b",
-    "deprecated phone 725-224-1240": r"725[-\s.]224[-\s.]2617",
-    "deprecated phone 725-224-1240": r"725[-\s.]224[-\s.]2931",
+    "deprecated phone (725) 224-1240": r"725[-\s.]224[-\s.]2617",
+    "deprecated phone (725) 224-1240": r"725[-\s.]224[-\s.]2931",
     "deprecated phone 725-260-6376": r"725[-\s.]260[-\s.]6376",
-    "deprecated phone 725-224-1240": r"702[-\s.]960[-\s.]9607",
+    "deprecated phone (725) 224-1240": r"702[-\s.]960[-\s.]9607",
     "disconnected webmail email": r"booking@workofarttattoo\.com",
     "tattoo/piercing contamination": r"where\s+do\s+you\s+(pierce|tattoo)\b|where\s+do\s+you\s+pierce\s+[^?<]{0,80}\btattoo\b|pierce\s+(fine[-\s]?line|realism|cover[-\s]?up)\s+tattoo",
     "old two-person roster": r"Joshua\s*(?:&amp;|&|and)\s*Katelyn\s+Cole\s+in-studio",
@@ -109,6 +116,37 @@ ELEVENLABS_RE = re.compile(
     r"elevenlabs|convai-widget|woa-convai-widget|<elevenlabs-convai\b|@elevenlabs/convai-widget-embed",
     re.I,
 )
+GEO_EXTRA_SLUGS = {
+    "official_location_hours_contact",
+    "tattoo_shop_near_the_strip_nap_corrected",
+    "tattoo_shop_near_the_strip_geo_seo_optimized",
+    "vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know",
+    "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison",
+}
+GEO_SLUGS = set(GEO_PAGE_ACTIONS) | GEO_EXTRA_SLUGS
+MERGED_GEO_SLUGS = {
+    slug for slug, action in GEO_PAGE_ACTIONS.items() if action == "MERGE_301"
+} | set(GEO_PAGE_REDIRECTS)
+GEO_STALE_RE = re.compile(r"\bMcCarran\b", re.I)
+GEO_EXACT_TIME_RE = re.compile(
+    r"(?:about\s+|~)?\b\d{1,2}\s*[–-]\s*\d{1,2}\s*(?:min|mins|minutes)\b|"
+    r"(?:about\s+|~)\b\d{1,2}\s*(?:min|mins|minutes)\b|"
+    r"\b\d{1,2}\+\s*(?:min|mins|minutes)\b",
+    re.I,
+)
+GEO_PRICE_RE = re.compile(r"(?:taxi|cab|rideshare|uber|lyft|parking|fare)[^.<]{0,80}\$\d+", re.I)
+GEO_HOURS_RE = re.compile(
+    r"Mon-Thu starts at 3 PM|Daily\s+12\s*pm\s*-\s*12\s*am|12:00\s*(?:PM)?\s*-\s*(?:12:00\s*AM|00:00)",
+    re.I,
+)
+GEO_UNSUPPORTED_RE = re.compile(r"\b(?:best tattoo shop|best piercing shop|highest rated|#1|number one)\b", re.I)
+GEO_FAKE_BRANCH_RE = re.compile(
+    r"\b(?:inside|located in|located at)\s+(?:MGM|Mandalay|Luxor|Sphere|Fashion Show|Allegiant|T-Mobile|Fremont|UNLV)\b",
+    re.I,
+)
+GEO_MINOR_POLICY_RE = re.compile(r"\b(?:minors?\s*14\+|parent\s*/\s*guardian|legal guardian|valid ID for both|consent on file)\b", re.I)
+GEO_UNVERIFIED_OPERATIONS_RE = re.compile(r"\b(?:private lot|street parking|free studio lot|sterile setup)\b", re.I)
+GEO_CABIN_PRESSURE_RE = re.compile(r"\bcabin pressure\b[^.]{0,120}\b(?:heal|healing|aftercare timing)\b", re.I)
 
 def route_for(path: Path) -> str:
     rel = path.relative_to(ROOT)
@@ -355,6 +393,9 @@ def validate_sitewide_files(failures: list[str]) -> None:
         for slug in load_merge_slugs():
             if f"/{slug}/" in text:
                 failures.append(f"{name}: MERGE URL still appears in sitemap: /{slug}/")
+        for slug in sorted(MERGED_GEO_SLUGS | RETIRE_OVERLAP_SLUGS):
+            if f"/{slug}/" in text:
+                failures.append(f"{name}: retired geo/overlap URL still appears in sitemap: /{slug}/")
         if WEEKLY_PROMO_URL_RE.search(text):
             failures.append(f"{name}: weekly/date-based piercing specials URL found")
         for slug in PROMO_SLUGS:
@@ -486,6 +527,85 @@ def validate_search_console_targets(failures: list[str]) -> None:
             if required not in html:
                 failures.append(f"{rel}: missing cover-up evidence content {required}")
 
+def validate_geo_page(
+    soup: BeautifulSoup,
+    raw: str,
+    body_text: str,
+    slug: str,
+    context: str,
+    failures: list[str],
+    geo_intros: dict[str, list[str]],
+    geo_faqs: dict[str, list[str]],
+) -> None:
+    if slug not in GEO_SLUGS:
+        return
+    if GEO_STALE_RE.search(raw):
+        failures.append(f"{context}: stale McCarran airport reference")
+    for label, pattern in (
+        ("exact/unverified drive time", GEO_EXACT_TIME_RE),
+        ("exact/unverified fare or parking price", GEO_PRICE_RE),
+        ("unsupported geo superlative", GEO_UNSUPPORTED_RE),
+        ("fake branch/location wording", GEO_FAKE_BRANCH_RE),
+        ("unverified minor-policy detail", GEO_MINOR_POLICY_RE),
+        ("unverified operational claim", GEO_UNVERIFIED_OPERATIONS_RE),
+        ("unsupported cabin-pressure healing implication", GEO_CABIN_PRESSURE_RE),
+    ):
+        if pattern.search(body_text):
+            failures.append(f"{context}: {label}")
+    if not HOURS_VERIFIED and GEO_HOURS_RE.search(body_text):
+        failures.append(f"{context}: unverified exact hours published")
+    if not HOURS_VERIFIED and re.search(r"OpeningHoursSpecification|openingHours", raw, re.I):
+        failures.append(f"{context}: unverified exact hours in schema")
+    if slug in MERGED_GEO_SLUGS:
+        robots = soup.find("meta", attrs={"name": "robots"})
+        robots_content = (robots.get("content", "") if robots else "").lower()
+        canonical = soup.find("link", rel="canonical")
+        canonical_href = canonical.get("href", "") if canonical else ""
+        expected = GEO_PAGE_REDIRECTS.get(slug) or "/tattoo_shop_near_the_strip_nap_corrected/"
+        if "noindex" not in robots_content:
+            failures.append(f"{context}: retired geo page is not noindex")
+        if f"/{slug}/" in canonical_href:
+            failures.append(f"{context}: retired geo page canonical points to itself")
+        if expected not in raw:
+            failures.append(f"{context}: retired geo page missing redirect target {expected}")
+        return
+    h1 = soup.find("h1")
+    intro_tag = h1.find_next("p") if h1 else soup.find("p")
+    intro = " ".join(intro_tag.get_text(" ").split()) if intro_tag else ""
+    if len(intro) > 80:
+        geo_intros.setdefault(intro.lower(), []).append(context)
+    faq_texts = [
+        " ".join(tag.get_text(" ").split()).lower()
+        for tag in soup.find_all(["details", "summary"])
+        if len(" ".join(tag.get_text(" ").split())) > 40
+    ]
+    if faq_texts:
+        fingerprint = hashlib.sha256("\n".join(faq_texts).encode("utf-8")).hexdigest()
+        geo_faqs.setdefault(fingerprint, []).append(context)
+    for heading in soup.find_all(["h2", "h3"]):
+        section_text = " ".join(heading.find_parent().get_text(" ").split()) if heading.find_parent() else ""
+        if len(section_text) > 220:
+            fingerprint = hashlib.sha256(section_text.lower().encode("utf-8")).hexdigest()
+            geo_faqs.setdefault(f"section:{fingerprint}", []).append(context)
+    for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
+        raw_schema = script.string or script.get_text()
+        if not raw_schema.strip():
+            continue
+        try:
+            parsed = json.loads(raw_schema)
+        except Exception:
+            continue
+        for node in as_graph_nodes(parsed):
+            types = node_types(node)
+            if "LocalBusiness" not in types and "TattooParlor" not in types:
+                continue
+            serialized = json.dumps(node)
+            address = json.dumps(node.get("address", {}))
+            if STUDIO_STREET_ADDRESS not in address and STUDIO_STREET_ADDRESS not in serialized:
+                failures.append(f"{context}: geo LocalBusiness schema does not use canonical studio address")
+            if re.search(r"\b(MGM|Sphere|Allegiant|Mandalay|Fremont|UNLV|Henderson|Spring Valley|Summerlin)\b", address, re.I):
+                failures.append(f"{context}: geo LocalBusiness schema appears to publish a fake location")
+
 def published_routes() -> set[str]:
     path = ROOT / "sitemap.xml"
     if not path.is_file():
@@ -504,15 +624,31 @@ def main() -> int:
     failures = []
     validate_promotion_model(failures)
     titles = {}
+    geo_intros: dict[str, list[str]] = {}
+    geo_faqs: dict[str, list[str]] = {}
     retired_slugs = load_retired_slugs()
     published = published_routes()
     checked_pages = 0
     for path in HTML_FILES:
         slug = slug_for_path(path)
-        if slug in retired_slugs:
-            continue
         text = path.read_text(encoding="utf-8", errors="ignore")
         route = route_for(path)
+        if slug in MERGED_GEO_SLUGS:
+            soup = BeautifulSoup(text, "html.parser")
+            body_text = visible_text(BeautifulSoup(text, "html.parser"))
+            validate_geo_page(
+                soup,
+                text,
+                body_text,
+                slug,
+                str(path.relative_to(ROOT)),
+                failures,
+                geo_intros,
+                geo_faqs,
+            )
+            continue
+        if slug in retired_slugs:
+            continue
         if published and route not in published:
             continue
         checked_pages += 1
@@ -525,11 +661,24 @@ def main() -> int:
                 failures.append(f"{path.relative_to(ROOT)}: forbidden pattern: {label}")
         if WEEKLY_PROMO_URL_RE.search(text):
             failures.append(f"{path.relative_to(ROOT)}: weekly/date-based piercing specials URL found")
+        for retired_slug in MERGED_GEO_SLUGS:
+            if f"/{retired_slug}/" in text:
+                failures.append(f"{path.relative_to(ROOT)}: stale retired geo internal link: /{retired_slug}/")
         if route != "/piercing-specials-las-vegas/" and "Piercing Specials in Las Vegas" in body_text:
             failures.append(f"{path.relative_to(ROOT)}: duplicate piercing-specials H1/intent outside permanent URL")
         soup = BeautifulSoup(text, "html.parser")
         validate_head(soup, text, route, str(path.relative_to(ROOT)), failures)
         validate_piercing_page(soup, text, route, str(path.relative_to(ROOT)), failures)
+        validate_geo_page(
+            soup,
+            text,
+            body_text,
+            slug,
+            str(path.relative_to(ROOT)),
+            failures,
+            geo_intros,
+            geo_faqs,
+        )
         if "Google" in body_text and "review" in body_text.lower():
             visible_counts = {int(m.group(1).replace(",", "")) for m in re.finditer(r"\b(\d{2,4}(?:,\d{3})?)\s+(?:verified\s+)?(?:five-star\s+)?(?:Google\s+)?reviews?\b", body_text, re.I)}
             for count in visible_counts:
@@ -602,6 +751,12 @@ def main() -> int:
             missing = [name for name in ARTIST_NAMES if name not in combined_schema]
             if missing:
                 failures.append(f"{path.relative_to(ROOT)}: organization/location schema missing roster: {', '.join(missing)}")
+    for intro, contexts in geo_intros.items():
+        if len(contexts) > 1:
+            failures.append(f"geo pages: duplicate intro across {', '.join(contexts[:5])}")
+    for contexts in geo_faqs.values():
+        if len(contexts) > 2:
+            failures.append(f"geo pages: duplicate FAQ block across {', '.join(contexts[:5])}")
     validate_sitewide_files(failures)
     validate_idempotency_artifact(failures)
     validate_analytics_source(failures)

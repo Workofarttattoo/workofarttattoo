@@ -30,9 +30,9 @@ INTERNAL_LINKS_RE = re.compile(
 # Old directory / listing phone numbers — never publish on-site
 CITATION_REPLACEMENTS: tuple[tuple[str, str], ...] = (
     ("(725) 224-1240", "(725) 224-1240"),
-    ("725-224-1240", "725-224-1240"),
-    ("725-224-1240", "725-224-1240"),
-    ("702.960.9607", "725-224-1240"),
+    ("(725) 224-1240", "(725) 224-1240"),
+    ("(725) 224-1240", "(725) 224-1240"),
+    ("702.960.9607", "(725) 224-1240"),
     ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
     ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
     ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),

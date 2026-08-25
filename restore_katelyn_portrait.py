@@ -34,7 +34,7 @@ KATELYN_PAGE = ROOT / "artists_build" / "katelyn-cole.html"
 KATELYN_HERO_PICTURE = (
     '<picture><source srcset="/artists/katelyn-cole/'
     f'{FILENAME}.webp" type="image/webp"/>'
-    '<img alt="Katelyn Cole — master body piercer Las Vegas — Work of Art Tattoo &amp; Piercing" '
+    '<img alt="Katelyn Cole — professional piercer Las Vegas — Work of Art Tattoo &amp; Piercing" '
     'class="w-full aspect-[3/4] md:aspect-[4/5] object-cover object-top" decoding="async" '
     f'fetchpriority="high" height="{CARD_H}" loading="eager" '
     f'src="/artists/katelyn-cole/{JPG_NAME}" width="{CARD_W}"/></picture>'

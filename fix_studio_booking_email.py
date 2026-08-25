@@ -209,8 +209,8 @@ def patch_markdown_geo(text: str, path: Path) -> str:
         return text
     if "**Phone:**" in text and "**Email:**" not in text:
         return text.replace(
-            "**Phone:** 725-224-1240\n",
-            f"**Phone:** 725-224-1240\n- **Email:** {STUDIO_BOOKING_EMAIL}\n",
+            "**Phone:** (725) 224-1240\n",
+            f"**Phone:** (725) 224-1240\n- **Email:** {STUDIO_BOOKING_EMAIL}\n",
             1,
         )
     return text

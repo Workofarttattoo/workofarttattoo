@@ -6,7 +6,7 @@ Use this as an owner task list. Do not keyword-stuff the GBP business name.
 
 - Business name: Work of Art Tattoo & Piercing
 - Address: 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
-- Phone: 725-224-1240
+- Phone: (725) 224-1240
 - Website: https://www.workofarttattoo.com/
 - Booking URL: https://www.workofarttattoo.com/appointments/
 

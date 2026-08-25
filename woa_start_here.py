@@ -122,15 +122,16 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         anchor="meet-artists",
         title="I want to meet the artists",
         summary=(
-            "Three resident artists in-studio — Joshua Cole (tattoo and piercing), Katelyn Cole "
-            "(professional piercer), and Teralyn (fineline floral work, script, custom drawings by "
-            "commission, and detailed smaller tattoos). Portfolios, videos, and booking."
+            "Three resident artists in-studio — Joshua Cole (tattoo artist, studio lead, and "
+            "piercing trainer), Katelyn Cole (professional piercer), and Teralyn (tattoo artist "
+            "and piercer; fineline floral work, script, custom drawings by commission, and "
+            "detailed smaller tattoos). Portfolios, videos, and booking."
         ),
         primary_label="Meet our artists",
         primary_href="/artists/",
         links=(
             ("Joshua Cole — tattoo", "/artists/joshua-cole/"),
-            ("Teralyn — fineline floral, script & custom drawings", "/artists/teralyn/"),
+            ("Teralyn — tattoos & piercing", "/artists/teralyn/"),
             ("Katelyn Cole — piercing", "/artists/katelyn-cole/"),
             ("Client videos", "/studio_videos/"),
         ),

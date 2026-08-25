@@ -34,7 +34,7 @@ def main_html() -> str:
 <div class="space-y-6">
 <p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-xs">This week at Work of Art</p>
 <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface leading-tight">Piercing Specials in Las Vegas</h1>
-<p class="font-body-lg text-on-surface-variant leading-relaxed">One permanent page for current Work of Art piercing offers, same-day availability, and booking links. We keep the URL stable so old weekly specials do not stay indexed after they expire.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">See the current Work of Art piercing feature, what's included, and how to book with Katelyn. Text or book online for this week's featured placement, jewelry-fit options, and same-day openings.</p>
 <div class="flex flex-col sm:flex-row gap-3">
 <a class="inline-flex bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase" href="/appointments/" data-woa-piercing-booking-start="1">Book piercing</a>
 <a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase hover:border-secondary" href="{STUDIO_PHONE_TEL.replace('tel:', 'sms:')}" data-woa-piercing-text-click="1">Text for today</a>

@@ -238,6 +238,8 @@ KATELYN_KNOWS_ABOUT = (
 )
 
 TERALYN_KNOWS_ABOUT = (
+    "Body piercing",
+    "Piercing",
     "Fine line tattoo",
     "Fine line floral tattoo",
     "Floral fine line tattoo",
@@ -249,7 +251,7 @@ TERALYN_KNOWS_ABOUT = (
     "Walk-in tattoo",
     "Flash tattoo",
     "Las Vegas tattoo artist",
-    "Female piercing team",
+    "Las Vegas piercer",
 )
 
 
@@ -352,8 +354,8 @@ def person_joshua() -> dict:
         "jobTitle": "Studio Lead — Tattoo & Piercing Artist",
         "description": (
             "Joshua Cole leads Work of Art Tattoo & Piercing in Las Vegas with black & grey "
-            "realism, portrait work, sleeves, and cover-ups. He trains resident artists and "
-            "offers piercing consults in-studio."
+            "realism, portrait work, sleeves, and cover-ups. He trained the in-studio "
+            "piercing team and mentors resident artists."
         ),
         "knowsAbout": list(JOSHUA_KNOWS_ABOUT),
         "sameAs": [HREF_INSTAGRAM_JOSHUA],
@@ -386,13 +388,12 @@ def person_teralyn() -> dict:
         "name": "Teralyn",
         "url": TERALYN_PAGE,
         "image": TERALYN_IMAGE,
-        "jobTitle": "Fine Line Tattoo Artist",
+        "jobTitle": "Tattoo Artist and Piercer",
         "description": (
-            "Teralyn graduated from Work of Art's piercing apprenticeship and grew into a "
-            "tattoo artist focused on fine line floral work, fine line, "
-            "small script, commissioned custom drawings, high-detail smaller tattoos, "
-            "walk-in requests, and flash designs. "
-            "She is also part of the female piercing team with Katelyn Cole."
+            "Teralyn is a tattoo artist and piercer at Work of Art Tattoo & Piercing in "
+            "Las Vegas. She works in fine line floral tattoos, fine line, small script, "
+            "commissioned custom drawings, high-detail smaller tattoos, walk-in requests, "
+            "flash designs, and piercing services as part of the in-studio piercing team."
         ),
         "knowsAbout": list(TERALYN_KNOWS_ABOUT),
         "sameAs": [HREF_INSTAGRAM_TERALYN],
@@ -468,7 +469,7 @@ def artist_profile_graph(artist: str, *, root: Path | None = None) -> dict:
     else:
         person = person_teralyn()
         page_url = TERALYN_PAGE
-        page_name = "Teralyn — Fine Line Tattoo Artist Las Vegas"
+        page_name = "Teralyn — Tattoo Artist and Piercer Las Vegas"
     graph: list[dict] = [
         website_node(),
         local_business_node(),
@@ -535,7 +536,7 @@ def artist_profile_graph(artist: str, *, root: Path | None = None) -> dict:
             service_node(
                 slug="best_fine_line_tattoos_in_vegas_ultimate_authority_guide",
                 name="Fine Line Tattoo",
-                description="Fine line, floral fine line, small script, commissioned custom drawings, walk-in, and flash tattoos by Teralyn.",
+                description="Fine line, floral fine line, small script, commissioned custom drawings, walk-in tattoos, flash tattoos, and piercing services by Teralyn.",
             )
         )
     if root:

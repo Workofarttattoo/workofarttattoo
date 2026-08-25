@@ -15,15 +15,15 @@ OUT = ROOT / "artists" / "code.html"
 def main_body() -> str:
     cards = artist_cards_html()
     return f"""<h1 class="font-headline-lg text-on-surface mb-6">Artists at Work of Art</h1>
-<p class="font-body-lg text-on-surface-variant mb-6">Three in-studio residents at 2375 E. Tropicana Ave, Suite 3 — Joshua Cole (tattoo &amp; piercing; studio lead), Katelyn Cole (professional piercer), and Teralyn (fineline floral work, script, custom drawings by commission, and detailed smaller tattoos). Tap a portrait to open their bio or portfolio.</p>
-<p class="font-body-md text-on-surface-variant mb-12"><a class="text-secondary underline hover:no-underline" href="/appointments/">Book an appointment</a> · <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">725-224-1240</a> · <a class="text-secondary underline hover:no-underline" href="mailto:thewhiteknight702@gmail.com">thewhiteknight702@gmail.com</a></p>
+<p class="font-body-lg text-on-surface-variant mb-6">Three in-studio residents at 2375 E. Tropicana Ave, Suite 3 — Joshua Cole (tattoo artist, studio lead, and piercing trainer), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline floral work, script, custom drawings by commission, and detailed smaller tattoos). Tap a portrait to open their bio or portfolio.</p>
+<p class="font-body-md text-on-surface-variant mb-12"><a class="text-secondary underline hover:no-underline" href="/appointments/">Book an appointment</a> · <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">(725) 224-1240</a> · <a class="text-secondary underline hover:no-underline" href="mailto:thewhiteknight702@gmail.com">thewhiteknight702@gmail.com</a></p>
 <section aria-labelledby="woa-artists-roster-heading" class="mb-16">
 <h2 class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-8 text-center" id="woa-artists-roster-heading">In-Studio Residents</h2>
 {cards}
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter max-w-5xl mx-auto mt-8 text-center">
 <a class="font-label-caps text-label-caps text-secondary uppercase tracking-widest hover:underline" href="/artists/joshua-cole/">Joshua Cole — Tattoo Portfolio →</a>
 <a class="font-label-caps text-label-caps text-secondary uppercase tracking-widest hover:underline" href="/artists/katelyn-cole/">Katelyn Cole — Piercing Portfolio →</a>
-<a class="font-label-caps text-label-caps text-secondary uppercase tracking-widest hover:underline" href="/artists/teralyn/">Teralyn — Fineline Floral &amp; Script Bio →</a>
+<a class="font-label-caps text-label-caps text-secondary uppercase tracking-widest hover:underline" href="/artists/teralyn/">Teralyn — Tattoos &amp; Piercing Bio →</a>
 </div>
 </section>
 <p class="font-body-md text-on-surface-variant text-center"><a class="text-secondary underline hover:no-underline" href="/#portfolio">View full studio portfolio on the homepage</a></p>"""
