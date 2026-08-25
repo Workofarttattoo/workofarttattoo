@@ -1154,6 +1154,7 @@ elevenlabs-convai::part(button) {
   var EVENT_SOURCE = "woa_site";
   var DEDUPE_MS = 1200;
   var sentRecently = {};
+  var PIERCING_ROUTE_RE = /(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial)/i;
 
   function assign(target, source) {
     Object.keys(source || {}).forEach(function (key) {
@@ -1250,6 +1251,78 @@ elevenlabs-convai::part(button) {
     return id && id.indexOf("piercing") >= 0 ? "piercing" : "tattoo";
   }
 
+  function closestPromo(el) {
+    return el && el.closest ? el.closest("[data-woa-piercing-special]") : null;
+  }
+
+  function promoParams(link, action) {
+    var promo = closestPromo(link);
+    var params = {
+      link_url: link ? link.getAttribute("href") || "" : "",
+      click_text: linkText(link),
+      click_location: clickLocation(link),
+      service_type: "piercing",
+      promo_action: action || (link ? link.getAttribute("data-woa-promo-click") || "" : ""),
+      promo_context: link ? link.getAttribute("data-woa-promo-context") || "" : "",
+    };
+    if (promo) {
+      params.promo_id = promo.getAttribute("data-woa-promo-id") || "";
+      params.promo_campaign = promo.getAttribute("data-woa-promo-campaign") || "";
+      params.promo_variant = promo.getAttribute("data-woa-promo-variant") || "";
+    }
+    return params;
+  }
+
+  function persistPiercingAttribution(link) {
+    var params = promoParams(link, "booking_start");
+    storageSet("woa_piercing_attribution", JSON.stringify({
+      promo_id: params.promo_id || "",
+      promo_campaign: params.promo_campaign || "",
+      promo_context: params.promo_context || "",
+      page_path: location.pathname,
+    }));
+    return params;
+  }
+
+  function storedPiercingAttribution() {
+    try {
+      var raw = storageGet("woa_piercing_attribution");
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function observePiercingDeals() {
+    var blocks = Array.prototype.slice.call(document.querySelectorAll("[data-woa-piercing-special]"));
+    if (!blocks.length) return;
+    var seen = {};
+    function view(block) {
+      var id = block.getAttribute("data-woa-promo-id") || "";
+      if (!id || seen[id + location.pathname]) return;
+      seen[id + location.pathname] = true;
+      send("piercing_deal_view", {
+        service_type: "piercing",
+        promo_id: id,
+        promo_campaign: block.getAttribute("data-woa-promo-campaign") || "",
+        promo_variant: block.getAttribute("data-woa-promo-variant") || "",
+      });
+    }
+    if (!("IntersectionObserver" in window)) {
+      blocks.forEach(view);
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          view(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    blocks.forEach(function (block) { observer.observe(block); });
+  }
+
   document.addEventListener(
     "click",
     function (e) {
@@ -1263,8 +1336,31 @@ elevenlabs-convai::part(button) {
         click_location: clickLocation(link),
       };
 
+      if (link.hasAttribute("data-woa-promo-click")) {
+        send("piercing_deal_click", promoParams(link));
+      }
+      if (link.hasAttribute("data-woa-piercing-booking-start") || (h.indexOf("/appointments") >= 0 && closestPromo(link))) {
+        send("piercing_booking_start", persistPiercingAttribution(link));
+      }
+      if (link.hasAttribute("data-woa-katelyn-profile-click")) {
+        send("piercing_katelyn_profile_click", assign({ service_type: "piercing" }, base));
+      }
+      if (link.hasAttribute("data-woa-piercing-jewelry-click")) {
+        send("piercing_jewelry_click", assign({ service_type: "piercing" }, base));
+      }
+      if (link.hasAttribute("data-woa-piercing-directions-click")) {
+        send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+      }
+
       if (h.indexOf("tel:") === 0) {
+        if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
+          send("piercing_call_click", assign({ service_type: "piercing" }, base));
+        }
         send("call_click", base);
+        return;
+      }
+      if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("piercing_text_click", assign({ service_type: "piercing" }, base));
         return;
       }
       if (h.indexOf("mailto:") === 0) {
@@ -1281,6 +1377,9 @@ elevenlabs-convai::part(button) {
         h.indexOf("g.page") >= 0 ||
         h.indexOf("maps.google.com") >= 0
       ) {
+        if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
+          send("piercing_directions_click", assign({ service_type: "piercing" }, base));
+        }
         send("directions_click", base);
         return;
       }
@@ -1310,13 +1409,23 @@ elevenlabs-convai::part(button) {
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
+      var service = serviceFromFormId(id);
       send("booking_form_submit", {
         form_id: id,
         form_destination: "formsubmit",
-        service_type: serviceFromFormId(id),
+        service_type: service,
       });
+      if (service === "piercing") {
+        send("piercing_booking_submit", assign(storedPiercingAttribution(), {
+          form_id: id,
+          form_destination: "formsubmit",
+          service_type: "piercing",
+        }));
+      }
     });
   });
+
+  observePiercingDeals();
 
   if (/^\/appointments\/?$/.test(location.pathname)) {
     send("booking_page_view", {}, { allowRepeat: true });

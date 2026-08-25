@@ -108,6 +108,10 @@ SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
         "Desert Piercing Aftercare",
         "Vegas-specific piercing healing — pools, heat, dust, and saline routines.",
     ),
+    "piercing-specials-las-vegas": (
+        "Piercing Specials",
+        "Current piercing specials, same-day availability, jewelry-fit planning, and booking.",
+    ),
     "real_client_tattoo_timeline_las_vegas": (
         "Real Client Tattoo Timeline",
         "One documented tattoo from fresh to one year — Joshua Cole black & grey realism in Las Vegas.",

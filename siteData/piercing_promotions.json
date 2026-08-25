@@ -1,0 +1,31 @@
+[
+  {
+    "id": "weekly-piercing-feature",
+    "name": "Weekly Piercing Feature",
+    "slug": "piercing-specials-las-vegas",
+    "headline": "Ask what piercing feature is open this week",
+    "description": "Work of Art keeps one permanent piercing specials page so clients can check current piercing availability without chasing old weekly URLs. Text or book online for this week's featured placement, jewelry-fit options, and same-day openings.",
+    "startDate": "",
+    "endDate": "",
+    "status": "ACTIVE",
+    "discountType": "",
+    "discountValue": "",
+    "displayPrice": "",
+    "eligiblePiercings": [
+      "ear piercings",
+      "helix piercings",
+      "conch piercings",
+      "tragus piercings",
+      "nostril piercings",
+      "septum piercings",
+      "ear curation consults"
+    ],
+    "jewelryTerms": "Starter jewelry, fit, and upgrade options are confirmed during the consult.",
+    "exclusions": "Some placements depend on anatomy, healing history, age policy, and piercer availability.",
+    "ctaText": "See this week's piercing special",
+    "bookingUrl": "/appointments/",
+    "image": "/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp",
+    "altText": "Curated helix, tragus, and lobe piercings at Work of Art Tattoo and Piercing in Las Vegas",
+    "analyticsCampaign": "weekly_piercing_feature"
+  }
+]
