@@ -1,0 +1,4 @@
+schema_area,gsc_valid_count,risk,action
+Review snippets,37,review snippets are healthy; over-editing could break valid enhancement,preserve; do not add AggregateRating unless evidence policy allows it
+Breadcrumbs,33,healthy enhancement,preserve BreadcrumbList generators
+Image metadata,7,portfolio images can carry more structured clarity only when visible content supports it,"maintain dimensions, alt text, and original image proof"
