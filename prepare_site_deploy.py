@@ -70,6 +70,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "inject_ga4_conversions.py")],
     ["python3", str(ROOT / "normalize_head_metadata.py")],
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
+    ["python3", str(ROOT / "remove_elevenlabs_widget.py")],
 ]
 
 

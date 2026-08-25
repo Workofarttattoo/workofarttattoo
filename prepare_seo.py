@@ -62,6 +62,7 @@ PIPELINE: list[str] = [
     "inject_ga4_conversions.py",
     "normalize_head_metadata.py",
     "fix_piercing_content_integrity.py",
+    "remove_elevenlabs_widget.py",
 ]
 
 
