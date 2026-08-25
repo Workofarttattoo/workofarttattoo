@@ -218,5 +218,18 @@ Highest-risk items: current hours, minor policies, parking, landmark travel esti
 
 ### Deployment Status
 
-- Latest source branch is ready to commit and push to `origin/seo/master-authority-rebuild`.
-- Production should be published by copying this built output to `gh-pages` with `CNAME` set to `www.workofarttattoo.com`.
+- Source branch published to `origin/seo/master-authority-rebuild`.
+- GitHub Pages branch published to `origin/gh-pages`.
+- Pages deployment status: built.
+- Pages CNAME: `www.workofarttattoo.com`.
+- HTTPS enforced: true.
+- Live homepage build stamp verified: `2026-08-25T01:57:20Z`.
+
+### Live Spot Checks
+
+- Homepage served the fresh generated build and no longer matched the stale Bluehost-era response.
+- Appointments page contained `booking_view`, `booking_start`, `booking_submit_attempt`, `booking_submit`, `piercing_booking_submit`, and the `woa_booking_submit_success` bridge.
+- Appointments page did not contain `booking_form_submit`.
+- Start Here page contained `data-woa-start-here-selection` and `start_here_selection`.
+- Helix page contained `Helix Piercing in Las Vegas`, the curated helix image, and `piercing_cta_click`.
+- Skin Science page contained the contextual `Planning a tattoo` bridge.
