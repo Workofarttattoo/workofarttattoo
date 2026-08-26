@@ -56,6 +56,10 @@ PIERCING_SLUG_RE = re.compile(
     r"(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial|cartilage|lobe|tongue|monroe|eyebrow)",
     re.I,
 )
+TATTOO_SLUG_RE = re.compile(
+    r"(tattoo|realism|fine[-_]?line|cover[-_]?up|sleeve|black[-_]?grey|portrait|flash|healing|skin[-_]?science|dermis|epidermis|hypodermis|collagen|scar|macrophage)",
+    re.I,
+)
 
 
 def embed_count(html: str) -> int:
@@ -70,9 +74,13 @@ def pick_video(slug: str, pool: list) -> object | None:
 
 
 def spotlight_pool_for_slug(slug: str, default_pool: list) -> list:
+    katelyn_ids = {row["media_id"] for row in KATELYN_VIDEOS}
     if PIERCING_SLUG_RE.search(slug):
-        piercing_pool = [v for v in default_pool if getattr(v, "media_id", "") in {row["media_id"] for row in KATELYN_VIDEOS}]
+        piercing_pool = [v for v in default_pool if getattr(v, "media_id", "") in katelyn_ids]
         return piercing_pool or default_pool
+    if TATTOO_SLUG_RE.search(slug):
+        tattoo_pool = [v for v in default_pool if getattr(v, "media_id", "") not in katelyn_ids]
+        return tattoo_pool or default_pool
     return default_pool
 
 
