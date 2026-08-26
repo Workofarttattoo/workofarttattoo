@@ -13,7 +13,7 @@ from PIL import Image
 SITE = "https://www.workofarttattoo.com"
 HOME_LOCAL = "home_work_of_art_tattoo_piercing/code.html"
 KATELYN_BASE = (
-    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas"
+    "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas"
 )
 KATELYN_WEBP = f"/artists/katelyn-cole/{KATELYN_BASE}.webp"
 KATELYN_JPG = f"/artists/katelyn-cole/{KATELYN_BASE}.jpg"

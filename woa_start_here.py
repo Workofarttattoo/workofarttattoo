@@ -122,8 +122,8 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         anchor="meet-artists",
         title="I want to meet the artists",
         summary=(
-            "Three resident artists in-studio — Joshua Cole (tattoo artist, studio lead, and "
-            "piercing trainer), Katelyn Cole (professional piercer), and Teralyn (tattoo artist "
+            "Our in-studio team — Joshua Cole (tattoo and piercing, studio lead), "
+            "Katelyn Cole (professional piercer), and Teralyn (tattoo artist "
             "and piercer; fineline floral work, script, custom drawings by commission, and "
             "detailed smaller tattoos). Portfolios, videos, and booking."
         ),

@@ -167,7 +167,7 @@ def sync_katelyn_from_user() -> None:
         ROOT
         / "artists"
         / "katelyn-cole"
-        / "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png"
+        / "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.png"
     )
     save_portrait(src, dest)
     print(f"[ok] Katelyn portrait ← {src.name}")
@@ -275,7 +275,7 @@ def showcase_grid_html() -> str:
 
 def artist_cards_html() -> str:
     josh = resolve_asset("joshua-cole-tattooing-portrait-las-vegas")
-    kat = resolve_asset("katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas")
+    kat = resolve_asset("katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas")
     ter = resolve_asset("teralyn-fine-line-tattoo-artist-las-vegas")
     if not (josh and kat and ter):
         raise SystemExit("Missing artist portrait assets")

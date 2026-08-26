@@ -23,7 +23,7 @@ HERO_INTERVIEW_STILL_WEBP = (
 )
 KATELYN_STILL_JPG = (
     "/artists/katelyn-cole/"
-    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg"
+    "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg"
 )
 
 # Instagram /embed iframes render blank on static hosting — use poster + permalink cards.
@@ -1114,7 +1114,7 @@ def render_home_video_grid() -> str:
 
 
 PIERCING_SECTION_STATIC_IMAGE = """<div class="relative group">
-<picture><source srcset="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole professional piercer — curated ear piercing at Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
+<picture><source srcset="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole professional piercer — curated ear piercing at Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
 <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-secondary flex items-center justify-center p-8 hidden md:flex pointer-events-none">
 <span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercing</span>
 </div>

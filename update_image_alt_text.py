@@ -40,7 +40,7 @@ STEM_OVERRIDES: dict[str, str] = {
     "joshua-cole-portrait-las-vegas": (
         "Joshua Cole tattoo artist working in the Work of Art Las Vegas studio"
     ),
-    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates": (
+    "katelyn-cole-professional-piercer-ear-curation-no-duplicates": (
         "Katelyn Cole professional piercer — curated ear and body piercing Las Vegas"
     ),
     "jay-jay-artist-portfolio-authentic-masterpieces": (

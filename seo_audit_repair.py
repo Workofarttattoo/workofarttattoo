@@ -52,7 +52,7 @@ REPAIRS: list[tuple[str, str]] = [
     ),
     (
         "Work of Art has two in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead who trains the team) and Katelyn Cole (professional piercer).",
-        "Work of Art has three in-studio artists: Joshua Cole (tattoo artist, studio lead, and piercing trainer), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline floral, script, custom drawings by commission, and high-detail small tattoos).",
+        "Work of Art has three in-studio artists: Joshua Cole (tattoo and piercing, studio lead), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline floral, script, custom drawings by commission, and high-detail small tattoos).",
     ),
     (
         "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — professional piercer &amp; ear curation. Two resident artists, one address.",

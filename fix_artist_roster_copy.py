@@ -127,7 +127,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Three in-studio residents — Joshua Cole and Jay Jay (tattoo), Katelyn Cole (piercing)",
-        "Three in-studio residents — Joshua Cole (tattoo artist, studio lead, and piercing trainer), Katelyn Cole (piercing), and Teralyn (tattoo artist and piercer; fineline floral, script, commissioned custom drawings)",
+        "Three in-studio residents — Joshua Cole (tattoo and piercing, studio lead), Katelyn Cole (piercing), and Teralyn (tattoo artist and piercer; fineline floral, script, commissioned custom drawings)",
     ),
 ]
 

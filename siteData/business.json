@@ -26,5 +26,11 @@
   "residentArtistCount": 3,
   "googleRating": 5.0,
   "googleReviewCount": 323,
+  "licensing": {
+    "snhd": {
+      "verificationStatus": "owner-verified",
+      "sourceNote": "Owner confirmed Work of Art is SNHD licensed whenever operating."
+    }
+  },
   "dataSourceNote": "Values supplied by owner in SEO implementation brief; update here first, then run tools/seo_qa.py."
 }

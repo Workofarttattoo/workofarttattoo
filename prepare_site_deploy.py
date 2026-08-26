@@ -149,10 +149,10 @@ def verify_homepage() -> None:
                 errors.append(f"still has {label}")
 
     kat_webp = ROOT / "artists" / "katelyn-cole" / (
-        "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp"
+        "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp"
     )
     kat_jpg = ROOT / "artists" / "katelyn-cole" / (
-        "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg"
+        "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg"
     )
     if not kat_webp.is_file() or kat_webp.stat().st_size < 50_000:
         errors.append(f"Katelyn portrait webp missing or too small: {kat_webp}")
