@@ -26,11 +26,11 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "Three in-studio artists, consult-first booking, piercing consultations, and healed work on display — 2375 E. Tropicana Ave, Suite 3.",
     ),
     (
-        "The premier destination for high-contrast technical tattooing and micro-realism in the heart of Las Vegas.",
+        "The premier destination for high-contrast technical tattooing and micro-realism near the Las Vegas Strip.",
         "Fine line and black & grey work with healed photos at 6–12 months — Joshua Cole, 20+ years, consult-first on E. Tropicana.",
     ),
     (
-        "The elite destination for large-scale tattoo artistry and technical precision in the heart of Las Vegas.",
+        "The elite destination for large-scale tattoo artistry and technical precision near the Las Vegas Strip.",
         "Large-scale sleeves and back pieces planned session-by-session — healed portfolio, transparent quotes, Joshua Cole on E. Tropicana.",
     ),
     (
@@ -46,11 +46,11 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "<p class=\"font-bold\">Healed portfolio on display</p>",
     ),
     (
-        "Premier Tattoo &amp; Piercing Studio in the heart of Las Vegas. Where technical excellence meets elite artistry.",
+        "Premier Tattoo &amp; Piercing Studio near the Las Vegas Strip. Where technical excellence meets elite artistry.",
         "Tattoo &amp; piercing studio on E. Tropicana — consult-first booking, healed galleries, and jewelry planning.",
     ),
     (
-        "Premier Tattoo &amp; Piercing Studio located in the heart of Las Vegas. Artistry without compromise.",
+        "Premier Tattoo &amp; Piercing Studio located near the Las Vegas Strip. Artistry without compromise.",
         "Tattoo &amp; piercing at 2375 E. Tropicana Ave, Suite 3 — healed work, consult-first booking, (725) 224-1240.",
     ),
 ]

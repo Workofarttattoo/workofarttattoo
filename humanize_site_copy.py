@@ -124,7 +124,7 @@ GLOBAL_REPLACEMENTS: list[tuple[str, str]] = [
         "healed portfolio work",
     ),
     (
-        "Elevating the Vegas tattoo experience through clinical precision and museum-grade artistry. Located in the heart of the Strip.",
+        "Elevating the Vegas tattoo experience through clinical precision and museum-grade artistry. Located near the Las Vegas Strip.",
         "Warm, consult-first tattoo and piercing on E. Tropicana — healed photos on display, walk-ins when chairs are open.",
     ),
     (

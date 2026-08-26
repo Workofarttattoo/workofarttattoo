@@ -349,7 +349,7 @@ HEALED_CATALOG: tuple[HealedEntry, ...] = (
     ),
     HealedEntry(
         entry_id="skull-hourglass-forearm",
-        title="Skull & hourglass forearm",
+        title="Healed forearm tattoo",
         collection="black_grey",
         artist="Joshua Cole",
         placement="Forearm",

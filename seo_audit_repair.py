@@ -44,7 +44,7 @@ REPAIRS: list[tuple[str, str]] = [
     ("two in-studio artists", "three in-studio artists"),
     ("Two in-studio artists", "Three in-studio artists"),
     ("two resident artists", "three resident artists"),
-    ("Two resident artists", "Three resident artists"),
+    ("Two resident artists", "Our in-studio team"),
     ("Two Resident Tattoo Artists", "Three Resident Artists"),
     (
         "Two in-studio residents today — Joshua Cole and Katelyn Cole — not a rotating guest-artist wall.",
@@ -56,7 +56,7 @@ REPAIRS: list[tuple[str, str]] = [
     ),
     (
         "Joshua Cole — tattoo &amp; piercing. Katelyn Cole — professional piercer &amp; ear curation. Two resident artists, one address.",
-        "Joshua Cole — tattoo artist and studio lead. Katelyn Cole — professional piercer &amp; ear curation. Teralyn — tattoo artist and piercer; fineline floral, script, commissioned custom drawings, and high-detail small tattoos. Three resident artists, one address.",
+        "Joshua Cole — tattoo artist and studio lead. Katelyn Cole — professional piercer &amp; ear curation. Teralyn — tattoo artist and piercer; fineline floral, script, commissioned custom drawings, and high-detail small tattoos. Our in-studio team, one address.",
     ),
     (
         "Where do you pierce realism tattoo in Las Vegas?",

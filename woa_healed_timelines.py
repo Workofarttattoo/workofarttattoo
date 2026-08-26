@@ -53,7 +53,7 @@ JOSHUA_CASE_STUDIES: tuple[CaseStudy, ...] = (
         image_stem="black-grey-lion-thigh-realism-las-vegas",
     ),
     CaseStudy(
-        title="Skull & hourglass forearm",
+        title="Healed forearm tattoo",
         artist="Joshua Cole",
         placement="Forearm",
         sessions="Single long session",

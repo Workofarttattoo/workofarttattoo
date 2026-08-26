@@ -675,7 +675,7 @@ PHOTO_SLOTS: tuple[PhotoSlot, ...] = (
         "black_grey",
         "day_1",
         "skull-hourglass-forearm",
-        "Skull & hourglass forearm — fresh at bandage-off",
+        "Healed forearm tattoo — fresh at bandage-off",
         "Fresh skull hourglass forearm black and grey realism by Joshua Cole, Las Vegas",
     ),
     PhotoSlot(

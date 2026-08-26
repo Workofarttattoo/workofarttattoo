@@ -42,7 +42,7 @@ FAQ_DETAILS_RE = re.compile(
 STRIP_TAGS_RE = re.compile(r"<[^>]+>")
 UNVERIFIED_SCHEMA_FACT_RE = re.compile(
     r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
-    r"APP[-\s]aligned|APP piercing standards|medical-grade piercing|medical-grade hygiene|"
+    r"APP[-\s]aligned|APP piercing standards|piercing|clean studio process|"
     r"hospital-grade",
     re.I,
 )
