@@ -86,6 +86,15 @@ UNVERIFIED_SCHEMA_RE = re.compile(
     re.I,
 )
 PIERCING_ROUTE_RE = re.compile(r"(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial)", re.I)
+SKIN_SCIENCE_ROUTE_RE = re.compile(
+    r"(dermis|epidermis|hypodermis|collagen|aging_skin|scar_tissue|macrophages|tattoo_permanence|why_tattoos_stay_forever|eczema|diabetes|psoriasis|stretch_marks|skin_science)",
+    re.I,
+)
+SLEEVE_ROUTE_RE = re.compile(r"(sleeve|large_scale|large-scale)", re.I)
+PIERCING_ASSET_RE = re.compile(
+    r"(ear-piercing|helix|tragus|conch|nostril|septum|labret|piercing-session|piercing-setup|lobe-piercing)",
+    re.I,
+)
 TATTOO_PROOF_IMAGE_RE = re.compile(
     r"(skull-hourglass|roaring-lion|all-seeing-eye|eagle-memorial|cover-up-tattoo|black-grey-lion|fresh-vs-healed|forearm-realism)",
     re.I,
@@ -346,6 +355,28 @@ def validate_piercing_page(soup: BeautifulSoup, raw: str, route: str, context: s
             failures.append(f"{context}: permanent specials page missing reusable promotion component")
         if re.search(r"\bcheap\s+piercings?\b", visible, re.I):
             failures.append(f"{context}: piercing specials competes on cheap")
+
+def validate_visual_intent(soup: BeautifulSoup, raw: str, route: str, context: str, failures: list[str]) -> None:
+    image_refs: list[str] = []
+    for tag in soup.find_all(["img", "source"]):
+        for attr in ("src", "srcset", "alt"):
+            val = tag.get(attr)
+            if val:
+                image_refs.append(str(val))
+    for tag in soup.find_all(style=True):
+        image_refs.append(str(tag.get("style") or ""))
+    joined_refs = "\n".join(image_refs)
+    if SKIN_SCIENCE_ROUTE_RE.search(route) and PIERCING_ASSET_RE.search(joined_refs):
+        failures.append(f"{context}: tattoo skin-science page contains piercing imagery or alt text")
+    if SLEEVE_ROUTE_RE.search(route) and re.search(r"C78fY1quCVF|Katelyn|piercing in the studio|piercing placement", raw, re.I):
+        failures.append(f"{context}: sleeve/large-scale tattoo page contains piercing video module")
+    if PIERCING_ROUTE_RE.search(route):
+        h1 = soup.find("h1")
+        first_img = soup.find("img")
+        if h1 and first_img:
+            first_ref = " ".join(str(first_img.get(attr, "")) for attr in ("src", "alt"))
+            if TATTOO_PROOF_IMAGE_RE.search(first_ref):
+                failures.append(f"{context}: piercing page first meaningful image is tattoo portfolio imagery")
 
 def validate_promotion_model(failures: list[str]) -> None:
     required = {
@@ -669,6 +700,7 @@ def main() -> int:
         soup = BeautifulSoup(text, "html.parser")
         validate_head(soup, text, route, str(path.relative_to(ROOT)), failures)
         validate_piercing_page(soup, text, route, str(path.relative_to(ROOT)), failures)
+        validate_visual_intent(soup, text, route, str(path.relative_to(ROOT)), failures)
         validate_geo_page(
             soup,
             text,
@@ -752,11 +784,13 @@ def main() -> int:
             if missing:
                 failures.append(f"{path.relative_to(ROOT)}: organization/location schema missing roster: {', '.join(missing)}")
     for intro, contexts in geo_intros.items():
-        if len(contexts) > 1:
-            failures.append(f"geo pages: duplicate intro across {', '.join(contexts[:5])}")
+        unique_contexts = sorted(set(contexts))
+        if len(unique_contexts) > 1:
+            failures.append(f"geo pages: duplicate intro across {', '.join(unique_contexts[:5])}")
     for contexts in geo_faqs.values():
-        if len(contexts) > 2:
-            failures.append(f"geo pages: duplicate FAQ block across {', '.join(contexts[:5])}")
+        unique_contexts = sorted(set(contexts))
+        if len(unique_contexts) > 2:
+            failures.append(f"geo pages: duplicate FAQ block across {', '.join(unique_contexts[:5])}")
     validate_sitewide_files(failures)
     validate_idempotency_artifact(failures)
     validate_analytics_source(failures)
