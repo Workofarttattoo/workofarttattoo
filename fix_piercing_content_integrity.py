@@ -23,6 +23,7 @@ TRUST_SOURCE_ROUTE_RE = re.compile(
     r"(geo_hub_ai_source_of_truth_work_of_art|vegas_tattoo_shop_vs_cheap_strip_tattoo|tattoo_pain_chart_placement_sensitivity_guide|start_here)",
     re.I,
 )
+SLEEVE_ROUTE_RE = re.compile(r"(sleeve|large_scale|large-scale)", re.I)
 
 TATTOO_PROOF_RE = re.compile(
     r"(skull-hourglass|roaring-lion|all-seeing-eye|eagle-memorial|cover-up-tattoo|black-grey-lion|forearm-realism)",
@@ -166,16 +167,28 @@ def clean_piercing_html(html: str) -> str:
     return out
 
 
+def clean_tattoo_visual_html(html: str) -> str:
+    def replace_spotlight(match: re.Match[str]) -> str:
+        block = match.group(0)
+        if "katelyn" in block.lower() or "piercing" in block.lower() or "C78fY1quCVF" in block:
+            return ""
+        return block
+
+    return SPOTLIGHT_RE.sub(replace_spotlight, html)
+
+
 def main() -> int:
     changed = 0
     for path in sorted(ROOT.rglob("*")):
         if not path.is_file() or not is_public_html(path):
             continue
         route = route_key(path)
-        if not (PIERCING_ROUTE_RE.search(route) or TRUST_SOURCE_ROUTE_RE.search(route)):
+        if not (PIERCING_ROUTE_RE.search(route) or TRUST_SOURCE_ROUTE_RE.search(route) or SLEEVE_ROUTE_RE.search(route)):
             continue
         raw = path.read_text(encoding="utf-8")
-        new = clean_piercing_html(raw)
+        new = clean_piercing_html(raw) if (PIERCING_ROUTE_RE.search(route) or TRUST_SOURCE_ROUTE_RE.search(route)) else raw
+        if SLEEVE_ROUTE_RE.search(route):
+            new = clean_tattoo_visual_html(new)
         if new != raw:
             path.write_text(new, encoding="utf-8")
             changed += 1

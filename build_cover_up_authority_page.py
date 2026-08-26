@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "cover_up_tattoos_las_vegas_master_authority_guide" / "code.html"
 SLUG = "cover_up_tattoos_las_vegas_master_authority_guide"
 CANON = f"https://www.workofarttattoo.com/{SLUG}/"
-OG_IMG = f"https://www.workofarttattoo.com/{SLUG}/cover-up-tattoo-phoenix-hand-las-vegas-after.webp"
-COVER_STEM = f"/{SLUG}/cover-up-tattoo-phoenix-hand-las-vegas-after"
+OG_IMG = f"https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/floral-tattoo-cover-up-before-after-las-vegas.webp"
+COVER_STEM = f"/cover-up-tattoos-las-vegas/floral-tattoo-cover-up-before-after-las-vegas"
 COVER_IMG = COVER_STEM
 COVER_WEBP = f"{COVER_STEM}.webp"
 
@@ -124,7 +124,7 @@ MAIN = f"""
 
 <section class="relative min-h-[85vh] flex items-center overflow-hidden">
 <div class="absolute inset-0 z-0">
-<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Cover up tattoo Las Vegas — black and grey lion thigh realism, Work of Art Tattoo" class="w-full h-full object-cover opacity-55" loading="eager" src="{COVER_STEM}.png"/></picture>
+<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Before and after floral tattoo cover-up — Work of Art Tattoo Las Vegas" class="w-full h-full object-cover opacity-55" loading="eager" src="{COVER_STEM}.jpg"/></picture>
 <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
 </div>
 <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-4xl py-24">
@@ -182,10 +182,10 @@ MAIN = f"""
 </div>
 <article class="mb-10 border border-outline-variant bg-surface overflow-hidden">
 <div class="relative aspect-[16/10] md:aspect-[21/9]">
-<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Color phoenix hand tattoo — cover-up work Las Vegas" class="w-full h-full object-cover object-center" loading="lazy" src="{COVER_STEM}.png"/></picture>
+<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Before and after floral tattoo cover-up — Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-center" loading="lazy" src="{COVER_STEM}.jpg"/></picture>
 <span class="absolute top-4 left-4 font-label-caps text-[10px] bg-secondary/90 px-2 py-1 text-on-secondary">FINISHED WORK</span>
 </div>
-<p class="p-6 md:p-8 font-body-md text-on-surface-variant"><strong>Featured cover-up</strong> — color phoenix hand and forearm. Joshua Cole.</p>
+<p class="p-6 md:p-8 font-body-md text-on-surface-variant"><strong>Featured before and after</strong> — floral cover-up transformation from the studio evidence set.</p>
 </article>
 <p class="mt-10 font-body-md text-on-surface-variant max-w-3xl">Add verified same-client before/after pairs from the studio when artists approve them. Browse <a class="text-secondary underline" href="/reviews_vault_100_verified_masterpieces/">verified client reviews</a>.</p>
 </section>
@@ -219,7 +219,7 @@ MAIN = f"""
 </div>
 <div class="flex gap-6 overflow-x-auto px-margin-mobile md:px-margin-desktop pb-8 no-scrollbar">
 <div class="min-w-[280px] md:min-w-[360px] aspect-[4/5] relative border border-outline-variant">
-<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Healed cover up tattoo Las Vegas — black and grey lion thigh realism" class="w-full h-full object-cover" loading="lazy" src="{COVER_STEM}.png"/></picture>
+<picture><source srcset="{COVER_WEBP}" type="image/webp"/><img alt="Before and after floral tattoo cover-up — Work of Art Tattoo Las Vegas" class="w-full h-full object-cover" loading="lazy" src="{COVER_STEM}.jpg"/></picture>
 <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/85 to-transparent"><span class="font-label-caps text-label-caps text-white text-xs">HEALED — COLOR COVER</span></div>
 </div>
 <div class="min-w-[280px] md:min-w-[360px] aspect-[4/5] relative border border-outline-variant bg-surface-container flex items-center justify-center">
