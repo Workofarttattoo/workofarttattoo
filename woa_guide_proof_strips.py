@@ -421,6 +421,37 @@ _COLOR_HEAL = tattoo_strip(
     ),
 )
 
+_SKIN_SCIENCE_TATTOO = tattoo_strip(
+    "Tattoo skin science",
+    close=_p(IMG["eye_fresh"], HUB),
+    week1=_p(IMG["eagle_fresh"], BEFORE_AFTER),
+    month2=_p(IMG["eagle_comparison"], BEFORE_AFTER),
+    settled=_p(IMG["lion_healed_3mo"], HUB),
+    fresh_redness=_p(IMG["skull_fresh"], PORTFOLIO),
+    close_caption="Fresh tattoo surface detail — the epidermis is irritated while pigment is placed below it.",
+    week1_caption="Early tattoo healing reference — surface shine, tightness, and light texture can change how value reads.",
+    month2_caption="Fresh vs settled tattoo comparison — useful for explaining how the surface calms while pigment remains.",
+    settled_caption="Settled black and grey tattoo detail — healed contrast is what matters for long-term readability.",
+    fresh_redness_caption="Day-zero tattoo surface redness — shown as healing context, not as finished portfolio proof.",
+)
+
+SKIN_SCIENCE_SLUG_PARTS = (
+    "dermis",
+    "epidermis",
+    "hypodermis",
+    "collagen",
+    "aging_skin",
+    "scar_tissue",
+    "macrophages",
+    "tattoo_permanence",
+    "why_tattoos_stay_forever",
+    "eczema",
+    "diabetes",
+    "psoriasis",
+    "stretch_marks",
+    "skin_science",
+)
+
 # Page slug → strip for tattoo / service guides
 PAGE_STRIPS: dict[str, GuideProofStrip] = {
     "realism_tattoos_las_vegas_master_authority_guide": _BG_TATTOO,
@@ -445,6 +476,8 @@ PAGE_STRIPS: dict[str, GuideProofStrip] = {
     "tattoo_healing_in_desert_climate_expert_aftercare_guide": _BG_TATTOO,
     "tattoo_healing_before_after_real_results": _COLOR_HEAL,
     "las-vegas-tattoo-healing-guide": _COLOR_HEAL,
+    "dermis_skin_science_las_vegas_authority_guide": _SKIN_SCIENCE_TATTOO,
+    "epidermis_skin_science_las_vegas_authority_guide": _SKIN_SCIENCE_TATTOO,
     "walk_in_tattoos_las_vegas_authority_guide": _BG_TATTOO,
     "best_piercing_shop_las_vegas_updated_jewelry_standards": _EAR,
     "piercing_types_las_vegas_authority_hub": _EAR,
@@ -513,6 +546,8 @@ def strip_for_page(page_slug: str) -> GuideProofStrip | None:
         return None
     if page_slug in PAGE_STRIPS:
         return PAGE_STRIPS[page_slug]
+    if any(part in page_slug for part in SKIN_SCIENCE_SLUG_PARTS):
+        return _SKIN_SCIENCE_TATTOO
     sid = slug_id_from_page_slug(page_slug)
     if sid and sid in PIERCING_STRIPS:
         return PIERCING_STRIPS[sid]
@@ -566,11 +601,21 @@ def proof_strip_html(page_slug: str) -> str:
 </figure>"""
         )
     grid = "\n".join(cards)
+    is_piercing_strip = "piercing" in strip.placement.lower()
+    footer = (
+        'Photos from Work of Art piercing clients — angles and jewelry length vary by anatomy. '
+        '<a class="text-secondary underline" href="/studio_gallery/">Studio gallery</a> · '
+        '<a class="text-secondary underline" href="/artists/katelyn-cole/">Katelyn\'s portfolio</a>'
+        if is_piercing_strip
+        else 'Photos from Work of Art tattoo clients — healing appearance varies by skin, placement, and aftercare. '
+        '<a class="text-secondary underline" href="/healed_tattoo_gallery_las_vegas/">Healed tattoo proof</a> · '
+        '<a class="text-secondary underline" href="/artists/joshua-cole/">Joshua\'s portfolio</a>'
+    )
     return f"""<section class="space-y-6 py-4" {MARKER} id="photos">
 <h2 class="font-headline-md text-on-surface text-2xl">Real heal documentation</h2>
 <p class="font-body-md text-on-surface-variant">{html.escape(strip.intro)}</p>
 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5">
 {grid}
 </div>
-<p class="font-body-md text-on-surface-variant text-sm">Photos from Work of Art clients — angles and jewelry length vary by anatomy. <a class="text-secondary underline" href="/studio_gallery/">Studio gallery</a> · <a class="text-secondary underline" href="/artists/katelyn-cole/">Katelyn's portfolio</a></p>
+<p class="font-body-md text-on-surface-variant text-sm">{footer}</p>
 </section>"""

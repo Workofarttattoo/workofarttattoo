@@ -44,12 +44,12 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "THREE RESIDENT ARTISTS",
     ),
     (
-        "A premier studio is a collective of resident artists with decades of combined experience. These are professionals who have spent years mastering specific styles—Realism, Traditional, Neo-Traditional, or Fine Line.",
-        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
+        "A professional studio is a collective of resident artists with decades of combined experience. These are professionals who have spent years mastering specific styles—Realism, Traditional, Neo-Traditional, or Fine Line.",
+        "A professional studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
     ),
     (
-        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: two tattooists (Joshua Cole and Jay Jay) and professional piercer Katelyn Cole, each with a clear specialty.",
-        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
+        "A professional studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: two tattooists (Joshua Cole and Jay Jay) and professional piercer Katelyn Cole, each with a clear specialty.",
+        "A professional studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
     ),
     (
         "At Work of Art, our collective is comprised of classically trained painters and illustrators. We believe that the ability to create original work on a canvas is the ultimate prerequisite for creating a masterpiece on the skin.",

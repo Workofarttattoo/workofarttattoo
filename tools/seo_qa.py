@@ -82,7 +82,7 @@ UNIQUE_DATA_ATTRS = (
 UNVERIFIED_SCHEMA_RE = re.compile(
     r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
     r"APP[-\s]aligned|APP piercing standards|Professional Piercer|professional piercer|"
-    r"medical-grade piercing|medical-grade hygiene|hospital-grade",
+    r"medical[-\s]grade\s+(?:piercing|hygiene)|hospital-grade",
     re.I,
 )
 PIERCING_ROUTE_RE = re.compile(r"(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial)", re.I)

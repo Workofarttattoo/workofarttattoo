@@ -121,7 +121,7 @@ def _extras(profile: HealProfile) -> dict[str, tuple[str, ...]]:
             "exercise": shared_gym,
         },
         "overview": {
-            "who_its_good_for": ("Use the pillar page for your area, then open the specific placement guide.",),
+            "who_its_good_for": ("Choose the specific placement guide for your area, then open the specific placement guide.",),
             "downsizing": ("Downsizing schedules vary — see your placement guide.",),
             "swimming": shared_swim,
             "exercise": shared_gym,
