@@ -24,6 +24,13 @@
 ./skipped_upload_build/walk_in_tattoos_las_vegas_nap_corrected.html:1547:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
 ./skipped_pages_clipboard.html:872:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
 
+## 2,400+
+./walk_in_tattoos_las_vegas_authority_guide/code.html:1622:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
+./skipped_upload_build/walk_in_tattoos_las_vegas_nap_corrected.html:1547:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
+./skipped_pages_clipboard.html:872:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
+
+## 2400+
+
 ## masculine, honest shop talk
 ./tools/a_plus_cleanup.py:18:    'That is masculine, honest shop talk — no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
 ./tools/a_plus_cleanup.py:19:    'That is masculine, honest shop talk - no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
