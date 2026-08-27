@@ -1,0 +1,76 @@
+name: A+ Factual Consistency Cleanup
+
+on:
+  push:
+    branches:
+      - a-plus-factual-cleanup
+    paths:
+      - 'tools/a_plus_cleanup.py'
+      - '.github/workflows/a-plus-factual-cleanup.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: a-plus-factual-cleanup
+          fetch-depth: 0
+
+      - name: Apply factual cleanup
+        run: python3 tools/a_plus_cleanup.py
+
+      - name: Remove tracked OS/cache junk
+        run: |
+          git rm -f .DS_Store 2>/dev/null || true
+          find . -type d -name '__pycache__' -prune -exec rm -rf {} +
+          find . -type f -name '*.pyc' -delete
+
+      - name: Remove temporary Katelyn integration workflow
+        run: |
+          rm -f .github/workflows/katelyn-piercing-integration.yml
+
+      - name: Generate unresolved audit
+        run: |
+          {
+            echo '# A+ cleanup unresolved matches'
+            echo
+            for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '480+' '323' '350+' '400+' 'masculine, honest shop talk' 'cabin pressure' 'starter jewelry' 'premier authority' 'Best Body Piercer in Las Vegas'; do
+              echo "## $term"
+              grep -RIn --exclude-dir=.git --exclude='a-plus-unresolved.md' "$term" . || true
+              echo
+            done
+          } > a-plus-unresolved.md
+
+      - name: Basic HTML sanity
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          bad=[]
+          for p in Path('.').rglob('*.html'):
+              if '.git' in p.parts: continue
+              s=p.read_text(encoding='utf-8',errors='ignore').lower()
+              if '<html' in s and '</html>' not in s: bad.append(str(p))
+          if bad:
+              print('HTML files missing </html>:')
+              print('\n'.join(bad))
+              raise SystemExit(1)
+          print('Basic HTML sanity passed')
+          PY
+
+      - name: Commit cleanup
+        run: |
+          git config user.name 'WOA Cleanup Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No cleanup changes generated.'
+          else
+            git commit -m 'Apply A+ factual and editorial cleanup [skip ci]'
+            git push origin HEAD:a-plus-factual-cleanup
+          fi
