@@ -122,7 +122,7 @@ The typography system pairs the high-character, editorial feel of **Playfair Dis
 
 - **Headlines:** Playfair Display is used to provide a "Fine Art" tattoo feel. Large headlines should use negative letter-spacing for a tighter, more dramatic look.
 - **Body:** Hanken Grotesk provides ultra-clean, modern legibility that balances the traditional feel of the serif headings.
-- **Labels & Utility:** **Geist** is used for technical labels, metadata, and monospaced accents to emphasize the professional/surgical precision of the studio. All utility text should be in uppercase with generous letter spacing to maintain an "expensive" feel.
+- **Labels & Utility:** **Geist** is used for technical labels, metadata, and monospaced accents to emphasize the professional/careful placement of the studio. All utility text should be in uppercase with generous letter spacing to maintain an "expensive" feel.
 
 ## Layout & Spacing
 

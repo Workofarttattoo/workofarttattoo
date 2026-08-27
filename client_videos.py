@@ -106,7 +106,7 @@ KATELYN_VIDEOS: list[dict[str, str]] = [
         "kind": "reel",
         "media_id": "C78fY1quCVF",
         "title": "Katelyn Cole — piercing in the studio",
-        "blurb": "Watch Katelyn at Work of Art — precision ear curation and medical-grade piercing in Las Vegas.",
+        "blurb": "Watch Katelyn at Work of Art — precision ear curation and professional piercing in Las Vegas.",
     },
     {
         "kind": "reel",
@@ -124,7 +124,7 @@ KATELYN_VIDEOS: list[dict[str, str]] = [
         "kind": "reel",
         "media_id": "C3GjVCdLUQ9",
         "title": "Piercing session — studio reel",
-        "blurb": "In-studio with master piercer Katelyn Cole.",
+        "blurb": "In-studio with professional piercer Katelyn Cole.",
     },
 ]
 
@@ -1114,9 +1114,9 @@ def render_home_video_grid() -> str:
 
 
 PIERCING_SECTION_STATIC_IMAGE = """<div class="relative group">
-<picture><source srcset="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole master piercer — curated ear piercing with implant-grade jewelry — Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
+<picture><source srcset="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole professional piercer — curated ear piercing with implant-grade jewelry — Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
 <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-secondary flex items-center justify-center p-8 hidden md:flex pointer-events-none">
-<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Master Piercers</span>
+<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercers</span>
 </div>
 </div>"""
 
@@ -1138,7 +1138,7 @@ def render_piercing_section_video() -> str:
 </div>
 </article>
 <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-secondary flex items-center justify-center p-8 hidden md:flex pointer-events-none">
-<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Master Piercers</span>
+<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercers</span>
 </div>
 </div>
 {PIERCING_VIDEO_MARKER_END}"""
@@ -1188,7 +1188,7 @@ def render_katelyn_section() -> str:
 <div class="text-center space-y-3 max-w-3xl mx-auto">
 <span class="text-label-caps font-label-caps text-secondary uppercase tracking-[0.2em]">In the studio</span>
 <h2 class="text-headline-lg font-headline-lg text-on-surface">Watch Katelyn Cole</h2>
-<p class="text-body-lg font-body-lg text-on-surface-variant">Real piercing sessions and studio moments from our master piercer — @stabislifee on Instagram.</p>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Real piercing sessions and studio moments from our professional piercer — @stabislifee on Instagram.</p>
 </div>
 <div class="woa-ig-grid">
 {cells}
@@ -1218,7 +1218,7 @@ def render_katelyn_minors_section() -> str:
 <div class="max-w-3xl mx-auto text-center space-y-4">
 <span class="text-label-caps font-label-caps text-secondary uppercase tracking-[0.2em]">Families welcome</span>
 <h2 class="text-headline-lg font-headline-lg text-on-surface">Piercing Minors — Rules &amp; What to Bring</h2>
-<p class="text-body-lg font-body-lg text-on-surface-variant">Katelyn Cole specializes in calm, medical-grade ear piercing for younger clients. Sessions are unhurried, explained step-by-step, and designed so kids and guardians feel confident — most families tell us how smoothly everything goes.</p>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Katelyn Cole specializes in calm, professional ear piercing for younger clients. Sessions are unhurried, explained step-by-step, and designed so kids and guardians feel confident — most families tell us how smoothly everything goes.</p>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 <div class="space-y-8">
