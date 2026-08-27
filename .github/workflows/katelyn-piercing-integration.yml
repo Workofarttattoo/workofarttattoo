@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name 'WOA Integration Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add artists_build/katelyn-cole.html artists_raw/katelyn-cole.html best_piercing_shop_las_vegas_updated_jewelry_standards/code.html . || true
+          git add -A
           if git diff --cached --quiet; then
             echo 'No generated changes to commit.'
           else
