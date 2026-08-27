@@ -20,14 +20,10 @@
 ## 350+
 
 ## 400+
-./walk_in_tattoos_las_vegas_authority_guide/code.html:1622:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
-./skipped_upload_build/walk_in_tattoos_las_vegas_nap_corrected.html:1547:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
-./skipped_pages_clipboard.html:872:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
+./tools/a_plus_cleanup.py:20:    'Google Reviews (2,400+)': 'Hundreds of Google Reviews',
 
 ## 2,400+
-./walk_in_tattoos_las_vegas_authority_guide/code.html:1622:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
-./skipped_upload_build/walk_in_tattoos_las_vegas_nap_corrected.html:1547:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
-./skipped_pages_clipboard.html:872:<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Google Reviews (2,400+)</span>
+./tools/a_plus_cleanup.py:20:    'Google Reviews (2,400+)': 'Hundreds of Google Reviews',
 
 ## 2400+
 
@@ -39,12 +35,12 @@
 ./tools/a_plus_cleanup.py:60:    s = re.sub(r'(?is)cabin pressure and dry airplane air change aftercare timing\.?', 'Long sitting, friction, dry cabin air, and limited washing access can make aftercare less convenient when you fly soon after a tattoo.', s)
 
 ## starter jewelry
-./tools/a_plus_cleanup.py:24:    (r'(?is)We use starter jewelry([^<\n]{0,260})', r'We use properly fitted initial jewelry selected for the placement and your anatomy.'),
-./tools/a_plus_cleanup.py:25:    (r'(?is)We never use [“\"]starter jewelry[”\"]([^<\n]{0,260})', r'We choose initial jewelry for fit, material, swelling room, and the placement being performed.'),
+./tools/a_plus_cleanup.py:25:    (r'(?is)We use starter jewelry([^<\n]{0,260})', r'We use properly fitted initial jewelry selected for the placement and your anatomy.'),
+./tools/a_plus_cleanup.py:26:    (r'(?is)We never use [“\"]starter jewelry[”\"]([^<\n]{0,260})', r'We choose initial jewelry for fit, material, swelling room, and the placement being performed.'),
 
 ## premier authority
-./tools/a_plus_cleanup.py:26:    (r'(?i)premier authority', 'professional piercer'),
+./tools/a_plus_cleanup.py:27:    (r'(?i)premier authority', 'professional piercer'),
 
 ## Best Body Piercer in Las Vegas
-./tools/a_plus_cleanup.py:28:    (r'(?i)Best Body Piercer in Las Vegas', 'Professional Piercer in Las Vegas'),
+./tools/a_plus_cleanup.py:29:    (r'(?i)Best Body Piercer in Las Vegas', 'Professional Piercer in Las Vegas'),
 
