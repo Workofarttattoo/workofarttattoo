@@ -49,8 +49,9 @@ def rewrite_file(path: Path) -> bool:
     for pat, repl in REGEX_REPLACEMENTS:
         s = re.sub(pat, repl, s)
 
-    s = re.sub(r'\b(?:323|350|400|480)\+?\s+(Google\s+)?reviews\b', 'hundreds of Google reviews', s, flags=re.I)
-    s = re.sub(r'\b(?:323|350|400|480)\+\b', 'hundreds', s)
+    # Durable review wording: remove stale or unverified hard-coded counts.
+    s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+?\s+(Google\s+)?reviews\b', 'hundreds of Google reviews', s, flags=re.I)
+    s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+\b', 'hundreds', s)
 
     s = re.sub(r'(?i)\b(?:4|6|8|10)\s*minutes?\s+from\s+Caesars\b', 'a short drive from Caesars; check live traffic for timing', s)
     s = re.sub(r'(?i)\b(?:4|6|8|10)\s*minutes?\s+from\s+Resorts World\b', 'a short drive from Resorts World; check live traffic for timing', s)
