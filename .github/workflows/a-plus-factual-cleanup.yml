@@ -6,6 +6,7 @@ on:
       - a-plus-factual-cleanup
     paths:
       - 'tools/a_plus_cleanup.py'
+      - 'tools/a_plus_claims_cleanup.py'
       - 'tools/install_katelyn_piercing_photos.py'
       - 'tools/polish_katelyn_profile.py'
       - 'tools/deploy_katelyn_piercing_portfolio.py'
@@ -34,6 +35,9 @@ jobs:
       - name: Apply repo-wide factual cleanup
         run: python3 tools/a_plus_cleanup.py
 
+      - name: Remove unsupported pseudo-clinical marketing claims
+        run: python3 tools/a_plus_claims_cleanup.py
+
       - name: Remove tracked OS/cache junk
         run: |
           find . -type f -name '.DS_Store' -delete
@@ -45,21 +49,14 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          if [ -n "$FTP_USER" ] && [ -n "$FTP_PASS" ]; then
-            echo 'FTP deployment credentials are configured.'
-          else
-            echo 'NOTICE: FTP deployment credentials are not configured in GitHub Actions yet. Cleanup QA will continue.'
-          fi
+          if [ -n "$FTP_USER" ] && [ -n "$FTP_PASS" ]; then echo 'FTP deployment credentials are configured.'; else echo 'NOTICE: FTP deployment credentials are not configured in GitHub Actions yet. Cleanup QA will continue.'; fi
 
       - name: Generate unresolved audit
         run: |
           {
-            echo '# A+ cleanup unresolved matches'
-            echo
-            for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '480+' '323' '350+' '400+' '2,400+' '2400+' 'masculine, honest shop talk' 'cabin pressure' 'starter jewelry' 'premier authority' 'Best Body Piercer in Las Vegas' 'medical-grade' 'hospital-grade' 'earbuds' 'face_5' 'vaccines'; do
-              echo "## $term"
-              grep -RIn --exclude-dir=.git --exclude-dir=.github --exclude-dir=tools --exclude='a-plus-unresolved.md' "$term" . || true
-              echo
+            echo '# A+ cleanup unresolved matches'; echo
+            for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '480+' '323' '350+' '400+' '2,400+' '2400+' 'masculine, honest shop talk' 'cabin pressure' 'starter jewelry' 'premier authority' 'Best Body Piercer in Las Vegas' 'medical-grade' 'hospital-grade' 'earbuds' 'face_5' 'vaccines' 'molecular integrity of the pigments'; do
+              echo "## $term"; grep -RIn --exclude-dir=.git --exclude-dir=.github --exclude-dir=tools --exclude='a-plus-unresolved.md' "$term" . || true; echo
             done
           } > a-plus-unresolved.md
 
@@ -67,6 +64,7 @@ jobs:
         run: |
           grep -q 'kmorgen14@gmail.com' artists_build/katelyn-cole.html
           grep -q 'jim.com/a/katelyn-delano-rose-morg' artists_build/katelyn-cole.html
+          grep -q '>About Katelyn Cole</h2>' artists_build/katelyn-cole.html
           python3 - <<'PY'
           from pathlib import Path
           import re
@@ -89,10 +87,7 @@ jobs:
               if '.git' in p.parts: continue
               s=p.read_text(encoding='utf-8',errors='ignore').lower()
               if '<html' in s and '</html>' not in s: bad.append(str(p))
-          if bad:
-              print('HTML files missing </html>:')
-              print('\n'.join(bad))
-              raise SystemExit(1)
+          if bad: print('HTML files missing </html>:\n'+'\n'.join(bad)); raise SystemExit(1)
           print('Basic HTML sanity passed')
           PY
 
@@ -101,9 +96,4 @@ jobs:
           git config user.name 'WOA Cleanup Bot'
           git config user.email 'actions@users.noreply.github.com'
           git add -A -- ':!.github/workflows/**'
-          if git diff --cached --quiet; then
-            echo 'No cleanup changes generated.'
-          else
-            git commit -m 'Apply A+ factual and editorial cleanup [skip ci]'
-            git push origin HEAD:a-plus-factual-cleanup
-          fi
+          if git diff --cached --quiet; then echo 'No cleanup changes generated.'; else git commit -m 'Apply A+ factual and editorial cleanup [skip ci]'; git push origin HEAD:a-plus-factual-cleanup; fi
