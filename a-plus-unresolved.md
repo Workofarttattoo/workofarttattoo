@@ -14,8 +14,8 @@
 ## 480+
 
 ## 323
-./tools/a_plus_cleanup.py:52:    s = re.sub(r'\b(?:323|350|400|480)\+?\s+(Google\s+)?reviews\b', 'hundreds of Google reviews', s, flags=re.I)
-./tools/a_plus_cleanup.py:53:    s = re.sub(r'\b(?:323|350|400|480)\+\b', 'hundreds', s)
+./tools/a_plus_cleanup.py:53:    s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+?\s+(Google\s+)?reviews\b', 'hundreds of Google reviews', s, flags=re.I)
+./tools/a_plus_cleanup.py:54:    s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+\b', 'hundreds', s)
 
 ## 350+
 
@@ -29,7 +29,7 @@
 ./tools/a_plus_cleanup.py:19:    'That is masculine, honest shop talk - no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
 
 ## cabin pressure
-./tools/a_plus_cleanup.py:59:    s = re.sub(r'(?is)cabin pressure and dry airplane air change aftercare timing\.?', 'Long sitting, friction, dry cabin air, and limited washing access can make aftercare less convenient when you fly soon after a tattoo.', s)
+./tools/a_plus_cleanup.py:60:    s = re.sub(r'(?is)cabin pressure and dry airplane air change aftercare timing\.?', 'Long sitting, friction, dry cabin air, and limited washing access can make aftercare less convenient when you fly soon after a tattoo.', s)
 
 ## starter jewelry
 ./tools/a_plus_cleanup.py:24:    (r'(?is)We use starter jewelry([^<\n]{0,260})', r'We use properly fitted initial jewelry selected for the placement and your anatomy.'),
