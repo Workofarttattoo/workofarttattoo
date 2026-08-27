@@ -17,6 +17,7 @@ LITERAL_REPLACEMENTS = {
     'McCarran': 'Harry Reid International Airport',
     'That is masculine, honest shop talk — no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
     'That is masculine, honest shop talk - no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
+    'Google Reviews (2,400+)': 'Hundreds of Google Reviews',
     'calm, calm': 'calm',
 }
 
@@ -49,7 +50,6 @@ def rewrite_file(path: Path) -> bool:
     for pat, repl in REGEX_REPLACEMENTS:
         s = re.sub(pat, repl, s)
 
-    # Durable review wording: remove stale or unverified hard-coded counts.
     s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+?\s+(Google\s+)?reviews\b', 'hundreds of Google reviews', s, flags=re.I)
     s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+\b', 'hundreds', s)
 
