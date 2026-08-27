@@ -80,7 +80,7 @@ HREF_PIERCING = "/#piercing"
 ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
     ("All Artists & Gallery", HREF_ARTISTS),
     ("Joshua Cole — Tattoo & Piercing", "/artists/joshua-cole/"),
-    ("Katelyn Cole — Master Piercer", "/artists/katelyn-cole/"),
+    ("Katelyn Cole — Professional Piercer", "/artists/katelyn-cole/"),
     ("Jay Jay — Portfolio", "/jay_jay_artist_portfolio_authentic_masterpieces/"),
 ]
 
@@ -161,7 +161,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "cover_up_tattoos_las_vegas_master_authority_guide": (
         "Cover-Up Tattoos in Vegas",
-        "Tattoo cover up, scar camouflage, real studio portfolio photos, pricing, and free consult — minutes from the Strip.",
+        "Tattoo cover up, real studio portfolio photos, pricing, and free consult — minutes from the Strip.",
     ),
     "best_piercing_shop_las_vegas_updated_jewelry_standards": (
         "Piercing Shop & Jewelry Standards",
