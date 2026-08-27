@@ -6,6 +6,8 @@ on:
       - a-plus-factual-cleanup
     paths:
       - 'tools/a_plus_cleanup.py'
+      - 'tools/install_katelyn_piercing_photos.py'
+      - 'tools/polish_katelyn_profile.py'
       - 'tools/deploy_katelyn_piercing_portfolio.py'
       - '.github/workflows/a-plus-factual-cleanup.yml'
   workflow_dispatch:
@@ -23,7 +25,13 @@ jobs:
           ref: a-plus-factual-cleanup
           fetch-depth: 0
 
-      - name: Apply factual cleanup
+      - name: Route piercing images to correct categories
+        run: python3 tools/install_katelyn_piercing_photos.py
+
+      - name: Human-edit Katelyn profile
+        run: python3 tools/polish_katelyn_profile.py
+
+      - name: Apply repo-wide factual cleanup
         run: python3 tools/a_plus_cleanup.py
 
       - name: Remove tracked OS/cache junk
@@ -48,12 +56,29 @@ jobs:
           {
             echo '# A+ cleanup unresolved matches'
             echo
-            for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '480+' '323' '350+' '400+' '2,400+' '2400+' 'masculine, honest shop talk' 'cabin pressure' 'starter jewelry' 'premier authority' 'Best Body Piercer in Las Vegas'; do
+            for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '480+' '323' '350+' '400+' '2,400+' '2400+' 'masculine, honest shop talk' 'cabin pressure' 'starter jewelry' 'premier authority' 'Best Body Piercer in Las Vegas' 'medical-grade' 'hospital-grade' 'earbuds' 'face_5' 'vaccines'; do
               echo "## $term"
-              grep -RIn --exclude-dir=.git --exclude-dir=.github --exclude='a-plus-unresolved.md' "$term" . || true
+              grep -RIn --exclude-dir=.git --exclude-dir=.github --exclude-dir=tools --exclude='a-plus-unresolved.md' "$term" . || true
               echo
             done
           } > a-plus-unresolved.md
+
+      - name: Verify Katelyn category routing and contact
+        run: |
+          grep -q 'kmorgen14@gmail.com' artists_build/katelyn-cole.html
+          grep -q 'jim.com/a/katelyn-delano-rose-morg' artists_build/katelyn-cole.html
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('artists_build/katelyn-cole.html').read_text()
+          ear=re.search(r'<!-- BLOCK 1: Anatomical Ear Curation -->(.*?)<!-- BLOCK 2:',s,re.S)
+          face=re.search(r'<!-- BLOCK 2: Facial & Body Piercing -->(.*?)<!-- BLOCK 3:',s,re.S)
+          if not ear or not face: raise SystemExit('Missing portfolio block markers')
+          if any(x in ear.group(1) for x in ('nostril','septum','lip-labret','navel')): raise SystemExit('Facial/body photo leaked into ear block')
+          if not any(x in ear.group(1) for x in ('earlobe','helix','upper-ear')): raise SystemExit('Ear block has no ear images')
+          if not any(x in face.group(1) for x in ('nostril','septum','lip-labret','navel')): raise SystemExit('Facial/body block has no matching images')
+          print('Katelyn portfolio routing passed')
+          PY
 
       - name: Basic HTML sanity
         run: |
