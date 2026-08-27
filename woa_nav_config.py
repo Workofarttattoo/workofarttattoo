@@ -22,7 +22,7 @@ TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
     "Three resident artists work in-studio today — Joshua Cole (tattoo & piercing; "
-    "studio lead), Jay Jay (tattoo), and Katelyn Cole (master piercer). Book tattoo "
+    "studio lead), Jay Jay (tattoo), and Katelyn Cole (professional piercer). Book tattoo "
     "and piercing consults at our Tropicana studio seven nights a week."
 )
 STUDIO_ROSTER_LEGACY = (
@@ -80,7 +80,7 @@ HREF_PIERCING = "/#piercing"
 ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
     ("All Artists & Gallery", HREF_ARTISTS),
     ("Joshua Cole — Tattoo & Piercing", "/artists/joshua-cole/"),
-    ("Katelyn Cole — Master Piercer", "/artists/katelyn-cole/"),
+    ("Katelyn Cole — Professional Piercer", "/artists/katelyn-cole/"),
     ("Jay Jay — Portfolio", "/jay_jay_artist_portfolio_authentic_masterpieces/"),
 ]
 

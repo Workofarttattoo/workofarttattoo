@@ -8,12 +8,12 @@ PATHS = [
 ]
 
 REPL = {
-    '"jobTitle": "Master Body Piercer"': '"jobTitle": "Professional Piercer"',
-    '"jobTitle":"Master Body Piercer"': '"jobTitle":"Professional Piercer"',
-    '"email": "booking@workofarttattoo.com"': '"email": "kmorgen14@gmail.com"',
-    '"email":"booking@workofarttattoo.com"': '"email":"kmorgen14@gmail.com"',
-    'Master Body Piercer': 'Professional Piercer',
-    'Master Piercer': 'Professional Piercer',
+    '"jobTitle": "Professional Piercer"': '"jobTitle": "Professional Piercer"',
+    '"jobTitle":"Professional Piercer"': '"jobTitle":"Professional Piercer"',
+    '"email": "kmorgen14@gmail.com"': '"email": "kmorgen14@gmail.com"',
+    '"email":"kmorgen14@gmail.com"': '"email":"kmorgen14@gmail.com"',
+    'Professional Piercer': 'Professional Piercer',
+    'Professional Piercer': 'Professional Piercer',
     'Master Piercing': 'Professional Piercing',
 }
 
@@ -25,7 +25,7 @@ for path in PATHS:
     for a, b in REPL.items():
         text = text.replace(a, b)
     # Katelyn-specific direct email; preserve generic shop email elsewhere.
-    text = text.replace('mailto:booking@workofarttattoo.com', 'mailto:kmorgen14@gmail.com')
+    text = text.replace('mailto:kmorgen14@gmail.com', 'mailto:kmorgen14@gmail.com')
     if text != old:
         path.write_text(text, encoding="utf-8")
         print(f"updated {path.relative_to(ROOT)}")
