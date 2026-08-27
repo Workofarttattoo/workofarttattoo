@@ -25,18 +25,6 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "<h4 class=\"text-secondary font-headline-md\">7+</h4>\n"
         "<p class=\"text-on-surface-variant font-label-caps text-[10px] uppercase tracking-widest\">Artists Mentored</p>",
     ),
-    (
-        "Joshua Cole is widely recognized as the premier black and grey realism master in the valley, specializing in hyper-realistic portraits and intricate custom sleeves at our studio.",
-        "Joshua Cole specializes in black and grey realism in Las Vegas — portraits, sleeves, and cover-ups. See healed portfolio photos before you book, not just fresh session shots.",
-    ),
-    (
-        "Hospital-grade sterilization and single-use equipment are our baseline. We maintain the cleanest environment in Las Vegas.",
-        "Hospital-grade sterilization and single-use equipment are our baseline. We document our cleaning routine every session — ask us to walk you through it when you visit.",
-    ),
-    (
-        "<h4 class=\"font-headline-md text-headline-md text-on-surface\">15+ Years Experience</h4>",
-        "<h4 class=\"font-headline-md text-headline-md text-on-surface\">20+ Years Experience</h4>",
-    ),
     ("<p class=\"font-body-md\">4 Artists Available</p>", "<p class=\"font-body-md\">3 In-Studio Artists</p>"),
     ("<p class=\"font-body-md\">2 Tattoo · 1 Piercing</p>", "<p class=\"font-body-md\">3 In-Studio Artists</p>"),
     (
@@ -44,16 +32,16 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "THREE RESIDENT ARTISTS",
     ),
     (
-        "A professional studio is a collective of resident artists with decades of combined experience. These are professionals who have spent years mastering specific styles—Realism, Traditional, Neo-Traditional, or Fine Line.",
-        "A professional studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
+        "A premier studio is a collective of resident artists with decades of combined experience. These are professionals who have spent years mastering specific styles—Realism, Traditional, Neo-Traditional, or Fine Line.",
+        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
     ),
     (
-        "A professional studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: two tattooists (Joshua Cole and Jay Jay) and professional piercer Katelyn Cole, each with a clear specialty.",
-        "A professional studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
+        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: two tattooists (Joshua Cole and Jay Jay) and professional piercer Katelyn Cole, each with a clear specialty.",
+        "A premier studio keeps a focused resident roster — not a rotating wall of names. Work of Art has three in-studio artists: Joshua Cole (tattoo & piercing; studio lead who trains the team), Jay Jay (tattoo), and Katelyn Cole (professional piercer).",
     ),
     (
         "At Work of Art, our collective is comprised of classically trained painters and illustrators. We believe that the ability to create original work on a canvas is the ultimate prerequisite for creating a masterpiece on the skin.",
-        "At Work of Art, our small resident team is built on fine-art discipline and specialization, not volume. Joshua Cole offers tattoo and piercing and trains resident artists and alumni; Katelyn Cole leads piercing. Seven alumni trained here now run their own shops or travel as guest artists.",
+        "At Work of Art, our small resident team is built on fine-art discipline and specialization — not volume. Joshua Cole offers tattoo and piercing and trains resident artists and alumni; Jay Jay leads tattoo sessions; Katelyn Cole leads piercing. Seven alumni trained here now run their own shops or travel as guest artists.",
     ),
     ("See the fine art roots of our master artists.", "Meet our three resident artists and their specialties."),
     ("Consult with our award-winning artists today", "Consult with our resident artists today"),
@@ -95,7 +83,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Joshua Cole and Jay Jay lead tattoo work; Katelyn Cole leads piercing.",
-        "Joshua Cole offers tattoo and piercing and trains the team; Katelyn Cole leads piercing.",
+        "Joshua Cole offers tattoo and piercing and trains the team; Jay Jay leads tattoo work; Katelyn Cole leads piercing.",
     ),
     (
         "Joshua Cole and Jay Jay tattoo in-studio; Katelyn Cole is our professional piercer.",
@@ -119,15 +107,15 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Tattoo work at the studio is handled by Joshua Cole and Jay Jay.",
-        "Tattoo work with Joshua Cole and Teralyn; Joshua trained the in-studio team in piercing fundamentals.",
+        "Tattoo work with Joshua Cole and Jay Jay; Joshua also offers piercing and trains artists at the studio.",
     ),
     (
         "Every tattoo at Work of Art is a collaboration with one of our two in-studio tattoo artists — Joshua Cole or Jay Jay — backed by a professional piercer, Katelyn Cole.",
-        "Work of Art is led by Joshua Cole (tattoo, piercing, and artist training), Katelyn Cole as professional piercer, and Teralyn for fineline floral, script, custom drawings by commission, and high-detail small tattoos. Three residents today; seven alumni we trained now run their own shops or travel as guests.",
+        "Work of Art is led by Joshua Cole (tattoo, piercing, and artist training), with Jay Jay on tattoo and Katelyn Cole as professional piercer. Three residents today; seven alumni we trained now run their own shops or travel as guests.",
     ),
     (
         "Three in-studio residents — Joshua Cole and Jay Jay (tattoo), Katelyn Cole (piercing)",
-        "Three in-studio residents — Joshua Cole (tattoo and piercing, studio lead), Katelyn Cole (piercing), and Teralyn (tattoo artist and piercer; fineline floral, script, commissioned custom drawings)",
+        "Three in-studio residents — Joshua Cole (tattoo & piercing; trains the team), Jay Jay (tattoo), Katelyn Cole (piercing)",
     ),
 ]
 

@@ -38,11 +38,15 @@ STATUE_BUST_STEM = "black-grey-statue-bust-cloth-drape-las-vegas"
 STATUE_BUST_SOURCE = ROOT / "img_2291.jpeg" / "tattoo-portfolio-las-vegas-2291.png"
 STATUE_BUST_CROP = (600, 700, 1000, 1200)
 
-from import_landing_portfolio_images import (  # noqa: E402
-    CURATED_STEMS,
-    SHOWCASE_STEMS,
-    import_all as import_landing_images,
-    landing_items,
+# Polished black & grey showcase + masonry (no guide page screenshots).
+# Showcase grid already features lion, seraphim, eye, archangel — omit from masonry below.
+# One tile per subject — no repeat phoenix, chain-heart, or sunflower variants.
+CURATED_STEMS: tuple[str, ...] = (
+    "black-grey-skull-hood-candle-realism-las-vegas",
+    "skull-hourglass-forearm-realism-fresh-las-vegas",
+    "black-grey-skeleton-reaper-hand-realism-las-vegas",
+    "black-grey-eagle-shoulder-realism-las-vegas",
+    "healed-realism-seraphim-eye-wings-tattoo",
 )
 
 PORTFOLIO_EXCLUDE_STEMS = frozenset(
@@ -79,6 +83,8 @@ def _portfolio_family(stem: str) -> str | None:
             return family
     return None
 
+JAY_CARD_STEM = "black-grey-lion-realism-thigh-client-photo-las-vegas"
+JAY_CARD_DIR = CLIENT
 
 
 def save_portrait(src: Path, dest_png: Path) -> None:
@@ -115,7 +121,7 @@ def resolve_asset(stem: str) -> tuple[str, str] | None:
         ROOT / "reviews_vault_100_verified_masterpieces",
         ROOT / "artists" / "joshua-cole",
         ROOT / "artists" / "katelyn-cole",
-        ROOT / "artists" / "teralyn",
+        ROOT / "jay_jay_artist_portfolio_authentic_masterpieces",
     )
     for d in dirs:
         webp = d / f"{stem}.webp"
@@ -167,10 +173,29 @@ def sync_katelyn_from_user() -> None:
         ROOT
         / "artists"
         / "katelyn-cole"
-        / "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.png"
+        / "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png"
     )
     save_portrait(src, dest)
     print(f"[ok] Katelyn portrait ← {src.name}")
+
+
+def sync_jay_card() -> None:
+    src = HOME / "las-vegas-tattoo-artist-working-closeup.png"
+    if not src.is_file():
+        src = CLIENT / f"{JAY_CARD_STEM}.png"
+    if not src.is_file():
+        print("[skip] Jay Jay card source missing")
+        return
+    dest = (
+        ROOT
+        / "jay_jay_artist_portfolio_authentic_masterpieces"
+        / "jay-jay-artist-portfolio-authentic-masterpieces-las-vegas.png"
+    )
+    save_portrait(src, dest)
+    if "las-vegas-tattoo-artist-working-closeup" in src.name:
+        print("[ok] Jay Jay artist card ← in-studio artist photo")
+    else:
+        print("[ok] Jay Jay artist card ← lion thigh portfolio fallback")
 
 
 def sync_statue_bust_asset() -> None:
@@ -214,111 +239,95 @@ def sync_banner() -> None:
     print(f"[ok] banner → {dest.relative_to(ROOT)}")
 
 
-_SHOWCASE_LABELS = {
-    "norse-odin-viking-ship-sleeve-realism-las-vegas": (
-        "Norse Odin Sleeve",
-        "Black and grey Norse Odin and Viking ship sleeve — Work of Art Tattoo Las Vegas",
-    ),
-    "black-grey-warrior-profile-shoulder-realism-las-vegas": (
-        "Warrior Profile Realism",
-        "Black and grey warrior profile shoulder realism — Work of Art Tattoo Las Vegas",
-    ),
-    "veiled-woman-statue-black-grey-realism-las-vegas": (
-        "Veiled Statue Realism",
-        "Veiled woman statue black and grey realism — Work of Art Tattoo Las Vegas",
-    ),
-    "all-seeing-eye-triangle-forearm-realism-las-vegas": (
-        "All-Seeing Eye Realism",
-        "All-seeing eye triangle forearm realism — Work of Art Tattoo Las Vegas",
-    ),
-}
-
-
 def showcase_grid_html() -> str:
-    pairs: list[tuple[str, str, str, str]] = []
-    for stem in SHOWCASE_STEMS:
-        resolved = resolve_asset(stem)
-        if not resolved:
-            raise SystemExit(f"Missing showcase asset: {stem}")
-        title, alt = _SHOWCASE_LABELS.get(stem, (stem, stem))
-        pairs.append((resolved[0], resolved[1], title, alt))
-    if len(pairs) < 4:
-        raise SystemExit("Need 4 showcase tattoo assets")
+    skull = resolve_asset("black-grey-skull-hood-candle-realism-las-vegas")
+    hourglass = resolve_asset("skull-hourglass-forearm-realism-fresh-las-vegas")
+    skeleton = resolve_asset("black-grey-skeleton-reaper-hand-realism-las-vegas")
+    eagle = resolve_asset("black-grey-eagle-shoulder-realism-las-vegas")
+    if not all((skull, hourglass, skeleton, eagle)):
+        raise SystemExit("Missing showcase tattoo assets")
 
-    hero_w, hero_p, hero_title, hero_alt = pairs[0]
-    tiles = pairs[1:]
-
-    side_cells = ""
-    for webp, png, title, alt in tiles:
-        side_cells += f"""<div class="group relative aspect-square bg-surface-container overflow-hidden" data-category="all black-grey">
-{picture_tag(webp, png, alt)}
-<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">{title}</span>
-</div>
-</div>
-"""
+    skull_w, skull_p = skull
+    hour_w, hour_p = hourglass
+    skel_w, skel_p = skeleton
+    eagle_w, eagle_p = eagle
 
     return f"""<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter" id="showcase-grid">
 <div class="md:col-span-8 group relative aspect-[3/4] md:aspect-[4/5] min-h-[320px] bg-surface-container overflow-hidden" data-category="black-grey">
-{picture_tag(hero_w, hero_p, hero_alt, eager=True, img_class="w-full h-full object-cover", object_pos="center_35%")}
+{picture_tag(skull_w, skull_p, "Black and grey skull and candle realism tattoo — Work of Art Tattoo Las Vegas", eager=True, img_class="w-full h-full object-cover", object_pos="center_35%")}
 <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
 <div class="absolute bottom-0 left-0 p-8 w-full">
 <p class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">Masterpiece</p>
-<h3 class="font-headline-md text-headline-md text-on-surface">{hero_title}</h3>
+<h3 class="font-headline-md text-headline-md text-on-surface">Black &amp; Grey Skull Realism</h3>
 </div>
 </div>
 <div class="md:col-span-4 space-y-gutter">
-{side_cells}
+<div class="group relative aspect-square bg-surface-container overflow-hidden" data-category="all black-grey">
+{picture_tag(hour_w, hour_p, "Black and grey skull hourglass forearm realism tattoo — Work of Art Tattoo Las Vegas")}
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Skull Hourglass Realism</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container overflow-hidden" data-category="all black-grey">
+{picture_tag(skel_w, skel_p, "Black and grey skeleton reaper hand realism tattoo — Work of Art Tattoo Las Vegas")}
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Skeleton Reaper Realism</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container overflow-hidden hidden md:block" data-category="all black-grey">
+{picture_tag(eagle_w, eagle_p, "Black and grey eagle shoulder realism tattoo — Work of Art Tattoo Las Vegas")}
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Eagle Shoulder Realism</span>
+</div>
+</div>
 </div>
 </div>"""
 
 
 def artist_cards_html() -> str:
-    josh = resolve_asset("joshua-cole-tattooing-portrait-las-vegas")
-    kat = resolve_asset("katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas")
-    ter = resolve_asset("teralyn-fine-line-tattoo-artist-las-vegas")
-    if not (josh and kat and ter):
+    josh = resolve_asset("joshua-cole-portrait-las-vegas")
+    kat = resolve_asset("katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas")
+    jay = resolve_asset("las-vegas-tattoo-artist-working-closeup")
+    if not jay:
+        jay = resolve_asset("jay-jay-artist-portfolio-authentic-masterpieces-las-vegas")
+    if not jay:
+        jay = resolve_asset(JAY_CARD_STEM)
+    if not (josh and kat and jay):
         raise SystemExit("Missing artist portrait assets")
 
     jw, jp = josh
     kw, kp = kat
-    tw, tp = ter
     kat_src = kp.replace(".png", ".jpg") if "katelyn-cole" in kp else kp
+    yw, yp = jay
 
     return f"""<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter max-w-5xl mx-auto">
-<div class="text-center">
-<a class="group block" href="/artists/joshua-cole/">
+<a class="group text-center" href="/artists/joshua-cole/">
 <div class="aspect-[3/4] bg-surface-container mb-4 overflow-hidden relative border border-outline-variant/30">
 <picture><source srcset="{jw}" type="image/webp"/><img width="800" height="1067" alt="Joshua Cole — black and grey realism tattoo artist, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{jp}"/></picture>
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Joshua Cole</span>
 <span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Black &amp; Grey Realism</span>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/stabislifee/" rel="noopener noreferrer" target="_blank">@stabislifee</a>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">@workofarttattoo</a>
-</div>
-<div class="text-center">
-<a class="group block" href="/artists/katelyn-cole/">
+<a class="group text-center" href="/artists/katelyn-cole/">
 <div class="aspect-[3/4] bg-surface-container mb-4 overflow-hidden relative border border-outline-variant/30">
 <picture><source srcset="{kw}" type="image/webp"/><img width="800" height="1067" alt="Katelyn Cole — professional piercer, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{kat_src}"/></picture>
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Katelyn Cole</span>
 <span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Professional Piercer</span>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">@workofarttattoo</a>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/stabislifee/" rel="noopener noreferrer" target="_blank">@stabislifee</a>
-</div>
-<div class="text-center">
-<a class="group block" href="/artists/teralyn/">
+<a class="group text-center" href="/jay_jay_artist_portfolio_authentic_masterpieces/">
 <div class="aspect-[3/4] bg-surface-container mb-4 overflow-hidden relative border border-outline-variant/30">
-<picture><source srcset="{tw}" type="image/webp"/><img width="800" height="1067" alt="Teralyn — tattoo artist and piercer, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{tp}"/></picture>
+<picture><source srcset="{yw}" type="image/webp"/><img width="800" height="1067" alt="Jay Jay — realism tattoo artist, Work of Art Tattoo Las Vegas" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" decoding="async" loading="lazy" src="{yp}"/></picture>
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
-<span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Teralyn</span>
-<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Fine Line · Piercing · Script</span>
+<span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Jay Jay</span>
+<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Realism &amp; Color</span>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">@workofarttattoo</a>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/mischiefmodifies/" rel="noopener noreferrer" target="_blank">@mischiefmodifies</a>
-</div>
 </div>"""
 
 
@@ -339,10 +348,10 @@ def banner_hero_html() -> str:
         f'<a class="woa-banner-nav-link" href="{href}">{label}</a>' for label, href in links
     )
     return f"""<!-- WOA_HERO_BANNER_START -->
-<div class="woa-hero-banner relative w-full overflow-hidden border-b border-outline-variant/20" aria-hidden="false">
+<div class="woa-hero-banner relative w-full border-b border-outline-variant/20 mb-10 md:mb-0 md:absolute md:inset-x-0 md:top-0 md:z-[35]" aria-hidden="false">
 <picture>
 <source srcset="{webp}" type="image/webp"/>
-<img alt="Work of Art Tattoo &amp; Piercing — Las Vegas studio banner" class="woa-hero-banner-img w-full block object-cover object-[center_20%]" decoding="async" fetchpriority="high" loading="eager" src="{png}" width="1600" height="1040"/>
+<img alt="" class="w-full h-[min(42vw,280px)] md:h-[min(36vh,320px)] object-cover object-[center_18%]" decoding="async" loading="eager" src="{png}" width="1600" height="1040"/>
 </picture>
 <div aria-hidden="true" class="woa-hero-banner-shade"></div>
 <nav class="woa-hero-banner-nav" aria-label="Quick links">
@@ -353,13 +362,9 @@ def banner_hero_html() -> str:
 
 
 def curated_masonry_items() -> list[dict]:
-    items = landing_items()
-    if items:
-        return items
-
     from expand_homepage_conversion import alt_from_stem, categorize  # noqa: PLC0415
 
-    fallback: list[dict] = []
+    items: list[dict] = []
     seen: set[str] = set()
     families_seen: set[str] = set()
     for stem in CURATED_STEMS:
@@ -373,7 +378,7 @@ def curated_masonry_items() -> list[dict]:
             continue
         webp, png = pair
         rel = png.lstrip("/").rsplit("/", 1)[0]
-        fallback.append(
+        items.append(
             {
                 "stem": stem,
                 "webp": webp,
@@ -385,14 +390,14 @@ def curated_masonry_items() -> list[dict]:
         seen.add(stem)
         if family:
             families_seen.add(family)
-    return fallback
+    return items
 
 
 def patch_homepage() -> None:
     from expand_homepage_conversion import masonry_section_html  # noqa: PLC0415
 
     items = curated_masonry_items()
-    showcase = showcase_grid_html()
+    showcase = showcase_grid_html() + "\n</div>\n</div>\n</div>\n</div>"
     artists_block = artist_cards_html()
     banner = banner_hero_html()
     masonry = masonry_section_html(items)
@@ -403,60 +408,40 @@ def patch_homepage() -> None:
         text = out_path.read_text(encoding="utf-8")
 
         text = re.sub(
-            r'<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter" id="showcase-grid">[\s\S]*?'
-            r'</div>\s*(?=<!-- WOA_HOME_MASONRY_START -->)',
-            showcase + "\n",
-            text,
-            count=1,
-        )
-        text = re.sub(
             r'<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter" id="showcase-grid">.*?</div>\s*</div>\s*</div>\s*</div>\s*</div>',
-            showcase + "\n</div>\n</div>\n</div>\n</div>",
+            showcase,
             text,
             count=1,
             flags=re.DOTALL,
         )
 
         text = re.sub(
-            r'<div class="grid grid-cols-1 sm:grid-cols-[23] gap-gutter max-w-3xl mx-auto">[\s\S]*?'
-            r'</div>\s*(?=<div aria-label="Gallery category filter")',
+            r'<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter max-w-5xl mx-auto">\s*'
+            r'(?:<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter max-w-5xl mx-auto">\s*)?'
+            r'<a class="group text-center" href="/artists/joshua-cole/">.*?</a>\s*'
+            r'<a class="group text-center" href="/artists/katelyn-cole/">.*?</a>\s*'
+            r'<a class="group text-center" href="/jay_jay_artist_portfolio_authentic_masterpieces/">.*?</a>\s*'
+            r'</div>\s*(?:</div>\s*)?',
             artists_block + "\n",
             text,
             count=1,
+            flags=re.DOTALL,
         )
 
-        if banner and "WOA_HERO_BANNER_START" in text:
-            if "WOA_HERO_BANNER_END" in text:
-                text = re.sub(
-                    r"<!-- WOA_HERO_BANNER_START -->.*?<!-- WOA_HERO_BANNER_END -->",
-                    banner.strip(),
-                    text,
-                    count=1,
-                    flags=re.DOTALL,
-                )
-            elif "WOA_HOME_MASONRY_END" in text:
-                # Banner marker leaked into masonry — replace merged block.
-                text = re.sub(
-                    r"<!-- WOA_HERO_BANNER_START -->[\s\S]*?<!-- WOA_HOME_MASONRY_END -->",
-                    banner.strip() + "\n" + masonry.strip(),
-                    text,
-                    count=1,
-                )
-            else:
-                text = re.sub(
-                    r"<!-- WOA_HERO_BANNER_START -->[\s\S]*?(?=<!-- Piercing Section -->|<div class=\"flex justify-center pt-8\">)",
-                    banner.strip() + "\n",
-                    text,
-                    count=1,
-                )
+        if "WOA_HERO_BANNER_START" in text:
+            text = re.sub(
+                r"<!-- WOA_HERO_BANNER_START -->.*?<!-- WOA_HERO_BANNER_END -->",
+                banner.strip(),
+                text,
+                count=1,
+                flags=re.DOTALL,
+            )
         elif banner and 'id="hero"' in text:
             text = text.replace(
                 '<section class="relative min-h-screen flex flex-col justify-center',
                 banner + '\n<section class="relative min-h-screen flex flex-col justify-center',
                 1,
             )
-        elif banner and "<!-- Hero Section -->" in text:
-            text = text.replace("<!-- Hero Section -->", banner + "\n<!-- Hero Section -->", 1)
 
         if "WOA_HOME_MASONRY_START" in text:
             text = re.sub(
@@ -480,9 +465,9 @@ def patch_homepage() -> None:
 
 
 def main() -> int:
-    import_landing_images()
     sync_statue_bust_asset()
     sync_katelyn_from_user()
+    sync_jay_card()
     sync_banner()
     patch_homepage()
     return 0

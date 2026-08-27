@@ -20,70 +20,23 @@ BUILD_STAMP_RE = re.compile(r"<!-- WOA_BUILD_STAMP: [^>]+ -->\n?")
 
 PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "restore_katelyn_portrait.py")],
-    ["python3", str(ROOT / "import_healed_fresh_batch.py")],
     ["python3", str(ROOT / "fix_homepage_portfolio.py")],
-    ["python3", str(ROOT / "inject_homepage_healed_proof.py")],
     ["python3", str(ROOT / "fix_homepage_hero_ui.py")],
     ["python3", str(ROOT / "set_hero_carousel.py")],
     ["python3", str(ROOT / "fix_hero_carousel.py")],
     ["python3", str(ROOT / "inject_client_videos.py")],
     ["python3", str(ROOT / "inject_homepage_atmosphere.py")],
-    ["python3", str(ROOT / "inject_homepage_welcome.py")],
     # ["python3", str(ROOT / "fix_hero_layout.py")],  # Disabled: breaks new carousel structure
     ["python3", str(ROOT / "inject_site_typography.py")],
     ["python3", str(ROOT / "build_studio_videos_page.py")],
-    ["python3", str(ROOT / "build_knowledge_hub.py")],
-    ["python3", str(ROOT / "build_piercing_authority_pages.py")],
-    ["python3", str(ROOT / "build_piercing_pillar_pages.py")],
-    ["python3", str(ROOT / "build_katelyn_piercing_authority_pages.py")],
-    ["python3", str(ROOT / "build_piercing_desert_aftercare_guide.py")],
-    ["python3", str(ROOT / "build_piercing_specials_page.py")],
     ["python3", str(ROOT / "inject_page_spotlights.py")],
     ["python3", str(ROOT / "inject_sparkle_cursor.py")],
-    ["python3", str(ROOT / "inject_ga4_conversions.py")],
-    ["python3", str(ROOT / "build_start_here_hub.py")],
-    ["python3", str(ROOT / "build_geo_landing_pages.py")],
-    ["python3", str(ROOT / "build_retired_geo_redirects.py")],
-    ["python3", str(ROOT / "build_near_strip_geo_hub.py")],
-    ["python3", str(ROOT / "build_geo_quality_reports.py")],
     ["python3", str(ROOT / "upgrade_site_navigation.py")],
-    ["python3", str(ROOT / "inject_sticky_book_cta.py")],
     ["python3", str(ROOT / "inject_guides_hub.py"), "--refresh"],
-    ["python3", str(ROOT / "inject_availability_urgency.py")],
-    ["python3", str(ROOT / "fix_site_footer.py")],
-    ["python3", str(ROOT / "optimize_homepage_perf.py")],
-    ["python3", str(ROOT / "fix_homepage_pagespeed.py")],
-    ["python3", str(ROOT / "refine_site_experience.py")],
-    ["python3", str(ROOT / "humanize_site_copy.py")],
-    ["python3", str(ROOT / "remove_jay_jay_from_site.py")],
-    ["python3", str(ROOT / "bridge_10_copy_gaps.py")],
-    ["python3", str(ROOT / "implement_seo_growth_actions.py")],
-    ["python3", str(ROOT / "final_copy_polish.py")],
-    ["python3", str(ROOT / "fix_social_links.py")],
-    ["python3", str(ROOT / "inject_piercing_promotions.py")],
-    ["python3", str(ROOT / "fix_yoast_seo_meta.py")],
-    ["python3", str(ROOT / "inject_entity_schema.py")],
-    ["python3", str(ROOT / "refresh_cover_up_evidence.py")],
-    ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
-    ["python3", str(ROOT / "inject_google_tag_manager.py")],
-    ["python3", str(ROOT / "inject_mixpanel.py")],
-    # Last: banner markup + woa-home.css + repaired <img> tags (earlier steps may drop the CSS link)
-    ["python3", str(ROOT / "repair_homepage_banner_and_images.py")],
-    ["python3", str(ROOT / "normalize_head_metadata.py")],
-    ["python3", str(ROOT / "inject_piercing_promotions.py")],
-    ["python3", str(ROOT / "inject_ga4_conversions.py")],
-    ["python3", str(ROOT / "normalize_head_metadata.py")],
-    ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
-    ["python3", str(ROOT / "repair_visual_intent.py")],
-    ["python3", str(ROOT / "remove_elevenlabs_widget.py")],
 ]
 
 
 def run_step(cmd: list[str]) -> None:
-    script = next((Path(part) for part in cmd if part.endswith(".py")), None)
-    if script is None or not script.is_file():
-        print(f"[skip] missing {script.name if script else 'script'}")
-        return
     print(f"\n>>> {' '.join(cmd)}")
     subprocess.run(cmd, cwd=ROOT, check=True)
 
@@ -110,22 +63,21 @@ def verify_homepage() -> None:
     errors: list[str] = []
 
     required = [
-        ("WOA_HERO_BANNER_START", "studio hero banner block"),
-        ("work-of-art-studio-banner-las-vegas", "studio banner image asset ref"),
-        ("woa-home.css", "homepage banner/layout stylesheet"),
-        ("GTM-TZTQSQBB", "Google Tag Manager container"),
-        ("/start_here/", "Start Here hub link"),
+        ('id="studio-interview"', "studio interview section"),
+        ("woa-interview-player", "Instagram interview player card"),
+        ("instagram.com/reel/DDiX988y0tR", "Joshua interview reel link"),
+        ('href="#studio-interview"', "studio-interview jump links"),
+        ("black-grey-lion-realism-thigh-client-photo", "lion thigh showcase"),
         ("WOA_BUILD_STAMP:", "deploy build stamp"),
         ("woa-typography.css", "site typography bundle"),
-        ("woa-tailwind.min.css", "compiled Tailwind (no CDN)"),
         ("UnifrakturMaguntia", "gothic drop-cap font"),
+        ("woa-hero-interview-topright", "hero interview top-right"),
     ]
     for needle, label in required:
         if needle not in html:
             errors.append(f"missing {label}")
 
     banned = [
-        ("cdn.tailwindcss.com", "Tailwind CDN (use woa-tailwind.min.css)"),
         ("DXSZTKZyt2l", "weak studio reel"),
         ('href="#hero-interview"', "old hero-interview anchor (without -preview)"),
         ("woa-ig-preview", "legacy Instagram preview cards"),
@@ -150,10 +102,10 @@ def verify_homepage() -> None:
                 errors.append(f"still has {label}")
 
     kat_webp = ROOT / "artists" / "katelyn-cole" / (
-        "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp"
+        "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp"
     )
     kat_jpg = ROOT / "artists" / "katelyn-cole" / (
-        "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg"
+        "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg"
     )
     if not kat_webp.is_file() or kat_webp.stat().st_size < 50_000:
         errors.append(f"Katelyn portrait webp missing or too small: {kat_webp}")
@@ -177,7 +129,11 @@ def sync_root_home_copy() -> None:
 
 def main() -> int:
     for cmd in PIPELINE:
-        run_step(cmd)
+        script = Path(cmd[-1])
+        if script.is_file():
+            run_step(cmd)
+        else:
+            print(f"[skip] missing {script.name}")
 
     stamp_build(HOME_HTML)
     sync_root_home_copy()

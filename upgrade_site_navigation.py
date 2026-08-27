@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """
-Replace desktop nav with six top-level sections + nested dropdowns:
+Replace the desktop `<header>/<nav>` link strip with a unified row:
 
-Portfolio · Artists · Tattoo Guides · Piercing Guides · Locations · Book
+Artists (dropdown) • Piercing • featured insider links • Insider Guides (dropdown + vault)
+• Merchandise • Reviews • Appointments
+
+Adds CSS for the Guides `<details>` panel. By default reruns inject mobile nav with
+`--force` so the mobile drawer matches.
+
+  python3 upgrade_site_navigation.py
+  python3 upgrade_site_navigation.py --desktop-only
 """
 
 from __future__ import annotations
@@ -16,12 +23,15 @@ from bs4 import BeautifulSoup
 
 from woa_nav_config import (
     discover_artist_nav_entries,
-    discover_nav_locations,
-    discover_nav_piercing_guides,
-    discover_nav_tattoo_guides,
+    discover_dropdown_guide_entries,
+    discover_featured_guide_nav,
     HREF_APPOINTMENTS,
     HREF_KNOWLEDGE_VAULT,
-    NAV_PORTFOLIO,
+    HREF_PIERCING,
+    HREF_REVIEWS,
+    MERCH_HREF,
+    NAV_KNOWLEDGE_MENU_LABEL,
+    NAV_KNOWLEDGE_VAULT_LINK_LABEL,
 )
 
 from inject_mobile_hamburger_nav import (  # type: ignore
@@ -65,7 +75,47 @@ DESKTOP_NAV_STYLE = """
 [data-woa-desktop-nav="1"] .woa-dd-vault-link:hover {
   color: #f5d76e;
 }
+[data-woa-desktop-nav="1"] .woa-dd-sep {
+  display: block;
+  margin: 0.35rem 0.75rem;
+  border-top: 1px solid rgba(68, 71, 72, 0.65);
+}
+@keyframes woa-topnav-fire-glow {
+  0%,
+  100% {
+    color: #ffe088;
+    text-shadow:
+      0 0 6px rgba(233, 195, 73, 0.55),
+      0 0 14px rgba(255, 90, 20, 0.2);
+  }
+  50% {
+    color: #fff4cc;
+    text-shadow:
+      0 0 10px rgba(255, 224, 136, 0.95),
+      0 0 22px rgba(255, 100, 20, 0.55),
+      0 0 36px rgba(233, 195, 73, 0.35);
+  }
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd > summary.woa-top-nav-link {
+  animation: woa-topnav-fire-glow 2.6s ease-in-out infinite;
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:hover,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd > summary.woa-top-nav-link:hover,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:focus-visible,
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd > summary.woa-top-nav-link:focus-visible {
+  color: #fff8e0;
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:nth-child(2n) {
+  animation-delay: 0.3s;
+}
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > a.woa-top-nav-link:nth-child(3n),
+[data-woa-top-shell="1"] [data-woa-desktop-nav="1"] > details.woa-desktop-dd:nth-child(3n) > summary.woa-top-nav-link {
+  animation-delay: 0.6s;
+}
+
 """
+
 
 TOP_LINK_CLASSES = (
     "woa-top-nav-link text-nav-link font-nav-link text-on-surface-variant hover:text-secondary "
@@ -77,14 +127,12 @@ SUMMARY_CLASSES = TOP_LINK_CLASSES + " cursor-pointer select-none list-none"
 
 
 def ensure_desktop_nav_css(head, soup: BeautifulSoup) -> None:
+    needle = "[data-woa-desktop-nav-css"
     if not head:
         return
-    existing = head.find_all("style", attrs={"data-woa-desktop-nav-css": True})
-    if existing:
-        existing[0].string = DESKTOP_NAV_STYLE
-        for duplicate in existing[1:]:
-            duplicate.decompose()
-        return
+    for st in head.find_all("style"):
+        if st.string and needle in st.string:
+            return
     tag = soup.new_tag("style", attrs={"data-woa-desktop-nav-css": "1"})
     tag.string = DESKTOP_NAV_STYLE
     head.append(tag)
@@ -147,7 +195,68 @@ def build_artist_details(soup: BeautifulSoup):
     )
 
 
-def build_desktop_strip(soup: BeautifulSoup):
+def build_knowledge_dropdown(soup: BeautifulSoup, guide_rows: list[tuple[str, str, str, str]]):
+    det = soup.new_tag(
+        "details",
+        attrs={
+            "class": ["relative", "z-[70]", "woa-desktop-dd"],
+            "aria-label": "Insider guides submenu",
+        },
+    )
+    sm = soup.new_tag("summary", attrs={"class": SUMMARY_CLASSES.split()})
+    sm.string = NAV_KNOWLEDGE_MENU_LABEL
+    pan = soup.new_tag(
+        "div",
+        attrs={"class": ["woa-dd-panel", "rounded-sm", "py-2"]},
+    )
+    vault = soup.new_tag(
+        "a",
+        href=HREF_KNOWLEDGE_VAULT,
+        attrs={
+            "class": [
+                "block",
+                "px-3",
+                "py-2",
+                "text-[13px]",
+                "leading-snug",
+                "woa-dd-vault-link",
+                "transition-colors",
+            ]
+        },
+    )
+    vault.string = NAV_KNOWLEDGE_VAULT_LINK_LABEL
+    pan.append(vault)
+    sep = soup.new_tag("span", attrs={"class": ["woa-dd-sep"], "role": "separator"})
+    pan.append(sep)
+    for _slug, label, href, _blurb in guide_rows:
+        a = soup.new_tag(
+            "a",
+            href=href,
+            attrs={
+                "class": [
+                    "block",
+                    "px-3",
+                    "py-2",
+                    "text-[13px]",
+                    "leading-snug",
+                    "text-on-surface",
+                    "hover:text-secondary",
+                    "transition-colors",
+                ]
+            },
+        )
+        a.string = label
+        pan.append(a)
+    det.append(sm)
+    det.append(pan)
+    return det
+
+
+def build_desktop_strip(
+    soup: BeautifulSoup,
+    featured: list[tuple[str, str]],
+    dropdown_guides: list[tuple[str, str, str, str]],
+):
     root = soup.new_tag(
         "div",
         attrs={
@@ -173,44 +282,14 @@ def build_desktop_strip(soup: BeautifulSoup):
         tag.string = label
         return tag
 
-    root.append(
-        build_dropdown_details(
-            soup,
-            summary_label="Portfolio",
-            aria_label="Portfolio submenu",
-            items=NAV_PORTFOLIO,
-            panel_max_height="14rem",
-        )
-    )
-    start = a_link(HREF_KNOWLEDGE_VAULT, "Start Here")
-    start["class"] = (TOP_LINK_CLASSES + " text-secondary").split()
-    root.append(start)
     root.append(build_artist_details(soup))
-    root.append(
-        build_dropdown_details(
-            soup,
-            summary_label="Tattoo Guides",
-            aria_label="Tattoo guides submenu",
-            items=discover_nav_tattoo_guides(),
-        )
-    )
-    root.append(
-        build_dropdown_details(
-            soup,
-            summary_label="Piercing Guides",
-            aria_label="Piercing guides submenu",
-            items=discover_nav_piercing_guides(),
-        )
-    )
-    root.append(
-        build_dropdown_details(
-            soup,
-            summary_label="Locations",
-            aria_label="Locations submenu",
-            items=discover_nav_locations(),
-        )
-    )
-    root.append(a_link(HREF_APPOINTMENTS, "Book"))
+    root.append(a_link(HREF_PIERCING, "Piercing"))
+    for label, href in featured:
+        root.append(a_link(href, label))
+    root.append(build_knowledge_dropdown(soup, dropdown_guides))
+    root.append(a_link(MERCH_HREF, "Merchandise"))
+    root.append(a_link(HREF_REVIEWS, "Reviews"))
+    root.append(a_link(HREF_APPOINTMENTS, "Appointments"))
     return root
 
 
@@ -228,9 +307,11 @@ def apply_navigation(soup: BeautifulSoup) -> bool:
     holder = pick_nav_container(shell)
     if not holder:
         return False
+    featured = discover_featured_guide_nav()
+    dropdown = discover_dropdown_guide_entries()
     head = soup.find("head")
     ensure_desktop_nav_css(head, soup)
-    blk = build_desktop_strip(soup)
+    blk = build_desktop_strip(soup, featured, dropdown)
     holder.clear()
     holder["data-woa-desktop-nav"] = "1"
     holder["class"] = blk.get("class", [])
@@ -251,6 +332,7 @@ def upgrade_file(path: Path) -> bool:
 
 
 def load_injector():
+    """Import inject_mobile_hamburger_nav from sibling file robustly."""
     spec = importlib.util.spec_from_file_location(
         "woa_inj", _ROOT_A / "inject_mobile_hamburger_nav.py"
     )
@@ -269,12 +351,11 @@ def main() -> int:
     )
     args = ap.parse_args()
 
-    tattoo = discover_nav_tattoo_guides()
-    piercing = discover_nav_piercing_guides()
-    locations = discover_nav_locations()
+    featured = discover_featured_guide_nav()
+    dropdown = discover_dropdown_guide_entries()
     print(
-        f"Nav: Portfolio · Artists · Tattoo ({len(tattoo)}) · "
-        f"Piercing ({len(piercing)}) · Locations ({len(locations)}) · Book"
+        f"Nav: {len(featured)} featured insider links, "
+        f"{len(dropdown)} in “{NAV_KNOWLEDGE_MENU_LABEL}” dropdown (+ vault)."
     )
 
     n = 0
@@ -288,12 +369,18 @@ def main() -> int:
     if not args.desktop_only:
         inj = load_injector()
         n_m = 0
+        skipped = []
         for p in collect_files():
             ok, st = inj.inject_for_file(p, force=True)
             if ok:
                 n_m += 1
                 print(f"[mnav] {rel_display(p)}")
+            elif st != "ok":
+                skipped.append((rel_display(p), st))
         print(f"\nRebuilt mobile drawer in {n_m} file(s).")
+        for rel, reason in skipped:
+            if reason not in {"ok"}:
+                print(f"[mnav skip] {rel}: {reason}")
 
     return 0
 

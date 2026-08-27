@@ -20,6 +20,7 @@ from io import BytesIO
 from pathlib import Path
 
 HOST = "ftp.workofarttattoo.com"
+KATELYN_BOOKING_URL = "https://jim.com/a/katelyn-delano-rose-morg"
 
 
 def ftp_mkdir_p(ftp: FTP, remote_path: str) -> None:
@@ -92,6 +93,53 @@ def extract_first_document_blob(block: str) -> str:
     return block[: idx + len("</html>")]
 
 
+def inject_katelyn_booking(html: str) -> str:
+    """Give Katelyn's page direct booking CTAs plus a pricing/availability panel.
+
+    Exact service and jewelry prices are maintained by Katelyn in her Jim booking
+    profile, so the site links to that live source instead of duplicating prices
+    that can become stale.
+    """
+    booking_attrs = (
+        f'href="{KATELYN_BOOKING_URL}" target="_blank" '
+        'rel="noopener noreferrer"'
+    )
+
+    # Convert the two original non-functional booking buttons into real links.
+    html = re.sub(
+        r'<button class="([^"]*bg-secondary[^"]*)">Book Katelyn</button>',
+        rf'<a class="\1" {booking_attrs}>Book Katelyn</a>',
+        html,
+        count=1,
+        flags=re.IGNORECASE,
+    )
+    html = re.sub(
+        r'<button class="([^"]*bg-secondary[^"]*)">Book Katelyn Cole</button>',
+        rf'<a class="\1" {booking_attrs}>Book Katelyn Cole</a>',
+        html,
+        count=1,
+        flags=re.IGNORECASE,
+    )
+
+    marker = "<!-- Specialties Section -->"
+    if "data-woa-katelyn-pricing" not in html and marker in html:
+        pricing = f'''\n<section class="py-12 md:py-16 px-margin-desktop bg-surface-container border-b border-outline-variant/10" data-woa-katelyn-pricing="1" id="katelyn-pricing">
+<div class="max-w-4xl mx-auto text-center space-y-6">
+<span class="text-label-caps font-label-caps text-secondary block uppercase tracking-[0.3em]">Pricing &amp; Direct Booking</span>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">See Katelyn's Current Piercing Prices</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-3xl mx-auto">Katelyn keeps her current service pricing, appointment availability, and booking options on her direct booking page. Jewelry pricing can vary by material, style, and piece selected, so the booking page is the live source for current totals.</p>
+<div class="flex flex-wrap justify-center gap-4 pt-2">
+<a class="bg-secondary text-on-secondary px-10 py-4 text-label-caps font-label-caps uppercase gold-glow" {booking_attrs}>View Piercing Prices &amp; Book Katelyn</a>
+<a class="border border-outline-variant text-on-surface px-10 py-4 text-label-caps font-label-caps uppercase hover:bg-surface-variant transition-colors" href="tel:+17252241240">Call the Studio</a>
+</div>
+<p class="text-sm text-on-surface-variant">For the most accurate price, choose the piercing service on Katelyn's booking page; jewelry upgrades are priced separately when applicable.</p>
+</div>
+</section>\n'''
+        html = html.replace(marker, pricing + marker, 1)
+
+    return html
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("katelyn_file", type=Path, help="Raw Katelyn HTML file from Stitch")
@@ -101,7 +149,7 @@ def main() -> int:
     user = os.environ.get("FTP_USER", "").strip()
     pw = os.environ.get("FTP_PASS", "").strip()
     if not user or not pw:
-        print("Set FTP_USER and FTP_PASS (for example, your hosting FTP username).", file=sys.stderr)
+        print("Set FTP_USER and FTP_PASS (e.g. tattoojosh@workofarttattoo.com).", file=sys.stderr)
         return 1
 
     kt_raw = args.katelyn_file.read_text(encoding="utf-8", errors="strict")
@@ -111,6 +159,7 @@ def main() -> int:
         extract_first_document_blob(kt_raw),
         '<header class="fixed top-0 left-0 w-full z-50 flex justify-between',
     )
+    kt_html = inject_katelyn_booking(kt_html)
     jc_html = fix_html(
         extract_first_document_blob(jc_raw),
         "<!-- Sparkle Cursor Implementation -->",
@@ -131,8 +180,8 @@ def main() -> int:
 
     ftp.quit()
     print("Done.")
-    print("https://www.workofarttattoo.com/artists/katelyn-cole/")
-    print("https://www.workofarttattoo.com/artists/joshua-cole/")
+    print("https://workofarttattoo.com/artists/katelyn-cole/")
+    print("https://workofarttattoo.com/artists/joshua-cole/")
     return 0
 
 

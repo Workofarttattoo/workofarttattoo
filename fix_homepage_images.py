@@ -16,7 +16,7 @@ HOME_HTML = HOME / "code.html"
 ROOT_HTML = ROOT / "code.html"
 PORTFOLIO = HOME / "client-portfolio"
 HERO_DIR = HOME / "hero-premium"
-SITE = "https://www.workofarttattoo.com"
+SITE = "https://workofarttattoo.com"
 
 CARD_W = 1200
 CARD_H = 1600
@@ -198,6 +198,11 @@ def fix_hero_premium() -> int:
 def fix_artist_roster() -> None:
     joshua_dir = ROOT / "artists" / "joshua-cole"
     katelyn_dir = ROOT / "artists" / "katelyn-cole"
+    jay_png = (
+        ROOT
+        / "jay_jay_artist_portfolio_authentic_masterpieces"
+        / "jay-jay-artist-portfolio-authentic-masterpieces-las-vegas.png"
+    )
     joshua_dir.mkdir(parents=True, exist_ok=True)
     katelyn_dir.mkdir(parents=True, exist_ok=True)
 
@@ -214,13 +219,19 @@ def fix_artist_roster() -> None:
                 save_artist_portrait(closeup, joshua_dest)
                 print("[artist] joshua-cole-portrait from studio closeup")
 
-    katelyn_dest = katelyn_dir / "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.png"
+    katelyn_dest = katelyn_dir / "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png"
     if is_bad_asset(katelyn_dest):
         tmp = katelyn_dir / ".katelyn-dl.png"
         if curl_download(KATELYN_PORTRAIT_URL, tmp):
             save_artist_portrait(tmp, katelyn_dest)
             tmp.unlink(missing_ok=True)
             print("[artist] katelyn portrait from Google")
+
+    if is_bad_asset(jay_png):
+        pool = portrait_pool()
+        if pool:
+            save_artist_portrait(pool[0], jay_png)
+            print(f"[artist] jay-jay ← {pool[0].relative_to(ROOT)}")
 
 
 def fix_featured_snake() -> None:

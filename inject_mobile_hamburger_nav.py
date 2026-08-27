@@ -37,47 +37,6 @@ html.woa-mnav-lock body {
   overflow: hidden !important;
   touch-action: none;
 }
-@media (max-width: 767px) {
-  [data-woa-top-shell="1"] {
-    min-height: 4.75rem;
-    align-items: center;
-    background: rgba(8, 8, 8, 0.42) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  [data-woa-top-shell="1"] > div:first-child {
-    display: none;
-  }
-
-  [data-woa-top-shell="1"] > .flex.items-center {
-    margin-left: auto;
-  }
-
-  [data-woa-top-shell="1"] a.bg-secondary {
-    background: rgba(233, 195, 73, 0.78) !important;
-  }
-
-  [data-mobile-nav-toggle="1"] .woa-menu-icon-open {
-    display: inline-flex !important;
-  }
-
-  [data-mobile-nav-toggle="1"] .woa-menu-icon-close {
-    display: none !important;
-  }
-
-  [data-mobile-nav-toggle="1"][aria-expanded="true"] .woa-menu-icon-open {
-    display: none !important;
-  }
-
-  [data-mobile-nav-toggle="1"][aria-expanded="true"] .woa-menu-icon-close {
-    display: inline-flex !important;
-  }
-
-  .woa-hero-banner {
-    margin-top: 4.75rem;
-  }
-}
 .woa-mnav-overlay {
   position: fixed;
   inset: 0;
@@ -90,8 +49,8 @@ html.woa-mnav-lock body {
   left: auto;
   right: 0;
   top: 0;
-  width: min(78vw, 19rem);
-  max-width: 19rem;
+  width: 6rem;
+  max-width: 96px;
   z-index: 70;
   max-height: min(88vh, 560px);
   overflow-x: hidden;
@@ -114,8 +73,8 @@ html.woa-mnav-lock body {
 
 .woa-mnav-panel a,
 .woa-mnav-panel summary {
-  word-break: normal;
-  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: anywhere;
   hyphens: auto;
 }
 
@@ -487,14 +446,8 @@ def fill_mobile_navigation(inner: object, soup: BeautifulSoup, nav_strip) -> Non
         {
             "guides",
             "artists",
-            "portfolio",
-            "tattoo guides",
-            "piercing guides",
-            "locations",
-            "book",
             NAV_KNOWLEDGE_MENU_LABEL.lower(),
             "insider guides",
-            "knowledge base",
         }
     )
 
@@ -519,14 +472,23 @@ def fill_mobile_navigation(inner: object, soup: BeautifulSoup, nav_strip) -> Non
             inner.append(a)
         elif nm == "details":
             aria = (child.get("aria-label") or "").lower()
-            is_artists = "artist" in aria and "guide" not in aria and "portfolio" not in aria
-            sm_el = child.find("summary")
-            summary_label = (
-                sm_el.get_text(" ", strip=True).replace("\xa0", " ").strip()
-                if sm_el
-                else "Menu"
+            is_artists = "artist" in aria and "guide" not in aria
+            is_knowledge = (
+                "insider" in aria
+                or "knowledge" in aria
+                or ("guide" in aria and "artist" not in aria)
             )
-            dd_cls = "mobile-artists-dd" if is_artists else "mobile-guides-dd"
+            dd_cls = (
+                "mobile-artists-dd"
+                if is_artists
+                else "mobile-guides-dd"
+            )
+            if is_artists:
+                summary_label = "Artists"
+            elif is_knowledge:
+                summary_label = NAV_KNOWLEDGE_MENU_LABEL
+            else:
+                summary_label = "Guides"
             dd = soup.new_tag(
                 "details",
                 attrs={"class": [dd_cls, "border-b", "border-outline-variant", "pb-1"]},

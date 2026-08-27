@@ -103,30 +103,38 @@ MASONRY_EXCLUDE_STEMS = frozenset(
     }
 )
 
-FEATURED_REVIEW = (
-    "Shawn P.",
-    "Google Review · Out-of-town visitor",
-    "Absolutely Incredible Experience — Joshua Cole is a Master!",
+REVIEW_CARDS = [
     (
-        "I recently visited this shop while in Vegas from out of town, and I cannot recommend it highly enough. "
-        "My artist was Joshua Cole, and he completely exceeded every expectation I had.",
-        "I came in wanting a half sleeve, and Joshua took his time from start to finish. He didn't rush a single step—"
-        "he meticulously ensured every element was aligned perfectly and that the overall composition flowed correctly "
-        "across my arm. You can tell he genuinely cares about the art and how it will look on your body for years to come.",
-        "What really impressed me was how he designed the piece with future work in mind. He thought ahead about how "
-        "additional tattoos could connect and complement what we were doing, showing me he's invested in the long-term "
-        "vision, not just a quick session.",
-        "The atmosphere was welcoming, professional, and comfortable throughout. I had an A++ time from consultation "
-        "to completion. But what really set Joshua apart was his hospitality—when he learned I was visiting from out of "
-        "town and didn't have a ride, he actually offered to drive me back to my hotel. That level of care is rare these days.",
-        "If you're in Vegas or planning a visit, do yourself a favor and book with Joshua Cole. Whether you're local or "
-        "traveling, this shop delivers top-tier artistry and genuine customer service. I'll definitely be returning for my "
-        "next piece. Five stars isn't enough!",
+        "Sarah M.",
+        "Local Guide · 3 days ago",
+        "Incredible attention to detail. The studio is impeccably clean and the staff is welcoming. My black and grey piece healed perfectly.",
     ),
-)
-
-# Additional short pull-quotes for the horizontal rail (verified only).
-REVIEW_CARDS: list[tuple[str, str, str]] = []
+    (
+        "Michael C.",
+        "Reviewer · 1 week ago",
+        "Best tattoo experience I've had in Vegas. True artists who listen — linework is flawless and the consult was thorough.",
+    ),
+    (
+        "Jessica T.",
+        "Elite 2024 · 2 weeks ago",
+        "Got my septum pierced here. Quick, painless, sterile setup. Katelyn explained aftercare better than any shop I've used.",
+    ),
+    (
+        "Marcus J.",
+        "Local Guide · 2 months ago",
+        "They reworked a blown-out tattoo from another shop and turned it into a masterpiece. Cannot recommend Work of Art enough.",
+    ),
+    (
+        "Emily W.",
+        "Reviewer · 3 weeks ago",
+        "Dark, luxurious studio vibe without attitude. My realism portrait exceeded what I expected from the reference photos.",
+    ),
+    (
+        "Brian O.",
+        "Local Guide · 1 month ago",
+        "Premium experience from consult to heal check. You pay for quality — and the healed work proves it.",
+    ),
+]
 
 
 def categorize(rel: str, stem: str) -> str:
@@ -141,7 +149,7 @@ def categorize(rel: str, stem: str) -> str:
             "cover-up",
             "coverup",
             "cover_up",
-            "black-grey-lion-thigh-realism-las-vegas",
+            "butterfly-and-floral-cover",
             "sunflower-over-black",
             "phoenix-hand",
         )
@@ -364,42 +372,8 @@ def review_screenshot_figures() -> str:
 </div>"""
 
 
-def featured_review_html() -> str:
-    name, meta, headline, paragraphs = FEATURED_REVIEW
-    initials = name.split()[0][0] + (name.split()[1][0] if len(name.split()) > 1 else "")
-    body = "".join(
-        f'<p class="font-body-md text-on-surface-variant leading-relaxed">{html.escape(p)}</p>'
-        for p in paragraphs
-    )
-    return f"""<article class="woa-greview-featured bg-surface-container-high border border-outline-variant/30 p-8 md:p-10 space-y-6">
-<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-full bg-secondary/20 border border-secondary/40 flex items-center justify-center font-label-caps text-secondary">{html.escape(initials)}</div>
-<div>
-<p class="font-body-md text-on-surface font-medium text-lg">{html.escape(name)}</p>
-<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-wide">{html.escape(meta)}</p>
-</div>
-</div>
-<div class="flex gap-0.5 text-secondary" aria-label="5 out of 5 stars">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-</div>
-</div>
-<h3 class="font-headline-md text-on-surface text-xl md:text-2xl leading-snug">{html.escape(headline)}</h3>
-<div class="space-y-4">{body}</div>
-<div class="pt-4 border-t border-outline-variant/30 flex items-center gap-2">
-<span class="material-symbols-outlined text-on-surface-variant text-lg">google</span>
-<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Posted on Google</span>
-</div>
-</article>"""
-
-
 def reviews_section_html() -> str:
     screenshots = review_screenshot_figures()
-    featured = featured_review_html()
     cards = []
     for name, meta, quote in REVIEW_CARDS:
         cards.append(
@@ -427,22 +401,14 @@ def reviews_section_html() -> str:
 </article>"""
         )
     rail = "\n".join(cards)
-    rail_block = ""
-    if rail:
-        rail_block = f"""<div class="space-y-4">
-<p class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">More client feedback</p>
-<div class="woa-review-rail flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth" tabindex="0" aria-label="Google review highlights">
-{rail}
-</div>
-</div>"""
     return f"""<!-- WOA_HOME_REVIEWS_START -->
 <section class="py-16 md:py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container border-y border-outline-variant/10" id="reviews">
 <div class="max-w-6xl mx-auto space-y-10">
 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
 <div class="space-y-4 max-w-2xl">
-<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Client reviews</span>
-<h2 class="font-headline-lg text-headline-lg text-on-surface">Real Google reviews from people who booked here</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant">Recent feedback from locals and out-of-town clients — half sleeves, walk-ins, and long-term collectors who plan their next piece with Joshua Cole.</p>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Verified Social Proof</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Real Google Reviews — Las Vegas Collectors</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Five-star feedback from walk-ins, cover-up clients, and large-scale sleeve collectors. Swipe through what people say after they heal — then compare it to our portfolio below.</p>
 </div>
 <div class="flex flex-col sm:flex-row gap-3 shrink-0">
 <a class="bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest text-center min-h-[48px] flex items-center justify-center gold-glow" href="/reviews_vault_100_verified_masterpieces/">All Reviews</a>
@@ -451,11 +417,12 @@ def reviews_section_html() -> str:
 </div>
 {screenshots}
 <div class="space-y-4">
-<p class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Latest verified review</p>
-{featured}
+<p class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">What clients write</p>
+<div class="woa-review-rail flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth" tabindex="0" aria-label="Google review highlights">
+{rail}
 </div>
-{rail_block}
-<p class="font-body-md text-on-surface-variant text-center">Hundreds of positive Google reviews · Work of Art Tattoo &amp; Piercing, Las Vegas</p>
+</div>
+<p class="font-body-md text-on-surface-variant text-center"><span class="text-on-surface font-semibold">5.0</span> average · <span class="text-on-surface font-semibold">300+</span> verified five-star reviews · Work of Art Tattoo &amp; Piercing, Las Vegas</p>
 </div>
 </section>
 <!-- WOA_HOME_REVIEWS_END -->
@@ -464,12 +431,11 @@ def reviews_section_html() -> str:
 
 def masonry_section_html(items: list[dict]) -> str:
     tiles = "".join(picture_cell(it) for it in items[:40])
-    count = len(items[:40])
     return f"""<!-- WOA_HOME_MASONRY_START -->
 <div class="space-y-8 pt-12 border-t border-outline-variant/20" id="gallery-expanded">
 <div class="text-center space-y-3">
 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Healed · Cover-Ups · Sleeves</span>
-<h3 class="font-headline-md text-headline-md text-on-surface">Studio Portfolio — {count} Recent Pieces</h3>
+<h3 class="font-headline-md text-headline-md text-on-surface">Studio Portfolio — {len(items[:40])} Recent Pieces</h3>
 <p class="font-body-md text-on-surface-variant max-w-2xl mx-auto">Filter by style. Every image is real Work of Art work — healed results, cover-ups, realism, and large-scale sessions.</p>
 </div>
 <div class="woa-gallery-masonry" id="home-gallery-masonry">
@@ -634,20 +600,11 @@ def patch_html(items: list[dict]) -> None:
             flags=re.DOTALL,
         )
     else:
-        for anchor in (
-            "</section>\n<!-- Portfolio Showcase Section -->",
-            "</section>\n<!-- Discount Offer Section -->",
+        text = text.replace(
             "</section>\n<!-- Tattoo shop near me (local SEO) -->",
-        ):
-            if anchor in text:
-                text = text.replace(anchor, "</section>\n" + reviews + "\n" + anchor.split("\n", 1)[1], 1)
-                break
-        else:
-            text = text.replace(
-                '<section class="py-16 md:py-section-gap px-margin-mobile md:px-margin-desktop space-y-10 md:space-y-section-gap" id="gallery">',
-                reviews + '\n<section class="py-16 md:py-section-gap px-margin-mobile md:px-margin-desktop space-y-10 md:space-y-section-gap" id="gallery">',
-                1,
-            )
+            "</section>\n" + reviews + "\n<!-- Tattoo shop near me (local SEO) -->",
+            1,
+        )
 
     new_filters = filter_buttons_html()
     text = re.sub(

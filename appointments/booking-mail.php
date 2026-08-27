@@ -1,6 +1,6 @@
 <?php
 /**
- * Work of Art — appointment request → thewhiteknight702@gmail.com
+ * Work of Art — appointment request → booking@workofarttattoo.com
  * Deploy to /appointments/booking-mail.php on Bluehost (PHP required).
  */
 declare(strict_types=1);
@@ -8,7 +8,7 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 
-const BOOKING_TO = 'thewhiteknight702@gmail.com';
+const BOOKING_TO = 'booking@workofarttattoo.com';
 const BOOKING_FROM = 'noreply@workofarttattoo.com';
 const BOOKING_FROM_NAME = 'Work of Art Website';
 
@@ -116,7 +116,7 @@ if (!$ok) {
     http_response_code(500);
     echo json_encode([
         'ok' => false,
-        'error' => 'Could not send email from the server. Please call (725) 224-1240 or email thewhiteknight702@gmail.com directly.',
+        'error' => 'Could not send email from the server. Please call (725) 224-1240 or email booking@workofarttattoo.com directly.',
         'fallback' => true,
     ]);
     exit;

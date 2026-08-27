@@ -10,7 +10,7 @@ from pathlib import Path
 from woa_nav_config import GUIDE_META
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://www.workofarttattoo.com"
+SITE = "https://workofarttattoo.com"
 DEFAULT_OG = (
     f"{SITE}/home_work_of_art_tattoo_piercing/"
     "las-vegas-tattoo-hero-background.webp"
@@ -28,7 +28,7 @@ OG_IMAGE: dict[str, str] = {
         "professional-tattoo-artist-work-of-art-las-vegas-studio.webp"
     ),
     "realism_tattoos_las_vegas_master_authority_guide": (
-        f"{SITE}/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.webp"
+        f"{SITE}/img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup.webp"
     ),
     "fine_line_tattoos_las_vegas_master_authority_guide": (
         f"{SITE}/fine_line_tattoos_las_vegas_master_authority_guide/"
@@ -39,10 +39,8 @@ OG_IMAGE: dict[str, str] = {
         "best-tattoo-las-vegas-custom-sleeve-by-master-artist.webp"
     ),
     "best_piercing_shop_las_vegas_updated_jewelry_standards": (
-        f"{SITE}/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp"
-    ),
-    "piercing-specials-las-vegas": (
-        f"{SITE}/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp"
+        f"{SITE}/best_piercing_shop_las_vegas_updated_jewelry_standards/"
+        "custom-tattoos-las-vegas-vibrant-color-sunflower-design.webp"
     ),
     "best_tattoo_styles_for_sleeves_large_scale_project_hub": (
         f"{SITE}/best_tattoo_styles_for_sleeves_large_scale_project_hub/"
@@ -52,9 +50,13 @@ OG_IMAGE: dict[str, str] = {
         f"{SITE}/image_5_22_26_at_9.11_pm_1.png/"
         "professional-tattoo-artist-work-of-art-las-vegas-studio.webp"
     ),
-    "artists": f"{SITE}/artists/joshua-cole/joshua-cole-tattooing-portrait-las-vegas.webp",
+    "artists": f"{SITE}/artists/joshua-cole/joshua-cole-masterpiece-wall-consistently-unique-las-vegas.webp",
+    "jay_jay_artist_portfolio_authentic_masterpieces": (
+        f"{SITE}/jay_jay_artist_portfolio_authentic_masterpieces/"
+        "jay-jay-artist-portfolio-authentic-masterpieces-las-vegas.webp"
+    ),
     "reviews_vault_100_verified_masterpieces": (
-        f"{SITE}/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.webp"
+        f"{SITE}/img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup.webp"
     ),
     "review_funnel_google_authority_hub": DEFAULT_OG,
     "tattoo_pain_chart_placement_sensitivity_guide": (
@@ -69,19 +71,15 @@ OG_IMAGE: dict[str, str] = {
 DESC_EXTRA: dict[str, str] = {
     "appointments": (
         "Book tattoo and piercing appointments at Work of Art in Las Vegas — "
-        "custom tattoos, consults, and walk-ins. 2375 E. Tropicana Ave, Suite 3. (725) 224-1240."
+        "custom tattoos, consults, and walk-ins. 2375 E. Tropicana Suite 3. (725) 224-1240."
     ),
     "home_work_of_art_tattoo_piercing": (
         "Las Vegas tattoo and piercing studio on E. Tropicana — custom tattoos, "
         "black and grey realism, color work, cover-ups, and walk-ins. (725) 224-1240."
     ),
     "artists": (
-        "Meet Joshua Cole, Katelyn Cole, and Teralyn at Work of Art in Las Vegas — "
-        "custom tattoos, piercing, fineline floral work, script, and realism."
-    ),
-    "piercing-specials-las-vegas": (
-        "Current piercing specials at Work of Art Las Vegas with Katelyn Cole — "
-        "same-day availability, booking, jewelry-fit planning, aftercare, and directions."
+        "Meet Joshua Cole, Jay Jay, and Katelyn Cole at Work of Art in Las Vegas — "
+        "realism tattoo, custom ink, and master piercing. Book at our Tropicana studio."
     ),
 }
 

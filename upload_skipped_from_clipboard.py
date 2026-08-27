@@ -3,7 +3,7 @@
 Split skipped_pages_clipboard.html (paste from clipboard saved to disk),
 apply HTML fixes, and FTP-upload to slug folders matching prior deploy conventions.
 
-FTP_USER / FTP_PASS required.
+FTP_USER / FTP_PASS required (tattoojosh@workofarttattoo.com).
 """
 
 from __future__ import annotations
@@ -18,10 +18,6 @@ from pathlib import Path
 HOST = "ftp.workofarttattoo.com"
 CLIPBOARD_HTML = Path(__file__).resolve().parent / "skipped_pages_clipboard.html"
 BUILD_DIR = Path(__file__).resolve().parent / "skipped_upload_build"
-UNSUPPORTED_WALKIN_LABEL_RE = re.compile(
-    r"LAS VEGAS'\s+HIGHEST\s+RATED\s+WALK-IN\s+STUDIO",
-    re.IGNORECASE,
-)
 
 
 def ftp_mkdir_p(ftp: FTP, remote_path: str) -> None:
@@ -84,7 +80,6 @@ def classify(chunk: str) -> str | None:
 
 
 def prepare_html(slug: str, html: str) -> bytes:
-    html = UNSUPPORTED_WALKIN_LABEL_RE.sub("323 GOOGLE REVIEWS, 5.0 RATING", html)
     if slug == "how_to_choose_a_tattoo_artist_master_selection_guide_1":
         html = fix_stitch_placeholders(html)
         html = strip_article_p_apply(html)
@@ -139,7 +134,7 @@ def main() -> int:
     ftp.quit()
     print("Done.")
     for slug in sorted(chosen.keys()):
-        print(f"https://www.workofarttattoo.com/{slug}/")
+        print(f"https://workofarttattoo.com/{slug}/")
     return 0
 
 
