@@ -6,6 +6,7 @@ on:
       - a-plus-factual-cleanup
     paths:
       - 'tools/a_plus_cleanup.py'
+      - 'tools/deploy_katelyn_piercing_portfolio.py'
       - '.github/workflows/a-plus-factual-cleanup.yml'
   workflow_dispatch:
 
@@ -27,16 +28,28 @@ jobs:
 
       - name: Remove tracked OS/cache junk
         run: |
-          git rm -f .DS_Store 2>/dev/null || true
+          find . -type f -name '.DS_Store' -delete
           find . -type d -name '__pycache__' -prune -exec rm -rf {} +
           find . -type f -name '*.pyc' -delete
+
+      - name: Check deployment secrets without exposing them
+        env:
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          if [ -n "$FTP_USER" ] && [ -n "$FTP_PASS" ]; then
+            echo 'FTP deployment credentials are configured.'
+          else
+            echo 'FTP deployment credentials are NOT configured.'
+            exit 2
+          fi
 
       - name: Generate unresolved audit
         run: |
           {
             echo '# A+ cleanup unresolved matches'
             echo
-            for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '480+' '323' '350+' '400+' 'masculine, honest shop talk' 'cabin pressure' 'starter jewelry' 'premier authority' 'Best Body Piercer in Las Vegas'; do
+            for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '480+' '323' '350+' '400+' '2,400+' '2400+' 'masculine, honest shop talk' 'cabin pressure' 'starter jewelry' 'premier authority' 'Best Body Piercer in Las Vegas'; do
               echo "## $term"
               grep -RIn --exclude-dir=.git --exclude-dir=.github --exclude='a-plus-unresolved.md' "$term" . || true
               echo
