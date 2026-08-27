@@ -4,9 +4,9 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TEXT_EXTS = {'.html','.htm','.md','.txt','.json','.jsonld','.js','.ts','.tsx','.jsx','.py','.xml'}
-SELF = Path(__file__).resolve()
+TEXT_EXTS = {'.html','.htm','.md','.txt','.json','.jsonld','.js','.ts','.tsx','.jsx','.py','.yml','.yaml','.xml'}
 
+# Conservative factual/string fixes that are safe site-wide.
 LITERAL_REPLACEMENTS = {
     'Master Body Piercer': 'Professional Piercer',
     'Master Piercer': 'Professional Piercer',
@@ -17,10 +17,10 @@ LITERAL_REPLACEMENTS = {
     'McCarran': 'Harry Reid International Airport',
     'That is masculine, honest shop talk — no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
     'That is masculine, honest shop talk - no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
-    'Google Reviews (2,400+)': 'Hundreds of Google Reviews',
     'calm, calm': 'calm',
 }
 
+# Unsupported / contradictory Katelyn marketing language. Kept plain and verifiable.
 REGEX_REPLACEMENTS = [
     (r'(?is)We use starter jewelry([^<\n]{0,260})', r'We use properly fitted initial jewelry selected for the placement and your anatomy.'),
     (r'(?is)We never use [“\"]starter jewelry[”\"]([^<\n]{0,260})', r'We choose initial jewelry for fit, material, swelling room, and the placement being performed.'),
@@ -37,8 +37,6 @@ REGEX_REPLACEMENTS = [
 
 
 def rewrite_file(path: Path) -> bool:
-    if path.resolve() == SELF or '.github' in path.parts:
-        return False
     try:
         s = path.read_text(encoding='utf-8')
     except Exception:
@@ -50,18 +48,23 @@ def rewrite_file(path: Path) -> bool:
     for pat, repl in REGEX_REPLACEMENTS:
         s = re.sub(pat, repl, s)
 
-    s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+?\s+(Google\s+)?reviews\b', 'hundreds of Google reviews', s, flags=re.I)
-    s = re.sub(r'\b(?:323|350|400|480|2,400|2400)\+\b', 'hundreds', s)
+    # Replace fragile hard-coded review counts with durable wording.
+    s = re.sub(r'\b(?:323|350|400|480)\+?\s+(Google\s+)?reviews\b', 'hundreds of Google reviews', s, flags=re.I)
+    s = re.sub(r'\b(?:323|350|400|480)\+\b', 'hundreds', s)
 
+    # Remove exact drive-minute promises in prose while leaving unrelated numbers alone.
     s = re.sub(r'(?i)\b(?:4|6|8|10)\s*minutes?\s+from\s+Caesars\b', 'a short drive from Caesars; check live traffic for timing', s)
     s = re.sub(r'(?i)\b(?:4|6|8|10)\s*minutes?\s+from\s+Resorts World\b', 'a short drive from Resorts World; check live traffic for timing', s)
 
+    # Airport wording: remove brittle routing/medical assertions.
     s = re.sub(r'(?i)a straight shot east on Tropicana', 'a short drive from LAS using airport connectors toward Tropicana', s)
     s = re.sub(r'(?is)cabin pressure and dry airplane air change aftercare timing\.?', 'Long sitting, friction, dry cabin air, and limited washing access can make aftercare less convenient when you fly soon after a tattoo.', s)
 
+    # Piercing aftercare: remove tea-tree exception.
     s = re.sub(r'(?i)Do not use tea tree oil[^.<]{0,180}unless your piercer tells you otherwise\.?', 'Do not use tea tree oil on a healing piercing.', s)
     s = re.sub(r'(?i)tea tree oil[^.<]{0,120}unless your piercer tells you otherwise\.?', 'tea tree oil on a healing piercing.', s)
 
+    # Dermis science correction: replace common bad formulations.
     s = re.sub(
         r'(?is)Too shallow\s*\([^)]*\)\s*:\s*blowouts?\s*,\s*rapid fade\s*,\s*patchy heal\.?',
         'Too shallow: pigment may heal faint, patchy, or fall out because too much ink was placed in tissue that continually renews.', s)
@@ -75,11 +78,18 @@ def rewrite_file(path: Path) -> bool:
         r'(?i)(upper\s+to\s+mid\s+reticular\s+dermis|1\.5\s*[–-]\s*2\s*mm)',
         'the dermis, with exact working depth varying by body site, skin thickness, technique, and individual anatomy', s)
 
+    # Remove obviously misplaced piercing gallery module from skin-science pages.
     rel = path.relative_to(ROOT).as_posix().lower()
     if any(k in rel for k in ('dermis', 'epidermis', 'hypodermis', 'skin_science', 'skin-science')):
-        s = re.sub(r'(?is)<section\b[^>]*>.*?Real ear piercing work from our studio[^<]*.*?</section>', '', s)
-        s = re.sub(r'(?is)<section\b[^>]*>.*?ear piercing work[^<]*not stock photos.*?</section>', '', s)
+        # Remove sections whose visible copy identifies them as piercing work.
+        s = re.sub(
+            r'(?is)<section\b[^>]*>.*?Real ear piercing work from our studio[^<]*.*?</section>',
+            '', s)
+        s = re.sub(
+            r'(?is)<section\b[^>]*>.*?ear piercing work[^<]*not stock photos.*?</section>',
+            '', s)
 
+    # Katelyn contact: only her artist/profile-oriented files and JSON-LD references.
     if 'katelyn' in rel or 'piercing' in rel:
         s = s.replace('booking@workofarttattoo.com', 'kmorgen14@gmail.com')
 
@@ -94,11 +104,12 @@ def main() -> int:
     for p in ROOT.rglob('*'):
         if not p.is_file() or p.suffix.lower() not in TEXT_EXTS:
             continue
-        if any(part in {'.git','node_modules','.venv','venv','.github'} for part in p.parts):
+        if any(part in {'.git','node_modules','.venv','venv'} for part in p.parts):
             continue
         if rewrite_file(p):
             changed.append(p.relative_to(ROOT).as_posix())
 
+    # Repo hygiene.
     gitignore = ROOT/'.gitignore'
     existing = gitignore.read_text(encoding='utf-8') if gitignore.exists() else ''
     wanted = ['.DS_Store','__pycache__/','*.pyc']
