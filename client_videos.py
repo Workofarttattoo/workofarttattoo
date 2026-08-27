@@ -106,7 +106,7 @@ KATELYN_VIDEOS: list[dict[str, str]] = [
         "kind": "reel",
         "media_id": "C78fY1quCVF",
         "title": "Katelyn Cole — piercing in the studio",
-        "blurb": "Watch Katelyn at Work of Art — precision ear curation and medical-grade piercing in Las Vegas.",
+        "blurb": "Watch Katelyn at Work of Art — precision ear curation and professional piercing in Las Vegas.",
     },
     {
         "kind": "reel",
@@ -1218,7 +1218,7 @@ def render_katelyn_minors_section() -> str:
 <div class="max-w-3xl mx-auto text-center space-y-4">
 <span class="text-label-caps font-label-caps text-secondary uppercase tracking-[0.2em]">Families welcome</span>
 <h2 class="text-headline-lg font-headline-lg text-on-surface">Piercing Minors — Rules &amp; What to Bring</h2>
-<p class="text-body-lg font-body-lg text-on-surface-variant">Katelyn Cole specializes in calm, medical-grade ear piercing for younger clients. Sessions are unhurried, explained step-by-step, and designed so kids and guardians feel confident — most families tell us how smoothly everything goes.</p>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Katelyn Cole specializes in calm, professional ear piercing for younger clients. Sessions are unhurried, explained step-by-step, and designed so kids and guardians feel confident — most families tell us how smoothly everything goes.</p>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 <div class="space-y-8">
