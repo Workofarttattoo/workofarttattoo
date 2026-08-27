@@ -1,0 +1,56 @@
+name: Katelyn Piercing Integration
+
+on:
+  push:
+    branches:
+      - katelyn-piercing-integration
+    paths:
+      - 'artists/katelyn-cole/piercing-portfolio/**'
+      - 'tools/install_katelyn_piercing_photos.py'
+      - 'tools/fix_katelyn_contact.py'
+      - '.github/workflows/katelyn-piercing-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: katelyn-piercing-integration
+          fetch-depth: 0
+
+      - name: Verify piercing assets
+        run: |
+          test -d artists/katelyn-cole/piercing-portfolio
+          count=$(find artists/katelyn-cole/piercing-portfolio -maxdepth 1 -type f -name '*.webp' | wc -l)
+          echo "Piercing WebPs: $count"
+          test "$count" -ge 20
+
+      - name: Install photos into matching pages
+        run: python3 tools/install_katelyn_piercing_photos.py
+
+      - name: Correct Katelyn contact and professional title
+        run: python3 tools/fix_katelyn_contact.py
+
+      - name: Verify key corrections
+        run: |
+          grep -q 'kmorgen14@gmail.com' artists_build/katelyn-cole.html
+          ! grep -qi 'Master Body Piercer' artists_build/katelyn-cole.html
+          grep -q 'piercing-portfolio/katelyn-' artists_build/katelyn-cole.html
+
+      - name: Commit generated integration
+        run: |
+          git config user.name 'WOA Integration Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+          else
+            git commit -m 'Integrate Katelyn piercing portfolio [skip ci]'
+            git push origin HEAD:katelyn-piercing-integration
+          fi
