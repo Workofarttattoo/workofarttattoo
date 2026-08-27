@@ -40,8 +40,7 @@ jobs:
           if [ -n "$FTP_USER" ] && [ -n "$FTP_PASS" ]; then
             echo 'FTP deployment credentials are configured.'
           else
-            echo 'FTP deployment credentials are NOT configured.'
-            exit 2
+            echo 'NOTICE: FTP deployment credentials are not configured in GitHub Actions yet. Cleanup QA will continue.'
           fi
 
       - name: Generate unresolved audit
