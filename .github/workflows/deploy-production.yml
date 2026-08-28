@@ -158,7 +158,14 @@ jobs:
         run: |
           set -euo pipefail
           cd /tmp/woa-gh-pages
+          # Force the deploy marker in the Pages tree right before commit.
+          # Prior runs could update index.html while leaving a stale DEPLOYED_MAIN_SHA.
+          printf '%s\n' "$GITHUB_SHA" > DEPLOYED_MAIN_SHA
+          test -s DEPLOYED_MAIN_SHA
+          test "$(tr -d '\n' < DEPLOYED_MAIN_SHA)" = "$GITHUB_SHA"
+          grep -q 'woa-hero-banner' index.html
           git add -A
+          git add -f DEPLOYED_MAIN_SHA index.html
           if git diff --cached --quiet; then
             echo 'No production changes to publish.'
           else
@@ -168,9 +175,13 @@ jobs:
 
       - name: Verify gh-pages exact source marker and critical routes
         run: |
+          set -euo pipefail
           git fetch origin gh-pages
           test "$(git show origin/gh-pages:CNAME)" = 'www.workofarttattoo.com'
-          test "$(git show origin/gh-pages:DEPLOYED_MAIN_SHA)" = "$GITHUB_SHA"
+          marker="$(git show origin/gh-pages:DEPLOYED_MAIN_SHA | tr -d '\n')"
+          echo "gh-pages marker=$marker expected=$GITHUB_SHA"
+          test "$marker" = "$GITHUB_SHA"
+          git show origin/gh-pages:index.html | grep -q 'woa-hero-banner'
           git show origin/gh-pages:artists/katelyn-cole/index.html | grep -q 'Professional'
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
           git show origin/gh-pages:merchandise/index.html | grep -Eiq 'Merchandise|Original art'
