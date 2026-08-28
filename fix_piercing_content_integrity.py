@@ -121,6 +121,10 @@ def clean_piercing_html(html: str) -> str:
     out = html
     for pattern, replacement in REPLACEMENTS:
         out = pattern.sub(replacement, out)
+    out = out.replace("Facial piercing Work", "Facial Piercing Work")
+    out = out.replace("Body piercing & Jewelry Fit", "Body Piercing & Jewelry Fit")
+    out = out.replace("Body piercing &amp; Jewelry Fit", "Body Piercing &amp; Jewelry Fit")
+    out = out.replace("piercing Portfolio", "Piercing Portfolio")
     out = re.sub(
         r"Fresh piercings start in starter jewelry \(ASTM F136\) or starter jewelry\s+—\s+never mystery metal from a kiosk\.",
         "Fresh piercing jewelry is selected during your consult based on anatomy, swelling room, placement, and current studio availability.",

@@ -30,7 +30,7 @@ The brief did not provide a newly verified hours value, so these are inventoried
 - `opening hours statement` in `woa_nav_config.py:84`: STUDIO_HOURS_SUMMARY = "Daily 12 PM - 12 AM"
 - `opening hours statement` in `woa_nav_config.py:87`: '<p class="text-on-surface-variant">DAILY</p><p>12:00 PM - 12:00 AM</p>'
 - `opening hours statement` in `fix_site_footer.py:57`: <li>Daily: 12pm - 12am</li>
-- `opening hours statement` in `inject_availability_urgency.py:20`: <p class="font-body-md text-on-surface m-0"><strong class="text-secondary">Availability:</strong> Katelyn — piercing daily 3 PM–9 PM · Joshua — tattoo availability by request</p>
+- `opening hours statement` in `inject_availability_urgency.py:20`: <p class="font-body-md text-on-surface m-0"><strong class="text-secondary">Availability:</strong> Katelyn — piercing during regular shop hours · Joshua — tattoo availability by request</p>
 - `opening hours statement` in `woa_ai_crawl.py:263`: - Daily: 12:00 PM – 12:00 AM
 - `opening hours statement` in `code.html:1652`: </div><div class="space-y-4"><h5 class="font-label-caps text-on-surface uppercase tracking-widest text-[11px]">Hours</h5><ul class="space-y-2 text-on-surface-variant text-[13px] font-body-md"><li class="">Daily: 12pm - 12am</li></ul></div>
 - `opening hours statement` in `fix_studio_nap.py:120`: "<p>12:00 PM - 10:00 PM</p>\n"

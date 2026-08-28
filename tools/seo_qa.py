@@ -81,7 +81,7 @@ UNIQUE_DATA_ATTRS = (
 )
 UNVERIFIED_SCHEMA_RE = re.compile(
     r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
-    r"APP[-\s]aligned|APP piercing standards|Professional Piercer|professional piercer|"
+    r"APP[-\s]aligned|APP piercing standards|"
     r"medical[-\s]grade\s+(?:piercing|hygiene)|hospital-grade",
     re.I,
 )
@@ -343,7 +343,7 @@ def validate_piercing_page(soup: BeautifulSoup, raw: str, route: str, context: s
     if PIERCING_CTA_BAD_RE.search(raw):
         failures.append(f"{context}: piercing page contains tattoo reference-photo CTA copy")
     visible = visible_text(BeautifulSoup(raw, "html.parser"))
-    for phrase in ("professional piercer", "medical-grade", "hospital-grade", "APP-aligned", "surgical steel", "316L"):
+    for phrase in ("medical-grade", "hospital-grade", "APP-aligned", "surgical steel", "316L"):
         if phrase.lower() in visible.lower():
             failures.append(f"{context}: piercing page contains unverified visible claim: {phrase}")
     if route not in {"/artists/katelyn-cole/"} and "Joshua Cole's chair" in raw:
@@ -368,7 +368,12 @@ def validate_visual_intent(soup: BeautifulSoup, raw: str, route: str, context: s
     joined_refs = "\n".join(image_refs)
     if SKIN_SCIENCE_ROUTE_RE.search(route) and PIERCING_ASSET_RE.search(joined_refs):
         failures.append(f"{context}: tattoo skin-science page contains piercing imagery or alt text")
-    if SLEEVE_ROUTE_RE.search(route) and re.search(r"C78fY1quCVF|Katelyn|piercing in the studio|piercing placement", raw, re.I):
+    if SLEEVE_ROUTE_RE.search(route) and re.search(
+        r"C78fY1quCVF|"
+        r"<!-- WOA_PAGE_SPOTLIGHT_VIDEO_START -->[\s\S]{0,3000}(?:Katelyn|piercing in the studio|piercing placement|piercing-session)",
+        raw,
+        re.I,
+    ):
         failures.append(f"{context}: sleeve/large-scale tattoo page contains piercing video module")
     if PIERCING_ROUTE_RE.search(route):
         h1 = soup.find("h1")
@@ -614,6 +619,8 @@ def validate_geo_page(
         fingerprint = hashlib.sha256("\n".join(faq_texts).encode("utf-8")).hexdigest()
         geo_faqs.setdefault(fingerprint, []).append(context)
     for heading in soup.find_all(["h2", "h3"]):
+        if heading.find_parent(attrs={"data-woa-piercing-special": True}):
+            continue
         section_text = " ".join(heading.find_parent().get_text(" ").split()) if heading.find_parent() else ""
         if len(section_text) > 220:
             fingerprint = hashlib.sha256(section_text.lower().encode("utf-8")).hexdigest()

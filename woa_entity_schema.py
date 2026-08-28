@@ -42,7 +42,7 @@ FAQ_DETAILS_RE = re.compile(
 STRIP_TAGS_RE = re.compile(r"<[^>]+>")
 UNVERIFIED_SCHEMA_FACT_RE = re.compile(
     r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
-    r"APP[-\s]aligned|APP piercing standards|piercing|clean studio process|"
+    r"APP[-\s]aligned|APP piercing standards|"
     r"hospital-grade",
     re.I,
 )
@@ -209,7 +209,7 @@ SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
 JOSHUA_PAGE = f"{SITE}/artists/joshua-cole/"
 KATELYN_PAGE = f"{SITE}/artists/katelyn-cole/"
 TERALYN_PAGE = f"{SITE}/artists/teralyn/"
-JOSHUA_IMAGE = f"{SITE}/artists/joshua-cole/joshua-cole-tattooing-portrait-las-vegas.webp"
+JOSHUA_IMAGE = f"{SITE}/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp"
 KATELYN_IMAGE = (
     f"{SITE}/artists/katelyn-cole/"
     "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp"

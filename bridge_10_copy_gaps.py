@@ -81,7 +81,7 @@ SECTIONS: dict[str, str] = {
         "Work of Art is at 2375 E. Tropicana Ave, Suite 3. If you are coming from the Strip, give yourself a little buffer; the drive is short, but Las Vegas traffic is not always polite about it.",
         (
             "Use Suite 3 as the final check when you arrive.",
-            "Bring valid ID for tattoos, piercings, jewelry changes, and minor piercings with a parent or legal guardian.",
+            "Bring valid ID for tattoos, piercings, and jewelry changes. Call or text before visiting for current minor-piercing requirements.",
             "If you are running late, call before your appointment time so we can protect the schedule and the setup.",
         ),
         "arrival-details",

@@ -52,7 +52,7 @@ OG_IMAGE: dict[str, str] = {
         f"{SITE}/image_5_22_26_at_9.11_pm_1.png/"
         "professional-tattoo-artist-work-of-art-las-vegas-studio.webp"
     ),
-    "artists": f"{SITE}/artists/joshua-cole/joshua-cole-tattooing-portrait-las-vegas.webp",
+    "artists": f"{SITE}/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp",
     "reviews_vault_100_verified_masterpieces": (
         f"{SITE}/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.webp"
     ),

@@ -4,8 +4,8 @@ Generated from local repository HTML after the source audit. This sprint should 
 
 ## Inventory Summary
 
-- Piercing-related pages found: 287
-- KEEP/FIX/IMPROVE counts: {'FIX': 4, 'IMPROVE': 159, 'KEEP': 124}
+- Piercing-related pages found: 294
+- KEEP/FIX/IMPROVE counts: {'FIX': 221, 'IMPROVE': 65, 'KEEP': 8}
 - New large-scale page creation recommended: no
 - Recommended new pages: none until pricing, jewelry-material, and same-day availability facts are owner-verified
 
@@ -18,26 +18,26 @@ Generated from local repository HTML after the source audit. This sprint should 
 
 ## Pages To Improve First
 
-- /artists/katelyn-cole/ — IMPROVE — Katelyn piercing entity
-- /body_piercing_guide_las_vegas/ — IMPROVE — local visitor mixed tattoo/piercing
-- /cover-up-tattoos-las-vegas/ — IMPROVE — piercing commercial hub
-- /cover_up_tattoos_las_vegas_master_authority_guide/ — IMPROVE — piercing commercial hub
-- /facial_piercing_guide_las_vegas/ — IMPROVE — local visitor mixed tattoo/piercing
-- /flat_piercing_las_vegas_authority_guide/ — IMPROVE — Katelyn piercing entity
-- /genital_piercing_las_vegas_authority_guide/ — IMPROVE — Katelyn piercing entity
-- /geo_hub_ai_source_of_truth_work_of_art/ — FIX — unverified piercing credential/material wording
-- /healing_database_black_grey_day_2_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_day_3_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_day_4_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_month_1_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_month_6_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_tattoos_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_week_1_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_week_2_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_black_grey_week_3_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_color_day_2_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_color_day_3_las_vegas/ — IMPROVE — piercing aftercare/healing
-- /healing_database_color_day_4_las_vegas/ — IMPROVE — piercing aftercare/healing
+- /aging_skin_skin_science_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- /anti_eyebrow_piercing_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- /anti_tragus_piercing_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- /appointments/ — FIX — unverified piercing credential/material wording
+- /artists/ — FIX — unverified piercing credential/material wording
+- /artists/joshua-cole/ — FIX — unverified piercing credential/material wording
+- /artists/katelyn-cole/ — FIX — unverified piercing credential/material wording
+- /best_fine_line_tattoos_in_vegas_ultimate_authority_guide/ — FIX — unverified piercing credential/material wording
+- /best_piercing_shop_las_vegas_updated_jewelry_standards/ — FIX — unverified piercing credential/material wording
+- /best_tattoo_styles_for_sleeves_large_scale_project_hub/ — FIX — unverified piercing credential/material wording
+- /body_piercing_guide_las_vegas/ — FIX — unverified piercing credential/material wording
+- /bridge_piercing_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- /cartilage_piercing_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- / — FIX — unverified piercing credential/material wording
+- /collagen_skin_science_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- /conch_piercing_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- /cover-up-tattoos-las-vegas/ — FIX — unverified piercing credential/material wording
+- /cover_up_tattoos_las_vegas_master_authority_guide/ — FIX — unverified piercing credential/material wording
+- /daith_piercing_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
+- /dermis_skin_science_las_vegas_authority_guide/ — FIX — unverified piercing credential/material wording
 
 ## Pages Worth Creating
 

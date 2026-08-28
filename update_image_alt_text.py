@@ -43,9 +43,6 @@ STEM_OVERRIDES: dict[str, str] = {
     "katelyn-cole-professional-piercer-ear-curation-no-duplicates": (
         "Katelyn Cole professional piercer — curated ear and body piercing Las Vegas"
     ),
-    "jay-jay-artist-portfolio-authentic-masterpieces": (
-        "Jay Jay tattoo artist — realism portfolio Las Vegas"
-    ),
     "expert-body-piercing-services-las-vegas-luxury-jewelry": (
         "Body piercing Las Vegas with luxury quality starter jewelry"
     ),

@@ -47,10 +47,10 @@ GEO_VISUALS: dict[str, tuple[tuple[str, str], ...]] = {
 GEO_META_DESCRIPTIONS: dict[str, str] = {
     "tattoo_shop_near_mgm_grand_las_vegas": "From MGM Grand, route east on Tropicana to 2375 E. Tropicana Ave, Suite 3; use the studio address instead of a casino valet pin.",
     "tattoo_shop_near_allegiant_stadium_las_vegas": "From Allegiant Stadium or Mandalay Bay, plan the Tropicana ride before event traffic and arrive sober with time for setup.",
-    "tattoo_shop_near_las_vegas_airport": "From Harry Reid terminals, stay on the Tropicana route toward 2375 E. Tropicana Ave and leave room for flight timing.",
-    "tattoo_shop_near_the_sphere_las_vegas": "From The Sphere, Venetian, Wynn, or the north Strip, rideshare to 2375 E. Tropicana Ave before show traffic builds.",
+    "tattoo_shop_near_las_vegas_airport": "From Harry Reid terminals, stay on the Tropicana route toward 2375 E. Tropicana Ave, Suite 3 and leave room for flight timing.",
+    "tattoo_shop_near_the_sphere_las_vegas": "From The Sphere, Venetian, Wynn, or the north Strip, rideshare to 2375 E. Tropicana Ave, Suite 3 before show traffic builds.",
     "tattoo_shop_paradise_nevada": "Paradise clients can find Work of Art on E. Tropicana between Maryland Parkway and Eastern, with one real studio address.",
-    "tattoo_shop_spring_valley_las_vegas": "From Spring Valley, compare Tropicana, Flamingo, and I-215 before leaving; use the studio lot at 2375 E. Tropicana Ave.",
+    "tattoo_shop_spring_valley_las_vegas": "From Spring Valley, compare Tropicana, Flamingo, and I-215 before leaving; use the studio lot at 2375 E. Tropicana Ave, Suite 3.",
     "tattoo_shop_serving_henderson_nevada": "Henderson clients can plan the Tropicana studio drive around Green Valley, Eastern, or I-215 depending on session timing.",
 }
 

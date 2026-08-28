@@ -53,7 +53,6 @@ SKIP_DIR_SUFFIXES = (
     "fine_line",
     "best_",
     "realism_tattoos",
-    "jay_jay",
 )
 SKIP_NAMES = frozenset(
     {
@@ -63,7 +62,6 @@ SKIP_NAMES = frozenset(
         "reviews-vault-100-verified-masterpieces-las-vegas.png",
         "review-funnel-google-authority-hub.png",
         "google-review-qr-code-nfc-sign-work-of-art-tattoo.png",
-        "jay-jay-artist-portfolio-authentic-masterpieces-las-vegas.png",
         "realism-tattoos-las-vegas-master-authority-guide.png",
         "work-of-art-logo.png",
     }
@@ -73,7 +71,6 @@ SKIP_STEMS = frozenset(
         "realism-tattoos-las-vegas-master-authority-guide",
         "reviews-vault-100-verified-masterpieces-las-vegas",
         "review-funnel-google-authority-hub",
-        "jay-jay-artist-portfolio-authentic-masterpieces-las-vegas",
         "custom-tattoos-las-vegas-epic-snake-black-and-grey-realism",
     }
 )

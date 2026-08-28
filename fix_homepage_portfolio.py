@@ -274,8 +274,8 @@ def showcase_grid_html() -> str:
 
 
 def artist_cards_html() -> str:
-    josh = resolve_asset("joshua-cole-tattooing-portrait-las-vegas")
-    kat = resolve_asset("katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas")
+    josh = resolve_asset("joshua-cole-portrait-las-vegas")
+    kat = resolve_asset("katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas") or resolve_asset("katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas")
     ter = resolve_asset("teralyn-fine-line-tattoo-artist-las-vegas")
     if not (josh and kat and ter):
         raise SystemExit("Missing artist portrait assets")

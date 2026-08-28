@@ -17,7 +17,7 @@ END = "<!-- WOA_AVAILABILITY_URGENCY_END -->"
 BLOCK = f"""{START}
 <section aria-label="Today's availability" class="woa-availability-urgency px-margin-mobile md:px-margin-desktop py-4 bg-surface-container border-b border-outline-variant/30" data-woa-availability="1">
 <div class="max-w-3xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-<p class="font-body-md text-on-surface m-0"><strong class="text-secondary">Availability:</strong> Katelyn — piercing daily 3 PM–9 PM · Joshua — tattoo availability by request</p>
+<p class="font-body-md text-on-surface m-0"><strong class="text-secondary">Availability:</strong> Katelyn — piercing during regular shop hours · Joshua — tattoo availability by request</p>
 <a class="inline-flex shrink-0 bg-secondary text-on-secondary px-6 py-2.5 font-label-caps text-[11px] tracking-widest uppercase hover:bg-secondary-fixed transition-colors" href="{STUDIO_PHONE_TEL}">Text for availability · {STUDIO_PHONE_PARENS}</a>
 </div>
 </section>

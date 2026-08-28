@@ -27,7 +27,7 @@ GALLERY_SHELL = """<!-- Portfolio Showcase Section -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter max-w-3xl mx-auto">
 <a class="group text-center" href="/artists/joshua-cole/">
 <div class="aspect-[3/4] bg-surface-container mb-4 overflow-hidden relative border border-outline-variant/30">
-<picture><source srcset="/artists/joshua-cole/joshua-cole-tattooing-portrait-las-vegas.webp" type="image/webp"/><img width="800" height="1067" alt="Joshua Cole — Work of Art Las Vegas" class="w-full h-full object-cover object-top" decoding="async" loading="lazy" src="/artists/joshua-cole/joshua-cole-tattooing-portrait-las-vegas.png"/></picture>
+<picture><source srcset="/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp" type="image/webp"/><img width="800" height="1067" alt="Joshua Cole — Work of Art Las Vegas" class="w-full h-full object-cover object-top" decoding="async" loading="lazy" src="/artists/joshua-cole/joshua-cole-portrait-las-vegas.png"/></picture>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface">Joshua Cole</span>
 </a>

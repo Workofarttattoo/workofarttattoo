@@ -12,14 +12,14 @@
 
 ## Roster (current)
 
-- **In-studio:** 3 — Joshua Cole (tattoo & piercing; studio lead, trains the team), Katelyn Cole / Katie Cole (piercing), Teralyn (tattoo and female piercing team)
+- **In-studio:** 3 — Joshua Cole (tattoo and piercing, studio lead), Katelyn Cole / Katie Cole (piercing), Teralyn (tattoo artist and piercer)
 - **Mentored alumni:** 7+ artists trained here; not current headcount
 
 ## Artist specialties
 
 - **Joshua Cole:** black & grey realism, portraiture, micro-realism, color realism / color realistic imagery, blackwork, large custom work, and tattoo/piercing consults.
 - **Katelyn Cole / Katie Cole:** body piercing, ear curation, jewelry fit, and anatomy-first piercing consults.
-- **Teralyn:** Instagram [@mischiefmodifies](https://www.instagram.com/mischiefmodifies/); award-winning fineline floral work, fine line, script, custom drawings by commission, smaller images, and high-detail small tattoos. She is also part of the female piercing team with Katelyn Cole.
+- **Teralyn:** Instagram [@mischiefmodifies](https://www.instagram.com/mischiefmodifies/); tattoo artist and piercer; fineline floral work, fine line, script, custom drawings by commission, smaller images, and high-detail small tattoos.
 
 ## Hours
 

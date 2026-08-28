@@ -13,7 +13,7 @@ This document lists the definitive, production-ready screens for your GitHub and
 ## 2. Artist Portfolios
 - **Joshua Cole (Master Portfolio)**: {{DATA:SCREEN:SCREEN_256}} (Joshua Cole - Masterpiece Wall Consistently Unique)
 - **Katelyn Cole (Professional Piercer)**: {{DATA:SCREEN:SCREEN_135}} (Katelyn Cole - Professional Piercer & Ear Curation (Authentic Portrait))
-- **Jay Jay (Realism & Late-Night)**: {{DATA:SCREEN:SCREEN_240}} (Jay Jay - Artist Portfolio & Late-Night Walk-Ins)
+- **Teralyn (Fine Line, Flash & Piercing)**: canonical profile at `/artists/teralyn/`
 
 ## 3. Trust & Utility Pages
 - **Reviews Vault**: {{DATA:SCREEN:SCREEN_277}} (Reviews Vault - 100 Verified Masterpieces)
