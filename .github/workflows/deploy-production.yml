@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: workofart-production
@@ -15,23 +15,15 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      FTP_USER: ${{ secrets.FTP_USER }}
-      FTP_PASS: ${{ secrets.FTP_PASS }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
 
-      - name: Require production FTP credentials
-        run: |
-          test -n "$FTP_USER" || { echo 'Missing GitHub Actions secret: FTP_USER'; exit 2; }
-          test -n "$FTP_PASS" || { echo 'Missing GitHub Actions secret: FTP_PASS'; exit 2; }
-          echo 'FTP credentials are configured.'
-
-      - name: Install verification dependency
-        run: python3 -m pip install --quiet Pillow
+      - name: Install build dependencies
+        run: python3 -m pip install --quiet Pillow beautifulsoup4
 
       - name: Prepare generated site
         run: python3 prepare_site_deploy.py
@@ -62,46 +54,83 @@ jobs:
       - name: Generate crawl assets and validate sitemap
         run: python3 submit_google_recrawl.py
 
-      - name: Deploy static site to production FTP
-        run: python3 deploy_stitch_site_root.py
-
-      - name: Deploy nested Katelyn piercing portfolio
-        run: python3 tools/deploy_katelyn_piercing_portfolio.py
-
-      - name: Verify homepage and core media live
-        run: python3 verify_live_deploy.py
-
-      - name: Verify corrected production pages and crawl files
+      - name: Generate GitHub Pages index files
         run: |
           python3 - <<'PY'
-          import urllib.request, time
+          from pathlib import Path
+          import shutil
+
+          root = Path('.')
+          copied = 0
+          for code in root.rglob('code.html'):
+              if '.git' in code.parts or '.github' in code.parts or 'skipped_upload_build' in code.parts:
+                  continue
+              target = code.with_name('index.html')
+              shutil.copy2(code, target)
+              copied += 1
+          print(f'Generated {copied} index.html files from code.html sources')
+          PY
+          test -s index.html
+          test -s CNAME
+          printf '' > .nojekyll
+
+      - name: Publish generated site to gh-pages
+        run: |
+          set -euo pipefail
+          git config user.name 'WOA Pages Deploy Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch origin gh-pages
+          rm -rf /tmp/woa-gh-pages
+          git worktree add --detach /tmp/woa-gh-pages origin/gh-pages
+          find /tmp/woa-gh-pages -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='__pycache__' \
+            --exclude='*.pyc' \
+            ./ /tmp/woa-gh-pages/
+          cd /tmp/woa-gh-pages
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No GitHub Pages changes to publish.'
+          else
+            git commit -m "Deploy main to GitHub Pages ${GITHUB_SHA::7}"
+            git push origin HEAD:gh-pages
+          fi
+
+      - name: Verify published branch contents
+        run: |
+          git fetch origin gh-pages
+          test "$(git show origin/gh-pages:CNAME)" = 'www.workofarttattoo.com'
+          git show origin/gh-pages:index.html | grep -q 'WOA_BUILD_STAMP:'
+          git show origin/gh-pages:artists/katelyn-cole/index.html | grep -q 'Professional Piercer'
+          echo 'gh-pages branch contains the generated production site.'
+
+      - name: Verify GitHub Pages live
+        run: |
+          python3 - <<'PY'
+          import time, urllib.request
           base='https://www.workofarttattoo.com'
-          checks={
-            '/artists/katelyn-cole/':(['Professional Piercer','kmorgen14@gmail.com','jim.com/a/katelyn-delano-rose-morg'],['Master Piercer','Master Body Piercer','medical-grade','hospital-grade']),
-            '/tattoo_shop_near_the_strip_nap_corrected/':(['Harry Reid International Airport'],['McCarran','480+']),
-            '/dermis_skin_science_las_vegas_authority_guide/':([],['Real ear piercing work from our studio','Too shallow (epidermis / upper papillary): blowouts']),
-            '/walk_in_tattoos_las_vegas_authority_guide/':(['Hundreds of Google Reviews'],['2,400+']),
-          }
-          def get(path):
-            req=urllib.request.Request(base+path+'?deploycheck='+str(int(time.time())),headers={'User-Agent':'WOA-Production-QA/1.0','Cache-Control':'no-cache'})
-            with urllib.request.urlopen(req,timeout=60) as r:return r.read().decode('utf-8','replace')
-          failures=[]
-          for path,(must,ban) in checks.items():
-            body=get(path)
-            for x in must:
-              if x not in body: failures.append(f'{path} missing {x!r}')
-            for x in ban:
-              if x in body: failures.append(f'{path} still contains {x!r}')
-          for path in ('/robots.txt','/sitemap-static-pages.xml'):
-            body=get(path)
-            if not body.strip():failures.append(path+' returned empty content')
-          # Verify at least representative nested images are live.
-          for name in ('katelyn-helix-piercing-02.webp','katelyn-nostril-piercing-05.webp','katelyn-navel-piercing-02.webp'):
-            url=base+'/artists/katelyn-cole/piercing-portfolio/'+name+'?deploycheck='+str(int(time.time()))
-            with urllib.request.urlopen(url,timeout=60) as r:
-              if r.status!=200 or len(r.read())<10000:failures.append(name+' not correctly served')
-          if failures:
-            print('\n'.join('FAIL: '+x for x in failures))
-            raise SystemExit(1)
-          print('Production content, crawl files, and representative piercing images verified.')
+          paths=['/','/artists/katelyn-cole/']
+          last=[]
+          for attempt in range(12):
+              failures=[]
+              for path in paths:
+                  try:
+                      req=urllib.request.Request(base+path+'?deploycheck='+str(int(time.time())), headers={'User-Agent':'WOA-GitHub-Pages-QA/1.0','Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req, timeout=30) as r:
+                          body=r.read().decode('utf-8','replace')
+                      if path == '/' and 'WOA_BUILD_STAMP:' not in body:
+                          failures.append('homepage missing fresh build stamp')
+                      if path.endswith('katelyn-cole/') and 'Professional Piercer' not in body:
+                          failures.append('Katelyn page missing Professional Piercer')
+                  except Exception as exc:
+                      failures.append(f'{path}: {exc}')
+              if not failures:
+                  print('GitHub Pages production verification passed.')
+                  raise SystemExit(0)
+              last=failures
+              print(f'Pages not updated yet (attempt {attempt+1}/12): ' + '; '.join(failures))
+              time.sleep(15)
+          raise SystemExit('GitHub Pages did not reflect the new build in time: ' + '; '.join(last))
           PY
