@@ -11,7 +11,7 @@
 
 ## Roster (current)
 
-- **In-studio:** 3 — Joshua Cole (tattoo & piercing; studio lead, trains the team), Jay Jay (tattoo), Katelyn Cole (piercing)
+- **In-studio:** 3 — Joshua Cole (tattoo & piercing; studio lead, trains the team), Joshua Cole (tattoo), Katelyn Cole (piercing)
 - **Mentored alumni:** 7+ artists trained here; not current headcount
 
 ## Hours
