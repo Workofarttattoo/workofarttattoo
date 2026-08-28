@@ -2,3 +2,7 @@
 __pycache__/
 *.pyc
 .claude/settings.local.json
+
+# Local recovery bundles — do not publish to GitHub Pages
+*.bundle
+workofarttattoo-reconciled-*.bundle
