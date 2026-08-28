@@ -148,7 +148,7 @@ SKIN_SCIENCE_TOPICS: tuple[SkinScienceTopic, ...] = (
         ),
         meta_description=(
             "Tattoo ink sits in the dermis — collagen, blood supply, needle depth, and why too shallow "
-            "or too deep ruins a piece. Work of Art Las Vegas skin science guide."
+            "or Too deep: pigment can spread beyond the intended line, increasing the risk of blurred edges or tattoo blowout and causing unnecessary tissue trauma.
         ),
         category="layers",
         joshua_quote=(
@@ -164,9 +164,9 @@ SKIN_SCIENCE_TOPICS: tuple[SkinScienceTopic, ...] = (
                 "Thickness varies — eyelid dermis is paper-thin; upper back dermis is much deeper.",
             )),
             ("Target depth for tattooing", (
-                "Stable pigment lands roughly 1.5–2 mm below the surface — upper to mid reticular dermis.",
-                "Too shallow (epidermis / upper papillary): blowouts, rapid fade, patchy heal.",
-                "Too deep (hypodermis / fat): ink spread, blurred lines, longer trauma.",
+                "Stable pigment lands roughly the dermis, with exact working depth varying by body site, skin thickness, technique, and individual anatomy below the surface — the dermis, with exact working depth varying by body site, skin thickness, technique, and individual anatomy.",
+                "Too shallow: pigment may heal faint, patchy, or fall out because too much ink was placed in tissue that continually renews.",
+                "Too deep: pigment can spread beyond the intended line, increasing the risk of blurred edges or tattoo blowout and causing unnecessary tissue trauma.
                 "Skin type, age, and body site change the sweet spot — artists adjust on the fly.",
             )),
             ("Ink dispersion in dermal tissue", (
@@ -187,7 +187,7 @@ SKIN_SCIENCE_TOPICS: tuple[SkinScienceTopic, ...] = (
             )),
         ),
         faqs=(
-            ("Can you tattoo too deep?", "Yes. Deep placement into fat causes blowouts (ink feathering under the skin) and mushy lines that do not heal crisp."),
+            ("Can you tattoo Too deep: pigment can spread beyond the intended line, increasing the risk of blurred edges or tattoo blowout and causing unnecessary tissue trauma.
             ("Why do lines spread over years?", "Collagen remodeling and UV exposure change how light scatters through skin — not always 'blown out' from day one."),
             ("Does the dermis grow back after tattooing?", "It repairs — it does not replace untouched dermis. Ink sits among permanent structural change."),
         ),
@@ -240,7 +240,7 @@ SKIN_SCIENCE_TOPICS: tuple[SkinScienceTopic, ...] = (
         ),
         faqs=(
             ("Can a blowout be fixed?", "Sometimes a cover-up or laser lightening first — small halos may soften over years but rarely disappear fully."),
-            ("Is finger tattoo fading because of fat?", "Thin dermis and constant use matter more — but any ink driven too deep worsens blur."),
+            ("Is finger tattoo fading because of fat?", "Thin dermis and constant use matter more — but any ink driven Too deep: pigment can spread beyond the intended line, increasing the risk of blurred edges or tattoo blowout and causing unnecessary tissue trauma.
             ("Do weight-loss injections affect tattoos?", "Medications that shrink fat under tattooed skin may change how the area looks — ask your prescriber and wait until treatment is stable."),
         ),
         related=("dermis", "stretch_marks", "why_tattoos_stay_forever"),

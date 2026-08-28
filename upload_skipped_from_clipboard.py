@@ -84,7 +84,7 @@ def classify(chunk: str) -> str | None:
 
 
 def prepare_html(slug: str, html: str) -> bytes:
-    html = UNSUPPORTED_WALKIN_LABEL_RE.sub("323 GOOGLE REVIEWS, 5.0 RATING", html)
+    html = UNSUPPORTED_WALKIN_LABEL_RE.sub("hundreds of Google reviews, 5.0 RATING", html)
     if slug == "how_to_choose_a_tattoo_artist_master_selection_guide_1":
         html = fix_stitch_placeholders(html)
         html = strip_article_p_apply(html)

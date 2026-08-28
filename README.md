@@ -4,27 +4,29 @@ This repository contains the source code and deployment scripts for the [Work of
 
 ## Deployment
 
-To push all changes and pages to the live site, use the master deployment script. This script performs SEO optimizations on all HTML files and uploads core pages, artist portfolios, and authority guides via FTP.
+Production is deployed from GitHub. Push reconciled source changes to `main`; the `Deploy Work of Art Production` GitHub Actions workflow rebuilds the static site, generates `index.html` files from `code.html`, publishes the result to `gh-pages`, and verifies the live pages.
 
 ### Command
 
 Run the following command from the repository root:
 
 ```bash
-FTP_USER=your_ftp_username FTP_PASS=your_password python3 seo_rewrite_image_alts.py --deploy
+python3 prepare_site_deploy.py
+git add -A
+git commit -m "Update production site"
+git push origin HEAD:main
 ```
 
 ### Prerequisites
 
-1. **FTP Credentials**: You must set `FTP_USER` and `FTP_PASS` as environment variables.
-2. **Python Dependencies**: The deployment scripts require `beautifulsoup4`.
+1. **GitHub access**: You must be able to push to `main`.
+2. **Python dependencies**: The deployment scripts require `beautifulsoup4` and `Pillow`.
    ```bash
-   pip install beautifulsoup4
+   pip install beautifulsoup4 Pillow
    ```
 
 ## Script Overview
 
-- `seo_rewrite_image_alts.py --deploy`: Master script that runs SEO checks and orchestrates the full deployment.
-- `deploy_stitch_site_root.py`: Handles the main site structure and homepage.
-- `upload_artists_portfolios.py`: Deploys artist-specific pages.
-- `upload_skipped_from_clipboard.py`: Handles additional SEO guides.
+- `prepare_site_deploy.py`: Regenerates homepage, artist pages, SEO pages, schema, analytics snippets, and visual-intent repairs before a push.
+- `.github/workflows/deploy-production.yml`: Rebuilds `main`, applies final QA cleanup, copies `code.html` pages to `index.html`, and publishes to `gh-pages`.
+- `tools/a_plus_cleanup.py` and `tools/a_plus_claims_cleanup.py`: Final factual and claim-safety guards used by the production workflow.

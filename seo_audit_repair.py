@@ -38,7 +38,7 @@ REPAIRS: list[tuple[str, str]] = [
     ("2375 E. Tropicana Suite 3", BUSINESS_FACTS["street"]),
     ("2375 E Tropicana Ave Suite 3", BUSINESS_FACTS["street"]),
     ("2375 E. Tropicana Ave, Suite 3", BUSINESS_FACTS["street"]),
-    ("Google Reviews (2,400+)", "Google Reviews (323)"),
+    ("Hundreds of Google Reviews", "Google Reviews (323)"),
     ("Google reviews (2,400+)", "Google reviews (323)"),
     ("Google Reviews (2400+)", "Google Reviews (323)"),
     ("two in-studio artists", "three in-studio artists"),

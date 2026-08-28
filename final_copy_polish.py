@@ -43,7 +43,7 @@ STICKY_LINK_RE = re.compile(
 
 
 def polish_text(html: str) -> str:
-    html = UNSUPPORTED_WALKIN_LABEL_RE.sub("323 GOOGLE REVIEWS, 5.0 RATING", html)
+    html = UNSUPPORTED_WALKIN_LABEL_RE.sub("hundreds of Google reviews, 5.0 RATING", html)
     for old, new in REPLACEMENTS:
         html = html.replace(old, new)
     return html

@@ -29,7 +29,7 @@ Expanded the location/landmark guide system through the existing geo-page genera
 ## Existing Local Pages Updated
 
 - MGM Grand, Allegiant Stadium, Harry Reid Airport, Sphere, Paradise, Spring Valley, Enterprise, and Green Valley/Henderson pages were regenerated through the same source model.
-- Airport naming now uses Harry Reid International Airport, with one intentional legacy reference: "formerly McCarran International Airport."
+- Airport naming now uses Harry Reid International Airport, with one intentional legacy reference: "formerly Harry Reid International Airport."
 - Green Valley/Henderson now points to a separate broader Henderson guide, reducing overlap.
 
 ## Entity And Trust Cleanup

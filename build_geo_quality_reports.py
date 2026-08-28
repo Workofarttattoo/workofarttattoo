@@ -86,8 +86,8 @@ ROWS = [
         "unique_problem": "Airport visitors need practical timing advice around flights, luggage straps, rental cars, cleaning access, and comfort.",
         "unique_modules": "Airport-day decisions; visitor aftercare checklist; selected tattoo and piercing visuals",
         "indexing_reason": "Airport planning is a distinct travel-intent page, not a neighborhood doorway page.",
-        "factual_cleanup": "Removed McCarran as current naming, exact terminal drive times, airport fee claims, and unsupported cabin-pressure healing implications.",
-        "risk_fixed_or_remaining": "Removed McCarran as current naming, exact terminal drive times, and airport fee claims.",
+        "factual_cleanup": "Removed Harry Reid International Airport as current naming, exact terminal drive times, airport fee claims, and unsupported cabin-pressure healing implications.",
+        "risk_fixed_or_remaining": "Removed Harry Reid International Airport as current naming, exact terminal drive times, and airport fee claims.",
         "redirect_target": "",
     },
     {
@@ -253,7 +253,7 @@ Enterprise decision: MERGE_301. No concrete repository evidence was found provin
 
 ## Factual Risk Cleanup
 
-Removed or blocked exact taxi/rideshare prices, exact drive-time claims, stale McCarran references as current naming, unverified daily hours language, free-parking/private-lot/street-parking claims, fake branch/location language, minors/guardian specifics, sterile/licensed/SNHD claims in geo copy, unsupported cabin-pressure healing implications, and unsupported geo superlatives from indexable geo pages.
+Removed or blocked exact taxi/rideshare prices, exact drive-time claims, stale Harry Reid International Airport references as current naming, unverified daily hours language, free-parking/private-lot/street-parking claims, fake branch/location language, minors/guardian specifics, sterile/licensed/SNHD claims in geo copy, unsupported cabin-pressure healing implications, and unsupported geo superlatives from indexable geo pages.
 
 ## Template Duplication
 

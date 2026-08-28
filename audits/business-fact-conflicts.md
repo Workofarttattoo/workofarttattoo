@@ -8,7 +8,7 @@ Generated: 2026-08-21T14:22:33
 - Address: 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
 - Phone: (725) 224-1240
 - Email: thewhiteknight702@gmail.com
-- Google rating/reviews: 5.0 stars, 323 reviews
+- Google rating/reviews: 5.0 stars, hundreds of Google reviews
 - Resident artist count: 3
 
 ## Business Fact Mismatches

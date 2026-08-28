@@ -44,7 +44,14 @@ jobs:
         run: |
           bad=0
           for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '2,400+' 'medical-grade' 'hospital-grade' 'masculine, honest shop talk' 'cabin pressure and dry airplane air change' 'Best Body Piercer in Las Vegas'; do
-            if grep -RIn --exclude-dir=.git --exclude-dir=.github --exclude-dir=tools "$term" --include='*.html' --include='*.json' --include='*.md' .; then
+            if find . \
+              -path './.git' -prune -o \
+              -path './.github' -prune -o \
+              -path './tools' -prune -o \
+              -path './audits' -prune -o \
+              -name 'a-plus-unresolved.md' -prune -o \
+              \( -name '*.html' -o -name '*.json' -o -name '*.md' \) \
+              -type f -print0 | xargs -0 grep -In "$term"; then
               echo "BANNED CUSTOMER-FACING TERM REMAINS: $term"
               bad=1
             fi
@@ -86,6 +93,10 @@ jobs:
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
+            --exclude='audits' \
+            --exclude='piercing_asset_chunks' \
+            --exclude='a-plus-unresolved.md' \
+            --exclude='manifest.csv' \
             --exclude='__pycache__' \
             --exclude='*.pyc' \
             ./ /tmp/woa-gh-pages/

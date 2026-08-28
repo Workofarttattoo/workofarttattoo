@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Regenerate all static HTML/assets before FTP deploy.
+"""Regenerate all static HTML/assets before GitHub Pages deploy.
 
-Run this immediately before deploy_stitch_site_root.py so production receives
-the interview section, video cards, and restored Katelyn portrait — not stale exports.
+Run this before committing/pushing to main. The GitHub Actions production
+workflow regenerates the site again, creates index.html files, and publishes
+the result to the gh-pages branch.
 """
 
 from __future__ import annotations
@@ -185,9 +186,9 @@ def main() -> int:
     verify_homepage()
 
     print(
-        "\nReady to deploy. Next:\n"
-        "  FTP_USER='...' FTP_PASS='...' python3 deploy_stitch_site_root.py\n"
-        "Then hard-refresh the site (Cmd+Shift+R) and View Source for WOA_BUILD_STAMP."
+        "\nReady for GitHub Pages deploy. Next:\n"
+        "  git push origin HEAD:main\n"
+        "GitHub Actions will build main, publish gh-pages, and verify WOA_BUILD_STAMP."
     )
     return 0
 

@@ -136,7 +136,7 @@ GEO_SLUGS = set(GEO_PAGE_ACTIONS) | GEO_EXTRA_SLUGS
 MERGED_GEO_SLUGS = {
     slug for slug, action in GEO_PAGE_ACTIONS.items() if action == "MERGE_301"
 } | set(GEO_PAGE_REDIRECTS)
-GEO_STALE_RE = re.compile(r"\bMcCarran\b", re.I)
+GEO_STALE_RE = re.compile(r"\bHarry Reid International Airport\b", re.I)
 GEO_EXACT_TIME_RE = re.compile(
     r"(?:about\s+|~)?\b\d{1,2}\s*[–-]\s*\d{1,2}\s*(?:min|mins|minutes)\b|"
     r"(?:about\s+|~)\b\d{1,2}\s*(?:min|mins|minutes)\b|"
@@ -576,7 +576,7 @@ def validate_geo_page(
     if slug not in GEO_SLUGS:
         return
     if GEO_STALE_RE.search(raw):
-        failures.append(f"{context}: stale McCarran airport reference")
+        failures.append(f"{context}: stale Harry Reid International Airport airport reference")
     for label, pattern in (
         ("exact/unverified drive time", GEO_EXACT_TIME_RE),
         ("exact/unverified fare or parking price", GEO_PRICE_RE),

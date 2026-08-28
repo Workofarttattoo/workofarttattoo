@@ -55,7 +55,7 @@ Enterprise decision: MERGE_301. No concrete repository evidence was found provin
 - Unique problem: Airport visitors need practical timing advice around flights, luggage straps, rental cars, cleaning access, and comfort.
 - Unique modules: Airport-day decisions; visitor aftercare checklist; selected tattoo and piercing visuals
 - Why it deserves indexing: Airport planning is a distinct travel-intent page, not a neighborhood doorway page.
-- Factual claims removed/softened: Removed McCarran as current naming, exact terminal drive times, airport fee claims, and unsupported cabin-pressure healing implications.
+- Factual claims removed/softened: Removed Harry Reid International Airport as current naming, exact terminal drive times, airport fee claims, and unsupported cabin-pressure healing implications.
 ### `/tattoo_shop_paradise_nevada/`
 - Target intent: Clarify the actual locality around Work of Art's E. Tropicana studio.
 - Unique problem: Maps and local entities often describe this part of Las Vegas as Paradise, so users need clear address/locality context.
@@ -89,7 +89,7 @@ Enterprise decision: MERGE_301. No concrete repository evidence was found provin
 
 ## Factual Risk Cleanup
 
-Removed or blocked exact taxi/rideshare prices, exact drive-time claims, stale McCarran references as current naming, unverified daily hours language, free-parking/private-lot/street-parking claims, fake branch/location language, minors/guardian specifics, sterile/licensed/SNHD claims in geo copy, unsupported cabin-pressure healing implications, and unsupported geo superlatives from indexable geo pages.
+Removed or blocked exact taxi/rideshare prices, exact drive-time claims, stale Harry Reid International Airport references as current naming, unverified daily hours language, free-parking/private-lot/street-parking claims, fake branch/location language, minors/guardian specifics, sterile/licensed/SNHD claims in geo copy, unsupported cabin-pressure healing implications, and unsupported geo superlatives from indexable geo pages.
 
 ## Template Duplication
 
