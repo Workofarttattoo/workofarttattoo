@@ -46,11 +46,31 @@ jobs:
                   dst.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copy2(src, dst)
 
-          home = Path('home_work_of_art_tattoo_piercing/code.html')
-          if home.is_file():
-              shutil.copy2(home, 'index.html')
+          # Never let a thinner home export overwrite the studio banner homepage.
+          candidates = [
+              Path('code.html'),
+              Path('index.html'),
+              Path('home_work_of_art_tattoo_piercing/code.html'),
+          ]
+          home_src = None
+          for candidate in candidates:
+              if not candidate.is_file():
+                  continue
+              text = candidate.read_text(encoding='utf-8', errors='replace')
+              if '<<<<<<<' in text:
+                  raise SystemExit(f'Conflict markers in homepage candidate: {candidate}')
+              if 'woa-hero-banner' in text and 'work-of-art-studio-banner-las-vegas' in text:
+                  home_src = candidate
+                  break
+          if home_src is None:
+              raise SystemExit('No homepage source with studio banner (woa-hero-banner) found')
+          shutil.copy2(home_src, 'index.html')
+          print(f'Homepage source: {home_src}')
           PY
           test -s index.html
+          grep -q 'woa-hero-banner' index.html
+          grep -q 'work-of-art-studio-banner-las-vegas' index.html
+          ! grep -q '<<<<<<<' index.html
           test -s CNAME
           printf '' > .nojekyll
           printf '%s\n' "$GITHUB_SHA" > DEPLOYED_MAIN_SHA
@@ -68,6 +88,8 @@ jobs:
             --exclude='.github' \
             --exclude='__pycache__' \
             --exclude='*.pyc' \
+            --exclude='*.bundle' \
+            --exclude='workofarttattoo-reconciled-*.bundle' \
             ./ /tmp/woa-gh-pages/
 
       - name: Audit final production tree
@@ -166,7 +188,7 @@ jobs:
           base = 'https://www.workofarttattoo.com'
           expected = os.environ['GITHUB_SHA']
           critical = {
-              '/': None,
+              '/': 'woa-hero-banner',
               '/appointments/': None,
               '/artists/katelyn-cole/': 'Professional',
               '/artists/joshua-cole/': None,
