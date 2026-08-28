@@ -1,6 +1,6 @@
 # Final Site Export Manifest: Work of Art Tattoo & Piercing
 
-This document lists the definitive, production-ready screens for your GitHub and Bluehost deployment. All screens listed below have been optimized for SEO, NAP consistency, and performance.
+This document lists the definitive, production-ready screens for GitHub Pages deployment. All screens listed below have been optimized for SEO, NAP consistency, and performance.
 
 ## 1. Core Site Structure
 - **Index (Home)**: {{DATA:SCREEN:SCREEN_244}} (Home - $50 Custom Tattoo Value Prop)
@@ -33,12 +33,11 @@ This document lists the definitive, production-ready screens for your GitHub and
 
 ## 5. Deployment Instructions
 
-### GitHub Pages (Staging)
-1. Push these files to a public or private repository.
-2. Enable GitHub Pages in settings.
-3. Point your Bluehost domain to GitHub via CNAME or A-records for testing.
+### GitHub Pages (live production)
 
-### Bluehost (Live .com)
-- **Protocol**: Since these are high-fidelity HTML/CSS files, you can upload them directly to your `public_html` folder using Bluehost's File Manager or FTP (FileZilla).
-- **SEO Assets**: All image alt-text and metadata are embedded in the code.
-- **Form Routing**: The Appointment forms are configured to route inquiries to booking@workofarttattoo.com.
+1. Merge reviewed changes to `main`.
+2. GitHub Actions **Deploy Work of Art Production** publishes to `gh-pages`.
+3. Custom domain `www.workofarttattoo.com` is set via repo `CNAME` and DNS records that point at GitHub Pages.
+4. Bluehost is **not** used for hosting or FTP upload — registrar / name ownership only if the domain remains there.
+
+Appointment forms route to `booking@workofarttattoo.com`.

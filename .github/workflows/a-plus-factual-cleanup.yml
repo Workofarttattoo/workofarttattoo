@@ -44,12 +44,13 @@ jobs:
           find . -type d -name '__pycache__' -prune -exec rm -rf {} +
           find . -type f -name '*.pyc' -delete
 
-      - name: Check deployment secrets without exposing them
-        env:
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
+      - name: Confirm production hosting path
         run: |
-          if [ -n "$FTP_USER" ] && [ -n "$FTP_PASS" ]; then echo 'FTP deployment credentials are configured.'; else echo 'NOTICE: FTP deployment credentials are not configured in GitHub Actions yet. Cleanup QA will continue.'; fi
+          echo 'Production hosting is GitHub Pages via .github/workflows/deploy-production.yml (push/merge to main → gh-pages).'
+          echo 'Bluehost/FTP is not part of the live deploy path.'
+          test -f .github/workflows/deploy-production.yml
+          test -f CNAME
+          grep -q 'www.workofarttattoo.com' CNAME
 
       - name: Generate unresolved audit
         run: |
