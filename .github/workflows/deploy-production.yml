@@ -39,6 +39,7 @@ jobs:
           mappings = {
               Path('artists_build/katelyn-cole.html'): Path('artists/katelyn-cole/index.html'),
               Path('artists_build/joshua-cole.html'): Path('artists/joshua-cole/index.html'),
+              Path('artists_build/teralyn.html'): Path('artists/teralyn/index.html'),
           }
           for src, dst in mappings.items():
               if src.is_file():
@@ -83,8 +84,12 @@ jobs:
               'appointments/index.html',
               'artists/katelyn-cole/index.html',
               'artists/joshua-cole/index.html',
+              'artists/teralyn/index.html',
               'cover-up-tattoos-las-vegas/index.html',
               'merchandise/index.html',
+              'privacy-policy/index.html',
+              'terms-of-service/index.html',
+              'studio-rules/index.html',
               'fine_line_tattoos_las_vegas_master_authority_guide/index.html',
               'best_tattoo_styles_for_sleeves_large_scale_project_hub/index.html',
               'sitemap-static-pages.xml',
@@ -147,6 +152,10 @@ jobs:
           git show origin/gh-pages:artists/katelyn-cole/index.html | grep -q 'Professional'
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
           git show origin/gh-pages:merchandise/index.html | grep -Eiq 'Merchandise|Original art'
+          git cat-file -e origin/gh-pages:privacy-policy/index.html
+          git cat-file -e origin/gh-pages:terms-of-service/index.html
+          git cat-file -e origin/gh-pages:studio-rules/index.html
+          git cat-file -e origin/gh-pages:artists/teralyn/index.html
           echo "gh-pages contains exact main marker $GITHUB_SHA"
 
       - name: Verify active website serves exact deployed main commit
@@ -161,8 +170,12 @@ jobs:
               '/appointments/': None,
               '/artists/katelyn-cole/': 'Professional',
               '/artists/joshua-cole/': None,
+              '/artists/teralyn/': 'Teralyn',
               '/cover-up-tattoos-las-vegas/': None,
               '/merchandise/': 'Merchandise',
+              '/privacy-policy/': 'Privacy',
+              '/terms-of-service/': 'Terms',
+              '/studio-rules/': 'Studio',
               '/fine_line_tattoos_las_vegas_master_authority_guide/': None,
               '/best_tattoo_styles_for_sleeves_large_scale_project_hub/': None,
               '/robots.txt': None,
