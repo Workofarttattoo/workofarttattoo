@@ -149,7 +149,7 @@ def main() -> int:
     user = os.environ.get("FTP_USER", "").strip()
     pw = os.environ.get("FTP_PASS", "").strip()
     if not user or not pw:
-        print("Set FTP_USER and FTP_PASS (e.g. tattoojosh@workofarttattoo.com).", file=sys.stderr)
+        print("Set FTP_USER and FTP_PASS (for example, your hosting FTP username).", file=sys.stderr)
         return 1
 
     kt_raw = args.katelyn_file.read_text(encoding="utf-8", errors="strict")
@@ -180,8 +180,8 @@ def main() -> int:
 
     ftp.quit()
     print("Done.")
-    print("https://workofarttattoo.com/artists/katelyn-cole/")
-    print("https://workofarttattoo.com/artists/joshua-cole/")
+    print("https://www.workofarttattoo.com/artists/katelyn-cole/")
+    print("https://www.workofarttattoo.com/artists/joshua-cole/")
     return 0
 
 

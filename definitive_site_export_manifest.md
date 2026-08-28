@@ -1,6 +1,6 @@
 # Final Site Export Manifest: Work of Art Tattoo & Piercing
 
-This document lists the definitive, production-ready screens for GitHub Pages deployment. All screens listed below have been optimized for SEO, NAP consistency, and performance.
+This document lists the definitive, production-ready screens for your GitHub and Bluehost deployment. All screens listed below have been optimized for SEO, NAP consistency, and performance.
 
 ## 1. Core Site Structure
 - **Index (Home)**: {{DATA:SCREEN:SCREEN_244}} (Home - $50 Custom Tattoo Value Prop)
@@ -13,7 +13,7 @@ This document lists the definitive, production-ready screens for GitHub Pages de
 ## 2. Artist Portfolios
 - **Joshua Cole (Master Portfolio)**: {{DATA:SCREEN:SCREEN_256}} (Joshua Cole - Masterpiece Wall Consistently Unique)
 - **Katelyn Cole (Professional Piercer)**: {{DATA:SCREEN:SCREEN_135}} (Katelyn Cole - Professional Piercer & Ear Curation (Authentic Portrait))
-- **Joshua Cole (Realism & Late-Night)**: {{DATA:SCREEN:SCREEN_240}} (Joshua Cole - Artist Portfolio & Late-Night Walk-Ins)
+- **Teralyn (Fine Line, Flash & Piercing)**: canonical profile at `/artists/teralyn/`
 
 ## 3. Trust & Utility Pages
 - **Reviews Vault**: {{DATA:SCREEN:SCREEN_277}} (Reviews Vault - 100 Verified Masterpieces)
@@ -33,11 +33,12 @@ This document lists the definitive, production-ready screens for GitHub Pages de
 
 ## 5. Deployment Instructions
 
-### GitHub Pages (live production)
+### GitHub Pages (Staging)
+1. Push these files to a public or private repository.
+2. Enable GitHub Pages in settings.
+3. Point your Bluehost domain to GitHub via CNAME or A-records for testing.
 
-1. Merge reviewed changes to `main`.
-2. GitHub Actions **Deploy Work of Art Production** publishes to `gh-pages`.
-3. Custom domain `www.workofarttattoo.com` is set via repo `CNAME` and DNS records that point at GitHub Pages.
-4. Bluehost is **not** used for hosting or FTP upload — registrar / name ownership only if the domain remains there.
-
-Appointment forms route to `booking@workofarttattoo.com`.
+### Bluehost (Live .com)
+- **Protocol**: Since these are high-fidelity HTML/CSS files, you can upload them directly to your `public_html` folder using Bluehost's File Manager or FTP (FileZilla).
+- **SEO Assets**: All image alt-text and metadata are embedded in the code.
+- **Form Routing**: The Appointment forms are configured to route inquiries to thewhiteknight702@gmail.com.

@@ -38,8 +38,7 @@ SPARKLE_SCRIPT = """<script data-woa-sparkle-cursor="1" type="text/javascript">
   document.addEventListener(
     "mousemove",
     function (e) {
-      dot.style.left = e.clientX - 11 + "px";
-      dot.style.top = e.clientY - 11 + "px";
+      dot.style.transform = "translate3d(" + (e.clientX - 11) + "px, " + (e.clientY - 11) + "px, 0)";
 
       var now = performance.now();
       if (now - throttle < 45) return;
@@ -51,8 +50,8 @@ SPARKLE_SCRIPT = """<script data-woa-sparkle-cursor="1" type="text/javascript">
       var size = 4 + Math.random() * 6;
       spark.style.width = size + "px";
       spark.style.height = size + "px";
-      spark.style.left = e.clientX + "px";
-      spark.style.top = e.clientY + "px";
+      spark.style.setProperty("--sx", e.clientX - size / 2 + "px");
+      spark.style.setProperty("--sy", e.clientY - size / 2 + "px");
 
       var ang = Math.random() * Math.PI * 2;
       var dist = 20 + Math.random() * 38;
@@ -98,12 +97,18 @@ def sparkle_bundle_after_body() -> str:
     return SPARKLE_MARKUP
 
 
+def sparkle_css_present(html: str) -> bool:
+    if SPARKLE_CSS_HREF in html:
+        return True
+    return '@import url("woa-sparkle.css")' in html or "woa-home.css" in html
+
+
 def inject_sparkle_into_html(html: str) -> tuple[str, bool]:
     """Ensure sparkle CSS, cursor node, and script are present."""
     changed = False
     out = html
 
-    if SPARKLE_CSS_HREF not in out:
+    if not sparkle_css_present(out):
         head_close = out.find("</head>")
         if head_close >= 0:
             out = out[:head_close] + SPARKLE_LINK + out[head_close:]

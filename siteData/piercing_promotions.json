@@ -1,0 +1,54 @@
+[
+  {
+    "id": "nipple-piercing-45-jewelry-included-2026-08",
+    "name": "Nipple Piercing Special",
+    "slug": "piercing-specials-las-vegas",
+    "headline": "$45 nipple piercings with jewelry included",
+    "description": "From August 24, 2026 through September 25, 2026, Work of Art is featuring nipple piercings for $45 with starter jewelry included. Text or book online to confirm same-day availability, anatomy fit, age policy, and current piercer schedule before heading in.",
+    "startDate": "2026-08-24",
+    "endDate": "2026-09-25",
+    "status": "ACTIVE",
+    "discountType": "featured_price",
+    "discountValue": "45",
+    "displayPrice": "$45 jewelry included",
+    "eligiblePiercings": [
+      "nipple piercings"
+    ],
+    "jewelryTerms": "Starter jewelry is included; upgrades or anatomy-specific fit changes are confirmed during the consult.",
+    "exclusions": "Offer depends on anatomy, applicable age policy, healing history, piercer availability, and jewelry fit. Upgrades may cost more.",
+    "ctaText": "See the nipple piercing special",
+    "bookingUrl": "/appointments/",
+    "image": "/piercing-specials-las-vegas/nipple-piercing-special-45-jewelry-included-las-vegas.webp",
+    "altText": "$45 nipple piercing special with jewelry included at Work of Art Tattoo and Piercing in Las Vegas",
+    "analyticsCampaign": "nipple_piercing_45_jewelry_included_2026_08"
+  },
+  {
+    "id": "weekly-piercing-feature",
+    "name": "Weekly Piercing Feature",
+    "slug": "piercing-specials-las-vegas",
+    "headline": "Ask what piercing feature is open this week",
+    "description": "See the current Work of Art piercing feature, what's included, and how to book with Katelyn. Text or book online for this week's featured placement, jewelry-fit options, and same-day openings.",
+    "startDate": "",
+    "endDate": "",
+    "status": "ACTIVE",
+    "discountType": "",
+    "discountValue": "",
+    "displayPrice": "",
+    "eligiblePiercings": [
+      "ear piercings",
+      "helix piercings",
+      "conch piercings",
+      "tragus piercings",
+      "nostril piercings",
+      "septum piercings",
+      "ear curation consults"
+    ],
+    "jewelryTerms": "Starter jewelry, fit, and upgrade options are confirmed during the consult.",
+    "exclusions": "Some placements depend on anatomy, healing history, age policy, and piercer availability.",
+    "ctaText": "See this week's piercing special",
+    "bookingUrl": "/appointments/",
+    "image": "/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp",
+    "altText": "Curated helix, tragus, and lobe piercings at Work of Art Tattoo and Piercing in Las Vegas",
+    "analyticsCampaign": "weekly_piercing_feature"
+  }
+]

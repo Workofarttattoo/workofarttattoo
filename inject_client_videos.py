@@ -44,7 +44,6 @@ HOME = ROOT / "home_work_of_art_tattoo_piercing" / "code.html"
 
 TARGETS: list[tuple[Path, str, bool]] = [
     (HOME, "after_masonry", False),
-    (ROOT / "jay_jay_artist_portfolio_authentic_masterpieces" / "code.html", "before_portfolio", True),
     (ROOT / "artists" / "code.html", "before_curated", True),
 ]
 
@@ -205,9 +204,9 @@ def inject_piercing_video(html: str) -> tuple[str, bool]:
         return html, False
 
     old = """<div class="relative group">
-<picture><source srcset="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole professional piercer — curated ear piercing with implant-grade jewelry — Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
+<picture><source srcset="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole professional piercer — curated ear piercing at Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
 <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-secondary flex items-center justify-center p-8 hidden md:flex">
-<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercers</span>
+<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercing</span>
 </div>
 </div>"""
     if old in html:

@@ -2,7 +2,7 @@
 """Restore Katelyn Cole's proper standing portfolio portrait site-wide.
 
 Replaces Stitch page-screenshot crops and any sideways/wrong assets with the
-canonical titled portrait (Katelyn Cole — Body Piercer) used in the original
+canonical titled portrait (Katelyn Cole — Professional Piercer) used in the original
 artist export.
 """
 
@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parent
 KATELYN_PORTRAIT_URL = (
     "https://lh3.googleusercontent.com/aida-public/AB6AXuCpVfsrMxJ1TWFUawXyhLtweBHXX3mhmXiFPwxsM8bzwk-8ZIoREIuqUdMp-H_E18mXBuVwTkcUFgz7cHDdioWMBwQY5ZwpRoyhqMHu2gbUtK4jUmUO-qFqtCxylY-MqKHWa4Z_3hH_qzzIAz5ZDYNqqY5mZ8HeFMeYyslycUgdoxofrPBPbpPMIKiXU3AMryCruXwB17mjGRnNU7VRVnAPOttEqBWlTQSTe28PbC7u8vZ0RySTUEr4gTV0V_cTkAuFOvihP6p8BqY9"
 )
-FILENAME = "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas"
+FILENAME = "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas"
 # JPEG fallback: Bluehost often rewrites large .png uploads to WebP at the same path.
 JPG_NAME = f"{FILENAME}.jpg"
 CARD_W = 800
@@ -26,7 +26,7 @@ CARD_H = 1067
 
 DEST_DIRS = (
     ROOT / "artists" / "katelyn-cole",
-    ROOT / "katelyn_cole_master_body_piercer_ear_curation_no_duplicates",
+    ROOT / "katelyn_cole_professional_piercer_ear_curation_no_duplicates",
 )
 
 KATELYN_PAGE = ROOT / "artists_build" / "katelyn-cole.html"
@@ -100,7 +100,7 @@ def fix_katelyn_page_hero() -> bool:
         '"image": "url(/home_work_of_art_tattoo_piercing/client-portfolio/'
         'black-grey-lion-realism-thigh-client-photo-las-vegas.webp)",'
     )
-    schema_new = f'"image": "https://workofarttattoo.com/artists/katelyn-cole/{FILENAME}.webp",'
+    schema_new = f'"image": "https://www.workofarttattoo.com/artists/katelyn-cole/{FILENAME}.webp",'
     if schema_old in html:
         html = html.replace(schema_old, schema_new)
         changed = True

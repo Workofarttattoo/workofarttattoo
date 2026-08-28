@@ -14,37 +14,38 @@ ROOT_CODE = ROOT / "code.html"
 INK_MARKER_START = "<!-- WOA_INK_FIELD_START -->"
 INK_MARKER_END = "<!-- WOA_INK_FIELD_END -->"
 
-# Highly detailed evil black & grey work — spread down the page
+from import_landing_portfolio_images import SHOWCASE_STEMS
+
 INK_PLATES: list[tuple[str, str, str]] = [
     (
-        "woa-ink-plate--lion-thigh",
+        "woa-ink-plate--odin-sleeve",
         "18%",
-        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-realism-thigh-client-photo-las-vegas.webp",
+        f"/home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[0]}.webp",
     ),
     (
-        "woa-ink-plate--hourglass",
+        "woa-ink-plate--warrior",
         "32%",
-        "/home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas.webp",
+        f"/home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[1]}.webp",
     ),
     (
-        "woa-ink-plate--eagle",
+        "woa-ink-plate--veiled",
         "46%",
-        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-eagle-shoulder-realism-las-vegas.webp",
+        f"/home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[2]}.webp",
     ),
     (
-        "woa-ink-plate--skull-candle",
+        "woa-ink-plate--eye",
         "58%",
-        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skull-hood-candle-realism-las-vegas.webp",
+        f"/home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[3]}.webp",
     ),
     (
-        "woa-ink-plate--ravens",
+        "woa-ink-plate--angel",
         "82%",
-        "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skeleton-reaper-hand-realism-las-vegas.webp",
+        "/home_work_of_art_tattoo_piercing/client-portfolio/falling-angel-black-grey-realism-las-vegas.webp",
     ),
     (
-        "woa-ink-plate--thorns",
+        "woa-ink-plate--eagle-memorial",
         "93%",
-        "/cover_up_tattoos_las_vegas_master_authority_guide/healed-realism-seraphim-eye-wings-tattoo.webp",
+        "/home_work_of_art_tattoo_piercing/client-portfolio/eagle-memorial-color-leg-tattoo-las-vegas.webp",
     ),
 ]
 

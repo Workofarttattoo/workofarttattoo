@@ -19,7 +19,7 @@ RATING_INNER = f"""<div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-c
 </div>
 <div class="h-8 w-px bg-outline-variant/30 hidden sm:block"></div>
 <div class="text-on-surface-variant font-body-md text-body-md leading-snug">
-<span class="text-on-surface font-bold">300+</span> verified five-star reviews from our clients
+<span class="text-on-surface font-bold">Hundreds of</span> positive Google reviews from our clients
 </div>
 </div>"""
 

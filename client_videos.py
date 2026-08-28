@@ -23,7 +23,7 @@ HERO_INTERVIEW_STILL_WEBP = (
 )
 KATELYN_STILL_JPG = (
     "/artists/katelyn-cole/"
-    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg"
+    "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg"
 )
 
 # Instagram /embed iframes render blank on static hosting — use poster + permalink cards.
@@ -106,13 +106,13 @@ KATELYN_VIDEOS: list[dict[str, str]] = [
         "kind": "reel",
         "media_id": "C78fY1quCVF",
         "title": "Katelyn Cole — piercing in the studio",
-        "blurb": "Watch Katelyn at Work of Art — precision ear curation and professional piercing in Las Vegas.",
+        "blurb": "Watch Katelyn at Work of Art — calm ear curation and piercing placement in Las Vegas.",
     },
     {
         "kind": "reel",
         "media_id": "C0nNwUkRHz6",
         "title": "Jewelry & placement — studio reel",
-        "blurb": "Implant-grade jewelry and anatomical placement.",
+        "blurb": "Jewelry fit and anatomical placement.",
     },
     {
         "kind": "reel",
@@ -1114,9 +1114,9 @@ def render_home_video_grid() -> str:
 
 
 PIERCING_SECTION_STATIC_IMAGE = """<div class="relative group">
-<picture><source srcset="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole professional piercer — curated ear piercing with implant-grade jewelry — Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
+<picture><source srcset="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp" type="image/webp"/><img alt="Katelyn Cole professional piercer — curated ear piercing at Work of Art Tattoo Las Vegas" class="w-full aspect-[4/5] object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000" height="1600" loading="lazy" src="/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg" width="800"/></picture>
 <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-secondary flex items-center justify-center p-8 hidden md:flex pointer-events-none">
-<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercers</span>
+<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercing</span>
 </div>
 </div>"""
 
@@ -1138,7 +1138,7 @@ def render_piercing_section_video() -> str:
 </div>
 </article>
 <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-secondary flex items-center justify-center p-8 hidden md:flex pointer-events-none">
-<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercers</span>
+<span class="font-headline-md text-headline-md text-on-secondary text-center leading-tight">Professional Piercing</span>
 </div>
 </div>
 {PIERCING_VIDEO_MARKER_END}"""
@@ -1218,7 +1218,7 @@ def render_katelyn_minors_section() -> str:
 <div class="max-w-3xl mx-auto text-center space-y-4">
 <span class="text-label-caps font-label-caps text-secondary uppercase tracking-[0.2em]">Families welcome</span>
 <h2 class="text-headline-lg font-headline-lg text-on-surface">Piercing Minors — Rules &amp; What to Bring</h2>
-<p class="text-body-lg font-body-lg text-on-surface-variant">Katelyn Cole specializes in calm, professional ear piercing for younger clients. Sessions are unhurried, explained step-by-step, and designed so kids and guardians feel confident — most families tell us how smoothly everything goes.</p>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Katelyn Cole specializes in calm ear piercing for younger clients. Sessions are unhurried, explained step-by-step, and designed so kids and guardians feel confident — most families tell us how smoothly everything goes.</p>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 <div class="space-y-8">
@@ -1240,7 +1240,7 @@ def render_katelyn_minors_section() -> str:
 </ul>
 </div>
 <div class="p-6 border border-outline-variant/20 bg-background/40">
-<p class="text-body-md text-on-surface-variant"><strong class="text-on-surface">Questions before you drive over?</strong> Call ahead at <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">(725) 224-1240</a> or email <a class="text-secondary underline hover:no-underline" href="mailto:booking@workofarttattoo.com">booking@workofarttattoo.com</a> — we will clarify paperwork, placement, and jewelry so your appointment is seamless.</p>
+<p class="text-body-md text-on-surface-variant"><strong class="text-on-surface">Questions before you drive over?</strong> Call ahead at <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">(725) 224-1240</a> or email <a class="text-secondary underline hover:no-underline" href="mailto:thewhiteknight702@gmail.com">thewhiteknight702@gmail.com</a> — we will clarify paperwork, placement, and jewelry so your appointment is seamless.</p>
 </div>
 <div class="flex flex-wrap gap-3">
 <a class="bg-secondary text-on-secondary px-8 py-4 text-label-caps font-label-caps uppercase gold-glow inline-block min-h-[48px]" href="/appointments/">Book piercing appointment</a>
@@ -1269,11 +1269,14 @@ def render_joshua_education_section() -> str:
 <div class="space-y-6 order-2 lg:order-1">
 <span class="text-label-caps font-label-caps text-secondary uppercase tracking-[0.2em]">Never standing still</span>
 <h2 class="text-headline-lg font-headline-lg text-on-surface">Advancing the Craft — Seminars &amp; Mastery</h2>
-<p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">Joshua Cole does not coast on reputation. He regularly attends and <strong class="text-on-surface">pays out of pocket</strong> for advanced art and tattoo seminars, workshops, and industry intensives — investing in drawing, realism, color theory, and technical innovation so every collector at Work of Art gets current-world skill, not yesterday&apos;s tricks.</p>
+<p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">Joshua Cole does not coast on reputation. He attended art school, oil painting school, and illustration school, and he regularly attends and <strong class="text-on-surface">pays out of pocket</strong> for advanced art and tattoo seminars, workshops, and industry intensives — investing in drawing, realism, color theory, and technical innovation so every collector at Work of Art gets current-world skill, not yesterday&apos;s tricks.</p>
+<p class="text-body-md text-on-surface-variant leading-relaxed">That fine-art background also shows up beyond the tattoo chair: Joshua designs Work of Art merchandise, T-shirts, and advertising, keeping the studio&apos;s visual identity in the hands of an artist who works with the brand every day.</p>
 <p class="text-body-md text-on-surface-variant leading-relaxed">That commitment is why Joshua trains artists in-studio, pushes large-scale realism further each year, and treats every session like a masterclass. When you book Joshua, you are booking an artist who is still in the room learning — on purpose.</p>
 <ul class="text-body-md text-on-surface-variant space-y-2 list-disc pl-5">
 <li>Ongoing tattoo and fine-art education beyond the chair</li>
+<li>Art school, oil painting school, and illustration school foundation</li>
 <li>Seminars focused on realism, composition, and advanced technique</li>
+<li>Studio merchandise, T-shirt, and advertising design by Joshua</li>
 <li>Skills brought straight back to Las Vegas for your custom work</li>
 </ul>
 <a class="inline-flex items-center gap-2 text-secondary font-label-caps text-label-caps uppercase tracking-widest underline hover:no-underline mt-4 min-h-[48px]" href="{permalink}" rel="noopener noreferrer" target="_blank">See seminar reel on Instagram</a>

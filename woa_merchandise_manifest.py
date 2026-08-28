@@ -15,7 +15,7 @@ class MerchItem:
     source_url: str
     title: str
     detail: str
-    ext: str
+    ext: str  # jpg | png | webp
 
 
 MERCH_ITEMS: tuple[MerchItem, ...] = (
@@ -85,8 +85,8 @@ MERCH_ITEMS: tuple[MerchItem, ...] = (
     MerchItem(
         "graphite-drive-by-framed",
         "https://www.workofarttattoo.com/wp-content/uploads/2021/07/Another-original-drawing-by-Joshua-Cole-done-in-graphite.-8.5X11-inches.-Includes-frame.-Titled-Drive-by.jpg",
-        "\"Drive by\" — graphite, framed",
-        "\"Drive by\" — another original drawing by Joshua Cole in graphite. 8.5 × 11 inches, includes frame.",
+        '"Drive by" — graphite, framed',
+        '"Drive by" — another original drawing by Joshua Cole in graphite. 8.5 × 11 inches, includes frame.',
         "jpg",
     ),
     MerchItem(
@@ -99,7 +99,7 @@ MERCH_ITEMS: tuple[MerchItem, ...] = (
     MerchItem(
         "colored-pencil-bridges-framed",
         "https://www.workofarttattoo.com/wp-content/uploads/2021/07/20210707_114132.jpg",
-        "May the bridges I've burned, light my way.",
+        '"May the bridges I\'ve burned, light my way."',
         "One-of-a-kind original in colored pencil on archival paper by Joshua Cole. Titled \"May the bridges I've burned, light my way.\" Includes frame.",
         "jpg",
     ),

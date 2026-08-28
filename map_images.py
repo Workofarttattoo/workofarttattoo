@@ -41,8 +41,6 @@ portraits = {
     "Katelyn Cole": "https://lh3.googleusercontent.com/aida/ADBb0uimTuHsuXy6SYszTo7JEMXPNRcwqk8Gj2-NrrLzu5065haTNCFRTf78Xjoep99ftauR9FfqTTHwS8NXFzw3aU_-O0FlB6t-80eiOEsOdWrvzqXIH0eCjGGOLtpV5AA85ZYp-MnvfSeEwlzWuWmoiFumkLst5QcDODoSk0IBiqgxOgDXQRfhCh6UyqfLZSUKHD6YPnmObSxq7PxD8TcE_Vn8YRvNGclRWxnv7Zo3VVgTWtg2FqhLXPReAM87"
 }
 
-# Special case for Jay Jay: no portrait found, use a high quality tattoo image for now or a placeholder.
-# I'll use the 'Statue' for Jay Jay's portrait placeholder if needed, or better, one of the IMG ones.
 
 print(f"Tattoos count: {len(tattoos)}")
 print(f"Piercings count: {len(piercings)}")

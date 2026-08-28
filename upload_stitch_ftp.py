@@ -85,7 +85,7 @@ def main() -> int:
 
     ftp.quit()
     print(f"Done. Uploaded {uploaded} HTML pages, skipped {skipped} folders without code.html.")
-    print(f"Base URL prefix: https://workofarttattoo.com/{REMOTE_BASE}/")
+    print(f"Base URL prefix: https://www.workofarttattoo.com/{REMOTE_BASE}/")
     return 0
 
 
