@@ -21,9 +21,9 @@ RESIDENT_ARTIST_COUNT = 3
 TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
-    "Three resident artists work in-studio today — Joshua Cole (tattoo & piercing; "
-    "studio lead), Jay Jay (tattoo), and Katelyn Cole (professional piercer). Book tattoo "
-    "and piercing consults at our Tropicana studio seven nights a week."
+    "Three resident artists work in-studio today — Joshua Cole (tattoo & piercing; studio lead), "
+    "Katelyn Cole (professional piercer), and Teralyn (fine line, floral, script, custom drawings, "
+    "and detailed smaller tattoos). Book tattoo and piercing consults at our Tropicana studio seven days a week."
 )
 STUDIO_ROSTER_LEGACY = (
     "Seven artists trained at Work of Art now run their own shops or travel as guest "
@@ -64,11 +64,10 @@ STUDIO_PHONE_E164 = "+1-725-224-1240"
 STUDIO_PHONE_TEL = "tel:+17252241240"
 STUDIO_PHONE_SCHEMA = STUDIO_PHONE_E164
 
-STUDIO_HOURS_SUMMARY = "Mon–Thu 3 PM – midnight · Fri–Sun 3 PM – 6 AM"
+STUDIO_HOURS_SUMMARY = "Daily 12 PM – midnight"
 STUDIO_HOURS_HTML_GRID = (
     '<div class="grid grid-cols-2 gap-4">'
-    '<p class="text-on-surface-variant">MON - THU</p><p>3:00 PM - 12:00 AM</p>'
-    '<p class="text-on-surface-variant">FRI - SUN</p><p>3:00 PM - 6:00 AM</p>'
+    '<p class="text-on-surface-variant">DAILY</p><p>12:00 PM - 12:00 AM</p>'
     "</div>"
 )
 
@@ -81,7 +80,7 @@ ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
     ("All Artists & Gallery", HREF_ARTISTS),
     ("Joshua Cole — Tattoo & Piercing", "/artists/joshua-cole/"),
     ("Katelyn Cole — Professional Piercer", "/artists/katelyn-cole/"),
-    ("Jay Jay — Portfolio", "/jay_jay_artist_portfolio_authentic_masterpieces/"),
+    ("Teralyn — Fine Line · Floral · Script", "/artists/teralyn/"),
 ]
 
 
@@ -185,7 +184,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "jay_jay_artist_portfolio_authentic_masterpieces": (
         "Jay Jay Artist Portfolio",
-        "Signature work, specialties, and booking context for this Work of Art master artist.",
+        "Archived portfolio page retained for historical URL continuity.",
     ),
     "large_scale_projects_variant_a_authentic_art_rotation": (
         "Large-Scale Project Planning",

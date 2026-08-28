@@ -36,7 +36,6 @@ jobs:
                   continue
               shutil.copy2(code, code.with_name('index.html'))
 
-          # Artist profiles use reviewed build outputs rather than code.html sources.
           mappings = {
               Path('artists_build/katelyn-cole.html'): Path('artists/katelyn-cole/index.html'),
               Path('artists_build/joshua-cole.html'): Path('artists/joshua-cole/index.html'),
@@ -45,9 +44,7 @@ jobs:
               if src.is_file():
                   dst.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copy2(src, dst)
-                  print(f'{src} -> {dst}')
 
-          # Root homepage follows the reviewed homepage export.
           home = Path('home_work_of_art_tattoo_piercing/code.html')
           if home.is_file():
               shutil.copy2(home, 'index.html')
@@ -57,7 +54,7 @@ jobs:
           printf '' > .nojekyll
           printf '%s\n' "$GITHUB_SHA" > DEPLOYED_MAIN_SHA
 
-      - name: Build production tree by preserving live-only pages and overlaying main
+      - name: Preserve production-only files and overlay reviewed source
         run: |
           set -euo pipefail
           git config user.name 'WOA Pages Deploy Bot'
@@ -65,9 +62,6 @@ jobs:
           git fetch origin gh-pages
           rm -rf /tmp/woa-gh-pages
           git worktree add --detach /tmp/woa-gh-pages origin/gh-pages
-
-          # IMPORTANT: no --delete here. Some valid production routes are generated/live-only
-          # and do not currently have a one-to-one source directory on main.
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
@@ -75,40 +69,14 @@ jobs:
             --exclude='*.pyc' \
             ./ /tmp/woa-gh-pages/
 
-          # Remove the known dead Merchandise link from the FINAL production tree, including
-          # preserved live-only pages that are not represented on main.
-          cd /tmp/woa-gh-pages
-          python3 - <<'PY'
-          from pathlib import Path
-          from bs4 import BeautifulSoup
-          changed = removed = 0
-          for path in Path('.').rglob('*.html'):
-              if '.git' in path.parts:
-                  continue
-              raw = path.read_text(encoding='utf-8', errors='replace')
-              if '/merchandise/' not in raw:
-                  continue
-              soup = BeautifulSoup(raw, 'html.parser')
-              n = 0
-              for a in list(soup.find_all('a', href=True)):
-                  if (a.get('href') or '').strip().rstrip('/') == '/merchandise':
-                      a.decompose()
-                      n += 1
-              if n:
-                  path.write_text(str(soup), encoding='utf-8')
-                  changed += 1
-                  removed += n
-          print(f'Removed {removed} dead merchandise links from {changed} production HTML files.')
-          PY
-
-      - name: Audit final production tree before publishing
+      - name: Audit final production tree
         run: |
           cd /tmp/woa-gh-pages
           python3 - <<'PY'
-          from pathlib import Path
-          from bs4 import BeautifulSoup
           from collections import Counter
+          from pathlib import Path
           from urllib.parse import urlsplit
+          from bs4 import BeautifulSoup
 
           required = [
               'index.html',
@@ -116,6 +84,7 @@ jobs:
               'artists/katelyn-cole/index.html',
               'artists/joshua-cole/index.html',
               'cover-up-tattoos-las-vegas/index.html',
+              'merchandise/index.html',
               'fine_line_tattoos_las_vegas_master_authority_guide/index.html',
               'best_tattoo_styles_for_sleeves_large_scale_project_hub/index.html',
               'sitemap-static-pages.xml',
@@ -127,16 +96,16 @@ jobs:
           if missing:
               raise SystemExit('Missing critical production files: ' + ', '.join(missing))
 
-          merch = []
+          merch = Path('merchandise/index.html').read_text(encoding='utf-8', errors='replace')
+          if 'Merchandise' not in merch and 'Original art' not in merch and 'original art' not in merch:
+              raise SystemExit('Merchandise route exists but does not contain expected merchandise content')
+
           broken = Counter()
           checked = 0
           for path in Path('.').rglob('*.html'):
               if '.git' in path.parts or 'skipped_upload_build' in path.parts:
                   continue
-              raw = path.read_text(encoding='utf-8', errors='replace')
-              if '/merchandise/' in raw:
-                  merch.append(str(path))
-              soup = BeautifulSoup(raw, 'html.parser')
+              soup = BeautifulSoup(path.read_text(encoding='utf-8', errors='replace'), 'html.parser')
               for a in soup.find_all('a', href=True):
                   href = (a.get('href') or '').strip()
                   if not href.startswith('/') or href.startswith('//'):
@@ -150,22 +119,15 @@ jobs:
                   if not any(c.exists() for c in candidates):
                       broken[target] += 1
 
-          if merch:
-              raise SystemExit('Dead /merchandise/ links remain: ' + ', '.join(merch[:20]))
-
-          print(f'Audited {checked} root-relative links in final production tree.')
-          if broken:
-              print('Missing internal targets detected:')
-              for target, count in broken.most_common(60):
-                  print(f'  {count:4d} {target}')
-          # Fail on high-confidence sitewide broken links, but allow isolated legacy references
-          # to be reported for the follow-up crawl instead of blocking all deployment.
-          severe = [(u,n) for u,n in broken.items() if n >= 5]
+          print(f'Audited {checked} root-relative links.')
+          for target, count in broken.most_common(80):
+              print(f'BROKEN {count:4d} {target}')
+          severe = [(u, n) for u, n in broken.items() if n >= 5]
           if severe:
-              raise SystemExit('Repeated broken internal links block deployment: ' + ', '.join(f'{u} ({n})' for u,n in sorted(severe)[:20]))
+              raise SystemExit('Repeated broken internal links block deployment: ' + ', '.join(f'{u} ({n})' for u,n in sorted(severe)[:30]))
           PY
 
-      - name: Publish audited production tree to gh-pages
+      - name: Publish audited tree to gh-pages
         run: |
           set -euo pipefail
           cd /tmp/woa-gh-pages
@@ -177,67 +139,69 @@ jobs:
             git push origin HEAD:gh-pages
           fi
 
-      - name: Verify gh-pages identifies exact main commit
+      - name: Verify gh-pages exact source marker and critical routes
         run: |
           git fetch origin gh-pages
           test "$(git show origin/gh-pages:CNAME)" = 'www.workofarttattoo.com'
           test "$(git show origin/gh-pages:DEPLOYED_MAIN_SHA)" = "$GITHUB_SHA"
           git show origin/gh-pages:artists/katelyn-cole/index.html | grep -q 'Professional'
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
-          ! git grep -n '/merchandise/' origin/gh-pages -- '*.html'
-          echo "gh-pages production tree contains exact main marker $GITHUB_SHA"
+          git show origin/gh-pages:merchandise/index.html | grep -Eiq 'Merchandise|Original art'
+          echo "gh-pages contains exact main marker $GITHUB_SHA"
 
-      - name: Verify active website serves this exact main commit
+      - name: Verify active website serves exact deployed main commit
         run: |
           python3 - <<'PY'
           import os, time, urllib.request
-          base='https://www.workofarttattoo.com'
-          expected=os.environ['GITHUB_SHA']
-          critical={
+
+          base = 'https://www.workofarttattoo.com'
+          expected = os.environ['GITHUB_SHA']
+          critical = {
               '/': None,
               '/appointments/': None,
               '/artists/katelyn-cole/': 'Professional',
               '/artists/joshua-cole/': None,
               '/cover-up-tattoos-las-vegas/': None,
+              '/merchandise/': 'Merchandise',
               '/fine_line_tattoos_las_vegas_master_authority_guide/': None,
               '/best_tattoo_styles_for_sleeves_large_scale_project_hub/': None,
               '/robots.txt': None,
               '/sitemap-static-pages.xml': None,
           }
-          last=[]
+
+          last = []
           for attempt in range(20):
-              failures=[]
+              failures = []
               try:
-                  req=urllib.request.Request(base+'/DEPLOYED_MAIN_SHA?x='+str(time.time()), headers={'User-Agent':'WOA-Deploy-Verifier/3.0','Cache-Control':'no-cache'})
+                  req = urllib.request.Request(base + '/DEPLOYED_MAIN_SHA?x=' + str(time.time()), headers={'User-Agent':'WOA-Deploy-Verifier/4.0','Cache-Control':'no-cache'})
                   with urllib.request.urlopen(req, timeout=30) as r:
-                      marker=r.read().decode('utf-8','replace').strip()
+                      marker = r.read().decode('utf-8', 'replace').strip()
                   if marker != expected:
                       failures.append(f'deploy marker {marker!r} != {expected!r}')
               except Exception as exc:
-                  failures.append('deploy marker: '+repr(exc))
+                  failures.append('deploy marker: ' + repr(exc))
 
               for path, needle in critical.items():
                   try:
-                      req=urllib.request.Request(base+path+'?x='+str(time.time()), headers={'User-Agent':'WOA-Deploy-Verifier/3.0','Cache-Control':'no-cache'})
+                      req = urllib.request.Request(base + path + '?x=' + str(time.time()), headers={'User-Agent':'WOA-Deploy-Verifier/4.0','Cache-Control':'no-cache'})
                       with urllib.request.urlopen(req, timeout=30) as r:
-                          body=r.read().decode('utf-8','replace')
-                          status=r.status
+                          body = r.read().decode('utf-8', 'replace')
+                          status = r.status
                       if status != 200:
                           failures.append(f'{path} HTTP {status}')
-                      if needle and needle not in body:
+                      if needle and needle.lower() not in body.lower():
                           failures.append(f'{path} missing {needle!r}')
-                      if path.endswith('/') and '/merchandise/' in body:
-                          failures.append(f'{path} still contains dead merchandise link')
                   except Exception as exc:
                       failures.append(f'{path}: {exc!r}')
 
               if not failures:
-                  print('ACTIVE WEBSITE VERIFIED: exact main marker is live; critical routes pass; Merchandise link removed.')
+                  print('ACTIVE WEBSITE VERIFIED: exact main commit is live and all critical routes pass.')
                   raise SystemExit(0)
-              last=failures
-              print(f'Waiting for GitHub Pages propagation ({attempt+1}/20):')
-              for f in failures:
-                  print(' -', f)
+              last = failures
+              print(f'Waiting for GitHub Pages propagation ({attempt + 1}/20):')
+              for failure in failures:
+                  print(' -', failure)
               time.sleep(15)
+
           raise SystemExit('Production did not verify: ' + '; '.join(last))
           PY
