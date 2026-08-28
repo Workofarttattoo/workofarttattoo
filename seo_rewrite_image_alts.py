@@ -9,9 +9,11 @@ Rewrite <img alt> attributes across Stitch export HTML for SEO.
 - By default also scans sibling folders `stitch_work_of_art_digital_overhaul 3` … `6`
   (screenshot-only bundles simply yield no HTML; any `code.html` there is included)
 
-Deploy (optional):
-  FTP_USER=tattoojosh@workofarttattoo.com FTP_PASS=... \\
-    python seo_rewrite_image_alts.py --deploy
+Deploy (legacy / do not use for production):
+  Production hosting is GitHub Pages via .github/workflows/deploy-production.yml.
+  The FTP --deploy path below targets retired Bluehost hosting only.
+
+  FTP_USER=... FTP_PASS=... python seo_rewrite_image_alts.py --deploy
 """
 
 from __future__ import annotations
@@ -374,6 +376,15 @@ def main() -> int:
     )
     args = ap.parse_args()
 
+    if args.deploy and os.environ.get("WOA_ALLOW_LEGACY_FTP", "").strip() != "1":
+        print(
+            "Refusing Bluehost FTP deploy: production is GitHub Pages only.\n"
+            "Push/merge to main to run .github/workflows/deploy-production.yml.\n"
+            "Set WOA_ALLOW_LEGACY_FTP=1 only for emergency historical recovery.",
+            file=sys.stderr,
+        )
+        return 2
+
     files = iter_target_files(
         include_clipboard_archive=args.include_clipboard_archive,
         include_adjacent_sites=not args.no_adjacent_sites,
@@ -393,6 +404,14 @@ def main() -> int:
     )
 
     if args.deploy:
+        if os.environ.get("WOA_ALLOW_LEGACY_FTP", "").strip() != "1":
+            print(
+                "Refusing Bluehost FTP deploy: production is GitHub Pages only.\n"
+                "Push/merge to main to run .github/workflows/deploy-production.yml.\n"
+                "Set WOA_ALLOW_LEGACY_FTP=1 only for emergency historical recovery.",
+                file=sys.stderr,
+            )
+            return 2
         user = os.environ.get("FTP_USER", "").strip()
         pw = os.environ.get("FTP_PASS", "").strip()
         if not user or not pw:

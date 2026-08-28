@@ -1,6 +1,6 @@
 # Final Site Export Manifest: Work of Art Tattoo & Piercing
 
-This document lists the definitive, production-ready screens for your GitHub and Bluehost deployment.
+This document lists the definitive, production-ready screens for GitHub Pages deployment.
 
 ## 1. Core Site Structure
 - **Index (Home)**: {{DATA:SCREEN:SCREEN_353}} (Best Tattoo Shop Las Vegas - Master Hub)
@@ -31,9 +31,10 @@ This document lists the definitive, production-ready screens for your GitHub and
 - **Vegas vs. The Strip Comparison**: {{DATA:SCREEN:SCREEN_93}}
 
 ## 5. Hosting & Deployment
-### Bluehost (Primary .com)
-- **Protocol**: Upload all HTML/CSS files to `public_html`.
-- **Optimization**: All images are SEO-tagged and performance-compressed for 20GB hosting limits.
 
-### GitHub Pages (Staging)
-- **Instructions**: Push to repo, enable Pages, and point your CNAME to the Bluehost domain for a seamless live transition.
+### GitHub Pages (live production)
+- Source of truth: `main`
+- Published tree: `gh-pages`
+- Domain: `www.workofarttattoo.com` (`CNAME` in repo)
+- Deploy path: `.github/workflows/deploy-production.yml`
+- Bluehost/FTP is **not** used for site hosting anymore (domain registration / ownership only if applicable)
