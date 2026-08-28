@@ -11,26 +11,27 @@ HOME = ROOT / "home_work_of_art_tattoo_piercing"
 CODE = HOME / "code.html"
 ROOT_CODE = ROOT / "code.html"
 
-# (path under site root without leading slash, alt text, eager on first slide only)
+from import_landing_portfolio_images import SHOWCASE_STEMS
+
 CAROUSEL_SLIDES: list[tuple[str, str, bool]] = [
     (
-        "home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skull-hood-candle-realism-las-vegas",
-        "Black and grey skull and candle realism tattoo — Work of Art Tattoo Las Vegas",
+        f"home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[0]}",
+        "Norse Odin and Viking ship black and grey sleeve — Work of Art Tattoo Las Vegas",
         True,
     ),
     (
-        "home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas",
-        "Black and grey skull hourglass forearm realism tattoo — Work of Art Tattoo Las Vegas",
+        f"home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[1]}",
+        "Black and grey warrior profile shoulder realism — Work of Art Tattoo Las Vegas",
         False,
     ),
     (
-        "home_work_of_art_tattoo_piercing/client-portfolio/black-grey-skeleton-reaper-hand-realism-las-vegas",
-        "Black and grey skeleton reaper hand realism tattoo — Work of Art Tattoo Las Vegas",
+        f"home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[2]}",
+        "Veiled woman statue black and grey realism — Work of Art Tattoo Las Vegas",
         False,
     ),
     (
-        "home_work_of_art_tattoo_piercing/client-portfolio/black-grey-eagle-shoulder-realism-las-vegas",
-        "Black and grey eagle shoulder realism tattoo — Work of Art Tattoo Las Vegas",
+        f"home_work_of_art_tattoo_piercing/client-portfolio/{SHOWCASE_STEMS[3]}",
+        "All-seeing eye triangle forearm realism — Work of Art Tattoo Las Vegas",
         False,
     ),
 ]

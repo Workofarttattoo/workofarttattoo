@@ -15,7 +15,7 @@ HTML = ROOT / "artists_build" / "joshua-cole.html"
 ASSETS = ROOT / "artists_joshua_cole_assets"
 HERO_WEBP = (
     "/joshua_cole_masterpiece_wall_consistently_unique/"
-    "joshua-cole-masterpiece-wall-consistently-unique-las-vegas.webp"
+    "joshua-cole-portrait-las-vegas.webp"
 )
 MAX_GALLERY_W = 700
 QUALITY = 82

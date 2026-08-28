@@ -40,14 +40,11 @@ STEM_OVERRIDES: dict[str, str] = {
     "joshua-cole-portrait-las-vegas": (
         "Joshua Cole tattoo artist working in the Work of Art Las Vegas studio"
     ),
-    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates": (
+    "katelyn-cole-professional-piercer-ear-curation-no-duplicates": (
         "Katelyn Cole professional piercer — curated ear and body piercing Las Vegas"
     ),
-    "jay-jay-artist-portfolio-authentic-masterpieces": (
-        "Jay Jay tattoo artist — realism portfolio Las Vegas"
-    ),
     "expert-body-piercing-services-las-vegas-luxury-jewelry": (
-        "Body piercing Las Vegas with luxury implant-grade jewelry"
+        "Body piercing Las Vegas with luxury quality starter jewelry"
     ),
     "custom-tattoos-las-vegas-epic-snake-black-and-grey-realism": (
         "Black and grey lion thigh tattoo Las Vegas — realism portfolio"
@@ -55,8 +52,8 @@ STEM_OVERRIDES: dict[str, str] = {
     "black-and-grey-artistry-dynamic-snake-masterpiece": (
         "Black and grey snake tattoo sleeve masterpiece Las Vegas"
     ),
-    "realism-tattoos-color-butterfly-and-floral-coverup": (
-        "Color realism butterfly and floral cover-up tattoo Las Vegas"
+    "black-grey-lion-thigh-realism-las-vegas": (
+        "Black and grey lion thigh realism tattoo Las Vegas"
     ),
     "realism-tattoos-floral-and-roman-numeral-sleeve": (
         "Fine line floral and roman numeral sleeve tattoo Las Vegas"
@@ -186,28 +183,53 @@ def generic_alt_for_external(page_kw: str, index: int) -> str:
     return templates[index % len(templates)]
 
 
-def build_alt(src: str, page_slug: str, img_index: int) -> str:
+def build_alt(src: str, page_slug: str, img_index: int, title: str = "") -> str:
     page_kw = PAGE_KEYWORDS.get(page_slug, "Las Vegas tattoo and piercing")
     stem = stem_from_src(src)
 
-    if stem is None:
+    if title and len(title.strip()) >= 18:
+        subject = humanize_stem(title.replace("_", "-"))
+    elif stem is None:
         alt = generic_alt_for_external(page_kw, img_index)
+        if len(alt) > MAX_ALT:
+            alt = alt[: MAX_ALT - 1].rstrip(" ,—") + "…"
+        return alt
+    elif re.match(r"^joshua-gallery-[a-f0-9]{6,}$", stem, re.I):
+        subject = "Black and grey realism tattoo portfolio"
     else:
         subject = humanize_stem(stem)
-        low = subject.lower()
-        if "las vegas" in low:
-            alt = f"{subject} — {page_kw} at {STUDIO}"
-        else:
-            alt = f"{subject} — {page_kw}, {STUDIO}"
+
+    low = subject.lower()
+    if "las vegas" in low:
+        alt = f"{subject} — {page_kw} at {STUDIO}"
+    else:
+        alt = f"{subject} — {page_kw}, {STUDIO}"
 
     if len(alt) > MAX_ALT:
         alt = alt[: MAX_ALT - 1].rstrip(" ,—") + "…"
     return alt
 
 
+GENERIC_ALT_RE = re.compile(
+    r"(Joshua gallery [a-f0-9]{6,}|Original tattoo work|Realism portfolio piece|"
+    r"Party session photo|portfolio photo —|Custom tattoo work —|Tattoo portfolio photo —)",
+    re.I,
+)
+
+
+def alt_is_descriptive(alt: str) -> bool:
+    alt = alt.strip()
+    if len(alt) < 35:
+        return False
+    if GENERIC_ALT_RE.search(alt):
+        return False
+    return True
+
+
 IMG_TAG_RE = re.compile(r"<img\s+([^>]+?)/?\s*>", re.IGNORECASE)
 SRC_RE = re.compile(r"""src=(['"])([^'"]+)\1""", re.IGNORECASE)
 ALT_RE = re.compile(r"""alt=(['"])([^'"]*)\1""", re.IGNORECASE)
+TITLE_RE = re.compile(r"""title=(['"])([^'"]*)\1""", re.IGNORECASE)
 
 
 def replace_img_alts(html: str, page_slug: str) -> tuple[str, int]:
@@ -221,7 +243,14 @@ def replace_img_alts(html: str, page_slug: str) -> tuple[str, int]:
         if not src_m:
             return match.group(0)
         src = src_m.group(2)
-        new_alt = escape(build_alt(src, page_slug, img_index), quote=True)
+        title_m = TITLE_RE.search(attrs)
+        title = title_m.group(2) if title_m else ""
+        cur_alt_m = ALT_RE.search(attrs)
+        cur_alt = cur_alt_m.group(2) if cur_alt_m else ""
+        if alt_is_descriptive(cur_alt):
+            img_index += 1
+            return match.group(0)
+        new_alt = escape(build_alt(src, page_slug, img_index, title), quote=True)
         img_index += 1
         if ALT_RE.search(attrs):
             attrs = ALT_RE.sub(f'alt="{new_alt}"', attrs, count=1)
@@ -233,9 +262,14 @@ def replace_img_alts(html: str, page_slug: str) -> tuple[str, int]:
     return IMG_TAG_RE.sub(repl, html), count
 
 
+SKIP_PAGE_SLUGS = frozenset({"studio_gallery", "offsite_bookings"})
+
+
 def iter_html_files() -> list[Path]:
     files: list[Path] = []
     for slug, folder in merged_export_roots().items():
+        if slug in SKIP_PAGE_SLUGS:
+            continue
         code = folder / "code.html"
         if code.is_file():
             files.append(code)

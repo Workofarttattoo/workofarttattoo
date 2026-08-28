@@ -23,8 +23,8 @@ OUT_DIR = ROOT / "studio_videos"
 OUT = OUT_DIR / "code.html"
 SHELL_PATH = ROOT / "appointments" / "code.html"
 SLUG = "studio_videos"
-CANON = f"https://workofarttattoo.com/{SLUG}/"
-OG_IMG = "https://workofarttattoo.com/home_work_of_art_tattoo_piercing/las-vegas-tattoo-hero-background.webp"
+CANON = f"https://www.workofarttattoo.com/{SLUG}/"
+OG_IMG = "https://www.workofarttattoo.com/home_work_of_art_tattoo_piercing/las-vegas-tattoo-hero-background.webp"
 MAIN_OPEN = '<main class="relative pt-20 min-h-screen">'
 
 PHP_GTM_RE = re.compile(r"<\?php[^?]*\?\>\s*", re.IGNORECASE)

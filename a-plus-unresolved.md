@@ -1,10 +1,10 @@
 # A+ cleanup unresolved matches
 
-## Master Piercer
+## Professional Piercer
 
-## Master Body Piercer
+## Professional Piercer
 
-## McCarran
+## Harry Reid International Airport
 
 ## 480+
 
@@ -24,9 +24,9 @@
 
 ## starter jewelry
 
-## premier authority
+## professional piercer
 
-## Best Body Piercer in Las Vegas
+## Professional Piercer in Las Vegas
 
 ## medical-grade
 

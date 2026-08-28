@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var BOOKING_EMAIL = "booking@workofarttattoo.com";
+  var BOOKING_EMAIL = "thewhiteknight702@gmail.com";
   var PHP_ENDPOINT = "/appointments/booking-mail.php";
   var FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/" + encodeURIComponent(BOOKING_EMAIL);
 
@@ -74,6 +74,45 @@
     return data;
   }
 
+  function safeSlug(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "")
+      .slice(0, 80);
+  }
+
+  function safeArtist(value) {
+    var slug = safeSlug(value);
+    if (!slug || slug === "no_preference") return "no_preference";
+    if (slug.indexOf("joshua") >= 0) return "joshua";
+    if (slug.indexOf("katelyn") >= 0 || slug.indexOf("katie") >= 0) return "katelyn";
+    if (slug.indexOf("teralyn") >= 0) return "teralyn";
+    return slug;
+  }
+
+  function dispatchBookingSuccess(form, data, origin) {
+    var isPiercing = form.id === "woa-form-piercing";
+    var detail = {
+      conversion_origin: origin,
+      form_id: form.id,
+      form_destination: origin === "php_success" ? "php_mailer" : "formsubmit_ajax",
+      service_category: isPiercing ? "piercing" : "tattoo",
+      service_type: isPiercing
+        ? safeSlug(data.piercing_type || "piercing")
+        : safeSlug(data.tattoo_request_type || "tattoo"),
+      artist: safeArtist(isPiercing ? data.preferred_piercer : data.preferred_artist),
+    };
+    try {
+      document.dispatchEvent(new CustomEvent("woa_booking_submit_success", { detail: detail }));
+    } catch (e) {
+      var event = document.createEvent("CustomEvent");
+      event.initCustomEvent("woa_booking_submit_success", true, true, detail);
+      document.dispatchEvent(event);
+    }
+  }
+
   function buildFormSubmitBody(data) {
     var subject =
       data.service_type === "piercing"
@@ -143,6 +182,7 @@
     submitPhp(form)
       .then(function (json) {
         setStatus("ok", json.message);
+        dispatchBookingSuccess(form, data, "php_success");
         form.reset();
         showService(activeService);
       })
@@ -155,6 +195,7 @@
                 data.email +
                 " shortly."
             );
+            dispatchBookingSuccess(form, data, "formsubmit_ajax_success");
             form.reset();
           })
           .catch(function () {
