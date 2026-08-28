@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate all static HTML/assets before FTP deploy.
+"""Regenerate all static HTML/assets before GitHub Pages deploy.
 
 Run this immediately before deploy_stitch_site_root.py so production receives
 the interview section, video cards, and restored Katelyn portrait — not stale exports.
@@ -141,7 +141,8 @@ def main() -> int:
 
     print(
         "\nReady to deploy. Next:\n"
-        "  FTP_USER='...' FTP_PASS='...' python3 deploy_stitch_site_root.py\n"
+        "  git push origin main   # triggers Deploy Work of Art Production → gh-pages\n"
+        "  # Legacy Bluehost FTP scripts are retired for production hosting.\n"
         "Then hard-refresh the site (Cmd+Shift+R) and View Source for WOA_BUILD_STAMP."
     )
     return 0

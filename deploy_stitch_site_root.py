@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 """
+DEPRECATED for production hosting.
+
+Live site hosting is GitHub Pages only (push/merge to main →
+.github/workflows/deploy-production.yml → gh-pages).
+Do not FTP-upload to Bluehost. This script remains for historical recovery only.
+
+---
+
 Deploy Stitch exports at the site document root (no /stitch-pages/ prefix).
 
 - Each folder with code.html → /<slug>/index.html (+ image assets)
@@ -310,6 +318,14 @@ def patch_htaccess(raw: bytes) -> bytes:
 
 
 def main() -> int:
+    if os.environ.get("WOA_ALLOW_LEGACY_FTP", "").strip() != "1":
+        print(
+            "Refusing Bluehost FTP deploy: production is GitHub Pages only.\n"
+            "Push/merge to main to run .github/workflows/deploy-production.yml.\n"
+            "Set WOA_ALLOW_LEGACY_FTP=1 only for emergency historical recovery.",
+            file=sys.stderr,
+        )
+        return 2
     user = os.environ.get("FTP_USER", "").strip()
     pw = os.environ.get("FTP_PASS", "").strip()
     if not user or not pw:

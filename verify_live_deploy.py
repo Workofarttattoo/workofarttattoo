@@ -152,8 +152,8 @@ def main() -> int:
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         print("\nFull site: python3 prepare_site_deploy.py", file=sys.stderr)
-        print("         FTP_USER='...' FTP_PASS='...' python3 deploy_stitch_site_root.py", file=sys.stderr)
-        print("Missing media: FTP_USER='...' FTP_PASS='...' python3 deploy_missing_media.py", file=sys.stderr)
+        print("         Merge/push to main so Deploy Work of Art Production publishes gh-pages.", file=sys.stderr)
+        print("Do not use Bluehost FTP scripts for production.", file=sys.stderr)
         return 1
 
     print("\nOK — live homepage and Katelyn portrait match prepared export.")

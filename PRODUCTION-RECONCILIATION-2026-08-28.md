@@ -1,5 +1,13 @@
 # Production Reconciliation — 2026-08-28
 
+## Hosting model
+
+Production is **GitHub Pages only**:
+
+- Site content lives in this repo and publishes through `gh-pages`
+- Custom domain is `www.workofarttattoo.com`
+- Bluehost is not part of the live hosting/FTP path anymore
+
 ## Status after deploy-proof branch
 
 This branch makes `main` deployable to GitHub Pages again and restores the broken production routes that navigation already advertised.
