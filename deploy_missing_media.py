@@ -14,11 +14,11 @@ HOST = "ftp.workofarttattoo.com"
 # (local_path_relative_to_root, remote_dir_under_public_html)
 UPLOADS: list[tuple[str, str]] = [
     (
-        "artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp",
+        "artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.webp",
         "artists/katelyn-cole",
     ),
     (
-        "artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg",
+        "artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg",
         "artists/katelyn-cole",
     ),
     (
@@ -40,7 +40,7 @@ UPLOADS: list[tuple[str, str]] = [
 ]
 
 DELETE_ON_KATELYN = (
-    "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.png"
+    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png"
 )
 
 

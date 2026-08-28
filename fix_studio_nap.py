@@ -18,7 +18,6 @@ from woa_nav_config import (
     ROOT_A,
     ROOT_B,
     STUDIO_ADDRESS_HTML,
-    STUDIO_ADDRESS_LOCALITY,
     STUDIO_ADDRESS_SINGLE_LINE,
     STUDIO_BOOKING_EMAIL,
     STUDIO_HOURS_HTML_GRID,
@@ -32,37 +31,31 @@ from woa_nav_config import (
 )
 
 SKIP_DIRS = frozenset({"artists_raw", ".git", "__pycache__", "node_modules"})
-SKIP_FILES = frozenset({
-    "skipped_pages_clipboard.html",
-    "fix_studio_nap.py",
-    "build_official_nap_page.py",
-    "woa_nav_config.py",
-    "woa_ai_crawl.py",
-})
-SKIP_PATH_PARTS = frozenset({"skipped_upload_build", "tools"})
+SKIP_FILES = frozenset({"skipped_pages_clipboard.html", "fix_studio_nap.py"})
+SKIP_PATH_PARTS = frozenset({"skipped_upload_build"})
 
 # Literal wrong values seen in listings / Stitch exports (→ canonical)
 TEXT_REPLACEMENTS: list[tuple[str, str]] = [
     # Phones
     ("725-224-2931", STUDIO_PHONE_DISPLAY),
     ("(725) 224-2931", STUDIO_PHONE_PARENS),
-    ("7252242931", STUDIO_PHONE_DISPLAY),
-    ("tel:" + "7252242931", STUDIO_PHONE_TEL),
+    ("7252242931", STUDIO_PHONE_DISPLAY.replace("-", "")),
+    ("tel:7252242931", STUDIO_PHONE_TEL),
     ("725-224-2617", STUDIO_PHONE_DISPLAY),
     ("(725) 224-2617", STUDIO_PHONE_PARENS),
-    ("7252242617", STUDIO_PHONE_DISPLAY),
-    ("tel:" + "7252242617", STUDIO_PHONE_TEL),
+    ("7252242617", STUDIO_PHONE_DISPLAY.replace("-", "")),
+    ("tel:7252242617", STUDIO_PHONE_TEL),
     ("702-960-9607", STUDIO_PHONE_DISPLAY),
-    ("(702) 960-9607", STUDIO_PHONE_DISPLAY),
-    ("7029609607", STUDIO_PHONE_DISPLAY),
+    ("(702) 960-9607", "(725) 224-1240"),
+    ("7029609607", "7252241240"),
     ("tel:7029609607", STUDIO_PHONE_TEL),
     ("702-555-0199", STUDIO_PHONE_DISPLAY),
     ("(702) 555-0199", STUDIO_PHONE_PARENS),
-    ("7025550199", STUDIO_PHONE_DISPLAY),
+    ("7025550199", "7252241240"),
     ("tel:7025550199", STUDIO_PHONE_TEL),
     # Normalize legacy tel: formats to E.164 href (display text unchanged)
-    ("tel:" + STUDIO_PHONE_DISPLAY, STUDIO_PHONE_TEL),
-    ("tel:" + STUDIO_PHONE_PARENS, STUDIO_PHONE_TEL),
+    ("tel:725-224-1240", STUDIO_PHONE_TEL),
+    ("tel:7252241240", STUDIO_PHONE_TEL),
     # Addresses (placeholders)
     (
         "1234 Art District Way, Suite 100<br/>Las Vegas, NV 89104",
@@ -77,40 +70,6 @@ TEXT_REPLACEMENTS: list[tuple[str, str]] = [
         STUDIO_ADDRESS_HTML,
     ),
     ("725 Art District Ln", STUDIO_STREET_ADDRESS),
-    (
-        "Work of Art Tattoo & Piercing · 5025 E. Tropicana Ave, Las Vegas",
-        f"Work of Art Tattoo & Piercing · {STUDIO_ADDRESS_SINGLE_LINE}",
-    ),
-    (
-        "Work of Art Tattoo & Piercing at 5025 E. Tropicana Ave — minutes from the Strip",
-        f"Work of Art Tattoo & Piercing at {STUDIO_STREET_ADDRESS} — minutes from the Strip",
-    ),
-    ("5025 E. Tropicana Ave, Las Vegas", f"{STUDIO_STREET_ADDRESS}, {STUDIO_ADDRESS_LOCALITY}"),
-    ("5025 E. Tropicana Ave", STUDIO_STREET_ADDRESS),
-    ("5025 E Tropicana", STUDIO_STREET_ADDRESS),
-    ("5025 East Tropicana", STUDIO_STREET_ADDRESS),
-    # Canonical 2375 — normalize casing, Ave, and missing city (GBP match)
-    ("2375 E. Tropicana suite 3", STUDIO_STREET_ADDRESS),
-    ("2375 E. Tropicana Ave, Suite 3, NV 89119", STUDIO_ADDRESS_SINGLE_LINE),
-    ("2375 E. Tropicana suite 3, NV 89119", STUDIO_ADDRESS_SINGLE_LINE),
-    ("2375 E. Tropicana suite 3 Las Vegas, NV 89119", STUDIO_ADDRESS_SINGLE_LINE),
-    ("2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119", STUDIO_ADDRESS_SINGLE_LINE),
-    ("2375 E. Tropicana Ave, Suite 3", STUDIO_STREET_ADDRESS),
-    ("2375 E. Tropicana Ave #3, Las Vegas, NV 89119", STUDIO_ADDRESS_SINGLE_LINE),
-    ("2375 E. Tropicana Ave #3", STUDIO_STREET_ADDRESS),
-    ("2375 E Tropicana Ave #3", STUDIO_STREET_ADDRESS),
-    (
-        "Directions to Work of Art at 2375 E. Tropicana Ave",
-        f"Directions to Work of Art at {STUDIO_STREET_ADDRESS}",
-    ),
-    (
-        "Located at 2375 E. Tropicana, we offer",
-        f"Located at {STUDIO_STREET_ADDRESS}, we offer",
-    ),
-    (
-        "2375 E. Tropicana suite 3, NV 89119<br/>Serving Henderson",
-        f"{STUDIO_ADDRESS_SINGLE_LINE}<br/>Serving Henderson",
-    ),
     ('"postalCode": "89101"', f'"postalCode": "{STUDIO_POSTAL_CODE}"'),
     # Wrong hours block (geo SEO page)
     (
@@ -187,10 +146,6 @@ def normalize_schema_telephone(text: str) -> str:
                     obj["telephone"] = STUDIO_PHONE_SCHEMA
                 if "streetAddress" in obj and "Art District" in str(obj["streetAddress"]):
                     obj["streetAddress"] = STUDIO_STREET_ADDRESS
-                if "streetAddress" in obj and "5025" in str(obj["streetAddress"]):
-                    obj["streetAddress"] = STUDIO_STREET_ADDRESS
-                if "streetAddress" in obj and "suite 3" in str(obj["streetAddress"]).lower():
-                    obj["streetAddress"] = STUDIO_STREET_ADDRESS
                 if "postalCode" in obj and obj["postalCode"] in ("89101", "89104"):
                     obj["postalCode"] = STUDIO_POSTAL_CODE
                 for v in obj.values():
@@ -244,16 +199,6 @@ def process_file(path: Path) -> bool:
     for old, new in TEXT_REPLACEMENTS:
         text = text.replace(old, new)
 
-    text = re.sub(
-        r"2375 E\. Tropicana Ave(?!,\s*Suite 3)",
-        STUDIO_STREET_ADDRESS,
-        text,
-    )
-    text = re.sub(
-        r"2375 E\. Tropicana Ave, Suite 3(?:,\s*Suite 3)+",
-        STUDIO_STREET_ADDRESS,
-        text,
-    )
     text = replace_phones_regex(text)
 
     if path.suffix.lower() == ".html":
@@ -282,46 +227,18 @@ def process_file(path: Path) -> bool:
     return False
 
 
-def audit_nap(root: Path) -> list[str]:
-    """Return relative paths that still contain wrong address strings."""
-    bad_patterns = ("5025", "2375 E. Tropicana suite 3")
-    issues: list[str] = []
-    for path in iter_files(root):
-        if path.suffix.lower() != ".html":
-            continue
-        text = path.read_text(encoding="utf-8", errors="replace")
-        for needle in bad_patterns:
-            if needle in text:
-                rel = str(path.relative_to(root))
-                issues.append(f"{rel}: contains {needle!r}")
-                break
-    return issues
-
-
 def main() -> int:
     changed: list[str] = []
     for root in site_roots():
         for path in iter_files(root):
             if process_file(path):
                 changed.append(str(path.relative_to(root)))
-    if changed:
-        print(f"NAP fixed in {len(changed)} file(s):")
-        for rel in changed:
-            print(f"  {rel}")
-    else:
+    if not changed:
         print("NAP already consistent.")
-
-    issues: list[str] = []
-    for root in site_roots():
-        issues.extend(audit_nap(root))
-    if issues:
-        print(f"\nNAP audit — {len(issues)} issue(s) remain:")
-        for line in issues[:30]:
-            print(f"  {line}")
-        if len(issues) > 30:
-            print(f"  … and {len(issues) - 30} more")
-        return 1
-    print("NAP audit: OK (no 5025 or non-canonical 2375 variants in HTML).")
+        return 0
+    print(f"NAP fixed in {len(changed)} file(s):")
+    for rel in changed:
+        print(f"  {rel}")
     return 0
 
 

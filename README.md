@@ -1,32 +1,52 @@
-# Work of Art Tattoo & Piercing - Site Deployment
+# Work of Art Tattoo & Piercing
 
-This repository contains the source code and deployment scripts for the [Work of Art Tattoo](https://www.workofarttattoo.com/) website.
+Static site for [www.workofarttattoo.com](https://www.workofarttattoo.com/).
 
-## Deployment
+## Hosting model (current)
 
-Production is deployed from GitHub. Push reconciled source changes to `main`; the `Deploy Work of Art Production` GitHub Actions workflow rebuilds the static site, generates `index.html` files from `code.html`, publishes the result to `gh-pages`, and verifies the live pages.
+| Layer | Where it lives |
+|---|---|
+| Site files / HTML | This GitHub repo |
+| Production publish | GitHub Pages branch `gh-pages` |
+| Custom domain | `www.workofarttattoo.com` via repo `CNAME` |
+| Domain registration | Registrar / name ownership only (not web hosting) |
+| DNS | Points the domain at GitHub Pages |
 
-### Command
+**Bluehost is not used for site hosting or FTP deploy anymore.** Do not upload the site to Bluehost `public_html` or run the legacy FTP scripts for production.
 
-Run the following command from the repository root:
+## Production deploy
+
+Push (or merge) to `main`. GitHub Actions workflow **Deploy Work of Art Production** (`.github/workflows/deploy-production.yml`):
+
+1. Builds `index.html` from source `code.html` pages
+2. Overlays reviewed source onto the existing `gh-pages` tree (preserves live-only routes)
+3. Audits critical files and internal links
+4. Publishes to `gh-pages`
+5. Verifies `www.workofarttattoo.com` serves the exact `DEPLOYED_MAIN_SHA`
+
+Manual re-run: Actions → **Deploy Work of Art Production** → **Run workflow**.
+
+## Local checks
 
 ```bash
-python3 prepare_site_deploy.py
-git add -A
-git commit -m "Update production site"
-git push origin HEAD:main
+pip install beautifulsoup4
+python3 - <<'PY'
+from pathlib import Path
+import shutil
+for code in Path('.').rglob('code.html'):
+    if '.git' in code.parts or 'skipped_upload_build' in code.parts:
+        continue
+    shutil.copy2(code, code.with_name('index.html'))
+print('Generated index.html companions from code.html')
+PY
 ```
 
-### Prerequisites
+Live verification helper (reads the public site, does not FTP):
 
-1. **GitHub access**: You must be able to push to `main`.
-2. **Python dependencies**: The deployment scripts require `beautifulsoup4` and `Pillow`.
-   ```bash
-   pip install beautifulsoup4 Pillow
-   ```
+```bash
+python3 verify_live_deploy.py
+```
 
-## Script Overview
+## Legacy FTP scripts (do not use for production)
 
-- `prepare_site_deploy.py`: Regenerates homepage, artist pages, SEO pages, schema, analytics snippets, and visual-intent repairs before a push.
-- `.github/workflows/deploy-production.yml`: Rebuilds `main`, applies final QA cleanup, copies `code.html` pages to `index.html`, and publishes to `gh-pages`.
-- `tools/a_plus_cleanup.py` and `tools/a_plus_claims_cleanup.py`: Final factual and claim-safety guards used by the production workflow.
+Older helpers such as `deploy_stitch_site_root.py`, `upload_stitch_ftp.py`, and `seo_rewrite_image_alts.py --deploy` still contain Bluehost FTP code for historical recovery only. They are **not** the production path.

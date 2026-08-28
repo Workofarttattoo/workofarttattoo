@@ -9,9 +9,7 @@ from pathlib import Path
 from woa_nav_config import (
     HREF_FACEBOOK_STUDIO,
     HREF_INSTAGRAM_JOSHUA,
-    HREF_INSTAGRAM_JOSHUA_HANDLE,
     HREF_INSTAGRAM_KATELYN,
-    HREF_INSTAGRAM_KATELYN_HANDLE,
     HREF_INSTAGRAM_STUDIO,
     ROOT_A,
 )
@@ -29,7 +27,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         'href="#">Instagram Portfolio</a>',
-        f'href="{HREF_INSTAGRAM_STUDIO}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE}</a>',
+        f'href="{HREF_INSTAGRAM_KATELYN}"{EXTERNAL}>Instagram @stabislifee</a>',
     ),
     (
         'href="https://instagram.com" target="_blank">Follow on Instagram</a>',
@@ -67,23 +65,10 @@ def process(path: Path) -> bool:
     text = path.read_text(encoding="utf-8", errors="replace")
     original = text
 
-    text = re.sub(
-        r'href="https://www\.instagram\.com/stabislifee/"([^>]*)>Instagram\s*@stabislifee\s*\(Joshua\)</a>',
-        f'href="{HREF_INSTAGRAM_JOSHUA}"\\1>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE} (Joshua)</a>',
-        text,
-        flags=re.IGNORECASE,
-    )
-    text = re.sub(
-        r'href="https://www\.instagram\.com/stabislifee/"([^>]*)>Instagram\s*\(Joshua\)</a>',
-        f'href="{HREF_INSTAGRAM_JOSHUA}"\\1>Instagram (Joshua)</a>',
-        text,
-        flags=re.IGNORECASE,
-    )
-
     if path.name == "joshua-cole.html":
         text = text.replace(
             'href="#">Instagram Portfolio</a>',
-            f'href="{HREF_INSTAGRAM_JOSHUA}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE}</a>',
+            f'href="{HREF_INSTAGRAM_JOSHUA}"{EXTERNAL}>Instagram @stabislifee</a>',
         )
 
     for old, new in REPLACEMENTS:
@@ -92,7 +77,7 @@ def process(path: Path) -> bool:
         if path.name == "katelyn-cole.html" and "Instagram</a>" in old and "Portfolio" not in old:
             text = text.replace(
                 'href="#">Instagram</a>',
-                f'href="{HREF_INSTAGRAM_KATELYN}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_KATELYN_HANDLE}</a>',
+                f'href="{HREF_INSTAGRAM_KATELYN}"{EXTERNAL}>Instagram</a>',
             )
             continue
         text = text.replace(old, new)
