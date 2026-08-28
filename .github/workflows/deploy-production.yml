@@ -181,10 +181,14 @@ jobs:
           marker="$(git show origin/gh-pages:DEPLOYED_MAIN_SHA | tr -d '\n')"
           echo "gh-pages marker=$marker expected=$GITHUB_SHA"
           test "$marker" = "$GITHUB_SHA"
-          git show origin/gh-pages:index.html | grep -q 'woa-hero-banner'
-          git show origin/gh-pages:artists/katelyn-cole/index.html | grep -q 'Professional'
+          # Avoid `git show | grep -q` under pipefail (SIGPIPE/141 on match).
+          git show origin/gh-pages:index.html > /tmp/woa-verify-index.html
+          grep -q 'woa-hero-banner' /tmp/woa-verify-index.html
+          git show origin/gh-pages:artists/katelyn-cole/index.html > /tmp/woa-verify-katelyn.html
+          grep -q 'Professional' /tmp/woa-verify-katelyn.html
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
-          git show origin/gh-pages:merchandise/index.html | grep -Eiq 'Merchandise|Original art'
+          git show origin/gh-pages:merchandise/index.html > /tmp/woa-verify-merch.html
+          grep -Eiq 'Merchandise|Original art' /tmp/woa-verify-merch.html
           git cat-file -e origin/gh-pages:privacy-policy/index.html
           git cat-file -e origin/gh-pages:terms-of-service/index.html
           git cat-file -e origin/gh-pages:studio-rules/index.html
