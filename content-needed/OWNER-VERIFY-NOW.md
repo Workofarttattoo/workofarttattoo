@@ -11,3 +11,4 @@ Do not promote these as verified facts until Joshua/Katelyn/owner confirms them:
 - Any "2012" claim: verify whether it refers to Joshua's art/professional career, not the business founding date.
 - Case-study session dates, session length, healed interval, and touch-up status.
 - Medical/healing intervals that go beyond firsthand studio aftercare observations.
+- Flash pricing: the `/flash_art_deals_under_100/` page title says "under $100" while the sheets and FAQ say "from $100" / "starts at $100." Confirm the real floor and align the copy.
