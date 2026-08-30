@@ -69,6 +69,16 @@ TEXT_REPLACEMENTS: list[tuple[str, str]] = [
     ("Joshua Cole and Jay Jay (tattoo), Katelyn Cole (piercing)", "Joshua Cole (tattoo &amp; piercing), Katelyn Cole (piercing), and Teralyn (tattoo artist and piercer)"),
     ("Joshua Cole or Jay Jay", "Joshua Cole"),
     ("Joshua Cole and Jay Jay", "Joshua Cole"),
+    (
+        "book with Joshua Cole or Joshua Cole through our appointments page",
+        "book with Joshua Cole or Teralyn through our appointments page",
+    ),
+    ("Joshua Cole and Joshua Cole", "Joshua Cole"),
+    ("Joshua Cole or Joshua Cole", "Joshua Cole"),
+    (
+        "Joshua Cole (tattoo &amp; piercing; studio lead who trains artists), Joshua Cole (tattoo), Katelyn Cole (piercing)",
+        "Joshua Cole (tattoo &amp; piercing; studio lead who trains artists), Katelyn (Katie) Cole (piercing), and Teralyn (tattoo artist and piercing team)",
+    ),
     ("Jay Jay on tattoo and Katelyn Cole as professional piercer", "Katelyn Cole as professional piercer"),
     ("with Jay Jay on tattoo and Katelyn Cole", "with Katelyn Cole"),
     ("Jay Jay (tattoo)", ""),
