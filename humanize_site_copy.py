@@ -288,6 +288,12 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             "To spot strong portfolio work, look for the **integrity of the line** and the **purity of the saturation**.",
         ),
     ],
+    "piercing-shop-standards": [
+        (
+            "<p class=\"font-body-lg text-on-surface-variant\">Searching <strong>tattoo and piercing at Work of Art</strong> or <strong>body piercings and tattoos near me</strong> in Vegas? Work of Art is a licensed <strong>body piercing studio</strong> and tattoo and piercing shop at 2375 E. Tropicana Ave, Suite 3 — minutes from the Strip. Book piercing with Katelyn Cole and tattoos with Joshua Cole without bouncing between a body piercing place and a separate tattoo parlor.</p>",
+            "<p class=\"font-body-lg text-on-surface-variant\">Need piercing and tattoos in one trip? Work of Art is a licensed studio at 2375 E. Tropicana Ave, Suite 3 — a short drive from the Strip. Book ear curation with Katelyn Cole and custom tattoo work with Joshua Cole under the same roof.</p>",
+        ),
+    ],
     "best_piercing_shop_las_vegas_updated_jewelry_standards": [
         (
             "<h1 class=\"font-headline-xl text-headline-xl md:text-[96px] mb-6 max-w-4xl leading-[1.1]\">Body Piercing Store Near Me — Las Vegas</h1>",
@@ -299,6 +305,10 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
         ),
         (
             "<p class=\"font-body-lg text-on-surface-variant\">Searching <strong>tattoo body piercing near me</strong> or <strong>body piercings and tattoos near me</strong> in Vegas? Work of Art is a licensed <strong>body piercing studio</strong> and tattoo and piercing shop at 2375 E. Tropicana Ave, Suite 3 — minutes from the Strip. Book piercing with Katelyn Cole and tattoos with Joshua Cole without bouncing between a body piercing place and a separate tattoo parlor.</p>",
+            "<p class=\"font-body-lg text-on-surface-variant\">Need piercing and tattoos in one trip? Work of Art is a licensed studio at 2375 E. Tropicana Ave, Suite 3 — a short drive from the Strip. Book ear curation with Katelyn Cole and custom tattoo work with Joshua Cole under the same roof.</p>",
+        ),
+        (
+            "<p class=\"font-body-lg text-on-surface-variant\">Searching <strong>tattoo and piercing at Work of Art</strong> or <strong>body piercings and tattoos near me</strong> in Vegas? Work of Art is a licensed <strong>body piercing studio</strong> and tattoo and piercing shop at 2375 E. Tropicana Ave, Suite 3 — minutes from the Strip. Book piercing with Katelyn Cole and tattoos with Joshua Cole without bouncing between a body piercing place and a separate tattoo parlor.</p>",
             "<p class=\"font-body-lg text-on-surface-variant\">Need piercing and tattoos in one trip? Work of Art is a licensed studio at 2375 E. Tropicana Ave, Suite 3 — a short drive from the Strip. Book ear curation with Katelyn Cole and custom tattoo work with Joshua Cole under the same roof.</p>",
         ),
         (
@@ -359,15 +369,17 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
 
 def iter_html_files() -> list[Path]:
     out: list[Path] = []
+    skip_parts = {"skipped", "node_modules", ".git"}
     for path in sorted(ROOT.rglob("code.html")):
-        if "skipped" in path.parts:
+        if skip_parts.intersection(path.parts):
+            continue
+        out.append(path)
+    for path in sorted(ROOT.rglob("index.html")):
+        if skip_parts.intersection(path.parts):
             continue
         out.append(path)
     for path in sorted((ROOT / "artists_build").glob("*.html")):
         out.append(path)
-    artists_index = ROOT / "artists" / "code.html"
-    if artists_index.is_file():
-        out.append(artists_index)
     return sorted(set(out))
 
 
@@ -398,7 +410,10 @@ def soften_guide_marketing(html: str) -> str:
 
 
 def soften_faq_crawler_titles(html: str) -> str:
-    """Turn FAQ summaries written for crawlers into plain questions."""
+    """Turn FAQ summaries written for crawlers into plain questions.
+
+    Skip <head> so legitimate SEO titles and meta descriptions stay put.
+    """
     subs = [
         (r"What is the best (.+?) near me\?", r"What should I know about \1 at Work of Art?"),
         (r"Where is the best (.+?) near me", r"Where is Work of Art for \1"),
@@ -411,9 +426,16 @@ def soften_faq_crawler_titles(html: str) -> str:
         (r"pierce near me", "professional piercing"),
         (r"piercing shop close to me", "piercing studio on E. Tropicana"),
     ]
+    lower = html.lower()
+    head_end = lower.find("</head>")
+    if head_end == -1:
+        prefix, body = "", html
+    else:
+        split_at = head_end + len("</head>")
+        prefix, body = html[:split_at], html[split_at:]
     for pattern, repl in subs:
-        html = re.sub(pattern, repl, html, flags=re.IGNORECASE)
-    return html
+        body = re.sub(pattern, repl, body, flags=re.IGNORECASE)
+    return prefix + body
 
 
 def main() -> int:
