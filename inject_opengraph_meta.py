@@ -8,7 +8,7 @@ from html import escape, unescape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SITE = "https://www.workofarttattoo.com"
+SITE = "https://workofarttattoo.com"
 DEFAULT_OG_IMAGE = (
     f"{SITE}/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/"
     "best-tattoo-las-vegas-custom-sleeve-by-master-artist.webp"

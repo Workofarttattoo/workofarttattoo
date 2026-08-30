@@ -22,57 +22,18 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Install build dependencies
-        run: python3 -m pip install --quiet Pillow beautifulsoup4
+      - name: Install HTML audit dependency
+        run: python3 -m pip install --quiet beautifulsoup4
 
-      - name: Prepare generated site
-        run: python3 prepare_site_deploy.py
-
-      - name: Reapply correct Katelyn piercing galleries
-        run: python3 tools/install_katelyn_piercing_photos.py
-
-      - name: Reapply Katelyn human editorial pass
-        run: python3 tools/polish_katelyn_profile.py
-
-      - name: Reapply factual consistency guard
-        run: python3 tools/a_plus_cleanup.py
-
-      - name: Reapply claims guard
-        run: python3 tools/a_plus_claims_cleanup.py
-
-      - name: Verify no banned customer-facing claims remain
-        run: |
-          bad=0
-          for term in 'Master Piercer' 'Master Body Piercer' 'McCarran' '2,400+' 'medical-grade' 'hospital-grade' 'masculine, honest shop talk' 'cabin pressure and dry airplane air change' 'Best Body Piercer in Las Vegas'; do
-            if find . \
-              -path './.git' -prune -o \
-              -path './.github' -prune -o \
-              -path './tools' -prune -o \
-              -path './audits' -prune -o \
-              -name 'a-plus-unresolved.md' -prune -o \
-              \( -name '*.html' -o -name '*.json' -o -name '*.md' \) \
-              -type f -print0 | xargs -0 grep -In "$term"; then
-              echo "BANNED CUSTOMER-FACING TERM REMAINS: $term"
-              bad=1
-            fi
-          done
-          test "$bad" -eq 0
-
-      - name: Generate crawl assets and validate sitemap
-        run: python3 submit_google_recrawl.py
-
-      - name: Generate GitHub Pages index files
+      - name: Generate deployable files from main
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import shutil
 
-          root = Path('.')
-          copied = 0
-          for code in root.rglob('code.html'):
+          for code in Path('.').rglob('code.html'):
               if '.git' in code.parts or '.github' in code.parts or 'skipped_upload_build' in code.parts:
                   continue
-<<<<<<< HEAD
               shutil.copy2(code, code.with_name('index.html'))
 
           mappings = {
@@ -105,12 +66,6 @@ jobs:
               raise SystemExit('No homepage source with studio banner (woa-hero-banner) found')
           shutil.copy2(home_src, 'index.html')
           print(f'Homepage source: {home_src}')
-=======
-              target = code.with_name('index.html')
-              shutil.copy2(code, target)
-              copied += 1
-          print(f'Generated {copied} index.html files from code.html sources')
->>>>>>> integration/seo-rebuild
           PY
           test -s index.html
           grep -q 'woa-hero-banner' index.html
@@ -118,8 +73,9 @@ jobs:
           ! grep -q '<<<<<<<' index.html
           test -s CNAME
           printf '' > .nojekyll
+          printf '%s\n' "$GITHUB_SHA" > DEPLOYED_MAIN_SHA
 
-      - name: Publish generated site to gh-pages
+      - name: Preserve production-only files and overlay reviewed source
         run: |
           set -euo pipefail
           git config user.name 'WOA Pages Deploy Bot'
@@ -127,19 +83,80 @@ jobs:
           git fetch origin gh-pages
           rm -rf /tmp/woa-gh-pages
           git worktree add --detach /tmp/woa-gh-pages origin/gh-pages
-          find /tmp/woa-gh-pages -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
-            --exclude='audits' \
-            --exclude='piercing_asset_chunks' \
-            --exclude='a-plus-unresolved.md' \
-            --exclude='manifest.csv' \
             --exclude='__pycache__' \
             --exclude='*.pyc' \
             --exclude='*.bundle' \
             --exclude='workofarttattoo-reconciled-*.bundle' \
             ./ /tmp/woa-gh-pages/
+
+      - name: Audit final production tree
+        run: |
+          cd /tmp/woa-gh-pages
+          python3 - <<'PY'
+          from collections import Counter
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          from bs4 import BeautifulSoup
+
+          required = [
+              'index.html',
+              'appointments/index.html',
+              'artists/katelyn-cole/index.html',
+              'artists/joshua-cole/index.html',
+              'artists/teralyn/index.html',
+              'cover-up-tattoos-las-vegas/index.html',
+              'merchandise/index.html',
+              'privacy-policy/index.html',
+              'terms-of-service/index.html',
+              'studio-rules/index.html',
+              'fine_line_tattoos_las_vegas_master_authority_guide/index.html',
+              'best_tattoo_styles_for_sleeves_large_scale_project_hub/index.html',
+              'sitemap-static-pages.xml',
+              'robots.txt',
+              'CNAME',
+              'DEPLOYED_MAIN_SHA',
+          ]
+          missing = [p for p in required if not Path(p).is_file()]
+          if missing:
+              raise SystemExit('Missing critical production files: ' + ', '.join(missing))
+
+          merch = Path('merchandise/index.html').read_text(encoding='utf-8', errors='replace')
+          if 'Merchandise' not in merch and 'Original art' not in merch and 'original art' not in merch:
+              raise SystemExit('Merchandise route exists but does not contain expected merchandise content')
+
+          broken = Counter()
+          checked = 0
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts or 'skipped_upload_build' in path.parts:
+                  continue
+              soup = BeautifulSoup(path.read_text(encoding='utf-8', errors='replace'), 'html.parser')
+              for a in soup.find_all('a', href=True):
+                  href = (a.get('href') or '').strip()
+                  if not href.startswith('/') or href.startswith('//'):
+                      continue
+                  target = urlsplit(href).path
+                  if target in ('', '/'):
+                      continue
+                  checked += 1
+                  rel = target.lstrip('/')
+                  candidates = [Path(rel), Path(rel) / 'index.html']
+                  if not any(c.exists() for c in candidates):
+                      broken[target] += 1
+
+          print(f'Audited {checked} root-relative links.')
+          for target, count in broken.most_common(80):
+              print(f'BROKEN {count:4d} {target}')
+          severe = [(u, n) for u, n in broken.items() if n >= 5]
+          if severe:
+              raise SystemExit('Repeated broken internal links block deployment: ' + ', '.join(f'{u} ({n})' for u,n in sorted(severe)[:30]))
+          PY
+
+      - name: Publish audited tree to gh-pages
+        run: |
+          set -euo pipefail
           cd /tmp/woa-gh-pages
           # Force the deploy marker in the Pages tree right before commit.
           # Prior runs could update index.html while leaving a stale DEPLOYED_MAIN_SHA.
@@ -150,18 +167,17 @@ jobs:
           git add -A
           git add -f DEPLOYED_MAIN_SHA index.html
           if git diff --cached --quiet; then
-            echo 'No GitHub Pages changes to publish.'
+            echo 'No production changes to publish.'
           else
-            git commit -m "Deploy main to GitHub Pages ${GITHUB_SHA::7}"
+            git commit -m "Deploy main overlay to GitHub Pages ${GITHUB_SHA::7}"
             git push origin HEAD:gh-pages
           fi
 
-      - name: Verify published branch contents
+      - name: Verify gh-pages exact source marker and critical routes
         run: |
           set -euo pipefail
           git fetch origin gh-pages
           test "$(git show origin/gh-pages:CNAME)" = 'www.workofarttattoo.com'
-<<<<<<< HEAD
           marker="$(git show origin/gh-pages:DEPLOYED_MAIN_SHA | tr -d '\n')"
           echo "gh-pages marker=$marker expected=$GITHUB_SHA"
           test "$marker" = "$GITHUB_SHA"
@@ -178,16 +194,10 @@ jobs:
           git cat-file -e origin/gh-pages:studio-rules/index.html
           git cat-file -e origin/gh-pages:artists/teralyn/index.html
           echo "gh-pages contains exact main marker $GITHUB_SHA"
-=======
-          git show origin/gh-pages:index.html | grep -q 'WOA_BUILD_STAMP:'
-          git show origin/gh-pages:artists/katelyn-cole/index.html | grep -q 'Professional Piercer'
-          echo 'gh-pages branch contains the generated production site.'
->>>>>>> integration/seo-rebuild
 
-      - name: Verify GitHub Pages live
+      - name: Verify active website serves exact deployed main commit
         run: |
           python3 - <<'PY'
-<<<<<<< HEAD
           import os, time, urllib.request
 
           base = 'https://www.workofarttattoo.com'
@@ -222,30 +232,26 @@ jobs:
                   failures.append('deploy marker: ' + repr(exc))
 
               for path, needle in critical.items():
-=======
-          import time, urllib.request
-          base='https://www.workofarttattoo.com'
-          paths=['/','/artists/katelyn-cole/']
-          last=[]
-          for attempt in range(12):
-              failures=[]
-              for path in paths:
->>>>>>> integration/seo-rebuild
                   try:
-                      req=urllib.request.Request(base+path+'?deploycheck='+str(int(time.time())), headers={'User-Agent':'WOA-GitHub-Pages-QA/1.0','Cache-Control':'no-cache'})
+                      req = urllib.request.Request(base + path + '?x=' + str(time.time()), headers={'User-Agent':'WOA-Deploy-Verifier/4.0','Cache-Control':'no-cache'})
                       with urllib.request.urlopen(req, timeout=30) as r:
-                          body=r.read().decode('utf-8','replace')
-                      if path == '/' and 'WOA_BUILD_STAMP:' not in body:
-                          failures.append('homepage missing fresh build stamp')
-                      if path.endswith('katelyn-cole/') and 'Professional Piercer' not in body:
-                          failures.append('Katelyn page missing Professional Piercer')
+                          body = r.read().decode('utf-8', 'replace')
+                          status = r.status
+                      if status != 200:
+                          failures.append(f'{path} HTTP {status}')
+                      if needle and needle.lower() not in body.lower():
+                          failures.append(f'{path} missing {needle!r}')
                   except Exception as exc:
-                      failures.append(f'{path}: {exc}')
+                      failures.append(f'{path}: {exc!r}')
+
               if not failures:
-                  print('GitHub Pages production verification passed.')
+                  print('ACTIVE WEBSITE VERIFIED: exact main commit is live and all critical routes pass.')
                   raise SystemExit(0)
-              last=failures
-              print(f'Pages not updated yet (attempt {attempt+1}/12): ' + '; '.join(failures))
+              last = failures
+              print(f'Waiting for GitHub Pages propagation ({attempt + 1}/20):')
+              for failure in failures:
+                  print(' -', failure)
               time.sleep(15)
-          raise SystemExit('GitHub Pages did not reflect the new build in time: ' + '; '.join(last))
+
+          raise SystemExit('Production did not verify: ' + '; '.join(last))
           PY

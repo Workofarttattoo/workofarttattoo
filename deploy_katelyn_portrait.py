@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 HOST = "ftp.workofarttattoo.com"
 REMOTE = "artists/katelyn-cole"
-STEM = "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas"
+STEM = "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas"
 FILES = (f"{STEM}.webp", f"{STEM}.jpg")
 
 

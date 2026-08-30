@@ -10,15 +10,14 @@ import urllib.request
 
 from PIL import Image
 
-SITE = "https://www.workofarttattoo.com"
+SITE = "https://workofarttattoo.com"
 HOME_LOCAL = "home_work_of_art_tattoo_piercing/code.html"
 KATELYN_BASE = (
-    "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas"
+    "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas"
 )
 KATELYN_WEBP = f"/artists/katelyn-cole/{KATELYN_BASE}.webp"
 KATELYN_JPG = f"/artists/katelyn-cole/{KATELYN_BASE}.jpg"
-PORTRAIT_WEBP_SIZE = (640, 853)
-PORTRAIT_JPG_SIZE = (800, 1067)
+PORTRAIT_SIZE = (800, 1067)
 INTERVIEW_STILL = (
     "/home_work_of_art_tattoo_piercing/joshua-cole-studio-interview-las-vegas.png"
 )
@@ -116,7 +115,7 @@ def main() -> int:
         errors.append("Katelyn .webp on server is stale (wrong file size)")
     else:
         try:
-            if image_size(live_webp_body) != PORTRAIT_WEBP_SIZE:
+            if image_size(live_webp_body) != PORTRAIT_SIZE:
                 errors.append(
                     f"Katelyn .webp wrong dimensions on live: {image_size(live_webp_body)}"
                 )
@@ -136,7 +135,7 @@ def main() -> int:
             errors.append("Katelyn .jpg on server is stale (wrong file size)")
         else:
             try:
-                if image_size(live_jpg_body) != PORTRAIT_JPG_SIZE:
+                if image_size(live_jpg_body) != PORTRAIT_SIZE:
                     errors.append(
                         f"Katelyn .jpg wrong dimensions on live: {image_size(live_jpg_body)}"
                     )

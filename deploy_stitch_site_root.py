@@ -34,7 +34,6 @@ Env overrides:
   WOA_HOME_SLUG           — Exact folder name for the homepage export (if auto-detect fails)
   WOA_ROOT_MEDIA_FOLDER   — Where loose images at repo root go (default: _repo_media)
   FTP_USER, FTP_PASS      — Required (never commit credentials into this file)
-  FTP_HOST                — FTP server (default: workofarttattoo.com — not ftp.workofarttattoo.com; that subdomain often fails DNS)
 
 Child folders without code.html still upload when they contain image files in that folder
 (non-recursive). Loose image files at repo root upload to /WOA_ROOT_MEDIA_FOLDER/.
@@ -45,15 +44,12 @@ Child folders without code.html still upload when they contain image files in th
 from __future__ import annotations
 
 import os
-import re
 import sys
 from ftplib import FTP, error_perm
 from io import BytesIO
 from pathlib import Path
 
 from woa_ai_crawl import GEO_SLUG, SITEMAP_STATIC_NAME, write_ai_crawl_assets
-from woa_page_consolidation import CONSOLIDATION_REDIRECTS, RETIRE_OVERLAP_SLUGS
-from woa_url_aliases import ALIASES_BY_SOURCE, NEVER_RETIRE_SOURCE_SLUGS, URL_ALIASES
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_CRAWL_FILES = ("llms.txt", "ai.txt", "robots.txt", "sitemap-static-pages.xml", "sitemap.xml")
@@ -62,7 +58,7 @@ _DEFAULT_SOURCE_ROOT = str(_SCRIPT_DIR)
 SOURCES = [
     Path(os.environ.get("WOA_DEPLOY_SOURCE", _DEFAULT_SOURCE_ROOT)).expanduser().resolve()
 ]
-HOST = os.environ.get("FTP_HOST", "workofarttattoo.com").strip() or "workofarttattoo.com"
+HOST = "ftp.workofarttattoo.com"
 _DEFAULT_HOME_SLUG = "home_work_of_art_tattoo_piercing"
 LEGACY_PREFIX = "stitch-pages"
 
@@ -105,16 +101,6 @@ IMAGE_EXT = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ico"}
 SLUG_ASSET_EXT = IMAGE_EXT | {".css"}
 
 SKIP_MEDIA_ONLY_NAMES = frozenset({"__pycache__", "node_modules"})
-
-SKIP_DEPLOY_SLUGS = frozenset({"jay_jay_artist_portfolio_authentic_masterpieces"})
-# Source folders mirrored at short URLs — deploy alias only; legacy 301s via .htaccess
-# NEVER_RETIRE_SOURCE_SLUGS stay deployed at their original path (no FTP delete).
-SKIP_DEPLOY_SLUGS = (
-    SKIP_DEPLOY_SLUGS
-    | frozenset(ALIASES_BY_SOURCE.keys())
-    | RETIRE_OVERLAP_SLUGS
-    - NEVER_RETIRE_SOURCE_SLUGS
-)
 
 
 def iter_image_files_direct(local_dir: Path) -> list[Path]:
@@ -227,18 +213,6 @@ def deploy_nested_assets(ftp: FTP, local_dir: Path, remote_prefix: str) -> int:
     return count
 
 
-def deploy_nested_code_pages(ftp: FTP, local_dir: Path, remote_prefix: str) -> int:
-    """Upload nested code.html pages as /<remote_prefix>/<child>/index.html."""
-    count = 0
-    for code in sorted(local_dir.glob("*/code.html")):
-        child = code.parent.name
-        if child.startswith("."):
-            continue
-        ftp_stor_file(ftp, f"{remote_prefix}/{child}", code, "index.html")
-        count += 1
-    return count
-
-
 def ftp_dele_file(ftp: FTP, remote_dir: str, remote_name: str) -> None:
     ftp_mkdir_p(ftp, remote_dir)
     try:
@@ -261,14 +235,14 @@ def deploy_artists_roster_media(ftp: FTP, artists_dir: Path) -> int:
             ftp_dele_file(
                 ftp,
                 remote,
-                "katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.png",
+                "katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.png",
             )
         for fpath in sorted(sub.iterdir()):
             if not fpath.is_file() or fpath.suffix.lower() not in SLUG_ASSET_EXT:
                 continue
             # Bluehost rewrites large portrait PNG to WebP at the same path — deploy webp + jpg only.
             if sub.name == "katelyn-cole" and fpath.suffix.lower() == ".png":
-                if "professional-piercer" in fpath.name:
+                if "master-body-piercer" in fpath.name:
                     continue
             if sub.name == "katelyn-cole":
                 ftp_dele_file(ftp, remote, fpath.name)
@@ -278,32 +252,11 @@ def deploy_artists_roster_media(ftp: FTP, artists_dir: Path) -> int:
 
 
 HTACCESS_MARKER = "# Stitch: prefer static index.html before WordPress\n"
-REDIRECT_MARKER = "# WOA short URL redirects (301)\n"
-HTACCESS_SNIPPET = HTACCESS_MARKER + """Options -Indexes
-<IfModule mod_dir.c>
+HTACCESS_SNIPPET = HTACCESS_MARKER + """<IfModule mod_dir.c>
 DirectoryIndex index.html index.php
 </IfModule>
 
 """
-
-
-def htaccess_redirect_block() -> str:
-    lines = [
-        REDIRECT_MARKER,
-        "<IfModule mod_rewrite.c>",
-        "RewriteEngine On",
-    ]
-    for alias in URL_ALIASES:
-        if alias.source_slug in NEVER_RETIRE_SOURCE_SLUGS:
-            continue
-        lines.append(
-            f"RewriteRule ^{alias.source_slug}/?$ /{alias.short_slug}/ [R=301,L]"
-        )
-    for src, dest in CONSOLIDATION_REDIRECTS:
-        dest_path = dest.strip("/")
-        lines.append(f"RewriteRule ^{src}/?$ /{dest_path}/ [R=301,L]")
-    lines.append("</IfModule>\n")
-    return "\n".join(lines)
 
 
 def ftp_mkdir_p(ftp: FTP, remote_path: str) -> None:
@@ -359,33 +312,9 @@ def ftp_rmtree(ftp: FTP, path: str) -> None:
 
 def patch_htaccess(raw: bytes) -> bytes:
     text = raw.decode("utf-8", errors="replace")
-    redirect_block = htaccess_redirect_block()
-
-    text = re.sub(
-        rf"{re.escape(REDIRECT_MARKER)}[\s\S]*?</IfModule>\s*",
-        "",
-        text,
-        count=1,
-    )
-
     if HTACCESS_MARKER in text:
-        if "Options -Indexes" not in text:
-            text = text.replace(
-                HTACCESS_MARKER,
-                HTACCESS_MARKER + "Options -Indexes\n",
-                1,
-            )
-        insert_after = "</IfModule>\n"
-        marker_pos = text.find(insert_after, text.find(HTACCESS_MARKER))
-        if marker_pos != -1:
-            pos = marker_pos + len(insert_after)
-            text = text[:pos] + "\n" + redirect_block + text[pos:]
-        else:
-            text = HTACCESS_SNIPPET + redirect_block + text
-    else:
-        text = HTACCESS_SNIPPET + redirect_block + text.lstrip()
-
-    return text.encode("utf-8")
+        return raw
+    return (HTACCESS_SNIPPET + text).encode("utf-8")
 
 
 def main() -> int:
@@ -463,18 +392,8 @@ def main() -> int:
     )
 
     try:
-        ftp = FTP(HOST, timeout=300)
+        ftp = FTP(HOST, timeout=120)
         ftp.login(user, pw)
-    except OSError as e:
-        print(
-            f"FTP connect failed ({e}).\n"
-            f"  Host: {HOST!r}\n"
-            "  If DNS fails, try: FTP_HOST=workofarttattoo.com "
-            "(Bluehost accepts the main domain; ftp.workofarttattoo.com often breaks).\n"
-            "  Or use the server IP from Bluehost → Advanced → FTP Accounts.",
-            file=sys.stderr,
-        )
-        return 1
     except error_perm as e:
         print(
             f"FTP login failed ({e}).\n"
@@ -510,11 +429,9 @@ def _deploy_all(
     old_ht = buf.getvalue()
     new_ht = patch_htaccess(old_ht)
     if new_ht != old_ht:
-        print("[up] /.htaccess (DirectoryIndex + short URL 301 redirects)")
+        print("[up] /.htaccess (prepend DirectoryIndex for index.html)")
         ftp.cwd("/")
         ftp.storbinary("STOR .htaccess", BytesIO(new_ht))
-    else:
-        print("[warn] .htaccess unchanged — verify redirect rules on server")
 
     uploaded = 0
     uploaded_media_only = 0
@@ -541,14 +458,6 @@ def _deploy_all(
     for slug in sorted(merged.keys()):
         if slug == "artists_build":
             continue
-        if slug == home_slug:
-            print(f"[skip] {slug} — homepage source deployed at /")
-            skipped += 1
-            continue
-        if slug in SKIP_DEPLOY_SLUGS:
-            print(f"[skip] {slug} — excluded from deploy")
-            skipped += 1
-            continue
         local_dir = merged[slug]
         code = local_dir / "code.html"
 
@@ -570,10 +479,6 @@ def _deploy_all(
             n_nested = deploy_nested_assets(ftp, local_dir, slug)
             if n_nested:
                 print(f"[up]   nested assets /{slug}/ → {n_nested} file(s)")
-
-            n_nested_pages = deploy_nested_code_pages(ftp, local_dir, slug)
-            if n_nested_pages:
-                print(f"[up]   nested pages /{slug}/ → {n_nested_pages} page(s)")
 
             uploaded += 1
             continue
@@ -631,11 +536,6 @@ def _deploy_all(
 
     print(f"[rm] removing legacy /{LEGACY_PREFIX}/ …")
     ftp_rmtree(ftp, LEGACY_PREFIX)
-    retire_slugs = frozenset(ALIASES_BY_SOURCE.keys()) - NEVER_RETIRE_SOURCE_SLUGS
-    retire_slugs = retire_slugs | frozenset({"jay_jay_artist_portfolio_authentic_masterpieces"})
-    for retired in sorted(retire_slugs):
-        print(f"[rm] removing retired /{retired}/ …")
-        ftp_rmtree(ftp, retired)
 
     ftp.quit()
     home_bytes = home_code.stat().st_size
@@ -645,12 +545,12 @@ def _deploy_all(
         f"artist pages: {uploaded_artists}; skipped: {skipped}. "
         f"Homepage from {home_slug!r} ({home_bytes:,} bytes on server)."
     )
-    print("Try: https://www.workofarttattoo.com/")
+    print("Try: https://workofarttattoo.com/")
     print("View Source → search for WOA_BUILD_STAMP and id=\"studio-interview\"")
     print("Then run: python3 verify_live_deploy.py")
     print(
         "Example slug: "
-        "https://www.workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/"
+        "https://workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/"
     )
     return 0
 

@@ -9,49 +9,39 @@
   #sparkle-cursor {
     display: none !important;
   }
-  html.woa-sparkle-on,
-  html.woa-sparkle-on body {
-    cursor: auto;
-  }
 }
 #sparkle-cursor {
   position: fixed;
-  top: 0;
-  left: 0;
+  left: -100px;
+  top: -100px;
   width: 22px;
   height: 22px;
   margin: 0;
   padding: 0;
   border-radius: 50%;
-  pointer-events: none !important;
-  user-select: none;
-  z-index: 2147483000;
-  transform: translate3d(-100px, -100px, 0);
+  pointer-events: none;
+  z-index: 99999;
   background: radial-gradient(circle, #ffe088 0%, #e9c349 45%, rgba(233, 195, 73, 0.2) 72%);
   box-shadow: 0 0 18px 3px rgba(233, 195, 73, 0.65);
   opacity: 0.95;
-  will-change: transform;
+  will-change: left, top;
 }
 .sparkle {
   position: fixed;
-  top: 0;
-  left: 0;
   background: #ffe088;
   border-radius: 50%;
-  pointer-events: none !important;
-  user-select: none;
-  z-index: 2147482999;
-  transform: translate3d(-100px, -100px, 0);
+  pointer-events: none;
+  z-index: 99998;
   box-shadow: 0 0 10px rgba(233, 195, 73, 0.85);
   animation: woa-sparkle-fly 1.4s forwards ease-out, woa-sparkle-flicker 0.15s infinite alternate;
 }
 @keyframes woa-sparkle-fly {
   0% {
-    transform: translate3d(var(--sx, 0), var(--sy, 0), 0) scale(1);
+    transform: translate(0, 0) scale(1);
     opacity: 1;
   }
   100% {
-    transform: translate3d(calc(var(--sx, 0px) + var(--x)), calc(var(--sy, 0px) + var(--y)), 0) scale(0);
+    transform: translate(var(--x), var(--y)) scale(0);
     opacity: 0;
   }
 }
