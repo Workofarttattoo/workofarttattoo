@@ -21,6 +21,7 @@ from woa_nav_config import (
     STUDIO_BOOKING_EMAIL,
     STUDIO_LEGAL_NAME,
     STUDIO_PHONE_SCHEMA,
+    STUDIO_AWARD_SHORT,
     STUDIO_POSTAL_CODE,
     STUDIO_STREET_ADDRESS,
 )
@@ -425,6 +426,7 @@ def local_business_node() -> dict:
         ],
         "numberOfEmployees": RESIDENT_ARTIST_COUNT,
         "employee": [{"@id": ID_JOSHUA}, {"@id": ID_KATELYN}, {"@id": ID_TERALYN}],
+        **({"award": STUDIO_AWARD_SHORT} if STUDIO_AWARD_SHORT else {}),
         "areaServed": [
             {"@type": "City", "name": "Las Vegas"},
             {"@type": "Place", "name": "Paradise, Nevada"},

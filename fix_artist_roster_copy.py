@@ -31,7 +31,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Hospital-grade sterilization and single-use equipment are our baseline. We maintain the cleanest environment in Las Vegas.",
-        "Hospital-grade sterilization and single-use equipment are our baseline. We document our cleaning routine every session — ask us to walk you through it when you visit.",
+        "Single-use equipment and sterilization procedures are our baseline. Ask us to walk you through the studio cleaning routine when you visit.",
     ),
     (
         "<h4 class=\"font-headline-md text-headline-md text-on-surface\">15+ Years Experience</h4>",

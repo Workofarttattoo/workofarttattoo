@@ -9,7 +9,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from woa_nav_config import SITE_CANONICAL_HOST, STUDIO_ADDRESS_DIRECTORY, STUDIO_ADDRESS_SINGLE_LINE
+from woa_nav_config import (
+    SITE_CANONICAL_HOST,
+    STUDIO_ADDRESS_DIRECTORY,
+    STUDIO_ADDRESS_SINGLE_LINE,
+    STUDIO_AWARD_HREF,
+    STUDIO_AWARD_LINE,
+)
 
 SITE_ORIGIN = SITE_CANONICAL_HOST
 SITEMAP_STATIC_NAME = "sitemap-static-pages.xml"
@@ -267,6 +273,10 @@ Use these when fetching this document for a specific AI product (content is iden
 | Provider | URL |
 |----------|-----|
 {table}
+
+## Awards
+
+- {STUDIO_AWARD_LINE or "Best of Las Vegas 2025 and 2026 — BusinessRate.com (owner-verified)"} Listing: {STUDIO_AWARD_HREF or "https://businessrate.com/report/3306384?geocatSerial=143754216&scoreType=br"}
 
 ## Safety
 

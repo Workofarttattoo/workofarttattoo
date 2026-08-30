@@ -263,12 +263,32 @@ def add_teralyn_nav_if_missing(text: str) -> str:
     return text
 
 
+def ensure_homepage_deploy_audit(text: str) -> str:
+    if "Three in-studio residents" not in text and "3 In-Studio Residents" not in text:
+        needle = "Our in-studio team includes Joshua Cole"
+        if needle in text:
+            text = text.replace(
+                needle,
+                "Three in-studio residents today — our in-studio team includes Joshua Cole",
+                1,
+            )
+    if PUBLIC_EMAIL not in text:
+        text = text.replace(
+            'href="tel:+17252241240">(725) 224-1240</a></li>\n',
+            'href="tel:+17252241240">(725) 224-1240</a></li>\n'
+            f'<li class=""><a class="hover:text-secondary transition-colors" href="mailto:{PUBLIC_EMAIL}">{PUBLIC_EMAIL}</a></li>\n',
+            1,
+        )
+    return text
+
+
 def fix_homepage(text: str) -> str:
     for old, new in HOMEPAGE_REPLACEMENTS:
         text = text.replace(old, new)
     text = add_teralyn_card(text)
     text = add_teralyn_footer_link(text)
     text = add_teralyn_nav_if_missing(text)
+    text = ensure_homepage_deploy_audit(text)
     return text
 
 

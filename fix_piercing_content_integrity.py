@@ -75,7 +75,7 @@ REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bprofessional surface disinfectants\b", re.I), "studio disinfectants"),
     (re.compile(r"\bstudio sterilization protocols\b", re.I), "documented studio procedures"),
     (re.compile(r"\bcleaning chemicals\b", re.I), "clean procedure-room setup"),
-    (re.compile(r"\bhospital-grade\b", re.I), "studio-grade"),
+    (re.compile(r"\bhospital-grade\b", re.I), "studio"),
     (re.compile(r"\bAPP-aligned sterile technique and aftercare education\b", re.I), "Clean placement process and aftercare education"),
     (re.compile(r"\bAPP[-\s]aligned\b", re.I), "studio-documented"),
     (re.compile(r"\bimplant-grade titanium &amp; 316L surgical steel jewelry\b", re.I), "Starter jewelry fit and downsizing planning"),
