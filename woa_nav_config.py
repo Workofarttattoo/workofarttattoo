@@ -43,6 +43,40 @@ STUDIO_ROSTER_LEGACY = (
     "Seven artists trained at Work of Art now run their own shops or travel as guest "
     "artists — a track record of mentorship, not empty chairs."
 )
+_AWARDS = _BUSINESS.get("awards") or []
+_BR_BEST = next(
+    (
+        a
+        for a in _AWARDS
+        if "businessrate" in str(a.get("issuer", "")).lower()
+        and a.get("verificationStatus") == "owner-verified"
+    ),
+    None,
+)
+if _BR_BEST:
+    _years = " and ".join(str(y) for y in _BR_BEST.get("years") or [])
+    STUDIO_AWARD_HREF = _BR_BEST.get(
+        "listingUrl",
+        "https://businessrate.com/report/3306384?geocatSerial=143754216&scoreType=br",
+    )
+    STUDIO_AWARD_PORTAL_HREF = _BR_BEST.get(
+        "awardsPortalUrl",
+        "https://www.businessrate.com/awards",
+    )
+    STUDIO_AWARD_LINE = (
+        f"Work of Art was named {_BR_BEST.get('name', 'Best of Las Vegas')} "
+        f"in {_years} by {_BR_BEST.get('issuer', 'BusinessRate.com')}."
+    )
+    STUDIO_AWARD_SHORT = (
+        f"{_BR_BEST.get('name', 'Best of Las Vegas')} "
+        f"{' & '.join(str(y) for y in _BR_BEST.get('years') or [])} · "
+        f"{_BR_BEST.get('issuer', 'BusinessRate.com')}"
+    )
+else:
+    STUDIO_AWARD_HREF = ""
+    STUDIO_AWARD_PORTAL_HREF = ""
+    STUDIO_AWARD_LINE = ""
+    STUDIO_AWARD_SHORT = ""
 
 # Social (full URLs for footers and artist pages)
 HREF_INSTAGRAM_STUDIO = _SOCIAL.get("studioInstagram", "https://www.instagram.com/workofarttattoo/")
@@ -225,6 +259,8 @@ def merged_export_roots() -> dict[str, Path]:
 
 def slug_to_guide_label(slug: str, max_len: int = 46) -> str:
     readable = slug.replace("_", " ").replace("authority guide", "").replace("master selection guide", "").replace("ultimate authority guide", "").strip()
+    if readable.lower().startswith("best "):
+        readable = readable[5:].lstrip()
     if len(readable) > max_len:
         readable = readable[: max_len - 1].rstrip() + "…"
     return readable

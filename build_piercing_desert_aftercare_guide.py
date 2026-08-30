@@ -17,7 +17,7 @@ TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "c
 TITLE = "Piercing Aftercare Las Vegas | Desert Climate Guide — Book Online"
 DESCRIPTION = (
     "Las Vegas piercing aftercare — swimming, hot tubs, dust, gym sweat, and saline routines "
-    "for dry desert heat. Master piercer Katelyn Cole at Work of Art. Book piercing online."
+    "for dry desert heat. Professional piercer Katelyn Cole at Work of Art. Book piercing online."
 )
 OG = "/studio_gallery/ear-lobe-piercing-session-da19eec5"
 

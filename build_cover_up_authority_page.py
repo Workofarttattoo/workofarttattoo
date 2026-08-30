@@ -316,7 +316,7 @@ MAIN = f"""
 <p class="font-body-md text-on-surface-variant">Not always. Laser lightening can open design options when black ink is packed solid. We coordinate the plan before tattooing so the final recommendation fits the existing piece.</p>
 </div>
 <div class="p-8 border border-outline-variant/20 bg-surface-container-high">
-<h3 class="font-headline-md text-[20px] text-on-surface mb-3">Where is the best tattoo cover up near me in Las Vegas?</h3>
+<h3 class="font-headline-md text-[20px] text-on-surface mb-3">Where can I get a tattoo cover-up in Las Vegas?</h3>
 <p class="font-body-md text-on-surface-variant">Work of Art — <strong>{STUDIO_ADDRESS_SINGLE_LINE}</strong> — five minutes from major Strip resorts. <a class="text-secondary underline" href="/tattoo_shop_near_the_strip_nap_corrected/">Directions &amp; hours</a>.</p>
 </div>
 </div>
@@ -344,7 +344,7 @@ FOOTER_CUSTOM = """
 <footer class="w-full px-margin-mobile md:px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-start gap-8 border-t border-outline-variant bg-surface-container-lowest">
 <div class="max-w-md">
 <div class="font-headline-md text-headline-md text-on-surface mb-4">WORK OF ART</div>
-<p class="font-body-md text-on-surface-variant mb-6 text-sm">Las Vegas cover-up tattoos, realism, and piercing — clinical standards, zero ego.</p>
+<p class="font-body-md text-on-surface-variant mb-6 text-sm">Las Vegas cover-up tattoos, realism, and piercing — a clean studio and consult-first planning.</p>
 <p class="font-body-md text-on-surface-variant">2375 E. Tropicana Ave, Suite 3<br/>Las Vegas, NV 89119</p>
 </div>
 <div class="flex flex-col gap-4">
