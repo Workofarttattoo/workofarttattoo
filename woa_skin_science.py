@@ -23,7 +23,7 @@ DESERT_AFTERCARE = "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"
 HEALED_HUB = "/healed_tattoo_gallery_las_vegas/"
 HEALING_PROOF = "/tattoo_healing_before_after_real_results/"
 FINE_LINE = "/fine_line_tattoos_las_vegas_master_authority_guide/"
-COVER_UP = "/cover_up_tattoos_las_vegas_master_authority_guide/"
+COVER_UP = "/cover-up-tattoos-las-vegas/"
 
 CATEGORY_LABELS: dict[CategoryId, str] = {
     "layers": "Skin layers — where ink lives",

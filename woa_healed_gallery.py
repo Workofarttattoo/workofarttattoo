@@ -17,7 +17,7 @@ CollectionId = Literal[
 
 SITE = "https://www.workofarttattoo.com"
 CLIENT = "home_work_of_art_tattoo_piercing/client-portfolio"
-COVER = "cover_up_tattoos_las_vegas_master_authority_guide"
+COVER = "cover-up-tattoos-las-vegas"
 BEFORE_AFTER = "tattoo_healing_before_after_real_results"
 STUDIO = "studio_gallery"
 

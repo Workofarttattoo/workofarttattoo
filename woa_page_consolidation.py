@@ -18,6 +18,7 @@ CONSOLIDATION_REDIRECTS: tuple[tuple[str, str], ...] = (
     ("tattoo_shop_near_fremont_street_las_vegas", "/tattoo_shop_near_the_strip_nap_corrected/"),
     ("how_to_choose_a_tattoo_artist_master_selection_guide", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/"),
     ("walk_in_tattoos_las_vegas_nap_corrected", "/walk-in-tattoos-las-vegas/"),
+    ("cover_up_tattoos_las_vegas_master_authority_guide", "/cover-up-tattoos-las-vegas/"),
     ("healing_database_black_grey_day_1_las_vegas", "/las-vegas-tattoo-healing-guide/"),
     ("healing_database_black_grey_day_2_las_vegas", "/las-vegas-tattoo-healing-guide/"),
     ("healing_database_black_grey_day_3_las_vegas", "/las-vegas-tattoo-healing-guide/"),

@@ -34,7 +34,7 @@ SITE = "https://www.workofarttattoo.com"
 HUB_SLUG = "healing_database_tattoo_timeline_encyclopedia_las_vegas"
 GALLERY = "healed_tattoo_gallery_las_vegas"
 CLIENT = "home_work_of_art_tattoo_piercing/client-portfolio"
-COVER = "cover_up_tattoos_las_vegas_master_authority_guide"
+COVER = "cover-up-tattoos-las-vegas"
 BEFORE_AFTER = "tattoo_healing_before_after_real_results"
 STUDIO = "studio_gallery"
 
@@ -567,7 +567,7 @@ STYLE_CATEGORIES: tuple[StyleCategory, ...] = (
             "and judging success at 90 days+, not day one."
         ),
         "healed_cover_up_tattoos_las_vegas",
-        "/cover_up_tattoos_las_vegas_master_authority_guide/",
+        "/cover-up-tattoos-las-vegas/",
         {
             "day_1": ("Cover-ups often run longer sessions — expect more plasma and fatigue.",),
             "month_3": ("Old ink ghosting may still show faintly — planned passes are normal.",),
