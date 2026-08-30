@@ -70,10 +70,12 @@ jobs:
           import shutil
 
           root = Path('.')
+          copied = 0
           for code in root.rglob('code.html'):
               if '.git' in code.parts or '.github' in code.parts or 'skipped_upload_build' in code.parts:
                   continue
               shutil.copy2(code, code.with_name('index.html'))
+              copied += 1
 
           mappings = {
               Path('artists_build/katelyn-cole.html'): Path('artists/katelyn-cole/index.html'),
@@ -104,6 +106,7 @@ jobs:
               raise SystemExit('No homepage source with studio banner (woa-hero-banner) found')
           shutil.copy2(home_src, 'index.html')
           print(f'Homepage source: {home_src}')
+          print(f'Generated {copied} index.html files from code.html sources')
           PY
           test -s index.html
           grep -q 'woa-hero-banner' index.html
@@ -136,6 +139,8 @@ jobs:
               'studio-rules/index.html',
               'fine_line_tattoos_las_vegas_master_authority_guide/index.html',
               'best_tattoo_styles_for_sleeves_large_scale_project_hub/index.html',
+              'dermis_skin_science_las_vegas_authority_guide/index.html',
+              'walk_in_tattoos_las_vegas_authority_guide/index.html',
               'sitemap-static-pages.xml',
               'robots.txt',
               'CNAME',
@@ -284,6 +289,7 @@ jobs:
           git cat-file -e origin/gh-pages:terms-of-service/index.html
           git cat-file -e origin/gh-pages:studio-rules/index.html
           git cat-file -e origin/gh-pages:artists/teralyn/index.html
+          git cat-file -e origin/gh-pages:dermis_skin_science_las_vegas_authority_guide/index.html
           echo "gh-pages contains exact main marker $GITHUB_SHA"
 
       - name: Verify active website serves exact deployed main commit
@@ -306,6 +312,8 @@ jobs:
               '/studio-rules/': 'Studio',
               '/fine_line_tattoos_las_vegas_master_authority_guide/': None,
               '/best_tattoo_styles_for_sleeves_large_scale_project_hub/': None,
+              '/walk_in_tattoos_las_vegas_authority_guide/': 'Instant Art',
+              '/dermis_skin_science_las_vegas_authority_guide/': 'Dermis',
               '/robots.txt': None,
               '/sitemap-static-pages.xml': None,
           }
