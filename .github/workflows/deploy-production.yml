@@ -16,10 +16,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout triggering commit
         uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 0
 
       - name: Install build dependencies
@@ -39,6 +38,9 @@ jobs:
 
       - name: Reapply claims guard
         run: python3 tools/a_plus_claims_cleanup.py
+
+      - name: Production parity cleanup
+        run: python3 tools/production_parity_cleanup.py
 
       - name: Verify no banned customer-facing claims remain
         run: |
@@ -85,7 +87,6 @@ jobs:
                   dst.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copy2(src, dst)
 
-          # Never let a thinner home export overwrite the studio banner homepage.
           candidates = [
               Path('code.html'),
               Path('index.html'),
@@ -114,6 +115,116 @@ jobs:
           test -s CNAME
           printf '' > .nojekyll
 
+      - name: Reapply production parity cleanup on generated tree
+        run: python3 tools/production_parity_cleanup.py
+
+      - name: Audit final production tree
+        run: |
+          python3 - <<'PY'
+          from collections import Counter
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          from bs4 import BeautifulSoup
+
+          required = [
+              'index.html',
+              'appointments/index.html',
+              'artists/katelyn-cole/index.html',
+              'artists/joshua-cole/index.html',
+              'artists/teralyn/index.html',
+              'cover-up-tattoos-las-vegas/index.html',
+              'merchandise/index.html',
+              'privacy-policy/index.html',
+              'terms-of-service/index.html',
+              'studio-rules/index.html',
+              'fine_line_tattoos_las_vegas_master_authority_guide/index.html',
+              'best_tattoo_styles_for_sleeves_large_scale_project_hub/index.html',
+              'dermis_skin_science_las_vegas_authority_guide/index.html',
+              'walk_in_tattoos_las_vegas_authority_guide/index.html',
+              'sitemap-static-pages.xml',
+              'robots.txt',
+              'CNAME',
+          ]
+          missing = [p for p in required if not Path(p).is_file()]
+          if missing:
+              raise SystemExit('Missing critical production files: ' + ', '.join(missing))
+
+          home = Path('index.html').read_text(encoding='utf-8', errors='replace')
+          if '/artists/teralyn/' not in home:
+              raise SystemExit('Homepage missing Teralyn navigation link')
+          if not all(name in home for name in ('Joshua Cole', 'Katelyn Cole', 'Teralyn')):
+              raise SystemExit('Homepage missing 3-person roster copy')
+          if 'booking@workofarttattoo.com' not in home:
+              raise SystemExit('Homepage missing booking@workofarttattoo.com')
+          if '<<<<<<<' in home or '=======' in home or '>>>>>>>' in home:
+              raise SystemExit('Homepage contains merge conflict markers')
+          if not any(s in home for s in ('3 In-Studio Residents', 'Three in-studio residents')):
+              raise SystemExit('Homepage missing 3-resident wording')
+          banned_home = [
+              'Two resident specialists',
+              '2 In-Studio Specialists',
+              'Joshua Cole and Joshua Cole',
+              'hospital-level',
+              'Hospital-grade',
+              'museum-level',
+              'museum-quality',
+              'elite artistry',
+              'clinical standards',
+              'clinical precision',
+              'cleanest environment in Las Vegas',
+              'master piercer',
+              'medical-grade hygiene',
+          ]
+          hits = [p for p in banned_home if p.lower() in home.lower()]
+          if hits:
+              raise SystemExit('Homepage still contains banned phrases: ' + ', '.join(hits))
+          public_gmails = ('thewhiteknight702@gmail.com', 'kmorgen14@gmail.com')
+          for path in Path('.').rglob('*.html'):
+              if any(part in path.parts for part in ('.git', '.github', 'tools', 'audits', 'skipped_upload_build', 'artists_raw')):
+                  continue
+              body = path.read_text(encoding='utf-8', errors='replace')
+              for gmail in public_gmails:
+                  if gmail in body:
+                      raise SystemExit(f'Public HTML still contains {gmail}: {path}')
+              if 'Southern Nevada Health District body art establishment Health Permit' in body:
+                  raise SystemExit(f'Unverified SNHD footer claim remains in {path}')
+              if 'current Body Art Card' in body or 'OSHA bloodborne pathogens certification' in body:
+                  raise SystemExit(f'Unverified Body Art Card / OSHA claim remains in {path}')
+
+          legacy = '/cover_up_tattoos_las_vegas_master_authority_guide/'
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts or 'skipped_upload_build' in path.parts:
+                  continue
+              if f'href="{legacy}"' in path.read_text(encoding='utf-8', errors='replace'):
+                  raise SystemExit(f'Legacy cover-up href remains in {path}')
+
+          broken = Counter()
+          checked = 0
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts or 'skipped_upload_build' in path.parts:
+                  continue
+              soup = BeautifulSoup(path.read_text(encoding='utf-8', errors='replace'), 'html.parser')
+              for a in soup.find_all('a', href=True):
+                  href = (a.get('href') or '').strip()
+                  if not href.startswith('/') or href.startswith('//'):
+                      continue
+                  target = urlsplit(href).path
+                  if target in ('', '/'):
+                      continue
+                  checked += 1
+                  rel = target.lstrip('/')
+                  candidates = [Path(rel), Path(rel) / 'index.html']
+                  if not any(c.exists() for c in candidates):
+                      broken[target] += 1
+
+          print(f'Audited {checked} root-relative links.')
+          for target, count in broken.most_common(80):
+              print(f'BROKEN {count:4d} {target}')
+          severe = [(u, n) for u, n in broken.items() if n >= 5]
+          if severe:
+              raise SystemExit('Repeated broken internal links block deployment: ' + ', '.join(f'{u} ({n})' for u,n in sorted(severe)[:30]))
+          PY
+
       - name: Publish generated site to gh-pages
         run: |
           set -euo pipefail
@@ -132,12 +243,15 @@ jobs:
             --exclude='manifest.csv' \
             --exclude='__pycache__' \
             --exclude='*.pyc' \
+            --exclude='*.py' \
             --exclude='*.bundle' \
             --exclude='workofarttattoo-reconciled-*.bundle' \
+            --exclude='artists_raw' \
+            --exclude='content-needed' \
+            --exclude='skipped_upload_build' \
+            --exclude='.snapshots' \
             ./ /tmp/woa-gh-pages/
           cd /tmp/woa-gh-pages
-          # Force the deploy marker in the Pages tree right before commit.
-          # Prior runs could update index.html while leaving a stale DEPLOYED_MAIN_SHA.
           printf '%s\n' "$GITHUB_SHA" > DEPLOYED_MAIN_SHA
           test -s DEPLOYED_MAIN_SHA
           test "$(tr -d '\n' < DEPLOYED_MAIN_SHA)" = "$GITHUB_SHA"
@@ -159,9 +273,13 @@ jobs:
           marker="$(git show origin/gh-pages:DEPLOYED_MAIN_SHA | tr -d '\n')"
           echo "gh-pages marker=$marker expected=$GITHUB_SHA"
           test "$marker" = "$GITHUB_SHA"
-          # Avoid `git show | grep -q` under pipefail (SIGPIPE/141 on match).
           git show origin/gh-pages:index.html > /tmp/woa-verify-index.html
           grep -q 'woa-hero-banner' /tmp/woa-verify-index.html
+          grep -q 'Teralyn' /tmp/woa-verify-index.html
+          grep -E -q '3 In-Studio Residents|Three in-studio residents' /tmp/woa-verify-index.html
+          ! grep -q 'Two resident specialists' /tmp/woa-verify-index.html
+          ! grep -q 'Joshua Cole and Joshua Cole' /tmp/woa-verify-index.html
+          ! grep -Eiq 'hospital-level|Hospital-grade|museum-level|museum-quality|elite artistry|clinical standards|clinical precision|cleanest environment in Las Vegas|master piercer|medical-grade hygiene' /tmp/woa-verify-index.html
           git show origin/gh-pages:artists/katelyn-cole/index.html > /tmp/woa-verify-katelyn.html
           grep -q 'Professional' /tmp/woa-verify-katelyn.html
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
@@ -174,7 +292,7 @@ jobs:
           git cat-file -e origin/gh-pages:dermis_skin_science_las_vegas_authority_guide/index.html
           echo "gh-pages contains exact main marker $GITHUB_SHA"
 
-      - name: Verify GitHub Pages live
+      - name: Verify active website serves exact deployed main commit
         run: |
           python3 - <<'PY'
           import os, time, urllib.request
@@ -183,7 +301,7 @@ jobs:
           expected = os.environ['GITHUB_SHA']
           critical = {
               '/': 'woa-hero-banner',
-              '/appointments/': None,
+              '/appointments/': 'booking@workofarttattoo.com',
               '/artists/katelyn-cole/': 'Professional',
               '/artists/joshua-cole/': None,
               '/artists/teralyn/': 'Teralyn',
@@ -214,18 +332,54 @@ jobs:
 
               for path, needle in critical.items():
                   try:
-                      req = urllib.request.Request(base + path + '?deploycheck=' + str(int(time.time())), headers={'User-Agent':'WOA-Deploy-Verifier/4.0','Cache-Control':'no-cache'})
+                      req = urllib.request.Request(base + path + '?x=' + str(time.time()), headers={'User-Agent':'WOA-Deploy-Verifier/4.0','Cache-Control':'no-cache'})
                       with urllib.request.urlopen(req, timeout=30) as r:
                           body = r.read().decode('utf-8', 'replace')
-                      if needle and needle not in body:
+                          status = r.status
+                      if status != 200:
+                          failures.append(f'{path} HTTP {status}')
+                      if needle and needle.lower() not in body.lower():
                           failures.append(f'{path} missing {needle!r}')
+                      if path == '/':
+                          if 'Teralyn' not in body:
+                              failures.append('/ missing Teralyn')
+                          if 'booking@workofarttattoo.com' not in body:
+                              failures.append('/ missing booking@')
+                          if not any(s in body for s in ('3 In-Studio Residents', 'Three in-studio residents')):
+                              failures.append('/ missing 3-resident wording')
+                          for bad in (
+                              'Two resident specialists',
+                              '2 In-Studio Specialists',
+                              'Joshua Cole and Joshua Cole',
+                              'hospital-level sterilization',
+                              'Hospital-grade sterilization',
+                              'museum-level tattoos',
+                              'museum-quality work',
+                              'elite artistry',
+                              'clinical standards',
+                              'clinical precision',
+                              'cleanest environment in Las Vegas',
+                              'master piercer',
+                              'medical-grade hygiene',
+                          ):
+                              if bad.lower() in body.lower():
+                                  failures.append(f'/ still has {bad!r}')
+                      if path == '/merchandise/':
+                          if 'thewhiteknight702@gmail.com' in body or 'kmorgen14@gmail.com' in body:
+                              failures.append('/merchandise/ has stale Gmail')
+                          if 'Southern Nevada Health District body art establishment Health Permit' in body:
+                              failures.append('/merchandise/ has SNHD claim')
                   except Exception as exc:
-                      failures.append(f'{path}: {exc}')
+                      failures.append(f'{path}: {exc!r}')
+
               if not failures:
-                  print('GitHub Pages production verification passed.')
+                  print('ACTIVE WEBSITE VERIFIED: exact main commit is live and all critical routes pass.')
                   raise SystemExit(0)
               last = failures
-              print(f'Pages not updated yet (attempt {attempt+1}/20): ' + '; '.join(failures))
+              print(f'Waiting for GitHub Pages propagation ({attempt + 1}/20):')
+              for failure in failures:
+                  print(' -', failure)
               time.sleep(15)
-          raise SystemExit('GitHub Pages did not reflect the new build in time: ' + '; '.join(last))
+
+          raise SystemExit('Production did not verify: ' + '; '.join(last))
           PY

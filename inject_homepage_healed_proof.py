@@ -102,10 +102,16 @@ def main() -> int:
             count=1,
         )
     else:
-        anchor = "<!-- WOA_HOME_WELCOME_END -->"
-        if anchor not in raw:
-            raise SystemExit("Welcome section marker not found")
-        updated = raw.replace(anchor, anchor + "\n" + block, 1)
+        for anchor in (
+            "<!-- WOA_HOME_WELCOME_END -->",
+            "<!-- WOA_HERO_BANNER_END -->",
+            "<!-- WOA_HOME_MASONRY_END -->",
+        ):
+            if anchor in raw:
+                updated = raw.replace(anchor, anchor + "\n" + block, 1)
+                break
+        else:
+            raise SystemExit("No homepage anchor found for healed proof block")
     if updated != raw:
         HOME.write_text(updated, encoding="utf-8")
         print("[ok] home_work_of_art_tattoo_piercing/code.html")
