@@ -316,7 +316,7 @@ MAIN = f"""
 <p class="font-body-md text-on-surface-variant">Not always. Laser lightening can open design options when black ink is packed solid. We coordinate the plan before tattooing so the final recommendation fits the existing piece.</p>
 </div>
 <div class="p-8 border border-outline-variant/20 bg-surface-container-high">
-<h3 class="font-headline-md text-[20px] text-on-surface mb-3">Where is the best tattoo cover up near me in Las Vegas?</h3>
+<h3 class="font-headline-md text-[20px] text-on-surface mb-3">Where can I book a cover-up consult?</h3>
 <p class="font-body-md text-on-surface-variant">Work of Art — <strong>{STUDIO_ADDRESS_SINGLE_LINE}</strong> — five minutes from major Strip resorts. <a class="text-secondary underline" href="/tattoo_shop_near_the_strip_nap_corrected/">Directions &amp; hours</a>.</p>
 </div>
 </div>
