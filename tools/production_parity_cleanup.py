@@ -292,6 +292,29 @@ def fix_homepage(text: str) -> str:
     return text
 
 
+def protect_canonical_cover_page(path: Path, text: str) -> str:
+    """The clean cover-up URL must stay indexable. Never inherit the stub's noindex/refresh."""
+    if "cover-up-tattoos-las-vegas" not in path.as_posix():
+        return text
+    if "cover_up_tattoos_las_vegas_master_authority_guide" in path.as_posix():
+        return text
+    text = re.sub(
+        r'\s*<meta content="0;url=/cover-up-tattoos-las-vegas/" http-equiv="refresh"/>',
+        "",
+        text,
+        count=1,
+        flags=re.I,
+    )
+    text = re.sub(
+        r'<meta content="noindex,\s*follow" name="robots"/>',
+        '<meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>',
+        text,
+        count=1,
+        flags=re.I,
+    )
+    return text
+
+
 def neutralize_legacy_cover_page(path: Path, text: str) -> str:
     if "cover_up_tattoos_las_vegas_master_authority_guide" not in path.as_posix():
         return text
@@ -353,6 +376,7 @@ def main() -> int:
         text = rewrite_cover_hrefs(text)
         text = strip_snhd_footer(text)
         text = neutralize_legacy_cover_page(path, text)
+        text = protect_canonical_cover_page(path, text)
         if text != raw:
             path.write_text(text, encoding="utf-8")
             changed.append(path.relative_to(ROOT).as_posix())
