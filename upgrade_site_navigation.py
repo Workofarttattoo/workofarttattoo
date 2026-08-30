@@ -8,13 +8,16 @@ Portfolio · Artists · Tattoo Guides · Piercing Guides · Locations · Book
 from __future__ import annotations
 
 import argparse
+import html
 import importlib.util
+import re
 import sys
 from pathlib import Path
 
 from bs4 import BeautifulSoup
 
 from woa_nav_config import (
+    REQUIRED_ARTIST_NAV_HREFS,
     discover_artist_nav_entries,
     discover_nav_locations,
     discover_nav_piercing_guides,
@@ -26,6 +29,7 @@ from woa_nav_config import (
 
 from inject_mobile_hamburger_nav import (  # type: ignore
     collect_files,
+    find_book_cta,
     find_desktop_nav_strip,
     find_top_shell,
     rel_display,
@@ -74,6 +78,99 @@ TOP_LINK_CLASSES = (
 )
 
 SUMMARY_CLASSES = TOP_LINK_CLASSES + " cursor-pointer select-none list-none"
+
+DESKTOP_ARTIST_LINK_CLASS = (
+    "block px-3 py-2 text-[13px] leading-snug text-on-surface "
+    "hover:text-secondary transition-colors"
+)
+MOBILE_ARTIST_LINK_CLASS = (
+    "block py-1.5 text-[13px] leading-snug font-medium text-secondary pl-3 "
+    "border-b border-outline-variant/60 hover:text-secondary hover:bg-surface-container/40 "
+    "transition-colors woa-mnav-mobile-link"
+)
+
+# Matches an Artists <details> panel regardless of BeautifulSoup whitespace.
+_ARTISTS_PANEL_RE = re.compile(
+    r"(<details\b(?=[^>]*\b(?:aria-label=\"Artists submenu\"|class=\"[^\"]*mobile-artists-dd))[^>]*>"
+    r"\s*<summary\b[^>]*>\s*Artists\s*</summary>\s*"
+    r"<div class=\"(?:woa-dd-panel|guides-sub)[^\"]*\"[^>]*>)"
+    r"(.*?)"
+    r"(</div>\s*</details>)",
+    re.I | re.S,
+)
+_ARTISTS_SUMMARY_PANEL_RE = re.compile(
+    r"(<details\b[^>]*>\s*<summary\b[^>]*>\s*Artists\s*</summary>\s*"
+    r"<div class=\"(?:woa-dd-panel|guides-sub)[^\"]*\"[^>]*>)"
+    r"(.*?)"
+    r"(</div>\s*</details>)",
+    re.I | re.S,
+)
+
+CONFLICT_MARK = "<<<<<<<"
+
+
+def _esc(text: str) -> str:
+    return html.escape(text, quote=True)
+
+
+def artist_nav_anchors_html(*, mobile: bool) -> str:
+    cls = MOBILE_ARTIST_LINK_CLASS if mobile else DESKTOP_ARTIST_LINK_CLASS
+    parts: list[str] = []
+    for label, href in discover_artist_nav_entries():
+        shown = label
+        if mobile and len(shown) > 56:
+            shown = shown[:56] + "…"
+        parts.append(f'<a class="{cls}" href="{_esc(href)}">{_esc(shown)}</a>')
+    return "".join(parts)
+
+
+def _replace_artists_panel(match: re.Match[str]) -> str:
+    prefix, suffix = match.group(1), match.group(3)
+    mobile = "guides-sub" in prefix or "mobile-artists-dd" in prefix
+    return prefix + artist_nav_anchors_html(mobile=mobile) + suffix
+
+
+def sync_artist_dropdowns_in_html(raw: str) -> tuple[str, int]:
+    """Rewrite every Artists dropdown panel to ARTIST_NAV_ENTRIES."""
+    updated, count = _ARTISTS_PANEL_RE.subn(_replace_artists_panel, raw)
+
+    def _maybe(match: re.Match[str]) -> str:
+        inner = match.group(2)
+        if "/artists/teralyn/" in inner and "Fine Line" in inner and "Floral" in inner:
+            return match.group(0)
+        return _replace_artists_panel(match)
+
+    updated, extra = _ARTISTS_SUMMARY_PANEL_RE.subn(_maybe, updated)
+    return updated, count + extra
+
+
+def has_conflict_markers(raw: str) -> bool:
+    return CONFLICT_MARK in raw
+
+
+def insert_desktop_nav_holder(shell, soup: BeautifulSoup):
+    """Add a data-woa-desktop-nav strip to a simple logo + Book bar."""
+    holder = soup.new_tag(
+        "div",
+        attrs={
+            "class": [
+                "hidden",
+                "md:flex",
+                "flex-wrap",
+                "justify-end",
+                "items-center",
+                "gap-1",
+                "xl:gap-2",
+            ],
+            "data-woa-desktop-nav": "1",
+        },
+    )
+    book = find_book_cta(shell)
+    if book is not None:
+        book.insert_before(holder)
+    else:
+        shell.append(holder)
+    return holder
 
 
 def ensure_desktop_nav_css(head, soup: BeautifulSoup) -> None:
@@ -227,6 +324,8 @@ def apply_navigation(soup: BeautifulSoup) -> bool:
         return False
     holder = pick_nav_container(shell)
     if not holder:
+        holder = insert_desktop_nav_holder(shell, soup)
+    if not holder:
         return False
     head = soup.find("head")
     ensure_desktop_nav_css(head, soup)
@@ -235,7 +334,7 @@ def apply_navigation(soup: BeautifulSoup) -> bool:
     holder["data-woa-desktop-nav"] = "1"
     holder["class"] = blk.get("class", [])
     if "style" in holder.attrs:
-        del holder["style"]
+        del holder.attrs["style"]
     for ch in list(blk.contents):
         holder.append(ch)
     return True
@@ -243,11 +342,44 @@ def apply_navigation(soup: BeautifulSoup) -> bool:
 
 def upgrade_file(path: Path) -> bool:
     raw = path.read_text(encoding="utf-8", errors="replace")
+    if has_conflict_markers(raw):
+        return False
     soup = BeautifulSoup(raw, "html.parser")
     if apply_navigation(soup):
         path.write_text(str(soup), encoding="utf-8")
         return True
     return False
+
+
+def sync_artist_dropdowns_file(path: Path) -> int:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    updated, count = sync_artist_dropdowns_in_html(raw)
+    if updated != raw:
+        path.write_text(updated, encoding="utf-8")
+    return count
+
+
+def public_html_files() -> list[Path]:
+    """HTML that ships (code.html, index.html, artist builds) minus staging."""
+    seen: set[str] = set()
+    out: list[Path] = []
+    for path in collect_files():
+        rp = str(path.resolve())
+        if rp in seen:
+            continue
+        seen.add(rp)
+        out.append(path)
+    return out
+
+
+def needs_artist_nav_injection(raw: str) -> bool:
+    if has_conflict_markers(raw):
+        return False
+    if "Artists submenu" in raw:
+        return False
+    if "fixed" not in raw or "top-0" not in raw:
+        return False
+    return True
 
 
 def load_injector():
@@ -272,30 +404,78 @@ def main() -> int:
     tattoo = discover_nav_tattoo_guides()
     piercing = discover_nav_piercing_guides()
     locations = discover_nav_locations()
+    roster = ", ".join(label for label, _href in discover_artist_nav_entries()[1:])
     print(
-        f"Nav: Portfolio · Artists · Tattoo ({len(tattoo)}) · "
+        f"Nav: Portfolio · Artists ({roster}) · Tattoo ({len(tattoo)}) · "
         f"Piercing ({len(piercing)}) · Locations ({len(locations)}) · Book"
     )
 
+    files = public_html_files()
+
+    synced = 0
+    for path in files:
+        n = sync_artist_dropdowns_file(path)
+        if n:
+            print(f"[artists] {rel_display(path)} ({n} dropdown(s))")
+            synced += 1
+    print(f"\nSynced Artists dropdowns in {synced} file(s).")
+
     n = 0
-    for path in collect_files():
+    injected_paths: list[Path] = []
+    for path in files:
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        if not needs_artist_nav_injection(raw):
+            continue
         if upgrade_file(path):
             print(f"[nav] {rel_display(path)}")
             n += 1
+            injected_paths.append(path)
+            sync_artist_dropdowns_file(path)
 
-    print(f"\nUpdated desktop navigation markup in {n} file(s).")
+    print(f"\nInserted sitewide desktop navigation in {n} file(s).")
 
-    if not args.desktop_only:
+    if not args.desktop_only and injected_paths:
         inj = load_injector()
         n_m = 0
-        for p in collect_files():
-            ok, st = inj.inject_for_file(p, force=True)
+        for p in injected_paths:
+            ok, _st = inj.inject_for_file(p, force=True)
             if ok:
                 n_m += 1
                 print(f"[mnav] {rel_display(p)}")
+                sync_artist_dropdowns_file(p)
         print(f"\nRebuilt mobile drawer in {n_m} file(s).")
 
+    missing = audit_artist_nav(files)
+    if missing:
+        print(f"\nArtists dropdowns still missing Teralyn ({len(missing)}):", file=sys.stderr)
+        for rel in missing[:40]:
+            print(f"  {rel}", file=sys.stderr)
+        return 1
+    print("\nAudit OK: every Artists dropdown includes Joshua, Katelyn, and Teralyn.")
     return 0
+
+
+def audit_artist_nav(files: list[Path]) -> list[str]:
+    missing: list[str] = []
+    required = set(REQUIRED_ARTIST_NAV_HREFS)
+    for path in files:
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        if "Artists submenu" not in raw and ">Artists</summary>" not in raw:
+            continue
+        for block in _ARTISTS_SUMMARY_PANEL_RE.findall(raw):
+            inner = block[1] if isinstance(block, tuple) else block
+            hrefs = set(re.findall(r'href="([^"]+)"', inner))
+            labels = inner.lower()
+            if not required.issubset(hrefs):
+                missing.append(rel_display(path))
+                break
+            if "jay jay" in labels or "/jay_jay" in inner:
+                missing.append(f"{rel_display(path)} (Jay Jay still in resident menu)")
+                break
+            if "/artists/teralyn/" in inner and "fine line" not in labels:
+                missing.append(f"{rel_display(path)} (Teralyn label stale)")
+                break
+    return missing
 
 
 if __name__ == "__main__":
