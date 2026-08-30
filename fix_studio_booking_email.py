@@ -5,7 +5,7 @@ Standardize studio contact email from siteData/business.json sitewide.
 - Replaces legacy booking/info addresses in HTML and Markdown
 - Adds schema.org email on LocalBusiness / TattooParlor blocks when missing
 - Injects footer mailto links labeled "Email us!" (not the raw address)
-- Keeps mailto href on thewhiteknight702@gmail.com
+- Keeps mailto href on booking@workofarttattoo.com
 
   python3 fix_studio_booking_email.py
 """
@@ -34,8 +34,8 @@ SKIP_FILES = frozenset(
 SKIP_PATH_PARTS = frozenset({"skipped_upload_build"})
 
 LEGACY_EMAIL_PATTERNS = [
-    re.compile(r"booking@workofarttattoo\.com", re.IGNORECASE),
     re.compile(r"thewhiteknight702@gmail\.com", re.IGNORECASE),
+    re.compile(r"kmorgen14@gmail\.com", re.IGNORECASE),
 ]
 
 BOOKING_MARKER = HREF_BOOKING_MAILTO

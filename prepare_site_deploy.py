@@ -185,6 +185,8 @@ def main() -> int:
 
     stamp_build(HOME_HTML)
     sync_root_home_copy()
+    run_step(["python3", str(ROOT / "tools" / "production_parity_cleanup.py")])
+    sync_root_home_copy()
     verify_homepage()
 
     print(
