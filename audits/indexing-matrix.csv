@@ -1,0 +1,4 @@
+group_or_url,count,reason,business_importance,recommended_action,action_performed
+GSC non-indexed URL set,89,Search Console URL-level export/API not present in repository context,unknown until export is provided,"export Pages report with URL, reason, last crawled, canonical state, and sitemap inclusion",blocked from exact URL classification; matrix records local sitemap/inventory constraints only
+indexed local inventory,287,last local audit indexable=true,sitewide baseline,protect pages with real demand and original proof,no destructive changes in this sprint
+local MERGE backlog,55,existing consolidation audit flags duplicate/thin intent,quality concentration,merge only after redirect mapping and evidence preservation,not executed in this sprint because brief says do not generate random pages or restart consolidation

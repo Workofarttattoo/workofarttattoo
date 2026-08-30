@@ -37,7 +37,6 @@ def process_file(filepath):
     prio = []
     if "home" in filepath.lower(): prio = [lion, eye, statue]
     elif "joshua" in filepath.lower(): prio = [portraits["Joshua Cole"], statue, lion]
-    elif "jay_jay" in filepath.lower(): prio = [eye, lion, statue]
     elif "katelyn" in filepath.lower(): prio = [portraits["Katelyn Cole"]]
 
     new_content = []

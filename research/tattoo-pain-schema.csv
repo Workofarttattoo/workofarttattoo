@@ -1,0 +1,11 @@
+field,description,required,public_safe
+anonymous_id,to be defined before collection,no,review before publication
+placement,to be defined before collection,no,review before publication
+pain_rating_1_10,to be defined before collection,no,review before publication
+session_duration,to be defined before collection,no,review before publication
+tattoo_style,to be defined before collection,no,review before publication
+first_tattoo_yes_no,to be defined before collection,no,review before publication
+artist,to be defined before collection,no,review before publication
+age_band_if_voluntarily_collected,to be defined before collection,no,review before publication
+date,to be defined before collection,no,review before publication
+consent_to_anonymous_research,to be defined before collection,no,review before publication
