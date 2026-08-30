@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-08-30T20:02:22.390036+00:00",
+  "pages_scanned": 170,
+  "routes_in_sitemap": 170,
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 5,
+    "LOW": 2
+  },
+  "findings": {
+    "CRITICAL": [],
+    "HIGH": [],
+    "MEDIUM": [
+      {
+        "severity": "MEDIUM",
+        "category": "stale_media",
+        "route": "/artists/joshua-cole/",
+        "file": "artists/joshua-cole/code.html",
+        "message": "Stale generic cover-up image reference",
+        "evidence": ""
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "stale_media",
+        "route": "/healed_cover_up_tattoos_las_vegas/",
+        "file": "healed_cover_up_tattoos_las_vegas/code.html",
+        "message": "Stale generic cover-up image reference",
+        "evidence": ""
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "stale_media",
+        "route": "/reviews/",
+        "file": "reviews/code.html",
+        "message": "Stale generic cover-up image reference",
+        "evidence": ""
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "obsolete_urls",
+        "route": "/tattoo_shop_near_las_vegas_airport/",
+        "file": "tattoo_shop_near_las_vegas_airport/code.html",
+        "message": "Harry Reid International Airport naming (policy: use LAS/Las Vegas Airport)",
+        "evidence": ""
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "obsolete_urls",
+        "route": "/tattoo_shop_near_the_strip_nap_corrected/",
+        "file": "tattoo_shop_near_the_strip_nap_corrected/code.html",
+        "message": "Harry Reid International Airport naming (policy: use LAS/Las Vegas Airport)",
+        "evidence": ""
+      }
+    ],
+    "LOW": [
+      {
+        "severity": "LOW",
+        "category": "duplicate_headings",
+        "route": "/official_location_hours_contact/",
+        "file": "official_location_hours_contact/code.html",
+        "message": "Duplicate h2: Questions before you book?",
+        "evidence": ""
+      },
+      {
+        "severity": "LOW",
+        "category": "duplicate_headings",
+        "route": "/piercing-guide-las-vegas/",
+        "file": "piercing-guide-las-vegas/code.html",
+        "message": "Duplicate h2: Ready to book?",
+        "evidence": ""
+      }
+    ]
+  },
+  "canonical_contact": {
+    "name": "Work of Art Tattoo & Piercing",
+    "url": "https://www.workofarttattoo.com/",
+    "canonicalHost": "https://www.workofarttattoo.com",
+    "address": {
+      "streetAddress": "2375 E. Tropicana Ave, Suite 3",
+      "addressLocality": "Las Vegas",
+      "addressRegion": "NV",
+      "postalCode": "89119",
+      "addressCountry": "US"
+    },
+    "phoneDisplay": "(725) 224-1240",
+    "phoneE164": "+17252241240",
+    "bookingEmail": "thewhiteknight702@gmail.com"
+  }
+}

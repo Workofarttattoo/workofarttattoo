@@ -62,7 +62,15 @@ def inject(html_text: str, slug: str) -> str:
 
 
 def main() -> int:
+    from woa_guide_proof_strips import MARKER, strip_for_page
+
     slugs = {row[0] for row in discover_guide_entries()} - SKIP_SLUGS
+    for path in ROOT.rglob("code.html"):
+        if ".git" in path.parts:
+            continue
+        page_slug = path.parent.name if path.parent != ROOT else ""
+        if page_slug and strip_for_page(page_slug):
+            slugs.add(page_slug)
     n = 0
     for slug in sorted(slugs):
         path = ROOT / slug / "code.html"
