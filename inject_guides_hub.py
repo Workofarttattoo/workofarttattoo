@@ -23,6 +23,7 @@ from woa_nav_config import (
     NAV_KNOWLEDGE_VAULT_LINK_LABEL,
     SKIP_GUIDE_SLUGS,
     discover_guide_entries,
+    guide_nav_label,
     merged_export_roots,
     slug_to_guide_label,
 )
@@ -317,7 +318,7 @@ def build_guide_hub_bar(soup: BeautifulSoup, current_slug: str | None) -> Beauti
         parent.string = parent_label
         inner.append(parent)
         current = soup.new_tag("span", attrs={"class": ["woa-guide-pill-current-label"]})
-        current.string = slug_to_guide_label(current_slug, max_len=42)
+        current.string = guide_nav_label(current_slug, max_len=42)
         inner.append(current)
     wrap.append(inner)
     return wrap

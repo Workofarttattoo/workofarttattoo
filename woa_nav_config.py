@@ -224,6 +224,8 @@ def merged_export_roots() -> dict[str, Path]:
 
 def slug_to_guide_label(slug: str, max_len: int = 46) -> str:
     readable = slug.replace("_", " ").replace("authority guide", "").replace("master selection guide", "").replace("ultimate authority guide", "").strip()
+    if readable.lower().startswith("best "):
+        readable = readable[5:].lstrip()
     if len(readable) > max_len:
         readable = readable[: max_len - 1].rstrip() + "…"
     return readable
