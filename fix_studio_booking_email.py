@@ -37,8 +37,7 @@ GMAIL_PATTERNS = [
 ]
 
 OLD_EMAILS = (
-    "booking@workofarttattoo.com",
-    "booking@workofarttattoo.com",
+    "kmorgen14@gmail.com",
 )
 
 BOOKING_MARKER = f"mailto:{STUDIO_BOOKING_EMAIL}"

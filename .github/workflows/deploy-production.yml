@@ -72,8 +72,8 @@ jobs:
           for code in root.rglob('code.html'):
               if '.git' in code.parts or '.github' in code.parts or 'skipped_upload_build' in code.parts:
                   continue
-<<<<<<< HEAD
               shutil.copy2(code, code.with_name('index.html'))
+              copied += 1
 
           mappings = {
               Path('artists_build/katelyn-cole.html'): Path('artists/katelyn-cole/index.html'),
@@ -105,13 +105,9 @@ jobs:
               raise SystemExit('No homepage source with studio banner (woa-hero-banner) found')
           shutil.copy2(home_src, 'index.html')
           print(f'Homepage source: {home_src}')
-=======
-              target = code.with_name('index.html')
-              shutil.copy2(code, target)
-              copied += 1
           print(f'Generated {copied} index.html files from code.html sources')
->>>>>>> integration/seo-rebuild
           PY
+          python3 tools/check_merchandise_page.py
           test -s index.html
           grep -q 'woa-hero-banner' index.html
           grep -q 'work-of-art-studio-banner-las-vegas' index.html
@@ -161,7 +157,6 @@ jobs:
           set -euo pipefail
           git fetch origin gh-pages
           test "$(git show origin/gh-pages:CNAME)" = 'www.workofarttattoo.com'
-<<<<<<< HEAD
           marker="$(git show origin/gh-pages:DEPLOYED_MAIN_SHA | tr -d '\n')"
           echo "gh-pages marker=$marker expected=$GITHUB_SHA"
           test "$marker" = "$GITHUB_SHA"
@@ -173,21 +168,16 @@ jobs:
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
           git show origin/gh-pages:merchandise/index.html > /tmp/woa-verify-merch.html
           grep -Eiq 'Merchandise|Original art' /tmp/woa-verify-merch.html
+          grep -q 'booking@workofarttattoo.com' /tmp/woa-verify-merch.html
           git cat-file -e origin/gh-pages:privacy-policy/index.html
           git cat-file -e origin/gh-pages:terms-of-service/index.html
           git cat-file -e origin/gh-pages:studio-rules/index.html
           git cat-file -e origin/gh-pages:artists/teralyn/index.html
           echo "gh-pages contains exact main marker $GITHUB_SHA"
-=======
-          git show origin/gh-pages:index.html | grep -q 'WOA_BUILD_STAMP:'
-          git show origin/gh-pages:artists/katelyn-cole/index.html | grep -q 'Professional Piercer'
-          echo 'gh-pages branch contains the generated production site.'
->>>>>>> integration/seo-rebuild
 
       - name: Verify GitHub Pages live
         run: |
           python3 - <<'PY'
-<<<<<<< HEAD
           import os, time, urllib.request
 
           base = 'https://www.workofarttattoo.com'
@@ -222,30 +212,21 @@ jobs:
                   failures.append('deploy marker: ' + repr(exc))
 
               for path, needle in critical.items():
-=======
-          import time, urllib.request
-          base='https://www.workofarttattoo.com'
-          paths=['/','/artists/katelyn-cole/']
-          last=[]
-          for attempt in range(12):
-              failures=[]
-              for path in paths:
->>>>>>> integration/seo-rebuild
                   try:
                       req=urllib.request.Request(base+path+'?deploycheck='+str(int(time.time())), headers={'User-Agent':'WOA-GitHub-Pages-QA/1.0','Cache-Control':'no-cache'})
                       with urllib.request.urlopen(req, timeout=30) as r:
                           body=r.read().decode('utf-8','replace')
-                      if path == '/' and 'WOA_BUILD_STAMP:' not in body:
-                          failures.append('homepage missing fresh build stamp')
-                      if path.endswith('katelyn-cole/') and 'Professional Piercer' not in body:
-                          failures.append('Katelyn page missing Professional Piercer')
+                      if path == '/merchandise/' and 'booking@workofarttattoo.com' not in body:
+                          failures.append('merchandise page missing booking@workofarttattoo.com')
+                      if needle and needle not in body:
+                          failures.append(f'{path} missing {needle!r}')
                   except Exception as exc:
                       failures.append(f'{path}: {exc}')
               if not failures:
                   print('GitHub Pages production verification passed.')
                   raise SystemExit(0)
               last=failures
-              print(f'Pages not updated yet (attempt {attempt+1}/12): ' + '; '.join(failures))
+              print(f'Pages not updated yet (attempt {attempt+1}/20): ' + '; '.join(failures))
               time.sleep(15)
           raise SystemExit('GitHub Pages did not reflect the new build in time: ' + '; '.join(last))
           PY

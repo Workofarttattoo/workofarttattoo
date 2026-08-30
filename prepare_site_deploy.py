@@ -34,6 +34,7 @@ PIPELINE: list[list[str]] = [
     # ["python3", str(ROOT / "fix_hero_layout.py")],  # Disabled: breaks new carousel structure
     ["python3", str(ROOT / "inject_site_typography.py")],
     ["python3", str(ROOT / "build_studio_videos_page.py")],
+    ["python3", str(ROOT / "build_merchandise_page.py")],
     ["python3", str(ROOT / "build_knowledge_hub.py")],
     ["python3", str(ROOT / "build_piercing_authority_pages.py")],
     ["python3", str(ROOT / "build_piercing_pillar_pages.py")],
@@ -78,6 +79,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "repair_visual_intent.py")],
     ["python3", str(ROOT / "remove_elevenlabs_widget.py")],
+    ["python3", str(ROOT / "tools/check_merchandise_page.py")],
 ]
 
 
