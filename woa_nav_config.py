@@ -43,6 +43,30 @@ STUDIO_ROSTER_LEGACY = (
     "Seven artists trained at Work of Art now run their own shops or travel as guest "
     "artists — a track record of mentorship, not empty chairs."
 )
+_AWARDS = _BUSINESS.get("awards") or []
+_BR_BEST = next(
+    (
+        a
+        for a in _AWARDS
+        if "businessrate" in str(a.get("issuer", "")).lower()
+        and a.get("verificationStatus") == "owner-verified"
+    ),
+    None,
+)
+if _BR_BEST:
+    _years = " and ".join(str(y) for y in _BR_BEST.get("years") or [])
+    STUDIO_AWARD_LINE = (
+        f"Work of Art was named {_BR_BEST.get('name', 'Best of Las Vegas')} "
+        f"in {_years} by {_BR_BEST.get('issuer', 'BusinessRate.com')}."
+    )
+    STUDIO_AWARD_SHORT = (
+        f"{_BR_BEST.get('name', 'Best of Las Vegas')} "
+        f"{' & '.join(str(y) for y in _BR_BEST.get('years') or [])} · "
+        f"{_BR_BEST.get('issuer', 'BusinessRate.com')}"
+    )
+else:
+    STUDIO_AWARD_LINE = ""
+    STUDIO_AWARD_SHORT = ""
 
 # Social (full URLs for footers and artist pages)
 HREF_INSTAGRAM_STUDIO = _SOCIAL.get("studioInstagram", "https://www.instagram.com/workofarttattoo/")
