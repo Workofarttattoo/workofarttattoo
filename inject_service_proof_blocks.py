@@ -14,7 +14,7 @@ MARKER = 'data-woa-proof-block="1"'
 
 SERVICE_STUDIES: dict[str, CaseStudy] = {
     "realism_tattoos_las_vegas_master_authority_guide": JOSHUA_CASE_STUDIES[0],
-    "cover_up_tattoos_las_vegas_master_authority_guide": JOSHUA_CASE_STUDIES[2],
+    "cover-up-tattoos-las-vegas": JOSHUA_CASE_STUDIES[2],
     "tattoo_healing_in_desert_climate_expert_aftercare_guide": JOSHUA_CASE_STUDIES[1],
     "tattoo_healing_before_after_real_results": JOSHUA_CASE_STUDIES[0],
     "best_piercing_shop_las_vegas_updated_jewelry_standards": KATELYN_CASE_STUDIES[0],

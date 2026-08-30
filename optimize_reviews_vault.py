@@ -58,8 +58,8 @@ CASE_STUDIES_BLOCK = """
 <article class="grid grid-cols-1 md:grid-cols-12 gap-8 border border-outline-variant/30 p-8 bg-surface">
 <div class="md:col-span-5">
 <picture>
-<source srcset="/cover_up_tattoos_las_vegas_master_authority_guide/cover-up-tattoo-phoenix-hand-las-vegas-after.webp" type="image/webp"/>
-<img alt="Cover-up phoenix hand and forearm — after healing, Work of Art Las Vegas" class="w-full h-auto object-cover" decoding="async" height="800" loading="lazy" src="/cover_up_tattoos_las_vegas_master_authority_guide/cover-up-tattoo-phoenix-hand-las-vegas-after.webp" width="800"/>
+<source srcset="/cover-up-tattoos-las-vegas/cover-up-tattoo-phoenix-hand-las-vegas-after.webp" type="image/webp"/>
+<img alt="Cover-up phoenix hand and forearm — after healing, Work of Art Las Vegas" class="w-full h-auto object-cover" decoding="async" height="800" loading="lazy" src="/cover-up-tattoos-las-vegas/cover-up-tattoo-phoenix-hand-las-vegas-after.webp" width="800"/>
 </picture>
 </div>
 <div class="md:col-span-7 space-y-4">
@@ -70,7 +70,7 @@ CASE_STUDIES_BLOCK = """
 <li><strong>Mid-project:</strong> spaced sessions so the hand could heal between passes.</li>
 <li><strong>Healed:</strong> reads as new art, not a dark patch.</li>
 </ul>
-<p class="font-body-md"><a class="text-secondary underline" href="/cover_up_tattoos_las_vegas_master_authority_guide/">Cover-up guide</a> · <a class="text-secondary underline" href="/appointments/">Book consult</a></p>
+<p class="font-body-md"><a class="text-secondary underline" href="/cover-up-tattoos-las-vegas/">Cover-up guide</a> · <a class="text-secondary underline" href="/appointments/">Book consult</a></p>
 </div>
 </article>
 </div>

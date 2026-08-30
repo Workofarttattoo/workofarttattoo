@@ -292,8 +292,8 @@ TATTOO_GUIDES: dict[str, TattooGuideSEO] = {
         book_headline="Best Fine Line Tattoos Las Vegas — Book Online",
         extra_keywords=("best fine line tattoo vegas", "fine line tattoo shop"),
     ),
-    "cover_up_tattoos_las_vegas_master_authority_guide": TattooGuideSEO(
-        slug="cover_up_tattoos_las_vegas_master_authority_guide",
+    "cover-up-tattoos-las-vegas": TattooGuideSEO(
+        slug="cover-up-tattoos-las-vegas",
         keyword="cover up tattoo",
         style_label="Tattoo Cover-Ups",
         joshua_note=(
@@ -455,7 +455,7 @@ def sticky_book_label(slug: str) -> str | None:
         return None
     short = {
         "realism_tattoos_las_vegas_master_authority_guide": "Book Realism Consult",
-        "cover_up_tattoos_las_vegas_master_authority_guide": "Book Cover-Up Consult",
+        "cover-up-tattoos-las-vegas": "Book Cover-Up Consult",
         "walk_in_tattoos_las_vegas_authority_guide": "Walk-In Availability",
         "how_much_do_tattoos_cost_in_las_vegas_authority_guide": "Get Tattoo Quote",
         "fine_line_tattoos_las_vegas_master_authority_guide": "Book Fine Line Tattoo",

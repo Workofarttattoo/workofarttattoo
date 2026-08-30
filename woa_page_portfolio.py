@@ -69,7 +69,7 @@ HEALING: tuple[PortfolioImage, ...] = (
     PortfolioImage(
         "cover-up-tattoo-phoenix-hand-las-vegas-after",
         "Healed phoenix hand cover-up tattoo",
-        folder="cover_up_tattoos_las_vegas_master_authority_guide",
+        folder="cover-up-tattoos-las-vegas",
     ),
 )
 
@@ -77,7 +77,7 @@ COVER_UP: tuple[PortfolioImage, ...] = (
     PortfolioImage(
         "cover-up-tattoo-phoenix-hand-las-vegas-after",
         "Healed phoenix hand and forearm cover-up",
-        folder="cover_up_tattoos_las_vegas_master_authority_guide",
+        folder="cover-up-tattoos-las-vegas",
     ),
     PortfolioImage("color-parrot-cover-up-forearm-las-vegas", "Color parrot cover-up forearm tattoo"),
     PortfolioImage("color-character-cover-up-over-geometric-las-vegas", "Character cover-up over geometric tattoo"),

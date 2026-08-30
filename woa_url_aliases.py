@@ -99,6 +99,13 @@ NEVER_RETIRE_SOURCE_SLUGS: frozenset[str] = frozenset(
     }
 )
 
+# Short slugs that are independently authored — never overwrite from the legacy folder.
+INDEPENDENT_AUTHORITY_SLUGS: frozenset[str] = frozenset(
+    {
+        "cover-up-tattoos-las-vegas",
+    }
+)
+
 
 def short_href(source_slug: str) -> str:
     """Prefer short public URL when an alias exists."""

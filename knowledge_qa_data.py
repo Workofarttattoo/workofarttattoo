@@ -238,21 +238,21 @@ KNOWLEDGE_QA: list[tuple[str, str, str, str, str]] = [
         "Cover-ups",
         "Do I need laser removal before a cover-up tattoo?",
         "Not always. Dense black old ink sometimes needs laser lightening first; many pieces can be redesigned in one or two sessions if size and contrast allow. A cover-up consult maps what is realistically achievable on your skin.",
-        "cover_up_tattoos_las_vegas_master_authority_guide",
+        "cover-up-tattoos-las-vegas",
     ),
     (
         "how-dark-can-cover-up-tattoo-be",
         "Cover-ups",
         "How dark can a cover-up tattoo be compared to the old tattoo?",
         "New design must be larger and often darker or more complex than the original to hide old ink. Exact color matching old tattoos is difficult — expect a new composition, not a patch.",
-        "cover_up_tattoos_las_vegas_master_authority_guide",
+        "cover-up-tattoos-las-vegas",
     ),
     (
         "cover-up-tattoo-consultation-what-happens",
         "Cover-ups",
         "What happens at a cover-up tattoo consultation?",
         "The artist evaluates old ink color, line depth, scarring, and placement. You discuss size, style, and session count. Photos of healed cover-ups in similar situations help set realistic expectations before booking.",
-        "cover_up_tattoos_las_vegas_master_authority_guide",
+        "cover-up-tattoos-las-vegas",
     ),
     # --- Piercing ---
     (
@@ -339,7 +339,7 @@ KNOWLEDGE_QA: list[tuple[str, str, str, str, str]] = [
         "Myths & facts",
         "Can you tattoo over scar tissue?",
         "Often yes, but scar type matters — raised keloid scars may not hold ink well. A consult assesses texture, color, and whether camouflage or decorative work is realistic. Healed scars tattoo better than fresh ones.",
-        "cover_up_tattoos_las_vegas_master_authority_guide",
+        "cover-up-tattoos-las-vegas",
     ),
     (
         "white-ink-tattoo-facts",

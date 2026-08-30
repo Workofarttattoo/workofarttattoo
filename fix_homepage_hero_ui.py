@@ -40,10 +40,10 @@ EXPERIENCE_OLD = (
     'src="/home_work_of_art_tattoo_piercing/las-vegas-tattoo-artist-working-closeup.png" width="1163"/></picture>'
 )
 EXPERIENCE_NEW = (
-    '<picture><source srcset="/cover_up_tattoos_las_vegas_master_authority_guide/healed-realism-seraphim-eye-wings-tattoo.webp" '
+    '<picture><source srcset="/cover-up-tattoos-las-vegas/healed-realism-seraphim-eye-wings-tattoo.webp" '
     'type="image/webp"/><img alt="Healed black and grey seraphim eye and wings tattoo by Work of Art — Las Vegas" '
     'class="w-full h-full object-cover object-[center_35%]" height="800" loading="lazy" '
-    'src="/cover_up_tattoos_las_vegas_master_authority_guide/healed-realism-seraphim-eye-wings-tattoo.png" width="800"/></picture>'
+    'src="/cover-up-tattoos-las-vegas/healed-realism-seraphim-eye-wings-tattoo.png" width="800"/></picture>'
 )
 SUNFLOWER_EXPERIENCE = (
     '<picture><source srcset="/home_work_of_art_tattoo_piercing/client-portfolio/healed-color-sunflower-cover-up-leg-las-vegas.webp" '
