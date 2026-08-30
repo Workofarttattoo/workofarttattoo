@@ -136,6 +136,18 @@ GLOBAL_REPLACEMENTS: list[tuple[str, str]] = [
         "Joshua Cole — realism portfolio",
     ),
     (
+        "Meet Our Tattoo and Piercing Shop Near Me Team",
+        "Meet the Artists",
+    ),
+    (
+        "Body Piercing Store Near Me — Ear &amp; Helix",
+        "Ear Piercing &amp; Helix Work on E. Tropicana",
+    ),
+    (
+        "Why Locals Choose This Tattoo and Piercing Shop Near Me",
+        "Why Locals Book This Studio on E. Tropicana",
+    ),
+    (
         "undisputed king of realism in the Las Vegas valley",
         "one of the studio's long-standing realism specialists in Las Vegas",
     ),
@@ -280,6 +292,10 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
     ],
     "how_to_choose_a_tattoo_artist_master_selection_guide_2": [
         (
+            "Comparing tattoo and body piercing studios in las vegas or tattoo and body piercing studios las vegas listings? This guide helps you filter tattoo and body piercing studio and tattoos studios options — hygiene, healed portfolios, and artists who consult before they stencil — before you book a tattoo and body piercing studio in las vegas.",
+            "Comparing tattoo shops in Las Vegas? This guide helps you filter options — hygiene, healed portfolios, and artists who consult before they stencil — before you book.",
+        ),
+        (
             "The mastery of light and shadow—Chiaroscuro—is what separates a flat image from a three-dimensional illusion.",
             "Light and shadow — chiaroscuro — is what separates a flat image from something that reads three-dimensional on skin.",
         ),
@@ -291,7 +307,11 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
     "best_piercing_shop_las_vegas_updated_jewelry_standards": [
         (
             "<h1 class=\"font-headline-xl text-headline-xl md:text-[96px] mb-6 max-w-4xl leading-[1.1]\">Body Piercing Store Near Me — Las Vegas</h1>",
-            "<h1 class=\"font-headline-xl text-headline-xl md:text-[96px] mb-6 max-w-4xl leading-[1.1]\">Ear Piercing &amp; Body Piercing — Las Vegas</h1>",
+            "<h1 class=\"font-headline-xl text-headline-xl md:text-[96px] mb-6 max-w-4xl leading-[1.1]\">Ear Piercing &amp; Body Piercing in Las Vegas</h1>",
+        ),
+        (
+            "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Tattoo body piercing near me at one studio: Work of Art on E. Tropicana. Professional ear piercing, helix body piercing, and curated body piercings near me — plus black &amp; grey realism tattoos under the same roof.</p>",
+            "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Tattoo and piercing appointments at one studio: Work of Art on E. Tropicana. Professional ear piercing, helix work, curated body piercing, and black &amp; grey realism tattoos under the same roof.</p>",
         ),
         (
             "<p class=\"font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10\">Tattoo and piercing appointments at one studio: Work of Art on E. Tropicana. Professional ear piercing, helix piercing, curated body piercing, and black &amp; grey realism tattoos under the same roof.</p>",
@@ -347,11 +367,25 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             "For people comparing Las Vegas tattoo and piercing studios near the Strip, Work of Art is a licensed studio on E. Tropicana with realism, fine line, and piercing under one address.",
             "Staying on the Strip? Work of Art is a licensed tattoo and piercing studio on E. Tropicana — about five minutes from major resorts, with realism, fine line, and ear curation under one address.",
         ),
+        (
+            "For tattoo and body piercing studios in las vegas and tattoo and body piercing studio in las vegas searches near the Strip, Work of Art is the licensed tattoo and body piercing studio on E. Tropicana — tattoos studio near me convenience for hotel guests, with realism, fine line, and piercing under one address.",
+            "Staying on the Strip? Work of Art is a licensed tattoo and piercing studio on E. Tropicana — about five minutes from major resorts, with realism, fine line, and piercing under one address.",
+        ),
     ],
     "tattoo_shop_near_the_strip_nap_corrected": [
         (
             "Looking for a tattoo or piercing studio from the Strip? Work of Art at 2375 E. Tropicana is a short drive from Caesars, Bellagio, and airport arrivals, with one address for custom tattoos and piercing.",
             "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Ave, Suite 3 is a straightforward Tropicana-area trip from Caesars, Bellagio, and Harry Reid Airport — licensed tattoo and piercing under one roof.",
+        ),
+        (
+            "Tattoo shop near me or tattoo and body piercing studio las vegas from the Strip? Work of Art at 2375 E. Tropicana is among tattoo and body piercing studios in las vegas worth the short drive — tattoo and body piercing studio near me for Caesars, Bellagio, and airport arrivals, about five minutes from major resorts.",
+            "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana is a short drive from Caesars, Bellagio, and airport arrivals — about five minutes from major resorts, with custom tattoos and piercing under one roof.",
+        ),
+    ],
+    "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison": [
+        (
+            "When you compare tattoo and body piercing studios in las vegas to high-volume strip booths, the gap is hygiene and healed quality — not price alone. This guide contrasts a licensed tattoo and body piercing studio las vegas collectors trust with tattoo and body piercing studios las vegas tourists should avoid: volume-first shops that stress sanitation and artistry.",
+            "When you compare a licensed studio to a high-volume booth, the gap is hygiene and healed quality — not price alone. This guide contrasts a consult-first tattoo and piercing studio on E. Tropicana with volume-first shops that put sanitation and artistry under pressure.",
         ),
     ],
 }
@@ -359,15 +393,17 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
 
 def iter_html_files() -> list[Path]:
     out: list[Path] = []
+    skip_parts = {"skipped", "node_modules", ".git"}
     for path in sorted(ROOT.rglob("code.html")):
-        if "skipped" in path.parts:
+        if skip_parts.intersection(path.parts):
+            continue
+        out.append(path)
+    for path in sorted(ROOT.rglob("index.html")):
+        if skip_parts.intersection(path.parts):
             continue
         out.append(path)
     for path in sorted((ROOT / "artists_build").glob("*.html")):
         out.append(path)
-    artists_index = ROOT / "artists" / "code.html"
-    if artists_index.is_file():
-        out.append(artists_index)
     return sorted(set(out))
 
 
@@ -398,22 +434,42 @@ def soften_guide_marketing(html: str) -> str:
 
 
 def soften_faq_crawler_titles(html: str) -> str:
-    """Turn FAQ summaries written for crawlers into plain questions."""
+    """Turn FAQ summaries written for crawlers into plain questions.
+
+    Skip <head> so legitimate SEO titles and meta descriptions stay put.
+    """
     subs = [
         (r"What is the best (.+?) near me\?", r"What should I know about \1 at Work of Art?"),
         (r"Where is the best (.+?) near me", r"Where is Work of Art for \1"),
         (r"Where do you pierce (.+?) in Las Vegas\?", r"Where can I get a \1 in Las Vegas?"),
         (r"Frequently asked questions", "Questions clients ask"),
+        (r"tattoo and piercing shops in near me", "tattoo and piercing studios nearby"),
+        (r"tattoo and piercing shop near by me", "tattoo and piercing studio on E. Tropicana"),
+        (r"tattoo and piercing shop near me", "tattoo and piercing studio on E. Tropicana"),
+        (r"tattoo and body piercing studio near me", "tattoo and piercing studio on E. Tropicana"),
+        (r"studio tattoo near me", "tattoo studio on E. Tropicana"),
+        (r"tattoos studio near me", "tattoo studio on E. Tropicana"),
+        (r"black and grey tattoo artist near me", "black and grey artist at Work of Art"),
         (r"body piercing store near me", "ear and body piercing at Work of Art"),
         (r"tattoo body piercing near me", "tattoo and piercing at Work of Art"),
         (r"body piercings near me", "body piercings at Work of Art"),
+        (r"ear piercing near me", "ear piercing at Work of Art"),
+        (r"piercing shops near me", "piercing studios"),
         (r"piercing near me", "piercing at Work of Art"),
         (r"pierce near me", "professional piercing"),
         (r"piercing shop close to me", "piercing studio on E. Tropicana"),
+        (r"shop close to me", "studio on E. Tropicana"),
     ]
+    lower = html.lower()
+    head_end = lower.find("</head>")
+    if head_end == -1:
+        prefix, body = "", html
+    else:
+        split_at = head_end + len("</head>")
+        prefix, body = html[:split_at], html[split_at:]
     for pattern, repl in subs:
-        html = re.sub(pattern, repl, html, flags=re.IGNORECASE)
-    return html
+        body = re.sub(pattern, repl, body, flags=re.IGNORECASE)
+    return prefix + body
 
 
 def main() -> int:
