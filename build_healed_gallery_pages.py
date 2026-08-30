@@ -25,6 +25,13 @@ SITE = "https://www.workofarttattoo.com"
 TEMPLATE = ROOT / "tattoo_healing_in_desert_climate_expert_aftercare_guide" / "code.html"
 
 
+def _healed_age_heading(healed_age: str) -> str:
+    """Avoid repeating healed when the age label already includes it."""
+    if "healed" in healed_age.lower():
+        return healed_age
+    return f"{healed_age} healed"
+
+
 def picture(ref: ImageRef, entry: HealedEntry, *, eager: bool = False) -> str:
     webp = image_url(ref, webp=True)
     png = image_url(ref, webp=False)
@@ -87,7 +94,7 @@ def entry_card(entry: HealedEntry, *, eager: bool = False) -> str:
     return f"""<article class="woa-healed-case py-12 border-b border-outline-variant/20 last:border-0" id="{html.escape(entry.entry_id)}">
 <div class="space-y-6">
 <div>
-<h2 class="font-headline-md text-on-surface text-2xl mb-2">{html.escape(entry.title)} — {html.escape(entry.healed_age)} healed</h2>
+<h2 class="font-headline-md text-on-surface text-2xl mb-2">{html.escape(entry.title)} — {html.escape(_healed_age_heading(entry.healed_age))}</h2>
 <p class="font-body-md text-on-surface-variant max-w-3xl">{html.escape(entry.description)}</p>
 </div>
 {images}
@@ -110,7 +117,7 @@ def hub_main() -> str:
     if featured:
         featured_section = f"""<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant/20">
 <div class="max-w-4xl mx-auto">
-<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-4 block">Featured · {html.escape(featured.healed_age)} healed</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-4 block">Featured · {html.escape(_healed_age_heading(featured.healed_age))}</span>
 {entry_card(featured, eager=True)}
 </div>
 </section>"""

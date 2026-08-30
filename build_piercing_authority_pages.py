@@ -23,7 +23,9 @@ from woa_piercing_authority import (
     guide_by_id,
     meta_description,
     page_title,
+    piercing_guide_label,
     slug_for,
+    _piercing_phrase,
 )
 from woa_piercing_catalog_extra import PIERCING_CATALOG_EXTRA
 from woa_expert_entity_blocks import katelyn_entity_block
@@ -195,7 +197,7 @@ def guide_web_section(guide: PiercingGuide) -> str:
     for rid in guide.related:
         rel = guide_by_id(rid)
         if rel:
-            add(f"{rel.name} piercing guide", f"/{slug_for(rel)}/")
+            add(piercing_guide_label(rel.name), f"/{slug_for(rel)}/")
 
     links = "\n".join(items)
     return f"""<nav aria-label="Related piercing guides" class="border border-outline-variant/30 bg-surface-container-low p-5 space-y-3">
@@ -213,7 +215,7 @@ def related_links(guide: PiercingGuide) -> str:
             continue
         links.append(
             f'<li><a class="text-secondary underline hover:no-underline" href="/{slug_for(rel)}/">'
-            f"{html.escape(rel.name)} piercing guide</a></li>"
+            f"{html.escape(piercing_guide_label(rel.name))}</a></li>"
         )
     if not links:
         links.append(
@@ -439,7 +441,7 @@ def type_main(guide: PiercingGuide) -> str:
 <h2 class="font-headline-md text-on-surface text-2xl">Book appointment</h2>
 <p class="font-body-md text-on-surface-variant">{html.escape(guide.offer_note)}</p>
 <div class="flex flex-col sm:flex-row gap-4 pt-2">
-<a class="inline-flex bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest justify-center" href="{BOOK}" data-woa-piercing-booking-start="1">Book {html.escape(guide.name.lower())}</a>
+<a class="inline-flex bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest justify-center" href="{BOOK}" data-woa-piercing-booking-start="1">Book {html.escape(_piercing_phrase(guide.name).lower())}</a>
 <a class="inline-flex border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors justify-center" href="{KATELYN_PAGE}" data-woa-katelyn-profile-click="1">Katelyn's portfolio</a>
 </div>
 </section>"""
