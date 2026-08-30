@@ -139,7 +139,7 @@ UNIQUE_SECTIONS: dict[str, tuple[tuple[str, tuple[str, ...]], ...]] = {
             "Why Paradise matters",
             (
                 "Paradise is the actual locality for many Strip-adjacent addresses, including Work of Art's E. Tropicana studio address.",
-                "This page exists to clarify the real studio location, not to claim a second storefront.",
+                "To be clear: this is not a second storefront. Paradise is simply the real locality around our E. Tropicana address.",
                 "Use it when maps, local search, or rideshare apps describe the area differently from the City of Las Vegas.",
             ),
         ),
@@ -174,8 +174,8 @@ UNIQUE_SECTIONS: dict[str, tuple[tuple[str, tuple[str, ...]], ...]] = {
         (
             "Henderson-to-Tropicana fit",
             (
-                "This page stays indexed because Henderson clients often plan larger tattoos around artist fit and repeat sessions.",
-                "Green Valley is consolidated here so Henderson searchers get one stronger page instead of thin neighborhood duplicates.",
+                "Most of our Henderson clients are planning bigger work — sleeves, cover-ups, multi-session projects — where picking the right artist matters more than picking the closest chair.",
+                "If you're coming from Green Valley, this is your page too — same studio, same team, one honest set of directions.",
                 "Use the consult to discuss project sequence, not only a single appointment date.",
             ),
         ),
@@ -282,7 +282,7 @@ def page_html(page: GeoPage) -> str:
 <p class="font-body-md text-on-surface-variant">{html.escape(page.landmarks[0])}</p>
 </section>
 <div class="border border-outline-variant/30 p-6 bg-surface-container-low space-y-3">
-<p class="font-label-caps text-secondary uppercase tracking-widest text-sm">Studio NAP</p>
+<p class="font-label-caps text-secondary uppercase tracking-widest text-sm">Studio address &amp; contact</p>
 <p class="font-body-md text-on-surface">{html.escape(STUDIO_ADDRESS_SINGLE_LINE)}</p>
 <p class="font-body-md text-on-surface-variant">Check the official location page before planning around shows, flights, work shifts, or event traffic.</p>
 <p class="font-body-md"><a class="text-secondary underline hover:no-underline" href="tel:+17252241240">{STUDIO_PHONE_DISPLAY}</a> · <a class="text-secondary underline hover:no-underline" href="/appointments/">Book appointment</a></p>

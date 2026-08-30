@@ -290,7 +290,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         why_choose=(
             "Three in-studio residents today — Joshua Cole, Katelyn Cole, and Teralyn — not a rotating guest-artist wall.",
             "One studio for tattoos, piercing consults, follow-up questions, and aftercare guidance.",
-            "This is the exact city/locality context for the studio address, not a doorway page pretending to be another branch.",
+            "Same studio, same rooms, same team — Paradise just happens to be the locality our address technically sits in.",
         ),
         landmarks=(
             "UNLV · Thomas & Mack · Boulevard Mall · Paradise Rd · Tropicana corridor",

@@ -197,6 +197,9 @@ def main() -> int:
 
     stamp_build(HOME_HTML)
     sync_root_home_copy()
+    # Human copy pass: keeps casing, breadcrumbs, and reader-facing copy fixes
+    # applied even when earlier builders regenerate pages from templates.
+    run_step(["python3", str(ROOT / "humanize_final_edit_pass.py")])
     run_step(["python3", str(ROOT / "tools" / "production_parity_cleanup.py")])
     sync_root_home_copy()
     verify_homepage()

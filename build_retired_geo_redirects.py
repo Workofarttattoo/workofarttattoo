@@ -29,7 +29,7 @@ def redirect_html(slug: str, target: str) -> str:
 <body>
 <main>
 <h1>Redirecting</h1>
-<p>This location guide has been consolidated. Continue to <a href="{escaped_target}">{escaped_target}</a>.</p>
+<p>We&#8217;ve folded this page into a stronger visitor guide so everything lives in one place. <a href="{escaped_target}">Continue there for directions, timing, and booking</a>.</p>
 </main>
 </body></html>
 """

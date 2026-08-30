@@ -73,7 +73,7 @@ SECTIONS = (
     (
         "Getting Here Without Guesswork",
         (
-            f"Use the canonical studio address: {STUDIO_ADDRESS_SINGLE_LINE}.",
+            f"Use the exact studio address: {STUDIO_ADDRESS_SINGLE_LINE}.",
             "Rideshare pickup and resort valet pins can send drivers to the wrong place; enter the studio address directly.",
             "Travel times and fares change with events, conventions, rideshare demand, and hotel pickup zones, so check your map app before leaving.",
         ),
@@ -145,11 +145,11 @@ def main() -> int:
 <main class="pt-28 pb-24 px-6 max-w-3xl mx-auto space-y-10">
 <p class="font-label-caps text-secondary uppercase tracking-widest text-[10px]">Visitor geo hub · Las Vegas Strip</p>
 <h1 class="font-headline-lg text-on-surface">{TITLE}</h1>
-<p class="font-body-lg text-on-surface-variant leading-relaxed">You're welcome here — questions included. This hub helps Strip visitors plan a real tattoo or piercing appointment at Work of Art without relying on thin neighborhood doorway pages.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">You're welcome here — questions included. This page helps Strip visitors plan a real tattoo or piercing appointment at Work of Art — honest directions, honest timing, no gimmicks.</p>
 {sections}
 {image_grid()}
 <div class="border border-outline-variant/30 p-6 bg-surface-container-low space-y-3">
-<p class="font-label-caps text-secondary uppercase tracking-widest text-sm">Studio NAP</p>
+<p class="font-label-caps text-secondary uppercase tracking-widest text-sm">Studio address &amp; contact</p>
 <p class="font-body-md text-on-surface">{html.escape(STUDIO_ADDRESS_SINGLE_LINE)}</p>
 <p class="font-body-md text-on-surface-variant">Check the official location page before planning around shows, flights, work shifts, or event traffic.</p>
 <p class="font-body-md"><a class="text-secondary underline hover:no-underline" href="tel:+17252241240">{STUDIO_PHONE_DISPLAY}</a> · <a class="text-secondary underline hover:no-underline" href="/appointments/">Book appointment</a></p>
