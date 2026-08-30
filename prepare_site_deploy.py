@@ -34,6 +34,7 @@ PIPELINE: list[list[str]] = [
     # ["python3", str(ROOT / "fix_hero_layout.py")],  # Disabled: breaks new carousel structure
     ["python3", str(ROOT / "inject_site_typography.py")],
     ["python3", str(ROOT / "build_studio_videos_page.py")],
+    ["python3", str(ROOT / "build_merchandise_page.py")],
     ["python3", str(ROOT / "build_knowledge_hub.py")],
     ["python3", str(ROOT / "build_piercing_authority_pages.py")],
     ["python3", str(ROOT / "build_piercing_pillar_pages.py")],
@@ -48,6 +49,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "build_retired_geo_redirects.py")],
     ["python3", str(ROOT / "build_near_strip_geo_hub.py")],
     ["python3", str(ROOT / "build_geo_quality_reports.py")],
+    ["python3", str(ROOT / "build_url_aliases.py")],
     ["python3", str(ROOT / "upgrade_site_navigation.py")],
     ["python3", str(ROOT / "inject_sticky_book_cta.py")],
     ["python3", str(ROOT / "inject_guides_hub.py"), "--refresh"],
@@ -62,6 +64,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "implement_seo_growth_actions.py")],
     ["python3", str(ROOT / "final_copy_polish.py")],
     ["python3", str(ROOT / "fix_social_links.py")],
+    ["python3", str(ROOT / "fix_studio_booking_email.py")],
     ["python3", str(ROOT / "inject_piercing_promotions.py")],
     ["python3", str(ROOT / "fix_yoast_seo_meta.py")],
     ["python3", str(ROOT / "inject_entity_schema.py")],
@@ -78,6 +81,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "repair_visual_intent.py")],
     ["python3", str(ROOT / "remove_elevenlabs_widget.py")],
+    ["python3", str(ROOT / "tools/check_merchandise_page.py")],
 ]
 
 
@@ -182,6 +186,8 @@ def main() -> int:
         run_step(cmd)
 
     stamp_build(HOME_HTML)
+    sync_root_home_copy()
+    run_step(["python3", str(ROOT / "tools" / "production_parity_cleanup.py")])
     sync_root_home_copy()
     verify_homepage()
 

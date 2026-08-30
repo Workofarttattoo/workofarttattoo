@@ -8,11 +8,8 @@ __pycache__/
 .snapshots/
 .claude/
 *.pyc
-<<<<<<< HEAD
 .claude/settings.local.json
 
 # Local recovery bundles — do not publish to GitHub Pages
 *.bundle
 workofarttattoo-reconciled-*.bundle
-=======
->>>>>>> integration/seo-rebuild
