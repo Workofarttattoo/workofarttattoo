@@ -418,7 +418,7 @@ def patch_homepage() -> None:
         )
 
         text = re.sub(
-            r'<div class="grid grid-cols-1 sm:grid-cols-[23] gap-gutter max-w-3xl mx-auto">[\s\S]*?'
+            r'<div class="grid grid-cols-1 sm:grid-cols-[23] gap-gutter max-w-[35]xl mx-auto">[\s\S]*?'
             r'</div>\s*(?=<div aria-label="Gallery category filter")',
             artists_block + "\n",
             text,

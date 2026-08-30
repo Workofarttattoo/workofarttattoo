@@ -148,6 +148,43 @@ def verify_homepage() -> None:
     for name in ("Joshua Cole", "Katelyn Cole", "Teralyn"):
         if name not in html:
             errors.append(f"missing resident {name} on homepage")
+
+    gallery_roster = re.search(
+        r'id="gallery"[\s\S]*?<h2[^>]*>Meet Our Artists</h2>[\s\S]*?'
+        r'(?=<div aria-label="Gallery category filter")',
+        html,
+    )
+    if not gallery_roster:
+        errors.append("missing Meet Our Artists roster grid before gallery filters")
+    else:
+        block = gallery_roster.group(0)
+        for href, label in (
+            ("/artists/joshua-cole/", "Joshua Cole"),
+            ("/artists/katelyn-cole/", "Katelyn Cole"),
+            ("/artists/teralyn/", "Teralyn"),
+        ):
+            count = block.count(f'href="{href}"')
+            if count != 1:
+                errors.append(
+                    f"#gallery roster lists {label} {count} time(s); expected exactly 1"
+                )
+
+    team = re.search(r'id="meet-our-artists"[\s\S]*?</section>', html)
+    if team:
+        block = team.group(0)
+        roster_hrefs = (
+            ("/artists/joshua-cole/", "Joshua Cole"),
+            ("/artists/katelyn-cole/", "Katelyn Cole"),
+            ("/artists/teralyn/", "Teralyn"),
+        )
+        if any(f'href="{href}"' in block for href, _ in roster_hrefs):
+            for href, label in roster_hrefs:
+                count = block.count(f'href="{href}"')
+                if count != 1:
+                    errors.append(
+                        f"#meet-our-artists lists {label} {count} time(s); expected exactly 1"
+                    )
+
     for needle, label in banned:
         if needle in html:
             errors.append(f"still has {label}")

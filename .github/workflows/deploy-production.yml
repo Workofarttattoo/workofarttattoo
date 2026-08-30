@@ -161,6 +161,25 @@ jobs:
               raise SystemExit('Homepage contains merge conflict markers')
           if not any(s in home for s in ('3 In-Studio Residents', 'Three in-studio residents')):
               raise SystemExit('Homepage missing 3-resident wording')
+          import re
+          gallery_roster = re.search(
+              r'id="gallery"[\s\S]*?<h2[^>]*>Meet Our Artists</h2>[\s\S]*?'
+              r'(?=<div aria-label="Gallery category filter")',
+              home,
+          )
+          if not gallery_roster:
+              raise SystemExit('Homepage missing Meet Our Artists roster grid')
+          roster_block = gallery_roster.group(0)
+          for href, label in (
+              ('/artists/joshua-cole/', 'Joshua Cole'),
+              ('/artists/katelyn-cole/', 'Katelyn Cole'),
+              ('/artists/teralyn/', 'Teralyn'),
+          ):
+              count = roster_block.count(f'href="{href}"')
+              if count != 1:
+                  raise SystemExit(
+                      f'Homepage #gallery roster lists {label} {count} time(s); expected 1'
+                  )
           banned_home = [
               'Two resident specialists',
               '2 In-Studio Specialists',

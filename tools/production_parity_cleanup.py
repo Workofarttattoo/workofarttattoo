@@ -214,26 +214,29 @@ def strip_snhd_footer(text: str) -> str:
 
 
 def add_teralyn_card(text: str) -> str:
-    if 'id="meet-our-artists"' not in text:
-        return text
+    """Add Teralyn only inside #meet-our-artists, never the #gallery roster."""
     section_start = text.find('id="meet-our-artists"')
+    if section_start == -1:
+        return text
     section_end = text.find("</section>", section_start)
-    section = text[section_start:section_end] if section_end != -1 else text[section_start:]
-    if "teralyn-fine-line-tattoo-artist-las-vegas" in section:
+    if section_end == -1:
+        return text
+    section = text[section_start:section_end]
+    if 'href="/artists/teralyn/"' in section:
         return text
     marker = (
         '<span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary '
         'transition-colors block">Katelyn Cole</span>'
     )
-    if marker not in text or TERALYN_CARD.strip() in text:
+    rel = section.find(marker)
+    if rel == -1:
         return text
-    # Insert Teralyn card after the Katelyn card closing </a> that follows the marker.
-    idx = text.find(marker)
-    close = text.find("</a>", idx)
+    close = section.find("</a>", rel)
     if close == -1:
         return text
     close += 4
-    return text[:close] + "\n" + TERALYN_CARD + text[close:]
+    new_section = section[:close] + "\n" + TERALYN_CARD + section[close:]
+    return text[:section_start] + new_section + text[section_end:]
 
 
 def add_teralyn_footer_link(text: str) -> str:
