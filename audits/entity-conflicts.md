@@ -23,8 +23,6 @@ Recommended action: inspect context before replacement; many hits may be generat
 ## old review count 2400
 
 Potential conflict locations:
-- `code.html`
-- `home_work_of_art_tattoo_piercing/code.html`
 - `client_videos.py`
 - `fix_homepage_images.py`
 - `seo_audit_repair.py`
