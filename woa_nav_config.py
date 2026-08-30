@@ -43,6 +43,40 @@ STUDIO_ROSTER_LEGACY = (
     "Seven artists trained at Work of Art now run their own shops or travel as guest "
     "artists — a track record of mentorship, not empty chairs."
 )
+_AWARDS = _BUSINESS.get("awards") or []
+_BR_BEST = next(
+    (
+        a
+        for a in _AWARDS
+        if "businessrate" in str(a.get("issuer", "")).lower()
+        and a.get("verificationStatus") == "owner-verified"
+    ),
+    None,
+)
+if _BR_BEST:
+    _years = " and ".join(str(y) for y in _BR_BEST.get("years") or [])
+    STUDIO_AWARD_HREF = _BR_BEST.get(
+        "listingUrl",
+        "https://businessrate.com/report/3306384?geocatSerial=143754216&scoreType=br",
+    )
+    STUDIO_AWARD_PORTAL_HREF = _BR_BEST.get(
+        "awardsPortalUrl",
+        "https://www.businessrate.com/awards",
+    )
+    STUDIO_AWARD_LINE = (
+        f"Work of Art was named {_BR_BEST.get('name', 'Best of Las Vegas')} "
+        f"in {_years} by {_BR_BEST.get('issuer', 'BusinessRate.com')}."
+    )
+    STUDIO_AWARD_SHORT = (
+        f"{_BR_BEST.get('name', 'Best of Las Vegas')} "
+        f"{' & '.join(str(y) for y in _BR_BEST.get('years') or [])} · "
+        f"{_BR_BEST.get('issuer', 'BusinessRate.com')}"
+    )
+else:
+    STUDIO_AWARD_HREF = ""
+    STUDIO_AWARD_PORTAL_HREF = ""
+    STUDIO_AWARD_LINE = ""
+    STUDIO_AWARD_SHORT = ""
 
 # Social (full URLs for footers and artist pages)
 HREF_INSTAGRAM_STUDIO = _SOCIAL.get("studioInstagram", "https://www.instagram.com/workofarttattoo/")
@@ -114,13 +148,30 @@ STUDIO_HOURS_HTML_GRID = (
 HREF_ARTISTS = "/#gallery"
 HREF_PIERCING = "/piercing-shop-standards/"
 
-# (label, href) — sitewide Artists dropdown
+# (label, href) — sitewide Artists dropdown. upgrade_site_navigation.py
+# writes this list into every public Artists submenu (desktop + mobile).
 ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
     ("All Artists & Gallery", HREF_ARTISTS),
     ("Joshua Cole — Tattoo Artist / Studio Lead", "/artists/joshua-cole/"),
     ("Katelyn Cole — Professional Piercer", "/artists/katelyn-cole/"),
-    ("Teralyn — Tattoos & Piercing", "/artists/teralyn/"),
+    ("Teralyn — Fine Line · Floral · Script", "/artists/teralyn/"),
 ]
+
+REQUIRED_ARTIST_NAV_HREFS: tuple[str, ...] = (
+    "/artists/joshua-cole/",
+    "/artists/katelyn-cole/",
+    "/artists/teralyn/",
+)
+
+# Simple-page header used by geo / knowledge / artist-index builders.
+# The empty data-woa-desktop-nav holder is filled by upgrade_site_navigation.py.
+SIMPLE_TOP_NAV_SHELL = """\
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-background/90 backdrop-blur-md border-b border-outline-variant/30" data-woa-top-shell="1">
+<a class="font-headline-md text-secondary uppercase tracking-widest" href="/">Work of Art</a>
+<div class="hidden md:flex flex-wrap justify-end items-center gap-1 xl:gap-2" data-woa-desktop-nav="1"></div>
+<a class="bg-secondary text-on-secondary px-6 py-3 font-label-caps text-label-caps uppercase tracking-widest" href="/appointments/">Book Now</a>
+</header>
+"""
 
 
 def discover_artist_nav_entries() -> list[tuple[str, str]]:
@@ -158,7 +209,7 @@ NAV_TATTOO_GUIDE_SLUGS: tuple[str, ...] = (
     "how_to_choose_a_tattoo_artist_master_selection_guide_2",
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide",
     "realism_tattoos_las_vegas_master_authority_guide",
-    "cover_up_tattoos_las_vegas_master_authority_guide",
+    "cover-up-tattoos-las-vegas",
     "walk_in_tattoos_las_vegas_authority_guide",
     "tattoo_healing_in_desert_climate_expert_aftercare_guide",
     "skin_science_tattoo_dermatology_authority_guide",
@@ -225,6 +276,8 @@ def merged_export_roots() -> dict[str, Path]:
 
 def slug_to_guide_label(slug: str, max_len: int = 46) -> str:
     readable = slug.replace("_", " ").replace("authority guide", "").replace("master selection guide", "").replace("ultimate authority guide", "").strip()
+    if readable.lower().startswith("best "):
+        readable = readable[5:].lstrip()
     if len(readable) > max_len:
         readable = readable[: max_len - 1].rstrip() + "…"
     return readable

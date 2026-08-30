@@ -46,9 +46,29 @@ REPAIRS: list[tuple[str, str]] = [
     ("two resident artists", "three resident artists"),
     ("Two resident artists", "Our in-studio team"),
     ("Two Resident Tattoo Artists", "Three Resident Artists"),
+    ("Two resident specialists", "Three resident artists"),
+    ("two resident specialists", "three resident artists"),
+    ("2 In-Studio Specialists", "3 Resident Artists"),
+    ("2 in-studio specialists", "3 resident artists"),
     (
         "Two in-studio residents today — Joshua Cole and Katelyn Cole — not a rotating guest-artist wall.",
         "Three in-studio residents today — Joshua Cole, Katelyn Cole, and Teralyn — not a rotating guest-artist wall.",
+    ),
+    (
+        "Two resident specialists in-studio today — Joshua Cole (tattoo &amp; piercing; studio lead) and Katelyn Cole (professional piercer). Tattoo and piercing consults book seven nights a week at 2375 E. Tropicana Suite 3.",
+        "Three resident artists in-studio today — Joshua Cole (tattoo artist / studio lead; also offers piercing), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos). Tattoo and piercing consults book seven nights a week at 2375 E. Tropicana Ave, Suite 3.",
+    ),
+    (
+        "Joshua Cole leads tattoo, piercing, and training; Katelyn Cole is our professional piercer — two resident specialists in-studio today with appointments open seven nights a week.",
+        "Joshua Cole leads tattoo, piercing, and training; Katelyn Cole is our professional piercer; Teralyn is a tattoo artist and piercer — three resident artists in-studio today with appointments open seven nights a week.",
+    ),
+    (
+        "Two resident specialists in-studio today at 2375 E. Tropicana Suite 3",
+        "Three resident artists in-studio today at 2375 E. Tropicana Ave, Suite 3",
+    ),
+    (
+        "Work of Art has two in-studio specialists: Joshua Cole (tattoo &amp; piercing; studio lead who trains the team) and Katelyn Cole (professional piercer).",
+        "Work of Art has three in-studio residents: Joshua Cole (tattoo artist / studio lead; also offers piercing), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos).",
     ),
     (
         "Work of Art has two in-studio artists: Joshua Cole (tattoo &amp; piercing; studio lead who trains the team) and Katelyn Cole (professional piercer).",
@@ -88,6 +108,8 @@ BAD_FACT_PATTERNS = [
     r"\b2400\b",
     r"two\s+in-studio",
     r"two\s+resident",
+    r"2\s+In-Studio",
+    r"2\s+in-studio specialists",
     r"two\s+artists",
     r"tattoojosh@workofarttattoo\.com",
 ]

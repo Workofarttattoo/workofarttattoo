@@ -21,6 +21,7 @@ from woa_nav_config import (
     STUDIO_BOOKING_EMAIL,
     STUDIO_LEGAL_NAME,
     STUDIO_PHONE_SCHEMA,
+    STUDIO_AWARD_SHORT,
     STUDIO_POSTAL_CODE,
     STUDIO_STREET_ADDRESS,
 )
@@ -52,7 +53,7 @@ SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
         "Black and Grey Realism Tattoo",
         "Custom black-and-grey realism tattoos — portraits, wildlife, and sleeves at Work of Art Las Vegas.",
     ),
-    "cover_up_tattoos_las_vegas_master_authority_guide": (
+    "cover-up-tattoos-las-vegas": (
         "Tattoo Cover-Up",
         "Cover-up consults and multi-session redesigns for old or faded tattoos in Las Vegas.",
     ),
@@ -309,7 +310,9 @@ def sanitize_schema_text(text: str) -> str:
 
 
 def service_node(*, slug: str, name: str, description: str) -> dict:
-    page_url = f"{SITE}/{slug}/"
+    from woa_url_aliases import short_canonical
+
+    page_url = short_canonical(slug)
     return {
         "@type": "Service",
         "@id": f"{page_url}#service",
@@ -423,6 +426,7 @@ def local_business_node() -> dict:
         ],
         "numberOfEmployees": RESIDENT_ARTIST_COUNT,
         "employee": [{"@id": ID_JOSHUA}, {"@id": ID_KATELYN}, {"@id": ID_TERALYN}],
+        **({"award": STUDIO_AWARD_SHORT} if STUDIO_AWARD_SHORT else {}),
         "areaServed": [
             {"@type": "City", "name": "Las Vegas"},
             {"@type": "Place", "name": "Paradise, Nevada"},
@@ -647,7 +651,9 @@ def guide_article_graph(
     faqs: list[tuple[str, str]] | None = None,
     root: Path | None = None,
 ) -> dict:
-    page_url = f"{SITE}/{slug}/"
+    from woa_url_aliases import short_canonical
+
+    page_url = short_canonical(slug)
     safe_description = sanitize_schema_text(description)
     article_about: list[dict] = [{"@id": ID_BUSINESS}]
     graph: list[dict] = [
@@ -806,7 +812,9 @@ def guide_article_graph(
 
 
 def faq_page_graph(*, slug: str, title: str, faqs: list[tuple[str, str]]) -> dict:
-    page_url = f"{SITE}/{slug}/"
+    from woa_url_aliases import short_canonical
+
+    page_url = short_canonical(slug)
     safe_faqs = verified_schema_faqs(faqs)
     return {
         "@context": "https://schema.org",

@@ -34,6 +34,7 @@ PIPELINE: list[list[str]] = [
     # ["python3", str(ROOT / "fix_hero_layout.py")],  # Disabled: breaks new carousel structure
     ["python3", str(ROOT / "inject_site_typography.py")],
     ["python3", str(ROOT / "build_studio_videos_page.py")],
+    ["python3", str(ROOT / "build_merchandise_page.py")],
     ["python3", str(ROOT / "build_knowledge_hub.py")],
     ["python3", str(ROOT / "build_piercing_authority_pages.py")],
     ["python3", str(ROOT / "build_piercing_pillar_pages.py")],
@@ -61,6 +62,8 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "remove_jay_jay_from_site.py")],
     ["python3", str(ROOT / "bridge_10_copy_gaps.py")],
     ["python3", str(ROOT / "implement_seo_growth_actions.py")],
+    ["python3", str(ROOT / "enhance_protected_seo_pages.py")],
+    ["python3", str(ROOT / "inject_contextual_links.py")],
     ["python3", str(ROOT / "final_copy_polish.py")],
     ["python3", str(ROOT / "fix_social_links.py")],
     ["python3", str(ROOT / "fix_studio_booking_email.py")],
@@ -80,6 +83,8 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "repair_visual_intent.py")],
     ["python3", str(ROOT / "remove_elevenlabs_widget.py")],
+    ["python3", str(ROOT / "tools/check_merchandise_page.py")],
+    ["python3", str(ROOT / "build_retired_cover_up_redirect.py")],
 ]
 
 
@@ -135,7 +140,14 @@ def verify_homepage() -> None:
         ("woa-ig-preview", "legacy Instagram preview cards"),
         ("The interview plays at the top of this page", "stale featured copy"),
         ('blockquote class="instagram-media"', "broken Instagram blockquote embed"),
+        ("Two resident specialists", "stale two-person roster copy"),
+        ("two resident specialists", "stale two-person roster copy"),
+        ("2 In-Studio Specialists", "stale 2 in-studio specialists count"),
+        ("2 in-studio specialists", "stale 2 in-studio specialists count"),
     ]
+    for name in ("Joshua Cole", "Katelyn Cole", "Teralyn"):
+        if name not in html:
+            errors.append(f"missing resident {name} on homepage")
     for needle, label in banned:
         if needle in html:
             errors.append(f"still has {label}")

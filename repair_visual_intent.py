@@ -12,7 +12,6 @@ SLEEVE = ROOT / "best_tattoo_styles_for_sleeves_large_scale_project_hub" / "code
 REALISM_ALIAS = ROOT / "realism-tattoos-las-vegas" / "code.html"
 COVER_SLUGS = (
     ROOT / "cover-up-tattoos-las-vegas" / "code.html",
-    ROOT / "cover_up_tattoos_las_vegas_master_authority_guide" / "code.html",
 )
 
 SPOTLIGHT_RE = re.compile(

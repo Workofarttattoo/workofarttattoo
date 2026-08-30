@@ -31,7 +31,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "Hospital-grade sterilization and single-use equipment are our baseline. We maintain the cleanest environment in Las Vegas.",
-        "Hospital-grade sterilization and single-use equipment are our baseline. We document our cleaning routine every session — ask us to walk you through it when you visit.",
+        "Single-use equipment and sterilization procedures are our baseline. Ask us to walk you through the studio cleaning routine when you visit.",
     ),
     (
         "<h4 class=\"font-headline-md text-headline-md text-on-surface\">15+ Years Experience</h4>",
@@ -91,7 +91,7 @@ REPLACEMENTS: list[tuple[str, str]] = [
     ),
     (
         "two tattooists (Joshua Cole and Jay Jay) and professional piercer Katelyn Cole",
-        "two tattoo artists (Joshua Cole and Teralyn) and professional piercer Katelyn Cole",
+        "Joshua Cole (tattoo & piercing; studio lead), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer)",
     ),
     (
         "Joshua Cole and Jay Jay lead tattoo work; Katelyn Cole leads piercing.",
@@ -128,6 +128,30 @@ REPLACEMENTS: list[tuple[str, str]] = [
     (
         "Three in-studio residents — Joshua Cole and Jay Jay (tattoo), Katelyn Cole (piercing)",
         "Three in-studio residents — Joshua Cole (tattoo and piercing, studio lead), Katelyn Cole (piercing), and Teralyn (tattoo artist and piercer; fineline floral, script, commissioned custom drawings)",
+    ),
+    (
+        "Two resident specialists in-studio today — Joshua Cole (tattoo &amp; piercing; studio lead) and Katelyn Cole (professional piercer). Tattoo and piercing consults book seven nights a week at 2375 E. Tropicana Suite 3.",
+        "Three resident artists in-studio today — Joshua Cole (tattoo artist / studio lead; also offers piercing), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos). Tattoo and piercing consults book seven nights a week at 2375 E. Tropicana Ave, Suite 3.",
+    ),
+    (
+        "2 In-Studio Specialists",
+        "3 Resident Artists",
+    ),
+    (
+        "Joshua Cole leads tattoo, piercing, and training; Katelyn Cole is our professional piercer — two resident specialists in-studio today with appointments open seven nights a week.",
+        "Joshua Cole leads tattoo, piercing, and training; Katelyn Cole is our professional piercer; Teralyn is a tattoo artist and piercer — three resident artists in-studio today with appointments open seven nights a week.",
+    ),
+    (
+        "Two resident specialists in-studio today at 2375 E. Tropicana Suite 3",
+        "Three resident artists in-studio today at 2375 E. Tropicana Ave, Suite 3",
+    ),
+    (
+        "Work of Art has two in-studio specialists: Joshua Cole (tattoo &amp; piercing; studio lead who trains the team) and Katelyn Cole (professional piercer).",
+        "Work of Art has three in-studio residents: Joshua Cole (tattoo artist / studio lead; also offers piercing), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos).",
+    ),
+    (
+        "Joshua Cole — black &amp; grey realism. Katelyn Cole — professional piercer &amp; ear curation. Teralyn — tattoo artist and piercer; fineline floral work, script, custom drawings by commission, flash, and high-detail small tattoos.",
+        "Joshua Cole — tattoo artist / studio lead; also offers piercing. Katelyn Cole — professional piercer. Teralyn — tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos.",
     ),
 ]
 

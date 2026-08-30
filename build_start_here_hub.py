@@ -47,15 +47,41 @@ def jump_nav() -> str:
     return f"""<nav aria-label="Jump to your situation" class="flex flex-wrap gap-2 justify-center mb-12">{items}</nav>"""
 
 
+def intent_router() -> str:
+    return f"""<nav aria-label="Choose your path" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
+<a class="flex flex-col items-center justify-center gap-2 border border-outline-variant/40 bg-surface-container-high px-4 py-5 hover:border-secondary transition-colors text-center" href="/appointments/" data-woa-start-here-selection="router-tattoo" data-woa-start-here-link-type="router">
+<span class="material-symbols-outlined text-secondary text-2xl">brush</span>
+<span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface">Tattoo</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-2 border border-outline-variant/40 bg-surface-container-high px-4 py-5 hover:border-secondary transition-colors text-center" href="/piercing-guide-las-vegas/" data-woa-start-here-selection="router-piercing" data-woa-start-here-link-type="router">
+<span class="material-symbols-outlined text-secondary text-2xl">diamond</span>
+<span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface">Piercing</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-2 border border-outline-variant/40 bg-surface-container-high px-4 py-5 hover:border-secondary transition-colors text-center" href="/cover-up-tattoos-las-vegas/" data-woa-start-here-selection="router-cover-up" data-woa-start-here-link-type="router">
+<span class="material-symbols-outlined text-secondary text-2xl">layers</span>
+<span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface">Cover-Up</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-2 border border-outline-variant/40 bg-surface-container-high px-4 py-5 hover:border-secondary transition-colors text-center" href="/artists/" data-woa-start-here-selection="router-artists" data-woa-start-here-link-type="router">
+<span class="material-symbols-outlined text-secondary text-2xl">groups</span>
+<span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface">View Artists</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-2 border border-secondary bg-secondary/10 px-4 py-5 hover:bg-secondary/20 transition-colors text-center sm:col-span-3 lg:col-span-1" href="{BOOK}" data-woa-start-here-selection="router-book" data-woa-start-here-link-type="router">
+<span class="material-symbols-outlined text-secondary text-2xl">calendar_month</span>
+<span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface">Book Now</span>
+</a>
+</nav>"""
+
+
 def main_content() -> str:
     cards = "\n".join(path_card(p) for p in START_HERE_PATHS)
     return f"""<main class="relative pt-20">
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background">
 <div class="max-w-5xl mx-auto">
 <span class="font-label-caps text-secondary uppercase tracking-[0.2em] mb-4 block text-center">Work of Art · Las Vegas</span>
-<h1 class="font-headline-xl text-on-surface text-center leading-tight mb-4">{html.escape(START_HERE_TITLE)}</h1>
-<p class="font-body-lg text-on-surface-variant text-center max-w-2xl mx-auto mb-10 leading-relaxed">
-Pick the situation closest to yours. Each path links to the guides we actually use in consults — not a sitemap dump.
+<h1 class="font-headline-xl text-on-surface text-center leading-tight mb-6">{html.escape(START_HERE_TITLE)}</h1>
+{intent_router()}
+<p class="font-body-md text-on-surface-variant text-center max-w-2xl mx-auto mb-8 leading-relaxed">
+Pick the situation closest to yours — or jump straight to booking. Each path links to the guides we use in consults.
 </p>
 {jump_nav()}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">{cards}</div>

@@ -15,7 +15,7 @@ CODE = HOME / "code.html"
 ROOT_CODE = ROOT / "code.html"
 CLIENT = HOME / "client-portfolio"
 HERO_PREMIUM = HOME / "hero-premium"
-COVER = ROOT / "cover_up_tattoos_las_vegas_master_authority_guide"
+COVER = ROOT / "cover-up-tattoos-las-vegas"
 
 _ASSETS_DIRS = (
     ROOT / "assets",
@@ -293,7 +293,7 @@ def artist_cards_html() -> str:
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Joshua Cole</span>
-<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Black &amp; Grey Realism</span>
+<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Tattoo Artist / Studio Lead</span>
 </a>
 <a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">@workofarttattoo</a>
 </div>
@@ -315,7 +315,7 @@ def artist_cards_html() -> str:
 <div class="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </div>
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Teralyn</span>
-<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Fine Line · Piercing · Script</span>
+<span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Fine Line · Floral · Script</span>
 </a>
 <a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/mischiefmodifies/" rel="noopener noreferrer" target="_blank">@mischiefmodifies</a>
 </div>

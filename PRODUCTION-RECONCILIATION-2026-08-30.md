@@ -19,7 +19,7 @@ Live deploy marker at audit time: `94e0aaf` (Aug 28, 2026). Current `main` HEAD 
 | Signal | Production (live) | main | Notes |
 |--------|---------------------|------|-------|
 | Phone | `(725) 224-1240` / `725-224-1240` | Same on matched routes | Consistent |
-| Footer email | `booking@workofarttattoo.com` | Same on most pages | Schema on some pages still references `thewhiteknight702@gmail.com` |
+| Footer email | `booking@workofarttattoo.com` | Same on most pages | Schema on some pages still references `booking@workofarttattoo.com` |
 | Canonical host | Mixed: bare `workofarttattoo.com` on core pages; `www.` on newer hyphen routes | Same split | Not a content fork; normalize in a future SEO pass |
 | Hours | Not surfaced as a structured block on priority routes | Same | Hours live in schema/footer on select pages only |
 | Knowledge vault | `#knowledge-base` + `woa-kb-card` grid on `/` | Same | Class `woa-kb-group` not present; module is present under different markup |

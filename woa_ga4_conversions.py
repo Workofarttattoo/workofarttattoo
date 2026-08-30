@@ -130,6 +130,20 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
     pushDataLayer(name, payload);
   }}
 
+  function recordFormSubmitSuccess(params) {{
+    var service = params.service_category || params.service_type || "unknown";
+    var dedupeKey = "woa_form_submit_success_" + service;
+    if (storageGet(dedupeKey)) return;
+    storageSet(dedupeKey, String(now()));
+    var payload = attributionParams(params);
+    send("form_submit_success", payload);
+    send("booking_submit", assign({{ legacy_event: true }}, payload), {{ allowRepeat: true }});
+    send("booking_complete", assign({{ legacy_event: true }}, payload), {{ allowRepeat: true }});
+    if (service === "piercing") {{
+      send("piercing_booking_submit", assign({{ legacy_event: true }}, payload), {{ allowRepeat: true }});
+    }}
+  }}
+
   function linkFromClick(target) {{
     var el = target && target.closest ? target.closest("a") : null;
     return el;
@@ -319,6 +333,7 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
           send("piercing_cta_click", attributionParams(assign({{ service_type: "piercing", cta_type: "call" }}, base)));
         }}
         send("call_click", base);
+        send("phone_click", assign({{ legacy_alias: true }}, base));
         return;
       }}
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {{
@@ -373,8 +388,8 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
       if (started) return;
       started = true;
       var params = bookingParamsFromForm(form, id);
-      send("booking_start", params);
-      send("form_start", assign({{ legacy_event: true }}, params));
+      send("form_start", params);
+      send("booking_start", assign({{ legacy_event: true }}, params));
       if (params.service_category === "piercing") send("piercing_booking_start", assign(storedPiercingAttribution(), params));
     }}
     ["focusin", "input", "change"].forEach(function (eventName) {{
@@ -388,7 +403,9 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
   observePiercingDeals();
 
   if (/^\\/appointments\\/?$/.test(location.pathname)) {{
-    send("booking_view", attributionParams({{ interface_present: !!document.getElementById("woa-booking-app") }}), {{ allowRepeat: true }});
+    var bookingViewParams = attributionParams({{ interface_present: !!document.getElementById("woa-booking-app") }});
+    send("booking_page_view", bookingViewParams, {{ allowRepeat: true }});
+    send("booking_view", assign({{ legacy_event: true }}, bookingViewParams), {{ allowRepeat: true }});
   }}
 
   var sent = "";
@@ -399,25 +416,18 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
     sent = q.indexOf("sent=piercing") >= 0 ? "piercing" : q.indexOf("sent=tattoo") >= 0 ? "tattoo" : "";
   }}
   if (sent === "tattoo" || sent === "piercing") {{
-    var completeKey = "woa_booking_complete_" + sent + "_" + location.pathname;
-    if (!storageGet(completeKey)) {{
-      storageSet(completeKey, "1");
-      var submitParams = attributionParams(assign(storedPiercingAttribution(), {{
-        conversion_origin: "formsubmit_redirect",
-        service_category: sent,
-        service_type: sent,
-        form_destination: "formsubmit",
-      }}));
-      send("booking_submit", submitParams);
-      send("booking_complete", assign({{ legacy_event: true }}, submitParams));
-      if (sent === "piercing") send("piercing_booking_submit", submitParams);
-    }}
+    recordFormSubmitSuccess(assign(storedPiercingAttribution(), {{
+      conversion_origin: "formsubmit_redirect",
+      service_category: sent,
+      service_type: sent,
+      form_destination: "formsubmit",
+    }}));
   }}
 
   document.addEventListener("woa_booking_submit_success", function (e) {{
     var detail = (e && e.detail) || {{}};
     var service = detail.service_category === "piercing" ? "piercing" : detail.service_category === "tattoo" ? "tattoo" : "unknown";
-    var successParams = attributionParams(assign(storedPiercingAttribution(), {{
+    recordFormSubmitSuccess(assign(storedPiercingAttribution(), {{
       conversion_origin: detail.conversion_origin || "ajax_success",
       form_id: detail.form_id || "",
       form_destination: detail.form_destination || "",
@@ -425,8 +435,6 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
       service_type: safeSlug(detail.service_type || service),
       artist: safeSlug(detail.artist || "no_preference"),
     }}));
-    send("booking_submit", successParams);
-    if (service === "piercing") send("piercing_booking_submit", successParams);
   }});
 
   Array.prototype.forEach.call(document.querySelectorAll("iframe[src]"), function (iframe) {{

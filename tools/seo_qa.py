@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from woa_geo_pages import GEO_PAGE_ACTIONS, GEO_PAGE_REDIRECTS
-from woa_nav_config import STUDIO_STREET_ADDRESS
+from woa_nav_config import REQUIRED_ARTIST_NAV_HREFS, STUDIO_STREET_ADDRESS
 from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
 
 HTML_FILES = sorted(p for p in ROOT.rglob("code.html") if ".git" not in p.parts)
@@ -50,7 +50,7 @@ FORBIDDEN = {
     "deprecated phone (725) 224-1240": r"725[-\s.]224[-\s.]2931",
     "deprecated phone 725-260-6376": r"725[-\s.]260[-\s.]6376",
     "deprecated phone (725) 224-1240": r"702[-\s.]960[-\s.]9607",
-    "disconnected webmail email": r"booking@workofarttattoo\.com",
+    "deprecated personal gmail inbox": r"thewhiteknight702@gmail\.com",
     "tattoo/piercing contamination": r"where\s+do\s+you\s+(pierce|tattoo)\b|where\s+do\s+you\s+pierce\s+[^?<]{0,80}\btattoo\b|pierce\s+(fine[-\s]?line|realism|cover[-\s]?up)\s+tattoo",
     "old two-person roster": r"Joshua\s*(?:&amp;|&|and)\s*Katelyn\s+Cole\s+in-studio",
     "old rounded review claim": r"300\+\s+verified\s+five-star\s+reviews",
@@ -417,6 +417,38 @@ def validate_promotion_model(failures: list[str]) -> None:
         if image.startswith("/") and not (ROOT / image.lstrip("/")).is_file():
             failures.append(f"siteData/piercing_promotions.json[{i}]: missing promotion image {image}")
 
+def validate_artist_nav(failures: list[str]) -> None:
+    """Every rendered Artists dropdown must list Joshua, Katelyn, and Teralyn."""
+    skip = {".git", "skipped_upload_build", "artists_raw", "node_modules", "__pycache__"}
+    panel_re = re.compile(
+        r"<details\b[^>]*>\s*<summary\b[^>]*>\s*Artists\s*</summary>\s*"
+        r"<div class=\"(?:woa-dd-panel|guides-sub)[^\"]*\"[^>]*>(.*?)</div>\s*</details>",
+        re.I | re.S,
+    )
+    required = set(REQUIRED_ARTIST_NAV_HREFS)
+    for path in ROOT.rglob("*.html"):
+        if any(part in skip for part in path.parts):
+            continue
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        panels = panel_re.findall(raw)
+        if not panels:
+            continue
+        rel = str(path.relative_to(ROOT))
+        for inner in panels:
+            hrefs = set(re.findall(r'href="([^"]+)"', inner))
+            text = re.sub(r"<[^>]+>", " ", inner)
+            if not required.issubset(hrefs):
+                missing = ", ".join(sorted(required - hrefs))
+                failures.append(f"{rel}: Artists dropdown missing {missing}")
+                break
+            if re.search(r"jay[\s-]*jay", text, re.I) or "/jay_jay" in inner:
+                failures.append(f"{rel}: Jay Jay remains in the current resident Artists menu")
+                break
+            if "/artists/teralyn/" in inner and not re.search(r"Fine Line", text, re.I):
+                failures.append(f"{rel}: Teralyn Artists label is stale")
+                break
+
+
 def validate_sitewide_files(failures: list[str]) -> None:
     for name in ("sitemap.xml", "sitemap-static-pages.xml"):
         path = ROOT / name
@@ -544,24 +576,75 @@ def validate_search_console_targets(failures: list[str]) -> None:
     for required in ("/artists/joshua-cole/", "/healed_sleeve_tattoos_las_vegas/", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/", "/appointments/"):
         if required not in sleeve_html:
             failures.append(f"best_tattoo_styles_for_sleeves_large_scale_project_hub/code.html: missing sleeve bridge link {required}")
-    for rel in ("cover-up-tattoos-las-vegas/code.html", "cover_up_tattoos_las_vegas_master_authority_guide/code.html"):
-        path = ROOT / rel
+    cover_path = ROOT / "cover-up-tattoos-las-vegas" / "code.html"
+    if not cover_path.is_file():
+        failures.append("cover-up-tattoos-las-vegas/code.html: missing cover-up authority page")
+        return
+    html = cover_path.read_text(encoding="utf-8", errors="ignore")
+    if COVERUP_EVIDENCE_MARKER not in html:
+        failures.append("cover-up-tattoos-las-vegas/code.html: missing Joshua-supplied cover-up evidence section")
+    if OLD_COVERUP_IMAGE_RE.search(html):
+        failures.append("cover-up-tattoos-las-vegas/code.html: old generic cover-up imagery still referenced")
+    for required in (
+        "floral-tattoo-cover-up-before-after-las-vegas",
+        "large-scale-arm-rework-praying-hands-rose-las-vegas",
+        "dark-pigment-black-grey-wing-eye-rework-las-vegas",
+        "Send Joshua a Photo",
+        "Scar Cover-Up Tattoo Explained",
+    ):
+        if required not in html:
+            failures.append(f"cover-up-tattoos-las-vegas/code.html: missing cover-up evidence content {required}")
+    soup = BeautifulSoup(html, "html.parser")
+    canonical = soup.find("link", rel="canonical")
+    canonical_href = (canonical.get("href") or "") if canonical else ""
+    if "cover-up-tattoos-las-vegas/" not in canonical_href:
+        failures.append("cover-up-tattoos-las-vegas/code.html: canonical is not the clean cover-up URL")
+    validate_retired_cover_up_page(failures)
+    validate_no_legacy_cover_up_hrefs(failures)
+
+
+def validate_retired_cover_up_page(failures: list[str]) -> None:
+    rel = "cover_up_tattoos_las_vegas_master_authority_guide/code.html"
+    path = ROOT / rel
+    if not path.is_file():
+        failures.append(f"{rel}: missing retirement stub for the underscore cover-up URL")
+        return
+    html = path.read_text(encoding="utf-8", errors="ignore")
+    robots = ""
+    soup = BeautifulSoup(html, "html.parser")
+    robots_tag = soup.find("meta", attrs={"name": "robots"})
+    if robots_tag:
+        robots = (robots_tag.get("content") or "").lower()
+    canonical = soup.find("link", rel="canonical")
+    canonical_href = (canonical.get("href") or "") if canonical else ""
+    if "noindex" not in robots:
+        failures.append(f"{rel}: retired cover-up page is not noindex")
+    if "cover-up-tattoos-las-vegas/" not in canonical_href:
+        failures.append(f"{rel}: retired cover-up page canonical is not the clean URL")
+    if COVERUP_EVIDENCE_MARKER in html:
+        failures.append(f"{rel}: retired cover-up page still has competing authority evidence")
+    if "/cover-up-tattoos-las-vegas/" not in html:
+        failures.append(f"{rel}: retired cover-up page missing visible fallback to the clean URL")
+
+
+def validate_no_legacy_cover_up_hrefs(failures: list[str]) -> None:
+    stale = "/cover_up_tattoos_las_vegas_master_authority_guide/"
+    skip_parts = {".git", "__pycache__", "skipped_upload_build"}
+    for path in ROOT.rglob("*"):
         if not path.is_file():
-            failures.append(f"{rel}: missing cover-up page")
             continue
-        html = path.read_text(encoding="utf-8", errors="ignore")
-        if COVERUP_EVIDENCE_MARKER not in html:
-            failures.append(f"{rel}: missing Joshua-supplied cover-up evidence section")
-        if OLD_COVERUP_IMAGE_RE.search(html):
-            failures.append(f"{rel}: old generic cover-up imagery still referenced")
-        for required in (
-            "floral-tattoo-cover-up-before-after-las-vegas",
-            "large-scale-arm-rework-praying-hands-rose-las-vegas",
-            "dark-pigment-black-grey-wing-eye-rework-las-vegas",
-            "Send Joshua a Photo",
-        ):
-            if required not in html:
-                failures.append(f"{rel}: missing cover-up evidence content {required}")
+        if any(part in skip_parts for part in path.parts):
+            continue
+        if path.suffix.lower() not in {".html", ".xml"}:
+            continue
+        rel = path.relative_to(ROOT)
+        if rel.parts and rel.parts[0] == "cover_up_tattoos_las_vegas_master_authority_guide":
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if f'href="{stale}"' in text or f"href='{stale}'" in text:
+            failures.append(f"{rel}: internal link still points to retired cover-up URL")
+        if f"<loc>https://www.workofarttattoo.com{stale}</loc>" in text:
+            failures.append(f"{rel}: sitemap still lists the retired cover-up URL")
 
 def validate_geo_page(
     soup: BeautifulSoup,
@@ -799,6 +882,7 @@ def main() -> int:
         if len(unique_contexts) > 2:
             failures.append(f"geo pages: duplicate FAQ block across {', '.join(unique_contexts[:5])}")
     validate_sitewide_files(failures)
+    validate_artist_nav(failures)
     validate_idempotency_artifact(failures)
     validate_analytics_source(failures)
     validate_search_console_targets(failures)

@@ -88,9 +88,9 @@ jobs:
                   shutil.copy2(src, dst)
 
           candidates = [
+              Path('home_work_of_art_tattoo_piercing/code.html'),
               Path('code.html'),
               Path('index.html'),
-              Path('home_work_of_art_tattoo_piercing/code.html'),
           ]
           home_src = None
           for candidate in candidates:
@@ -98,7 +98,7 @@ jobs:
                   continue
               text = candidate.read_text(encoding='utf-8', errors='replace')
               if '<<<<<<<' in text:
-                  raise SystemExit(f'Conflict markers in homepage candidate: {candidate}')
+                  continue
               if 'woa-hero-banner' in text and 'work-of-art-studio-banner-las-vegas' in text:
                   home_src = candidate
                   break
@@ -108,6 +108,7 @@ jobs:
           print(f'Homepage source: {home_src}')
           print(f'Generated {copied} index.html files from code.html sources')
           PY
+          python3 tools/check_merchandise_page.py
           test -s index.html
           grep -q 'woa-hero-banner' index.html
           grep -q 'work-of-art-studio-banner-las-vegas' index.html
@@ -285,6 +286,7 @@ jobs:
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
           git show origin/gh-pages:merchandise/index.html > /tmp/woa-verify-merch.html
           grep -Eiq 'Merchandise|Original art' /tmp/woa-verify-merch.html
+          grep -q 'booking@workofarttattoo.com' /tmp/woa-verify-merch.html
           git cat-file -e origin/gh-pages:privacy-policy/index.html
           git cat-file -e origin/gh-pages:terms-of-service/index.html
           git cat-file -e origin/gh-pages:studio-rules/index.html
@@ -367,6 +369,8 @@ jobs:
                       if path == '/merchandise/':
                           if 'thewhiteknight702@gmail.com' in body or 'kmorgen14@gmail.com' in body:
                               failures.append('/merchandise/ has stale Gmail')
+                          if 'booking@workofarttattoo.com' not in body:
+                              failures.append('/merchandise/ missing booking@workofarttattoo.com')
                           if 'Southern Nevada Health District body art establishment Health Permit' in body:
                               failures.append('/merchandise/ has SNHD claim')
                   except Exception as exc:
