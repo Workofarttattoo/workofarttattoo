@@ -68,7 +68,7 @@ def rewrite_file(path: Path) -> bool:
         r'(?is)Too shallow\s*:\s*blowouts?\s*,\s*rapid fade\s*,\s*patchy heal\.?',
         'Too shallow: pigment may heal faint, patchy, or fall out because too much ink was placed in tissue that continually renews.', s)
     s = re.sub(
-        r'(?is)Too deep\s*([^<\n]{0,180})',
+        r'(?is)Too deep\s*:\s*blowouts?\s*,\s*migration\s*,\s*blurred lines\.?',
         'Too deep: pigment can spread beyond the intended line, increasing the risk of blurred edges or tattoo blowout and causing unnecessary tissue trauma.', s)
     s = re.sub(
         r'(?i)(upper\s+to\s+mid\s+reticular\s+dermis|1\.5\s*[–-]\s*2\s*mm)',
