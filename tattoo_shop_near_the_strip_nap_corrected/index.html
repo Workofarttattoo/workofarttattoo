@@ -498,14 +498,93 @@ html.woa-mnav-lock body {
 </div>
 </section>
 </main>
-<a aria-label="Click for booking info and free consultation" data-woa-sticky-book="1" href="/appointments/"><span aria-hidden="true" class="woa-sticky-book-icon material-symbols-outlined">calendar_month</span><span class="woa-sticky-book-text">Click for booking info &amp; free consultation</span></a>
-<script data-woa-ga4-conversions="1" type="text/javascript">
-(function () {
-  "use strict";
-  var EVENT_SOURCE = "woa_site";
-  var DEDUPE_MS = 1200;
-  var sentRecently = {};
-  var PIERCING_ROUTE_RE = /(piercing|katelyn|helix|conch|tragus|daith|rook|septum|nostril|labret|philtrum|navel|nipple|industrial)/i;
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center py-4 bg-surface lg:hidden border-t border-outline-variant">
+<div class="text-on-surface-variant flex flex-col items-center gap-1">
+<span class="material-symbols-outlined" data-icon="brush">brush</span>
+<span class="font-label-caps text-label-caps">Artists</span>
+</div>
+<div class="text-on-surface-variant flex flex-col items-center gap-1">
+<span class="material-symbols-outlined" data-icon="content_cut">content_cut</span>
+<span class="font-label-caps text-label-caps">Piercings</span>
+</div>
+<div class="text-on-surface-variant flex flex-col items-center gap-1">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-caps text-label-caps">Shop</span>
+</div>
+<div class="text-secondary flex flex-col items-center gap-1">
+<span class="material-symbols-outlined" data-icon="calendar_month" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-caps text-label-caps">Book</span>
+</div>
+</nav>
+<!-- Footer -->
+<!-- WOA_PAGE_SPOTLIGHT_VIDEO_START -->
+<style data-woa-page-spotlight-css="1">
+[data-woa-page-spotlight] .woa-video-card {
+  margin: 0 auto;
+  max-width: 420px;
+}
+[data-woa-page-spotlight] .video-thumb {
+  min-height: 360px;
+}
+</style>
+<section class="py-10 px-margin-mobile md:px-margin-desktop border-t border-outline-variant/15 bg-surface-container/40" data-woa-page-spotlight="1">
+<div class="max-w-xl mx-auto space-y-4 text-center">
+<span class="font-label-caps text-[10px] text-secondary uppercase tracking-[0.22em]">Studio clip</span>
+<article class="woa-video-card">
+<a class="video-card" href="https://www.instagram.com/reel/C0nNwUkRHz6/" rel="noopener noreferrer" target="_blank">
+<div aria-hidden="true" class="video-thumb" style="background-image:url('/artists/katelyn-cole/katelyn-cole-master-body-piercer-ear-curation-no-duplicates-las-vegas.jpg');"><span class="video-thumb-play">▶</span></div>
+<h3>Jewelry &amp; placement — studio reel</h3>
+<p>Implant-grade jewelry and anatomical placement.</p>
+<span class="video-card-cta">Watch on Instagram</span>
+</a>
+</article>
+<p class="font-body-md text-[13px] text-on-surface-variant">
+<a class="text-secondary underline hover:no-underline" href="/studio_videos/">Video library</a>
+ ·
+<a class="text-secondary underline hover:no-underline" href="https://www.instagram.com/workofarttattoo/?utm_source=instagram&utm_medium=organic_social&utm_campaign=joshua_portfolio" rel="noopener noreferrer" target="_blank">Instagram</a>
+</p>
+</div>
+</section>
+<!-- WOA_PAGE_SPOTLIGHT_VIDEO_END -->
+<footer class="w-full px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-start gap-8 bg-surface-container-lowest border-t border-outline-variant pb-32 lg:pb-12">
+<div class="max-w-xs">
+<div class="font-headline-md text-headline-md text-on-surface mb-4">WORK OF ART</div>
+<p class="font-body-md text-on-surface-variant mb-6">Premium tattoo and piercing services minutes from the world-famous Las Vegas Strip. Artistry without boundaries.</p>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-secondary" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-on-surface-variant hover:text-secondary" href="#"><span class="material-symbols-outlined">camera</span></a>
+<a class="text-on-surface-variant hover:text-secondary" href="#"><span class="material-symbols-outlined">movie</span></a>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
+<div>
+<h5 class="font-label-caps text-label-caps text-primary mb-4">CONTACT</h5>
+<ul class="space-y-2 font-body-md text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="mailto:thewhiteknight702@gmail.com">Email us!</a></li>
+<li>(725) 224-1240</li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps text-primary mb-4">LEGAL</h5>
+<ul class="space-y-2 font-body-md text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="/privacy-policy/">Privacy Policy</a></li>
+<li>(725) 224-1240</li>
+</ul>
+</div>
+</div>
+<div class="w-full mt-12 pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-caps text-[10px] text-on-surface-variant">© 2024 WORK OF ART TATTOO &amp; PIERCING. ALL RIGHTS RESERVED.</p>
+<div class="flex items-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-caps text-[10px]">VERIFIED 5-STAR STUDIO</span>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll interaction for sticky bar
+        let lastScrollTop = 0;
+        const stickyCta = document.getElementById('sticky-cta');
 
   function assign(target, source) {
     Object.keys(source || {}).forEach(function (key) {

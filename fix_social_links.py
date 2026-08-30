@@ -13,8 +13,11 @@ from woa_nav_config import (
     HREF_INSTAGRAM_KATELYN,
     HREF_INSTAGRAM_KATELYN_HANDLE,
     HREF_INSTAGRAM_STUDIO,
+    HREF_INSTAGRAM_TERALYN,
+    HREF_INSTAGRAM_TERALYN_HANDLE,
     ROOT_A,
 )
+from woa_external_attribution import with_preset
 
 ROOT = ROOT_A
 SKIP_DIRS = frozenset({"artists_raw", ".git", "__pycache__", "node_modules"})
@@ -22,22 +25,30 @@ SKIP_FILES = frozenset({"skipped_pages_clipboard.html"})
 
 EXTERNAL = ' rel="noopener noreferrer" target="_blank"'
 
+SOCIAL_UTM: dict[str, str] = {
+    HREF_INSTAGRAM_STUDIO: with_preset(HREF_INSTAGRAM_STUDIO, "instagram_studio"),
+    HREF_INSTAGRAM_JOSHUA: with_preset(HREF_INSTAGRAM_JOSHUA, "instagram_joshua"),
+    HREF_INSTAGRAM_KATELYN: with_preset(HREF_INSTAGRAM_KATELYN, "instagram_katelyn"),
+    HREF_INSTAGRAM_TERALYN: with_preset(HREF_INSTAGRAM_TERALYN, "instagram_teralyn"),
+    HREF_FACEBOOK_STUDIO: with_preset(HREF_FACEBOOK_STUDIO, "facebook_studio"),
+}
+
 REPLACEMENTS: list[tuple[str, str]] = [
     (
         'href="#">Instagram</a>',
-        f'href="{HREF_INSTAGRAM_STUDIO}"{EXTERNAL}>Instagram</a>',
+        f'href="{SOCIAL_UTM[HREF_INSTAGRAM_STUDIO]}"{EXTERNAL}>Instagram</a>',
     ),
     (
         'href="#">Instagram Portfolio</a>',
-        f'href="{HREF_INSTAGRAM_STUDIO}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE}</a>',
+        f'href="{SOCIAL_UTM[HREF_INSTAGRAM_STUDIO]}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE}</a>',
     ),
     (
         'href="https://instagram.com" target="_blank">Follow on Instagram</a>',
-        f'href="{HREF_INSTAGRAM_STUDIO}"{EXTERNAL}>Follow on Instagram</a>',
+        f'href="{SOCIAL_UTM[HREF_INSTAGRAM_STUDIO]}"{EXTERNAL}>Follow on Instagram</a>',
     ),
     (
         'href="#">Facebook</a>',
-        f'href="{HREF_FACEBOOK_STUDIO}"{EXTERNAL}>Facebook</a>',
+        f'href="{SOCIAL_UTM[HREF_FACEBOOK_STUDIO]}"{EXTERNAL}>Facebook</a>',
     ),
 ]
 
@@ -69,13 +80,13 @@ def process(path: Path) -> bool:
 
     text = re.sub(
         r'href="https://www\.instagram\.com/stabislifee/"([^>]*)>Instagram\s*@stabislifee\s*\(Joshua\)</a>',
-        f'href="{HREF_INSTAGRAM_JOSHUA}"\\1>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE} (Joshua)</a>',
+        f'href="{SOCIAL_UTM[HREF_INSTAGRAM_JOSHUA]}"\\1>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE} (Joshua)</a>',
         text,
         flags=re.IGNORECASE,
     )
     text = re.sub(
         r'href="https://www\.instagram\.com/stabislifee/"([^>]*)>Instagram\s*\(Joshua\)</a>',
-        f'href="{HREF_INSTAGRAM_JOSHUA}"\\1>Instagram (Joshua)</a>',
+        f'href="{SOCIAL_UTM[HREF_INSTAGRAM_JOSHUA]}"\\1>Instagram (Joshua)</a>',
         text,
         flags=re.IGNORECASE,
     )
@@ -83,7 +94,7 @@ def process(path: Path) -> bool:
     if path.name == "joshua-cole.html":
         text = text.replace(
             'href="#">Instagram Portfolio</a>',
-            f'href="{HREF_INSTAGRAM_JOSHUA}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE}</a>',
+            f'href="{SOCIAL_UTM[HREF_INSTAGRAM_JOSHUA]}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_JOSHUA_HANDLE}</a>',
         )
 
     for old, new in REPLACEMENTS:
@@ -92,10 +103,13 @@ def process(path: Path) -> bool:
         if path.name == "katelyn-cole.html" and "Instagram</a>" in old and "Portfolio" not in old:
             text = text.replace(
                 'href="#">Instagram</a>',
-                f'href="{HREF_INSTAGRAM_KATELYN}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_KATELYN_HANDLE}</a>',
+                f'href="{SOCIAL_UTM[HREF_INSTAGRAM_KATELYN]}"{EXTERNAL}>Instagram @{HREF_INSTAGRAM_KATELYN_HANDLE}</a>',
             )
             continue
         text = text.replace(old, new)
+
+    for base_url, utm_url in SOCIAL_UTM.items():
+        text = text.replace(f'href="{base_url}"', f'href="{utm_url}"')
 
     text = TIKTOK_LINE.sub("\n", text)
     text = text.replace(CONTACT_US[0], CONTACT_US[1])

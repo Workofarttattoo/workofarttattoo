@@ -298,71 +298,6 @@ html.woa-mnav-lock body {
 }
 
 </style>
-<style data-woa-sticky-book-css="1">
-[data-woa-sticky-book] {
-  position: fixed;
-  right: max(0.85rem, env(safe-area-inset-right, 0px));
-  bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
-  left: auto;
-  z-index: 880;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  max-width: min(16rem, calc(100vw - 1.75rem));
-  padding: 0.65rem 0.9rem;
-  background: rgba(12, 12, 12, 0.92);
-  color: #ffe088;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.35;
-  text-decoration: none;
-  border: 1px solid rgba(233, 195, 73, 0.55);
-  border-radius: 2px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0.93;
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-.woa-sticky-book-icon {
-  font-family: "Material Symbols Outlined";
-  font-size: 1.15rem;
-  line-height: 1;
-  color: #e9c349;
-  flex-shrink: 0;
-  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
-}
-.woa-sticky-book-text {
-  text-align: left;
-}
-@media (min-width: 768px) {
-  [data-woa-sticky-book] {
-    right: max(1.25rem, env(safe-area-inset-right, 0px));
-    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
-    max-width: 14rem;
-    padding: 0.75rem 1rem;
-    font-size: 0.6875rem;
-  }
-}
-[data-woa-sticky-book]:hover,
-[data-woa-sticky-book]:focus-visible {
-  opacity: 1;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(233, 195, 73, 0.22);
-  outline: 2px solid rgba(233, 195, 73, 0.45);
-  outline-offset: 2px;
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-woa-sticky-book] {
-    transition: none;
-  }
-  [data-woa-sticky-book]:hover,
-  [data-woa-sticky-book]:focus-visible {
-    transform: none;
-  }
-}
-</style>
 <style data-woa-guide-hub-css="1">
 /* Work of Art — guide hub bar + knowledge base (inject_guides_hub.py) */
 [data-woa-guide-hub-bar] {
@@ -795,6 +730,73 @@ html.woa-mnav-lock body {
 
 </script>
 <link as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
+
+<style data-woa-sticky-book-css="1">
+[data-woa-sticky-book] {
+  position: fixed;
+  right: max(0.85rem, env(safe-area-inset-right, 0px));
+  bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
+  left: auto;
+  z-index: 880;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: min(16rem, calc(100vw - 1.75rem));
+  padding: 0.65rem 0.9rem;
+  background: rgba(12, 12, 12, 0.92);
+  color: #ffe088;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-decoration: none;
+  border: 1px solid rgba(233, 195, 73, 0.55);
+  border-radius: 2px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0.93;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.woa-sticky-book-icon {
+  font-family: "Material Symbols Outlined";
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #e9c349;
+  flex-shrink: 0;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+}
+.woa-sticky-book-text {
+  text-align: left;
+}
+@media (min-width: 768px) {
+  [data-woa-sticky-book] {
+    right: max(1.25rem, env(safe-area-inset-right, 0px));
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    max-width: 14rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.6875rem;
+  }
+}
+[data-woa-sticky-book]:hover,
+[data-woa-sticky-book]:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(233, 195, 73, 0.22);
+  outline: 2px solid rgba(233, 195, 73, 0.45);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-woa-sticky-book] {
+    transition: none;
+  }
+  [data-woa-sticky-book]:hover,
+  [data-woa-sticky-book]:focus-visible {
+    transform: none;
+  }
+}
+</style>
+
 </head>
 <body class="bg-background text-on-background selection:bg-secondary selection:text-on-secondary">
 <!-- Google Tag Manager (noscript) -->
@@ -944,7 +946,7 @@ Reviewed by Joshua Cole, Tattoo Artist · Last updated: June 2026
 <p class="font-body-md text-[13px] text-on-surface-variant">
 <a class="text-secondary underline hover:no-underline" href="/studio_videos/">Video library</a>
  · 
-<a class="text-secondary underline hover:no-underline" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">Instagram</a>
+<a class="text-secondary underline hover:no-underline" href="https://www.instagram.com/workofarttattoo/?utm_source=instagram&utm_medium=organic_social&utm_campaign=joshua_portfolio" rel="noopener noreferrer" target="_blank">Instagram</a>
 </p>
 </div>
 </section>
@@ -1183,6 +1185,20 @@ t.src=base+"?woa-retry="+Date.now();
     pushDataLayer(name, payload);
   }
 
+  function recordFormSubmitSuccess(params) {
+    var service = params.service_category || params.service_type || "unknown";
+    var dedupeKey = "woa_form_submit_success_" + service;
+    if (storageGet(dedupeKey)) return;
+    storageSet(dedupeKey, String(now()));
+    var payload = attributionParams(params);
+    send("form_submit_success", payload);
+    send("booking_submit", assign({ legacy_event: true }, payload), { allowRepeat: true });
+    send("booking_complete", assign({ legacy_event: true }, payload), { allowRepeat: true });
+    if (service === "piercing") {
+      send("piercing_booking_submit", assign({ legacy_event: true }, payload), { allowRepeat: true });
+    }
+  }
+
   function linkFromClick(target) {
     var el = target && target.closest ? target.closest("a") : null;
     return el;
@@ -1372,6 +1388,7 @@ t.src=base+"?woa-retry="+Date.now();
           send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "call" }, base)));
         }
         send("call_click", base);
+        send("phone_click", assign({ legacy_alias: true }, base));
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
@@ -1426,8 +1443,8 @@ t.src=base+"?woa-retry="+Date.now();
       if (started) return;
       started = true;
       var params = bookingParamsFromForm(form, id);
-      send("booking_start", params);
-      send("form_start", assign({ legacy_event: true }, params));
+      send("form_start", params);
+      send("booking_start", assign({ legacy_event: true }, params));
       if (params.service_category === "piercing") send("piercing_booking_start", assign(storedPiercingAttribution(), params));
     }
     ["focusin", "input", "change"].forEach(function (eventName) {
@@ -1441,7 +1458,9 @@ t.src=base+"?woa-retry="+Date.now();
   observePiercingDeals();
 
   if (/^\/appointments\/?$/.test(location.pathname)) {
-    send("booking_view", attributionParams({ interface_present: !!document.getElementById("woa-booking-app") }), { allowRepeat: true });
+    var bookingViewParams = attributionParams({ interface_present: !!document.getElementById("woa-booking-app") });
+    send("booking_page_view", bookingViewParams, { allowRepeat: true });
+    send("booking_view", assign({ legacy_event: true }, bookingViewParams), { allowRepeat: true });
   }
 
   var sent = "";
@@ -1452,25 +1471,18 @@ t.src=base+"?woa-retry="+Date.now();
     sent = q.indexOf("sent=piercing") >= 0 ? "piercing" : q.indexOf("sent=tattoo") >= 0 ? "tattoo" : "";
   }
   if (sent === "tattoo" || sent === "piercing") {
-    var completeKey = "woa_booking_complete_" + sent + "_" + location.pathname;
-    if (!storageGet(completeKey)) {
-      storageSet(completeKey, "1");
-      var submitParams = attributionParams(assign(storedPiercingAttribution(), {
-        conversion_origin: "formsubmit_redirect",
-        service_category: sent,
-        service_type: sent,
-        form_destination: "formsubmit",
-      }));
-      send("booking_submit", submitParams);
-      send("booking_complete", assign({ legacy_event: true }, submitParams));
-      if (sent === "piercing") send("piercing_booking_submit", submitParams);
-    }
+    recordFormSubmitSuccess(assign(storedPiercingAttribution(), {
+      conversion_origin: "formsubmit_redirect",
+      service_category: sent,
+      service_type: sent,
+      form_destination: "formsubmit",
+    }));
   }
 
   document.addEventListener("woa_booking_submit_success", function (e) {
     var detail = (e && e.detail) || {};
     var service = detail.service_category === "piercing" ? "piercing" : detail.service_category === "tattoo" ? "tattoo" : "unknown";
-    var successParams = attributionParams(assign(storedPiercingAttribution(), {
+    recordFormSubmitSuccess(assign(storedPiercingAttribution(), {
       conversion_origin: detail.conversion_origin || "ajax_success",
       form_id: detail.form_id || "",
       form_destination: detail.form_destination || "",
@@ -1478,8 +1490,6 @@ t.src=base+"?woa-retry="+Date.now();
       service_type: safeSlug(detail.service_type || service),
       artist: safeSlug(detail.artist || "no_preference"),
     }));
-    send("booking_submit", successParams);
-    if (service === "piercing") send("piercing_booking_submit", successParams);
   });
 
   Array.prototype.forEach.call(document.querySelectorAll("iframe[src]"), function (iframe) {
@@ -1595,5 +1605,5 @@ function onWide() {
 if (mq.addEventListener) mq.addEventListener('change', onWide);
 else mq.addListener(onWide);
 })();
-</script><a aria-label="Click for booking info and free consultation" data-woa-sticky-book="1" href="/appointments/"><span aria-hidden="true" class="woa-sticky-book-icon material-symbols-outlined">calendar_month</span><span class="woa-sticky-book-text">Click for booking info &amp; free consultation</span></a>
+</script><a data-woa-sticky-book="1" href="/appointments/" aria-label="Book a Consultation"><span aria-hidden="true" class="woa-sticky-book-icon material-symbols-outlined">calendar_month</span><span class="woa-sticky-book-text">Book a Consultation</span></a>
 </body></html>
