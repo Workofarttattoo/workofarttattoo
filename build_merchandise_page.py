@@ -7,11 +7,27 @@ import html
 import re
 import shutil
 import subprocess
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 from woa_merchandise_manifest import CANON, MERCH_ITEMS, MerchItem, SLUG
-from woa_nav_config import HREF_BOOKING_MAILTO, STUDIO_BOOKING_LINK_LABEL, STUDIO_PHONE_PARENS, STUDIO_PHONE_TEL
+from woa_nav_config import (
+    HREF_BOOKING_MAILTO,
+    STUDIO_BOOKING_EMAIL,
+    STUDIO_BOOKING_LINK_LABEL,
+    STUDIO_PHONE_PARENS,
+    STUDIO_PHONE_TEL,
+)
+
+try:
+    from fix_studio_booking_email import inject_schema_email, replace_legacy_emails
+except ImportError:  # pragma: no cover
+    def replace_legacy_emails(text: str) -> str:
+        return text
+
+    def inject_schema_email(text: str) -> str:
+        return text
 
 ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / SLUG
@@ -21,8 +37,10 @@ TEMPLATE = ROOT / "offsite_bookings" / "code.html"
 TITLE = "Merchandise & Original Art | Work of Art Tattoo Las Vegas"
 DESCRIPTION = (
     "Original drawings and fine art by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. "
-    "Inquire in-studio or email us. Work of Art Tattoo & Piercing, Las Vegas."
+    f"Inquire in-studio or email {STUDIO_BOOKING_EMAIL}. Work of Art Tattoo & Piercing, Las Vegas."
 )
+
+OG_IMAGE_STEM = "colored-pencil-bridges-framed"
 
 MERCH_CSS = """
 <style data-woa-merch-css="1">
@@ -137,17 +155,20 @@ def picture(item: MerchItem) -> str:
     return f"""<img alt="{alt}" class="w-full h-full object-contain object-center" decoding="async" loading="lazy" src="/{SLUG}/{item.stem}.{item.ext}"/>"""
 
 
+def merch_mailto(subject: str) -> str:
+    return f"{HREF_BOOKING_MAILTO}?subject={urllib.parse.quote(subject, safe='')}"
+
+
 def merch_card(item: MerchItem) -> str:
     title = html.escape(item.title)
     detail = html.escape(item.detail)
-    mail_subject = html.escape(f"Merchandise inquiry — {item.title}")
-    mail_href = f"mailto:{STUDIO_BOOKING_EMAIL}?subject={mail_subject.replace(' ', '%20')}"
+    mail_href = merch_mailto(f"Merchandise inquiry — {item.title}")
     return f"""<article class="woa-merch-card">
 <div class="woa-merch-photo">{picture(item)}</div>
 <div class="woa-merch-body">
 <h3 class="font-headline-md text-on-surface">{title}</h3>
 <p class="font-body-md text-on-surface-variant">{detail}</p>
-<a class="woa-merch-cta" href="{mail_href}">Contact to buy</a>
+<a class="woa-merch-cta" href="{mail_href}">Inquire by email</a>
 </div>
 </article>"""
 
@@ -164,7 +185,7 @@ def build_main(items: list[MerchItem]) -> str:
 Every piece below is original work by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. Items are available in-studio at 2375 E. Tropicana Ave, Suite 3 or by email. Prices vary; inquire for the piece you want.
 </p>
 <div class="flex flex-col sm:flex-row flex-wrap gap-3 pt-1">
-<a class="inline-flex justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest gold-glow transition-all" href="mailto:{STUDIO_BOOKING_EMAIL}?subject=Merchandise%20inquiry">Email to inquire</a>
+<a class="inline-flex justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest gold-glow transition-all" href="{merch_mailto('Merchandise inquiry')}">{STUDIO_BOOKING_LINK_LABEL}</a>
 <a class="inline-flex justify-center border border-outline px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="{STUDIO_PHONE_TEL}">Call {STUDIO_PHONE_PARENS}</a>
 <a class="inline-flex justify-center border border-outline-variant/50 px-8 py-4 font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors" href="/artists/joshua-cole/">Joshua Cole portfolio</a>
 </div>
@@ -176,7 +197,7 @@ Every piece below is original work by Joshua Cole — graphite, Prismacolor, wat
 <div class="text-center space-y-3 max-w-2xl mx-auto">
 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Available now</span>
 <h2 class="font-headline-lg text-headline-lg text-on-surface">Original art &amp; collectibles</h2>
-<p class="font-body-md text-on-surface-variant">Black-backed presentation — same pieces listed on our legacy shop, updated for the current Work of Art site.</p>
+<p class="font-body-md text-on-surface-variant">Studio photography on black — each piece is one of a kind. Email for availability and pricing.</p>
 </div>
 <div class="woa-merch-grid">{cards}</div>
 </div>
@@ -194,7 +215,7 @@ Every piece below is original work by Joshua Cole — graphite, Prismacolor, wat
 
 
 def patch_meta(html_text: str) -> str:
-    og_img = f"{CANON}{MERCH_ITEMS[0].stem}.webp"
+    og_img = f"{CANON}{OG_IMAGE_STEM}.webp"
     html_text = re.sub(r"<title>.*?</title>", f"<title>{TITLE}</title>", html_text, count=1)
     html_text = re.sub(
         r'<meta content="[^"]*" name="description"/>',
@@ -268,6 +289,8 @@ def main() -> int:
     html_text = TEMPLATE.read_text(encoding="utf-8")
     html_text = patch_meta(html_text)
     html_text = patch_main(html_text, build_main(items))
+    html_text = replace_legacy_emails(html_text)
+    html_text = inject_schema_email(html_text)
     OUT.write_text(html_text, encoding="utf-8")
     print(f"[ok] {OUT.relative_to(ROOT)} — {len(items)} items")
     return 0
