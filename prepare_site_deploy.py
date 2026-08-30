@@ -133,7 +133,14 @@ def verify_homepage() -> None:
         ("woa-ig-preview", "legacy Instagram preview cards"),
         ("The interview plays at the top of this page", "stale featured copy"),
         ('blockquote class="instagram-media"', "broken Instagram blockquote embed"),
+        ("Two resident specialists", "stale two-person roster copy"),
+        ("two resident specialists", "stale two-person roster copy"),
+        ("2 In-Studio Specialists", "stale 2 in-studio specialists count"),
+        ("2 in-studio specialists", "stale 2 in-studio specialists count"),
     ]
+    for name in ("Joshua Cole", "Katelyn Cole", "Teralyn"):
+        if name not in html:
+            errors.append(f"missing resident {name} on homepage")
     for needle, label in banned:
         if needle in html:
             errors.append(f"still has {label}")
