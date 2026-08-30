@@ -112,6 +112,9 @@ jobs:
           test -s CNAME
           printf '' > .nojekyll
 
+      - name: Reapply production parity cleanup on generated tree
+        run: python3 tools/production_parity_cleanup.py
+
       - name: Audit final production tree
         run: |
           python3 - <<'PY'

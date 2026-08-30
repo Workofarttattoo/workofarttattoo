@@ -184,7 +184,14 @@ def rewrite_cover_hrefs(text: str) -> str:
 
 
 CLAIMS_SENTENCE_RE = re.compile(
-    r"Work of Art Tattoo(?: &amp;| &) [Pp]iercing operates under a Southern Nevada Health District body art establishment Health Permit[.,]?\s*(?:and\s+)?[Aa]ll artists hold a current Body Art Card (?:plus|and) OSHA bloodborne pathogens certification\."
+    r"Work of Art(?: Tattoo(?: &amp;| &) [Pp]iercing)? operates under a Southern Nevada Health District body art\s+establishment Health Permit[.,]?\s*"
+    r"(?:and\s+)?(?:[Aa]ll artists hold|[Ee]very artist maintains) a current Body Art Card"
+    r"(?:\s+(?:plus|and)\s+(?:OSHA )?bloodborne pathogens (?:certification|training))?\.",
+    re.S,
+)
+BEST_OF_PLACEHOLDER_RE = re.compile(
+    r"\s*Work of Art has been recognized with Best of\s+Vegas awards in both 2025 and 2026 \[insert issuing publication once confirmed\s+from the plaque\]\.",
+    re.S,
 )
 NAP_SENTENCE = (
     "Work of Art Tattoo &amp; Piercing — 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119 "
@@ -196,8 +203,13 @@ def strip_snhd_footer(text: str) -> str:
     if SNHD_RE.search(text):
         text = SNHD_RE.sub(NAP_FOOTER, text)
     text = CLAIMS_SENTENCE_RE.sub(NAP_SENTENCE, text)
+    text = BEST_OF_PLACEHOLDER_RE.sub("", text)
+    text = text.replace(" · Southern Nevada Health District Permitted", "")
+    text = text.replace(" · Southern Nevada Health District permitted", "")
     text = text.replace(">Licensed &amp; Permitted<", ">Studio<")
     text = text.replace(">Licensed & Permitted<", ">Studio<")
+    text = text.replace("current Body Art Card", "studio sanitation training")
+    text = text.replace("OSHA bloodborne pathogens certification", "studio sanitation procedures")
     return text
 
 
