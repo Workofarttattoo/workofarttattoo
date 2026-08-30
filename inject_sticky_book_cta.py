@@ -10,6 +10,60 @@ ROOT = Path(__file__).resolve().parent
 MARKER = 'data-woa-sticky-book="1"'
 BOOKING_HREF = "/appointments/"
 
+
+def sticky_cta_for_path(path: Path | None) -> tuple[str, str]:
+    """Return (href, visible label) matched to page intent."""
+    if path is None:
+        return BOOKING_HREF, "Book a Consultation"
+
+    rel = str(path.relative_to(ROOT)).replace("\\", "/").lower()
+    slug = path.parent.name if path.name == "code.html" else path.stem
+
+    if "joshua-cole" in rel:
+        return BOOKING_HREF, "Book With Joshua"
+    if "katelyn-cole" in rel:
+        return BOOKING_HREF, "Book a Piercing"
+    if "cover-up-tattoos-las-vegas" in rel or "cover_up_tattoos" in rel:
+        return BOOKING_HREF, "Ask About a Cover-Up"
+    if slug == "appointments":
+        return BOOKING_HREF, "Continue Booking"
+    if any(
+        token in rel
+        for token in (
+            "piercing",
+            "ear_piercing",
+            "helix",
+            "nostril",
+            "septum",
+            "conch",
+            "tragus",
+            "daith",
+            "rook",
+            "labret",
+            "best_piercing",
+        )
+    ):
+        return BOOKING_HREF, "Book Your Piercing"
+    if rel.startswith("tattoo_shop_") or "tattoo_shop_near" in rel or "/geo_" in rel:
+        return BOOKING_HREF, "Check Availability"
+    if "realism" in rel:
+        return BOOKING_HREF, "Book a Tattoo Consultation"
+    return BOOKING_HREF, "Book a Consultation"
+
+
+def sticky_link_for_path(path: Path | None) -> str:
+    href, label = sticky_cta_for_path(path)
+    esc_label = label.replace("&", "&amp;")
+    return (
+        f'<a data-woa-sticky-book="1" href="{href}" '
+        f'aria-label="{esc_label}">'
+        '<span aria-hidden="true" class="woa-sticky-book-icon material-symbols-outlined">'
+        "calendar_month</span>"
+        f'<span class="woa-sticky-book-text">{esc_label}</span>'
+        "</a>"
+    )
+
+
 STICKY_CSS = """
 <style data-woa-sticky-book-css="1">
 [data-woa-sticky-book] {
@@ -78,15 +132,6 @@ STICKY_CSS = """
 </style>
 """
 
-STICKY_LINK = (
-    '<a data-woa-sticky-book="1" href="/appointments/" '
-    'aria-label="Click for booking info and free consultation">'
-    '<span aria-hidden="true" class="woa-sticky-book-icon material-symbols-outlined">'
-    "calendar_month</span>"
-    '<span class="woa-sticky-book-text">Click for booking info &amp; free consultation</span>'
-    "</a>"
-)
-
 STICKY_CSS_RE = re.compile(
     r"<style data-woa-sticky-book-css=\"1\">.*?</style>\s*",
     re.DOTALL,
@@ -107,13 +152,13 @@ def strip_legacy_mobile_bar(html: str) -> str:
 
 
 def inject(html: str, path: Path | None = None) -> str:
-    del path  # unified CTA on all pages
     html = strip_legacy_mobile_bar(html)
     html = STICKY_CSS_RE.sub("", html)
     html = STICKY_LINK_RE.sub("", html)
+    sticky_link = sticky_link_for_path(path)
     if "</head>" in html:
         html = html.replace("</head>", STICKY_CSS + "\n</head>", 1)
-    html = html.replace("</body>", STICKY_LINK + "\n</body>", 1)
+    html = html.replace("</body>", sticky_link + "\n</body>", 1)
     return html
 
 
