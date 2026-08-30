@@ -9,6 +9,7 @@ from pathlib import Path
 
 from knowledge_qa_data import KNOWLEDGE_CATEGORIES, KNOWLEDGE_QA
 from woa_entity_schema import faq_page_graph, schema_script
+from woa_nav_config import SIMPLE_TOP_NAV_SHELL
 
 ROOT = Path(__file__).resolve().parent
 KNOWLEDGE = ROOT / "knowledge"
@@ -39,10 +40,7 @@ def qa_page_html(slug: str, question: str, answer: str, guide_slug: str) -> str:
 {schema_script(graph)}
 </head>
 <body class="bg-background text-on-surface antialiased">
-<nav class="fixed top-0 w-full z-50 bg-background/90 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center px-6 py-4">
-<a class="font-headline-md text-secondary uppercase tracking-widest" href="/">Work of Art</a>
-<a class="bg-secondary text-on-secondary px-6 py-3 font-label-caps text-label-caps uppercase tracking-widest" href="/appointments/">Book Now</a>
-</nav>
+{SIMPLE_TOP_NAV_SHELL}
 <main class="pt-28 pb-24 px-6 max-w-3xl mx-auto">
 <p class="font-label-caps text-secondary uppercase tracking-widest text-sm mb-4"><a class="hover:underline" href="/knowledge/">Knowledge Base</a></p>
 <h1 class="font-headline-lg text-on-surface mb-6">{html.escape(question)}</h1>
@@ -100,10 +98,7 @@ def hub_html() -> str:
 {schema_script(graph)}
 </head>
 <body class="bg-background text-on-surface antialiased">
-<nav class="fixed top-0 w-full z-50 bg-background/90 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center px-6 py-4">
-<a class="font-headline-md text-secondary uppercase tracking-widest" href="/">Work of Art</a>
-<a class="bg-secondary text-on-secondary px-6 py-3 font-label-caps text-label-caps uppercase tracking-widest" href="/appointments/">Book Now</a>
-</nav>
+{SIMPLE_TOP_NAV_SHELL}
 <main class="pt-28 pb-24 px-6 max-w-4xl mx-auto">
 <h1 class="font-headline-lg text-on-surface mb-4">Knowledge Base</h1>
 <p class="font-body-lg text-on-surface-variant mb-4">{count} direct answers on tattoo and piercing — written for clarity, not keyword stuffing. Each page covers one question. For long-form guides, see our <a class="text-secondary underline hover:no-underline" href="/#knowledge-base">Insider Guides vault</a>.</p>
