@@ -8,7 +8,7 @@ from pathlib import Path
 
 from woa_entity_schema import guide_article_graph, schema_script
 from woa_geo_pages import GeoPage, indexable_geo_pages
-from woa_nav_config import STUDIO_ADDRESS_SINGLE_LINE, STUDIO_PHONE_DISPLAY
+from woa_nav_config import SIMPLE_TOP_NAV_SHELL, STUDIO_ADDRESS_SINGLE_LINE, STUDIO_PHONE_DISPLAY
 
 ROOT = Path(__file__).resolve().parent
 SITE = "https://www.workofarttattoo.com"
@@ -265,10 +265,7 @@ def page_html(page: GeoPage) -> str:
 {schema_script(graph)}
 </head>
 <body class="bg-background text-on-surface antialiased">
-<nav class="fixed top-0 w-full z-50 bg-background/90 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center px-6 py-4">
-<a class="font-headline-md text-secondary uppercase tracking-widest" href="/">Work of Art</a>
-<a class="bg-secondary text-on-secondary px-6 py-3 font-label-caps text-label-caps uppercase tracking-widest" href="/appointments/">Book Now</a>
-</nav>
+{SIMPLE_TOP_NAV_SHELL}
 <main class="pt-28 pb-24 px-6 max-w-3xl mx-auto space-y-10">
 <p class="font-label-caps text-secondary uppercase tracking-widest text-[10px]">Local guide · {html.escape(page.drive_time)}</p>
 <h1 class="font-headline-lg text-on-surface">{html.escape(page.title)}</h1>

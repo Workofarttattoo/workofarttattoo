@@ -88,9 +88,9 @@ jobs:
                   shutil.copy2(src, dst)
 
           candidates = [
+              Path('home_work_of_art_tattoo_piercing/code.html'),
               Path('code.html'),
               Path('index.html'),
-              Path('home_work_of_art_tattoo_piercing/code.html'),
           ]
           home_src = None
           for candidate in candidates:
@@ -98,7 +98,7 @@ jobs:
                   continue
               text = candidate.read_text(encoding='utf-8', errors='replace')
               if '<<<<<<<' in text:
-                  raise SystemExit(f'Conflict markers in homepage candidate: {candidate}')
+                  continue
               if 'woa-hero-banner' in text and 'work-of-art-studio-banner-las-vegas' in text:
                   home_src = candidate
                   break

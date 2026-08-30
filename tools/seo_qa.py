@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from woa_geo_pages import GEO_PAGE_ACTIONS, GEO_PAGE_REDIRECTS
-from woa_nav_config import STUDIO_STREET_ADDRESS
+from woa_nav_config import REQUIRED_ARTIST_NAV_HREFS, STUDIO_STREET_ADDRESS
 from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
 
 HTML_FILES = sorted(p for p in ROOT.rglob("code.html") if ".git" not in p.parts)
@@ -417,6 +417,38 @@ def validate_promotion_model(failures: list[str]) -> None:
         if image.startswith("/") and not (ROOT / image.lstrip("/")).is_file():
             failures.append(f"siteData/piercing_promotions.json[{i}]: missing promotion image {image}")
 
+def validate_artist_nav(failures: list[str]) -> None:
+    """Every rendered Artists dropdown must list Joshua, Katelyn, and Teralyn."""
+    skip = {".git", "skipped_upload_build", "artists_raw", "node_modules", "__pycache__"}
+    panel_re = re.compile(
+        r"<details\b[^>]*>\s*<summary\b[^>]*>\s*Artists\s*</summary>\s*"
+        r"<div class=\"(?:woa-dd-panel|guides-sub)[^\"]*\"[^>]*>(.*?)</div>\s*</details>",
+        re.I | re.S,
+    )
+    required = set(REQUIRED_ARTIST_NAV_HREFS)
+    for path in ROOT.rglob("*.html"):
+        if any(part in skip for part in path.parts):
+            continue
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        panels = panel_re.findall(raw)
+        if not panels:
+            continue
+        rel = str(path.relative_to(ROOT))
+        for inner in panels:
+            hrefs = set(re.findall(r'href="([^"]+)"', inner))
+            text = re.sub(r"<[^>]+>", " ", inner)
+            if not required.issubset(hrefs):
+                missing = ", ".join(sorted(required - hrefs))
+                failures.append(f"{rel}: Artists dropdown missing {missing}")
+                break
+            if re.search(r"jay[\s-]*jay", text, re.I) or "/jay_jay" in inner:
+                failures.append(f"{rel}: Jay Jay remains in the current resident Artists menu")
+                break
+            if "/artists/teralyn/" in inner and not re.search(r"Fine Line", text, re.I):
+                failures.append(f"{rel}: Teralyn Artists label is stale")
+                break
+
+
 def validate_sitewide_files(failures: list[str]) -> None:
     for name in ("sitemap.xml", "sitemap-static-pages.xml"):
         path = ROOT / name
@@ -799,6 +831,7 @@ def main() -> int:
         if len(unique_contexts) > 2:
             failures.append(f"geo pages: duplicate FAQ block across {', '.join(unique_contexts[:5])}")
     validate_sitewide_files(failures)
+    validate_artist_nav(failures)
     validate_idempotency_artifact(failures)
     validate_analytics_source(failures)
     validate_search_console_targets(failures)
