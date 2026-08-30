@@ -2,9 +2,10 @@
 """
 Standardize studio contact email from siteData/business.json sitewide.
 
-- Replaces legacy booking/info addresses in HTML, Markdown, and JSON-LD
+- Replaces legacy booking/info addresses in HTML and Markdown
 - Adds schema.org email on LocalBusiness / TattooParlor blocks when missing
-- Injects footer mailto links where phone is listed but email is not
+- Injects footer mailto links labeled "Email us!" (not the raw address)
+- Keeps mailto href on thewhiteknight702@gmail.com
 
   python3 fix_studio_booking_email.py
 """
@@ -20,9 +21,10 @@ from woa_nav_config import (
     ROOT_A,
     ROOT_B,
     STUDIO_BOOKING_EMAIL,
+    STUDIO_BOOKING_LINK_LABEL,
 )
 
-SKIP_DIRS = frozenset({"artists_raw", ".git", "__pycache__", "node_modules"})
+SKIP_DIRS = frozenset({"artists_raw", ".git", "__pycache__", "node_modules", "tools"})
 SKIP_FILES = frozenset(
     {
         "skipped_pages_clipboard.html",
@@ -31,33 +33,38 @@ SKIP_FILES = frozenset(
 )
 SKIP_PATH_PARTS = frozenset({"skipped_upload_build"})
 
-GMAIL_PATTERNS = [
+LEGACY_EMAIL_PATTERNS = [
+    re.compile(r"booking@workofarttattoo\.com", re.IGNORECASE),
     re.compile(r"thewhiteknight702@gmail\.com", re.IGNORECASE),
-    re.compile(r"THEWHITEKNIGHT702@GMAIL\.COM", re.IGNORECASE),
 ]
 
-OLD_EMAILS = (
-    "booking@workofarttattoo.com",
-    "booking@workofarttattoo.com",
-)
-
-BOOKING_MARKER = f"mailto:{STUDIO_BOOKING_EMAIL}"
+BOOKING_MARKER = HREF_BOOKING_MAILTO
 
 FOOTER_EMAIL_LI = (
     f'<li class=""><a class="hover:text-secondary transition-colors" '
-    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_EMAIL}</a></li>\n'
+    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a></li>\n'
 )
 
 FOOTER_EMAIL_NAV = (
     f'<a class="font-body-md text-on-surface-variant hover:text-secondary '
     f'hover:underline decoration-secondary transition-all" '
-    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_EMAIL}</a>\n'
+    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a>\n'
 )
 
 GEO_NAP_EMAIL_BLOCK = (
     f'<a class="font-body-lg text-body-lg text-on-surface hover:text-secondary block mt-3" '
-    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_EMAIL}</a>\n'
+    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a>\n'
     f'<div class="font-body-md text-body-md text-on-surface-variant">Booking &amp; consult inbox</div>\n'
+)
+
+VISIBLE_MAILTO_EMAIL = re.compile(
+    r'(<a\b[^>]*href="mailto:[^"]+"[^>]*>)([^<]*@[^<]*)(</a>)',
+    re.IGNORECASE,
+)
+
+FORMSUBMIT_LEGACY = re.compile(
+    r"https://formsubmit\.co/booking@workofarttattoo\.com",
+    re.IGNORECASE,
 )
 
 
@@ -80,35 +87,39 @@ def iter_text_files(root: Path) -> list[Path]:
             continue
         if path.name in SKIP_FILES:
             continue
-        if path.suffix.lower() not in {".html", ".md", ".txt", ".py"}:
+        if path.suffix.lower() not in {".html", ".md", ".txt"}:
             continue
         out.append(path)
     return out
 
 
 def replace_legacy_emails(text: str) -> str:
-    for pat in GMAIL_PATTERNS:
+    for pat in LEGACY_EMAIL_PATTERNS:
         text = pat.sub(STUDIO_BOOKING_EMAIL, text)
-    for old in OLD_EMAILS:
-        text = text.replace(old, STUDIO_BOOKING_EMAIL)
-        text = text.replace(old.lower(), STUDIO_BOOKING_EMAIL)
+    text = FORMSUBMIT_LEGACY.sub(f"https://formsubmit.co/{STUDIO_BOOKING_EMAIL}", text)
     return text
+
+
+def humanize_visible_email_links(text: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        return f"{match.group(1)}{STUDIO_BOOKING_LINK_LABEL}{match.group(3)}"
+
+    return VISIBLE_MAILTO_EMAIL.sub(repl, text)
+
+
+def soften_form_confirmation_copy(text: str) -> str:
+    return text.replace(
+        f"your request was sent to {STUDIO_BOOKING_EMAIL}. We will reply shortly.",
+        "your request was sent. We will reply shortly.",
+    ).replace(
+        f"your request was sent to booking@workofarttattoo.com. We will reply shortly.",
+        "your request was sent. We will reply shortly.",
+    )
 
 
 def inject_schema_email(text: str) -> str:
     if '"email"' in text and STUDIO_BOOKING_EMAIL in text:
         return text
-
-    def add_email_to_block(block: str) -> str:
-        if '"email"' in block:
-            return block
-        if STUDIO_BOOKING_EMAIL in block:
-            return block
-        for key in ('"telephone"', '"url"', '"logo"'):
-            if key in block:
-                line = f'      "email": "{STUDIO_BOOKING_EMAIL}",\n'
-                return block.replace(key, line + "      " + key, 1)
-        return block
 
     def repl_ld_json(match: re.Match[str]) -> str:
         raw = match.group(1)
@@ -153,7 +164,6 @@ def inject_footer_contact_email(text: str) -> str:
     if BOOKING_MARKER in text:
         return text
 
-    # Homepage-style Contact list (phone first)
     phone_li = re.compile(
         r'(<li class=""><a class="hover:text-secondary transition-colors" '
         r'href="tel:+17252241240">\(725\) 224-1240</a></li>\n)',
@@ -162,7 +172,6 @@ def inject_footer_contact_email(text: str) -> str:
     if phone_li.search(text):
         return phone_li.sub(r"\1" + FOOTER_EMAIL_LI, text, count=1)
 
-    # Appointments CONNECT nav
     call_nav = re.compile(
         r'(<a class="font-body-md text-on-surface-variant hover:text-secondary '
         r'hover:underline decoration-secondary transition-all" '
@@ -172,7 +181,6 @@ def inject_footer_contact_email(text: str) -> str:
     if call_nav.search(text):
         return call_nav.sub(r"\1" + FOOTER_EMAIL_NAV, text, count=1)
 
-    # Guide / cover-up footers (BOOK column)
     book_footer = re.compile(
         r'(<a class="font-body-md text-on-surface-variant hover:text-secondary '
         r'transition-colors" href="tel:+17252241240">\(725\) 224-1240</a>\n)(</div>)',
@@ -181,7 +189,7 @@ def inject_footer_contact_email(text: str) -> str:
     if book_footer.search(text):
         email_a = (
             f'<a class="font-body-md text-on-surface-variant hover:text-secondary '
-            f'transition-colors" href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_EMAIL}</a>\n'
+            f'transition-colors" href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a>\n'
         )
         return book_footer.sub(r"\1" + email_a + r"\2", text, count=1)
 
@@ -205,12 +213,12 @@ def inject_geo_hub_nap(text: str, path: Path) -> str:
 def patch_markdown_geo(text: str, path: Path) -> str:
     if path.name != "index.html.md":
         return text
-    if f"**Email:** {STUDIO_BOOKING_EMAIL}" in text:
+    if f"**Email:** {STUDIO_BOOKING_LINK_LABEL}" in text:
         return text
     if "**Phone:**" in text and "**Email:**" not in text:
         return text.replace(
             "**Phone:** (725) 224-1240\n",
-            f"**Phone:** (725) 224-1240\n- **Email:** {STUDIO_BOOKING_EMAIL}\n",
+            f"**Phone:** (725) 224-1240\n- **Email:** [{STUDIO_BOOKING_LINK_LABEL}]({HREF_BOOKING_MAILTO})\n",
             1,
         )
     return text
@@ -221,10 +229,12 @@ def process_file(path: Path) -> bool:
     original = text
 
     text = replace_legacy_emails(text)
+    text = soften_form_confirmation_copy(text)
     if path.suffix.lower() == ".html":
         text = inject_schema_email(text)
         text = inject_footer_contact_email(text)
         text = inject_geo_hub_nap(text, path)
+        text = humanize_visible_email_links(text)
     text = patch_markdown_geo(text, path)
 
     if text != original:

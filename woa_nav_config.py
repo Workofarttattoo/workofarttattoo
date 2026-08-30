@@ -56,6 +56,7 @@ HREF_FACEBOOK_STUDIO = _SOCIAL.get("facebook", "https://www.facebook.com/workofa
 
 # Public booking inbox (sitewide NAP, footers, schema — not personal Gmail)
 STUDIO_BOOKING_EMAIL = _BUSINESS.get("bookingEmail", "thewhiteknight702@gmail.com")
+STUDIO_BOOKING_LINK_LABEL = "Email us!"
 HREF_BOOKING_MAILTO = f"mailto:{STUDIO_BOOKING_EMAIL}"
 
 # Canonical NAP — must match Google Business Profile & every directory exactly

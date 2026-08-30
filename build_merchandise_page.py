@@ -11,7 +11,7 @@ import urllib.request
 from pathlib import Path
 
 from woa_merchandise_manifest import CANON, MERCH_ITEMS, MerchItem, SLUG
-from woa_nav_config import STUDIO_BOOKING_EMAIL, STUDIO_PHONE_PARENS, STUDIO_PHONE_TEL
+from woa_nav_config import HREF_BOOKING_MAILTO, STUDIO_BOOKING_LINK_LABEL, STUDIO_PHONE_PARENS, STUDIO_PHONE_TEL
 
 ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / SLUG
@@ -21,7 +21,7 @@ TEMPLATE = ROOT / "offsite_bookings" / "code.html"
 TITLE = "Merchandise & Original Art | Work of Art Tattoo Las Vegas"
 DESCRIPTION = (
     "Original drawings and fine art by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. "
-    "Inquire in-studio or email booking@workofarttattoo.com. Work of Art Tattoo & Piercing, Las Vegas."
+    "Inquire in-studio or email us. Work of Art Tattoo & Piercing, Las Vegas."
 )
 
 MERCH_CSS = """

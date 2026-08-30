@@ -144,8 +144,10 @@ jobs:
               raise SystemExit('Homepage missing Teralyn navigation link')
           if not all(name in home for name in ('Joshua Cole', 'Katelyn Cole', 'Teralyn')):
               raise SystemExit('Homepage missing 3-person roster copy')
-          if 'booking@workofarttattoo.com' not in home:
-              raise SystemExit('Homepage missing booking@workofarttattoo.com')
+          if HREF_BOOKING_MAILTO not in home:
+              raise SystemExit('Homepage missing studio email link')
+          if 'Email us!' not in home:
+              raise SystemExit('Homepage missing Email us! link label')
 
           legacy = '/cover_up_tattoos_las_vegas_master_authority_guide/'
           for path in Path('.').rglob('*.html'):
@@ -251,7 +253,7 @@ jobs:
           expected = os.environ['GITHUB_SHA']
           critical = {
               '/': 'woa-hero-banner',
-              '/appointments/': 'booking@workofarttattoo.com',
+              '/appointments/': 'Email us!',
               '/artists/katelyn-cole/': 'Professional',
               '/artists/joshua-cole/': None,
               '/artists/teralyn/': 'Teralyn',

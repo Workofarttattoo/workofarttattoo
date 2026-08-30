@@ -1240,7 +1240,7 @@ def render_katelyn_minors_section() -> str:
 </ul>
 </div>
 <div class="p-6 border border-outline-variant/20 bg-background/40">
-<p class="text-body-md text-on-surface-variant"><strong class="text-on-surface">Questions before you drive over?</strong> Call ahead at <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">(725) 224-1240</a> or email <a class="text-secondary underline hover:no-underline" href="mailto:booking@workofarttattoo.com">booking@workofarttattoo.com</a> — we will clarify paperwork, placement, and jewelry so your appointment is seamless.</p>
+<p class="text-body-md text-on-surface-variant"><strong class="text-on-surface">Questions before you drive over?</strong> Call ahead at <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">(725) 224-1240</a> or <a class="text-secondary underline hover:no-underline" href="mailto:thewhiteknight702@gmail.com">Email us!</a> — we will clarify paperwork, placement, and jewelry so your appointment is seamless.</p>
 </div>
 <div class="flex flex-wrap gap-3">
 <a class="bg-secondary text-on-secondary px-8 py-4 text-label-caps font-label-caps uppercase gold-glow inline-block min-h-[48px]" href="/appointments/">Book piercing appointment</a>
