@@ -35,7 +35,7 @@ Expanded the location/landmark guide system through the existing geo-page genera
 ## Entity And Trust Cleanup
 
 - NAP remains centralized through shared config: Work of Art Tattoo & Piercing, 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119, (725) 224-1240.
-- Booking email remains centralized as `thewhiteknight702@gmail.com`.
+- Booking email remains centralized as `booking@workofarttattoo.com`.
 - Artist roster remains Joshua Cole, Katelyn Cole, and Teralyn.
 - Visible hours are now sourced from `siteData/business.json`; the hours record is marked `owner-verification-needed`.
 - Local pages use one real Work of Art studio, not fake branch locations.

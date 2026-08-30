@@ -31,7 +31,7 @@ Continued the existing `seo/master-authority-rebuild` branch, fetched origin, me
 - Canonical review count is `323`; canonical artist count is `3`.
 - Canonical roster is Joshua Cole, Katelyn Cole, and Teralyn.
 - Verified artist social handles remain Joshua `@workofarttattoo`, Katelyn `@stabislifee`, and Teralyn `@mischiefmodifies`.
-- Canonical NAP is Work of Art Tattoo & Piercing, 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119, (725) 224-1240, thewhiteknight702@gmail.com.
+- Canonical NAP is Work of Art Tattoo & Piercing, 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119, (725) 224-1240, booking@workofarttattoo.com.
 - Canonical host is `https://www.workofarttattoo.com/`.
 
 ## Thin Pages Merged
