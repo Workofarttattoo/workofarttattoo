@@ -55,6 +55,14 @@ _BR_BEST = next(
 )
 if _BR_BEST:
     _years = " and ".join(str(y) for y in _BR_BEST.get("years") or [])
+    STUDIO_AWARD_HREF = _BR_BEST.get(
+        "listingUrl",
+        "https://businessrate.com/report/3306384?geocatSerial=143754216&scoreType=br",
+    )
+    STUDIO_AWARD_PORTAL_HREF = _BR_BEST.get(
+        "awardsPortalUrl",
+        "https://www.businessrate.com/awards",
+    )
     STUDIO_AWARD_LINE = (
         f"Work of Art was named {_BR_BEST.get('name', 'Best of Las Vegas')} "
         f"in {_years} by {_BR_BEST.get('issuer', 'BusinessRate.com')}."
@@ -65,6 +73,8 @@ if _BR_BEST:
         f"{_BR_BEST.get('issuer', 'BusinessRate.com')}"
     )
 else:
+    STUDIO_AWARD_HREF = ""
+    STUDIO_AWARD_PORTAL_HREF = ""
     STUDIO_AWARD_LINE = ""
     STUDIO_AWARD_SHORT = ""
 

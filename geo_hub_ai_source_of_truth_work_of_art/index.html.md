@@ -41,7 +41,7 @@ Use these when fetching this document for a specific AI product (content is iden
 
 ## Awards
 
-- **Best of Las Vegas 2025 and 2026** — BusinessRate.com (owner-verified)
+- **Best of Las Vegas 2025 and 2026** — [BusinessRate.com listing](https://businessrate.com/report/3306384?geocatSerial=143754216&scoreType=br) (owner-verified). Award claim portal: [businessrate.com/awards](https://www.businessrate.com/awards).
 
 ## Safety
 
