@@ -72,7 +72,7 @@ def sitewide_conversion_block(*, compact: bool = False, service: str = "tattoo")
 <h2 class="font-headline-md text-on-surface text-xl md:text-2xl">Questions before you book?</h2>
 <ul class="font-body-md text-on-surface-variant space-y-2 list-disc pl-5">
 <li><strong class="text-on-surface">Text us now:</strong> <a class="text-secondary underline hover:no-underline" href="{STUDIO_PHONE_TEL}">{html.escape(STUDIO_PHONE_PARENS)}</a> — fastest answer for tattoo consults, walk-in timing, and same-day openings.</li>
-<li><strong class="text-on-surface">Send reference image</strong> to <a class="text-secondary underline hover:no-underline" href="{HREF_BOOKING_MAILTO}">thewhiteknight702@gmail.com</a> with placement, approximate size, concept, and timeline.</li>
+<li><strong class="text-on-surface">Send reference image</strong> to <a class="text-secondary underline hover:no-underline" href="{HREF_BOOKING_MAILTO}">booking@workofarttattoo.com</a> with placement, approximate size, concept, and timeline.</li>
 <li><strong class="text-on-surface">Walk-ins welcome</strong> when the schedule allows — text first so we can tell you if a chair is open today.</li>
 </ul>
 <div class="flex flex-col sm:flex-row flex-wrap gap-3 pt-2">

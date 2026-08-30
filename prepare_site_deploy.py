@@ -63,6 +63,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "implement_seo_growth_actions.py")],
     ["python3", str(ROOT / "final_copy_polish.py")],
     ["python3", str(ROOT / "fix_social_links.py")],
+    ["python3", str(ROOT / "fix_studio_booking_email.py")],
     ["python3", str(ROOT / "inject_piercing_promotions.py")],
     ["python3", str(ROOT / "fix_yoast_seo_meta.py")],
     ["python3", str(ROOT / "inject_entity_schema.py")],
