@@ -199,6 +199,14 @@ jobs:
               if f'href="{legacy}"' in path.read_text(encoding='utf-8', errors='replace'):
                   raise SystemExit(f'Legacy cover-up href remains in {path}')
 
+          cover = Path('cover-up-tattoos-las-vegas/index.html').read_text(encoding='utf-8', errors='replace')
+          if 'noindex' in cover.lower():
+              raise SystemExit('Canonical cover-up page is noindex')
+          if 'http-equiv="refresh"' in cover.lower():
+              raise SystemExit('Canonical cover-up page has a meta refresh')
+          if 'Scar Cover-Up Tattoo Explained' not in cover:
+              raise SystemExit('Canonical cover-up page missing scar cover-up section')
+
           broken = Counter()
           checked = 0
           for path in Path('.').rglob('*.html'):

@@ -599,6 +599,12 @@ def validate_search_console_targets(failures: list[str]) -> None:
     canonical_href = (canonical.get("href") or "") if canonical else ""
     if "cover-up-tattoos-las-vegas/" not in canonical_href:
         failures.append("cover-up-tattoos-las-vegas/code.html: canonical is not the clean cover-up URL")
+    robots_tag = soup.find("meta", attrs={"name": "robots"})
+    robots = ((robots_tag.get("content") or "").lower()) if robots_tag else ""
+    if "noindex" in robots:
+        failures.append("cover-up-tattoos-las-vegas/code.html: canonical cover-up page must not be noindex")
+    if re.search(r'http-equiv=["\']refresh["\']', html, re.I):
+        failures.append("cover-up-tattoos-las-vegas/code.html: canonical cover-up page must not meta-refresh")
     validate_retired_cover_up_page(failures)
     validate_no_legacy_cover_up_hrefs(failures)
 
