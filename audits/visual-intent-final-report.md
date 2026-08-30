@@ -1,15 +1,15 @@
 # Visual Intent / Creative QA Report
 
 INDEXABLE PAGES CHECKED: 170
-TOTAL IMAGES CHECKED: 1488
-TOTAL VIDEOS CHECKED: 233
+TOTAL IMAGES CHECKED: 1411
+TOTAL VIDEOS CHECKED: 247
 
-EXACT MATCH: 522
-STRONG MATCH: 675
-GENERIC: 382
+EXACT MATCH: 444
+STRONG MATCH: 688
+GENERIC: 376
 MISALIGNED: 11
-WRONG SUBJECT: 131
-UNKNOWN PROVENANCE: 419
+WRONG SUBJECT: 139
+UNKNOWN PROVENANCE: 433
 BROKEN: 0
 
 ## Corrections
@@ -25,7 +25,7 @@ BROKEN: 0
 P0 VISUAL FAILURES: dermis/epidermis piercing contamination; sleeve piercing reel.
 P1 COMMERCIAL PAGE MISMATCHES: fine-line lead proof, realism same-project captions, cover-up OG/hero.
 P2 EDUCATIONAL PAGE MISMATCHES: skin-science child pages using generic visual proof.
-P3 GENERIC/OVERUSED CREATIVE: 22 non-shared images appear on more than five indexable pages.
+P3 GENERIC/OVERUSED CREATIVE: 28 non-shared images appear on more than five indexable pages.
 
 Dermis piercing contamination: NOT FIXED
 Epidermis piercing contamination: NOT FIXED
@@ -42,5 +42,5 @@ Cover-up before/after hero: PASS
 
 ## QA Summary Inputs
 
-- Actions: {'KEEP': 1197, 'REVIEW': 393, 'REPLACE': 131}
-- Image reuse flags: 22
+- Actions: {'KEEP': 1132, 'REVIEW': 387, 'REPLACE': 139}
+- Image reuse flags: 28

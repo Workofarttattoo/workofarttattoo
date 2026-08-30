@@ -2,7 +2,7 @@
 
 Verified source of truth: `siteData/*.json`.
 
-Correct business values: Work of Art Tattoo & Piercing; 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119; (725) 224-1240; thewhiteknight702@gmail.com; 3 resident artists; 5.0 rating; hundreds of Google reviews.
+Correct business values: Work of Art Tattoo & Piercing; 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119; (725) 224-1240; booking@workofarttattoo.com; 3 resident artists; 5.0 rating; hundreds of Google reviews.
 
 ## legacy placeholder address
 
@@ -23,8 +23,6 @@ Recommended action: inspect context before replacement; many hits may be generat
 ## old review count 2400
 
 Potential conflict locations:
-- `code.html`
-- `home_work_of_art_tattoo_piercing/code.html`
 - `client_videos.py`
 - `fix_homepage_images.py`
 - `seo_audit_repair.py`

@@ -69,6 +69,7 @@ class GuideProofStrip:
     placement: str
     intro: str
     frames: tuple[ProofFrame, ProofFrame, ProofFrame, ProofFrame, ProofFrame]
+    kind: str = "tattoo"
 
 
 def _p(stem: str, folder: str = GALLERY) -> tuple[str, str]:
@@ -97,6 +98,7 @@ def piercing_strip(
             f"Real {placement.lower()} work from our studio — not stock photos. "
             "Starter length, swelling room, downsizing, and healed angles documented in Vegas."
         ),
+        kind="piercing",
         frames=(
             ProofFrame(
                 f"{placement} close-up",
@@ -157,6 +159,7 @@ def tattoo_strip(
             f"Real {style.lower()} from Joshua Cole's chair — fresh redness, peel stage, and settled heal "
             "photographed in-studio. Desert sun changes the timeline; these are honest reference frames."
         ),
+        kind="tattoo",
         frames=(
             ProofFrame(
                 f"{style} close-up",
@@ -609,7 +612,7 @@ def proof_strip_html(page_slug: str) -> str:
 </figure>"""
         )
     grid = "\n".join(cards)
-    is_piercing_strip = "piercing" in strip.placement.lower()
+    is_piercing_strip = strip.kind == "piercing"
     footer = (
         'Photos from Work of Art piercing clients — angles and jewelry length vary by anatomy. '
         '<a class="text-secondary underline" href="/studio_gallery/">Studio gallery</a> · '
