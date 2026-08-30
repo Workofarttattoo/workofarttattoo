@@ -8,6 +8,8 @@ from woa_piercing_authority import (
     IMPLANT,
     VEGAS_DRY,
     PiercingGuide,
+    _piercing_phrase,
+    piercing_plural,
 )
 
 _EXTRA: list[tuple] = [
@@ -207,8 +209,8 @@ def _make(spec: tuple) -> PiercingGuide:
         aftercare_summary=f"Saline cleaning, downsizing on schedule, desert-climate awareness. {VEGAS_DRY}",
         faqs=(
             (
-                f"Does Work of Art offer {name.lower()} piercing in Las Vegas?",
-                f"Yes — Katelyn Cole performs {name.lower()} piercings at our Tropicana studio by appointment.",
+                f"Does Work of Art offer {_piercing_phrase(name).lower()} in Las Vegas?",
+                f"Yes — Katelyn Cole performs {piercing_plural(name).lower()} at our Tropicana studio by appointment.",
             ),
         ),
         related=related,

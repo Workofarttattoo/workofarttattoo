@@ -54,6 +54,22 @@ def _piercing_phrase(name: str) -> str:
     return f"{name} Piercing"
 
 
+def piercing_guide_label(name: str) -> str:
+    """Link text: 'Helix Piercing guide', never a doubled piercing word."""
+    return f"{_piercing_phrase(name)} guide"
+
+
+def piercing_plural(name: str) -> str:
+    """Spoken plural: 'ear piercings', never 'ear piercing piercings'."""
+    phrase = _piercing_phrase(name)
+    low = phrase.lower()
+    if low.endswith(" piercings"):
+        return phrase
+    if low.endswith(" piercing"):
+        return f"{phrase}s"
+    return f"{phrase}s"
+
+
 def page_title(guide: PiercingGuide) -> str:
     from woa_piercing_complete_guides import complete_page_title
 

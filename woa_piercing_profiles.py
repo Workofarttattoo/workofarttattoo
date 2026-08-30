@@ -5,6 +5,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from woa_piercing_authority import _piercing_phrase
+
 HealProfile = str  # lobe | cartilage | nasal | oral | facial | body | surface | overview | not_offered
 
 DESERT_BASE = (
@@ -222,7 +224,7 @@ def _lobe(name: str) -> EncyclopediaSections:
             "Unrealistic timeline for multiple cartilage piercings on the same ear in one trip.",
         ),
         katelyn_recommendations=(
-            f"I mark {name.lower()} piercings standing and sitting — your anatomy shifts.",
+            f"I mark {_piercing_phrase(name).lower()} standing and sitting — your anatomy shifts.",
             "Plan spacing now if you want a curated ear later.",
             "Fresh jewelry must be fitted and documented in-studio.",
         ),
@@ -399,7 +401,7 @@ def _oral(name: str) -> EncyclopediaSections:
             "Cannot commit to downsizing appointment for tongue work.",
         ),
         katelyn_recommendations=(
-            f"I check tooth clearance and gum line before every {name.lower()} piercing.",
+            f"I check tooth clearance and gum line before every {_piercing_phrase(name).lower()}.",
             "Long starter jewelry on purpose — short jewelry on day one damages teeth.",
         ),
         video_links=(("Katelyn Cole — piercing portfolio", "/artists/katelyn-cole/"),),

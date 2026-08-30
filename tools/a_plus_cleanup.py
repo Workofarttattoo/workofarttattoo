@@ -18,6 +18,11 @@ LITERAL_REPLACEMENTS = {
     'That is masculine, honest shop talk — no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
     'That is masculine, honest shop talk - no shame, no sales pitch.': "That’s honest shop talk — no shame and no sales pitch.",
     'calm, calm': 'calm',
+    'Joshua Cole and Joshua Cole': 'Joshua Cole',
+    'Lobe piercing piercing guide': 'Lobe piercing guide',
+    'Finished & healed healed': 'Finished & healed',
+    'Finished &amp; healed healed': 'Finished &amp; healed',
+    '— Healed healed': '— Healed',
 }
 
 REGEX_REPLACEMENTS = [
