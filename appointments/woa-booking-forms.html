@@ -1,7 +1,7 @@
 <!-- WOA_BOOKING_FORMS_START -->
 <div class="rounded-lg border border-outline-variant bg-surface-container-high/80 p-6 md:p-10 mt-10" id="woa-booking-app">
 <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Request an appointment</p>
-<p class="font-body-md text-on-surface-variant mt-2">Choose <strong class="text-on-surface">Tattoo</strong> or <strong class="text-on-surface">Piercing</strong> — your request emails our team at <a class="text-secondary underline hover:no-underline" href="mailto:booking@workofarttattoo.com">booking@workofarttattoo.com</a>.</p>
+<p class="font-body-md text-on-surface-variant mt-2">Choose <strong class="text-on-surface">Tattoo</strong> or <strong class="text-on-surface">Piercing</strong> — your request emails our team at <a class="text-secondary underline hover:no-underline" href="mailto:booking@workofarttattoo.com">Email us!</a>.</p>
 <div class="hidden mt-4 rounded-sm border border-secondary/40 bg-secondary/10 px-4 py-3 text-sm text-on-surface" id="woa-booking-thanks" role="status"></div>
 <div aria-label="Service type" class="flex flex-wrap gap-3 mt-6" role="tablist">
 <button aria-selected="true" class="px-6 py-3 min-h-[48px] font-label-caps text-label-caps uppercase tracking-widest border-2 rounded-sm transition-all bg-secondary text-on-secondary border-secondary" data-woa-service-tab="tattoo" role="tab" type="button">Tattoo</button>
@@ -72,6 +72,6 @@ function show(s){tabs.forEach(function(b){var on=b.getAttribute("data-woa-servic
 tabs.forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-woa-service-tab"));});});
 show("tattoo");
 var q=location.search||"";var thanks=document.getElementById("woa-booking-thanks");
-if(thanks&&(q.indexOf("sent=tattoo")>=0||q.indexOf("sent=piercing")>=0)){thanks.hidden=false;thanks.classList.remove("hidden");thanks.textContent="Thank you — your request was sent to booking@workofarttattoo.com. We will reply shortly.";if(q.indexOf("sent=piercing")>=0)show("piercing");}
+if(thanks&&(q.indexOf("sent=tattoo")>=0||q.indexOf("sent=piercing")>=0)){thanks.hidden=false;thanks.classList.remove("hidden");thanks.textContent="Thank you — your request was sent. We will reply shortly.";if(q.indexOf("sent=piercing")>=0)show("piercing");}
 })();</script>
 <!-- WOA_BOOKING_FORMS_END -->
