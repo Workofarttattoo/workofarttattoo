@@ -202,7 +202,7 @@ def topic_main(topic: SkinScienceTopic) -> str:
     toc_items: list[tuple[str, str]] = []
     for heading, _ in topic.sections:
         aid = heading.lower().replace(" ", "-").replace("'", "")[:40]
-        toc_items.append((heading.split("—")[0].strip()[:28], aid))
+        toc_items.append((heading.split("—")[0].strip(), aid))
     if topic.desert_bullets:
         toc_items.append(("Desert climate", "desert-climate"))
     if topic.faqs:
