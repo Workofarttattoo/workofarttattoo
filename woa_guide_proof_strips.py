@@ -50,7 +50,7 @@ IMG = {
     "eagle_comparison": "eagle-memorial-calf-fresh-vs-healed-comparison-las-vegas",
     "skull_fresh": "skull-hourglass-forearm-realism-fresh-las-vegas",
     "cover_sunflower_fresh": "cover-up-tattoo-sunflower-over-black-ink-las-vegas",
-    "cover_before_hand": "cover-up-tattoo-faded-butterflies-hand-before",
+    "cover_before_hand": "floral-tattoo-cover-up-before-after-las-vegas",
     "cover_healed_chain": "healed-black-grey-chain-heart-tattoo",
     "cover_healed_wings": "healed-realism-seraphim-eye-wings-tattoo",
 }
@@ -481,7 +481,7 @@ PAGE_STRIPS: dict[str, GuideProofStrip] = {
         month2=_p(IMG["cover_healed_wings"], COVER),
         settled=_p(IMG["cover_healed_chain"], COVER),
         fresh_redness=_p(IMG["cover_sunflower_fresh"], COVER),
-        close_caption="Before photo documented in-studio — faded old work we planned to redesign, not cover with a darker blob.",
+        close_caption="Studio before-and-after floral cover-up — the new design uses color and movement to control the old mark.",
         fresh_redness_caption="Fresh cover-up pass in progress — redness and plasma sheen on new color over old ink.",
     ),
     "tattoo_healing_in_desert_climate_expert_aftercare_guide": _BG_TATTOO,

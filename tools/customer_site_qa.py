@@ -58,6 +58,8 @@ PIERCING_TATTOO_FOOTER_RE = re.compile(
 )
 STALE_BUTTERFLY_COVER_RE = re.compile(
     r"cover-up-tattoo-faded-butterflies-hand-before|cover-up-tattoo-faded-floral-leg-before|"
+    r"blue-butterfly-color-tattoo-rework-las-vegas|color-butterfly-back-tattoo-las-vegas|"
+    r"realism-tattoos-color-butterfly-and-floral-coverup|"
     r"cover-up-tattoo-sunflower-over-black-ink-las-vegas",
     re.I,
 )

@@ -61,12 +61,6 @@ IMAGES = {
         "height": 1600,
         "alt": "Black and grey angel and money tattoo redesign by Joshua Cole",
     },
-    "butterfly": {
-        "slug": "blue-butterfly-color-tattoo-rework-las-vegas",
-        "width": 1200,
-        "height": 1600,
-        "alt": "Blue butterfly color tattoo rework by Joshua Cole",
-    },
 }
 
 OLD_COVERUP_IMAGE_RE = re.compile(
@@ -74,6 +68,9 @@ OLD_COVERUP_IMAGE_RE = re.compile(
     r"cover-up-tattoo-sunflower-over-black-ink-las-vegas|"
     r"cover-up-tattoo-faded-butterflies-hand-before|"
     r"cover-up-tattoo-faded-floral-leg-before|"
+    r"blue-butterfly-color-tattoo-rework-las-vegas|"
+    r"color-butterfly-back-tattoo-las-vegas|"
+    r"realism-tattoos-color-butterfly-and-floral-coverup|"
     r"healed-realism-seraphim-eye-wings-tattoo|"
     r"healed-black-grey-chain-heart-tattoo|"
     r"black-grey-collarbone-thorns-wreath-tattoo|"
@@ -117,7 +114,7 @@ def evidence_sections() -> str:
         ("dragon", "Color Redesign", "Color can help when the new design has enough room, edge control, and value separation."),
         ("neck", "Corrective Neck Work", "Visible placements need extra care because line weight, symmetry, and skin movement are unforgiving."),
         ("angel", "Black-and-Grey Tattoo Redesign", "Large compositions work when the new image gives the eye a clear subject and supporting detail."),
-        ("butterfly", "Blue Butterfly Rework", "Organic shapes can soften older pigment when the surrounding skin gives the artist room to move."),
+        ("hero", "Large-Scale Arm Rework", "Large compositions work when the new image treats the whole area as one piece instead of hiding marks one at a time."),
     ]
     cards = "\n".join(
         f"""<article class="border border-outline-variant bg-surface overflow-hidden">
@@ -280,7 +277,7 @@ def patch_page(path: Path) -> bool:
         count=1,
     )
     text = re.sub(
-        r'<section[^>]*id="studio-portfolio"[\s\S]*?(?=<section[^>]*id="(?:scar-cover|coverable|pricing)")',
+        r'<section[^>]*id="studio-portfolio"[\s\S]*?(?=<section[^>]*id="(?:scar-cover|pricing)")',
         evidence_sections(),
         text,
         count=1,

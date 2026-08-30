@@ -74,10 +74,10 @@ STEM_OVERRIDES: dict[str, str] = {
         "Color phoenix hand cover-up tattoo Las Vegas — finished work"
     ),
     "cover-up-tattoo-faded-butterflies-hand": (
-        "Consult photo — faded hand tattoos for cover-up planning Las Vegas"
+        "Black and grey lion thigh realism tattoo — Work of Art Tattoo Las Vegas"
     ),
     "cover-up-tattoo-faded-floral-leg": (
-        "Consult photo — aged floral leg tattoo for cover-up consult Las Vegas"
+        "Black and grey lion thigh realism tattoo — Work of Art Tattoo Las Vegas"
     ),
     "cover-up-tattoo-sunflower-over-black-ink": (
         "Cover-up tattoo Las Vegas — sunflower over solid black ink"
