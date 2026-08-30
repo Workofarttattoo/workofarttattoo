@@ -12,9 +12,10 @@ SITE = "https://www.workofarttattoo.com"
 PRIORITY_URLS: tuple[tuple[str, str, str], ...] = (
     ("Homepage", "/", "Primary local entity and strongest branded result"),
     ("Appointments", "/appointments/", "Main conversion page"),
-    ("Artists", "/artists/", "Routes Joshua and Katelyn queries"),
+    ("Artists", "/artists/", "Routes Joshua, Katelyn, and Teralyn queries"),
     ("Joshua Cole", "/artists/joshua-cole/", "Tattoo artist entity page"),
     ("Katelyn Cole", "/artists/katelyn-cole/", "Piercing artist entity page"),
+    ("Teralyn", "/artists/teralyn/", "Tattoo artist and piercer entity page"),
     ("Tattoo pricing", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/", "Already ranking; push recrawl and links"),
     ("Cover-up tattoos", "/cover-up-tattoos-las-vegas/", "Money page for competitive cover-up intent"),
     ("Fine line tattoos", "/fine_line_tattoos_las_vegas_master_authority_guide/", "Money page for broad service intent"),

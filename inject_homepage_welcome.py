@@ -85,8 +85,8 @@ SOFTEN: tuple[tuple[str, str], ...] = (
         "Every tattoo here is a conversation — your idea, my craft, and the same care I learned serving guests at Spago and Ruth's Chris: listen first, explain honestly, and make you feel looked after.",
     ),
     (
-        "<h4 class=\"text-secondary font-headline-md\">3</h4>\n<p class=\"text-on-surface-variant font-label-caps text-[10px] uppercase tracking-widest\">Resident Artists</p>",
         "<h4 class=\"text-secondary font-headline-md\">2</h4>\n<p class=\"text-on-surface-variant font-label-caps text-[10px] uppercase tracking-widest\">Artists in-studio today</p>",
+        "<h4 class=\"text-secondary font-headline-md\">3</h4>\n<p class=\"text-on-surface-variant font-label-caps text-[10px] uppercase tracking-widest\">Resident Artists</p>",
     ),
     (
         "While we recommend appointments for custom large-scale work, We offer same-day availability for both tattoos and piercings to accommodate your schedule.",
