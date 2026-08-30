@@ -28,7 +28,7 @@ BUSINESS_FACTS = {
     "postal_code": "89119",
     "phone": "(725) 224-1240",
     "phone_parens": "(725) 224-1240",
-    "email": "thewhiteknight702@gmail.com",
+    "email": "booking@workofarttattoo.com",
     "google_rating": "5.0",
     "google_review_count": "323",
     "resident_artists": "3",

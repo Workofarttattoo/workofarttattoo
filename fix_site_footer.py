@@ -73,8 +73,8 @@ SLIM_FOOTER_INNER = f"""
 </div>
 </div>
 <div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl">
-<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-[11px]">Licensed &amp; Permitted</h5>
-<p class="mt-3 text-on-surface-variant text-[13px] font-body-md leading-relaxed">Work of Art Tattoo &amp; Piercing operates under a Southern Nevada Health District body art establishment Health Permit. All artists hold a current Body Art Card and OSHA bloodborne pathogens certification.</p>
+<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-[11px]">Studio</h5>
+<p class="mt-3 text-on-surface-variant text-[13px] font-body-md leading-relaxed">Work of Art Tattoo &amp; Piercing<br/>2375 E. Tropicana Ave, Suite 3<br/>Las Vegas, NV 89119<br/><a class="hover:text-secondary" href="tel:+17252241240">(725) 224-1240</a><br/><a class="hover:text-secondary" href="mailto:booking@workofarttattoo.com">booking@workofarttattoo.com</a><br/>Daily 12 PM–12 AM</p>
 </div>
 <div class="mt-12 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
 <p class="text-[12px] text-on-surface-variant font-body-md">© {YEAR} Work of Art Tattoo &amp; Piercing · Las Vegas</p>

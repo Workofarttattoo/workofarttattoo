@@ -48,6 +48,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "build_retired_geo_redirects.py")],
     ["python3", str(ROOT / "build_near_strip_geo_hub.py")],
     ["python3", str(ROOT / "build_geo_quality_reports.py")],
+    ["python3", str(ROOT / "build_url_aliases.py")],
     ["python3", str(ROOT / "upgrade_site_navigation.py")],
     ["python3", str(ROOT / "inject_sticky_book_cta.py")],
     ["python3", str(ROOT / "inject_guides_hub.py"), "--refresh"],
@@ -62,6 +63,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "implement_seo_growth_actions.py")],
     ["python3", str(ROOT / "final_copy_polish.py")],
     ["python3", str(ROOT / "fix_social_links.py")],
+    ["python3", str(ROOT / "fix_studio_booking_email.py")],
     ["python3", str(ROOT / "inject_piercing_promotions.py")],
     ["python3", str(ROOT / "fix_yoast_seo_meta.py")],
     ["python3", str(ROOT / "inject_entity_schema.py")],
@@ -182,6 +184,8 @@ def main() -> int:
         run_step(cmd)
 
     stamp_build(HOME_HTML)
+    sync_root_home_copy()
+    run_step(["python3", str(ROOT / "tools" / "production_parity_cleanup.py")])
     sync_root_home_copy()
     verify_homepage()
 
