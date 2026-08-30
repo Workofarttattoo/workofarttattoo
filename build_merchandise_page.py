@@ -12,7 +12,13 @@ import urllib.request
 from pathlib import Path
 
 from woa_merchandise_manifest import CANON, MERCH_ITEMS, MerchItem, SLUG
-from woa_nav_config import STUDIO_BOOKING_EMAIL, STUDIO_PHONE_PARENS, STUDIO_PHONE_TEL
+from woa_nav_config import (
+    HREF_BOOKING_MAILTO,
+    STUDIO_BOOKING_EMAIL,
+    STUDIO_BOOKING_LINK_LABEL,
+    STUDIO_PHONE_PARENS,
+    STUDIO_PHONE_TEL,
+)
 
 try:
     from fix_studio_booking_email import inject_schema_email, replace_legacy_emails
@@ -150,10 +156,7 @@ def picture(item: MerchItem) -> str:
 
 
 def merch_mailto(subject: str) -> str:
-    return (
-        f"mailto:{STUDIO_BOOKING_EMAIL}"
-        f"?subject={urllib.parse.quote(subject, safe='')}"
-    )
+    return f"{HREF_BOOKING_MAILTO}?subject={urllib.parse.quote(subject, safe='')}"
 
 
 def merch_card(item: MerchItem) -> str:
@@ -182,7 +185,7 @@ def build_main(items: list[MerchItem]) -> str:
 Every piece below is original work by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. Items are available in-studio at 2375 E. Tropicana Ave, Suite 3 or by email. Prices vary; inquire for the piece you want.
 </p>
 <div class="flex flex-col sm:flex-row flex-wrap gap-3 pt-1">
-<a class="inline-flex justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest gold-glow transition-all" href="{merch_mailto('Merchandise inquiry')}">Email {STUDIO_BOOKING_EMAIL}</a>
+<a class="inline-flex justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest gold-glow transition-all" href="{merch_mailto('Merchandise inquiry')}">{STUDIO_BOOKING_LINK_LABEL}</a>
 <a class="inline-flex justify-center border border-outline px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="{STUDIO_PHONE_TEL}">Call {STUDIO_PHONE_PARENS}</a>
 <a class="inline-flex justify-center border border-outline-variant/50 px-8 py-4 font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors" href="/artists/joshua-cole/">Joshua Cole portfolio</a>
 </div>

@@ -79,8 +79,9 @@ def rewrite_file(path: Path) -> bool:
         s = re.sub(r'(?is)<section\b[^>]*>.*?Real ear piercing work from our studio[^<]*.*?</section>', '', s)
         s = re.sub(r'(?is)<section\b[^>]*>.*?ear piercing work[^<]*not stock photos.*?</section>', '', s)
 
-    if 'katelyn' in rel or 'piercing' in rel:
-        s = s.replace('booking@workofarttattoo.com', 'kmorgen14@gmail.com')
+    if path.suffix.lower() in {'.html', '.htm', '.json', '.xml', '.md', '.jsonld'} and 'tools' not in path.parts:
+        s = s.replace('kmorgen14@gmail.com', 'booking@workofarttattoo.com')
+        s = s.replace('thewhiteknight702@gmail.com', 'booking@workofarttattoo.com')
 
     if s != old:
         path.write_text(s, encoding='utf-8')
