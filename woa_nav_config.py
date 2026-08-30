@@ -113,13 +113,30 @@ STUDIO_HOURS_HTML_GRID = (
 HREF_ARTISTS = "/#gallery"
 HREF_PIERCING = "/piercing-shop-standards/"
 
-# (label, href) — sitewide Artists dropdown
+# (label, href) — sitewide Artists dropdown. upgrade_site_navigation.py
+# writes this list into every public Artists submenu (desktop + mobile).
 ARTIST_NAV_ENTRIES: list[tuple[str, str]] = [
     ("All Artists & Gallery", HREF_ARTISTS),
     ("Joshua Cole — Tattoo Artist / Studio Lead", "/artists/joshua-cole/"),
     ("Katelyn Cole — Professional Piercer", "/artists/katelyn-cole/"),
-    ("Teralyn — Tattoos & Piercing", "/artists/teralyn/"),
+    ("Teralyn — Fine Line · Floral · Script", "/artists/teralyn/"),
 ]
+
+REQUIRED_ARTIST_NAV_HREFS: tuple[str, ...] = (
+    "/artists/joshua-cole/",
+    "/artists/katelyn-cole/",
+    "/artists/teralyn/",
+)
+
+# Simple-page header used by geo / knowledge / artist-index builders.
+# The empty data-woa-desktop-nav holder is filled by upgrade_site_navigation.py.
+SIMPLE_TOP_NAV_SHELL = """\
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-background/90 backdrop-blur-md border-b border-outline-variant/30" data-woa-top-shell="1">
+<a class="font-headline-md text-secondary uppercase tracking-widest" href="/">Work of Art</a>
+<div class="hidden md:flex flex-wrap justify-end items-center gap-1 xl:gap-2" data-woa-desktop-nav="1"></div>
+<a class="bg-secondary text-on-secondary px-6 py-3 font-label-caps text-label-caps uppercase tracking-widest" href="/appointments/">Book Now</a>
+</header>
+"""
 
 
 def discover_artist_nav_entries() -> list[tuple[str, str]]:

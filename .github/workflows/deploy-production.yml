@@ -72,8 +72,8 @@ jobs:
           for code in root.rglob('code.html'):
               if '.git' in code.parts or '.github' in code.parts or 'skipped_upload_build' in code.parts:
                   continue
-<<<<<<< HEAD
               shutil.copy2(code, code.with_name('index.html'))
+              copied += 1
 
           mappings = {
               Path('artists_build/katelyn-cole.html'): Path('artists/katelyn-cole/index.html'),
@@ -87,9 +87,9 @@ jobs:
 
           # Never let a thinner home export overwrite the studio banner homepage.
           candidates = [
+              Path('home_work_of_art_tattoo_piercing/code.html'),
               Path('code.html'),
               Path('index.html'),
-              Path('home_work_of_art_tattoo_piercing/code.html'),
           ]
           home_src = None
           for candidate in candidates:
@@ -97,7 +97,7 @@ jobs:
                   continue
               text = candidate.read_text(encoding='utf-8', errors='replace')
               if '<<<<<<<' in text:
-                  raise SystemExit(f'Conflict markers in homepage candidate: {candidate}')
+                  continue
               if 'woa-hero-banner' in text and 'work-of-art-studio-banner-las-vegas' in text:
                   home_src = candidate
                   break
@@ -105,12 +105,7 @@ jobs:
               raise SystemExit('No homepage source with studio banner (woa-hero-banner) found')
           shutil.copy2(home_src, 'index.html')
           print(f'Homepage source: {home_src}')
-=======
-              target = code.with_name('index.html')
-              shutil.copy2(code, target)
-              copied += 1
           print(f'Generated {copied} index.html files from code.html sources')
->>>>>>> integration/seo-rebuild
           PY
           test -s index.html
           grep -q 'woa-hero-banner' index.html
