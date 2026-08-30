@@ -19,9 +19,9 @@ DEFAULT_OG = (
 # Prefer a strong share image per guide (file must exist in slug folder or path below)
 OG_IMAGE: dict[str, str] = {
     "home_work_of_art_tattoo_piercing": DEFAULT_OG,
-    "cover_up_tattoos_las_vegas_master_authority_guide": (
-        f"{SITE}/cover_up_tattoos_las_vegas_master_authority_guide/"
-        "cover-up-tattoo-phoenix-hand-las-vegas-after.webp"
+    "cover-up-tattoos-las-vegas": (
+        f"{SITE}/cover-up-tattoos-las-vegas/"
+        "floral-tattoo-cover-up-before-after-las-vegas.webp"
     ),
     "walk_in_tattoos_las_vegas_authority_guide": (
         f"{SITE}/image_5_22_26_at_9.11_pm_1.png/"

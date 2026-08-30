@@ -83,9 +83,9 @@ JOSHUA_CASE_STUDIES: tuple[CaseStudy, ...] = (
             TimelineStage("Mid-project", "Large areas rebuilt; client healed between hand and forearm passes."),
             TimelineStage("Finished & healed", "Phoenix reads as new art, not a patch over old ink."),
         ),
-        guide_href="/cover_up_tattoos_las_vegas_master_authority_guide/",
+        guide_href="/cover-up-tattoos-las-vegas/",
         image_stem="cover-up-tattoo-phoenix-hand-las-vegas-after",
-        image_dir="cover_up_tattoos_las_vegas_master_authority_guide",
+        image_dir="cover-up-tattoos-las-vegas",
     ),
 )
 

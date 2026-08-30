@@ -6,7 +6,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from woa_url_aliases import ALIASES_BY_SHORT, SITE, UrlAlias
+from woa_url_aliases import ALIASES_BY_SHORT, INDEPENDENT_AUTHORITY_SLUGS, SITE, UrlAlias
 
 ROOT = Path(__file__).resolve().parent
 ASSET_EXT = {".png", ".webp", ".jpg", ".jpeg", ".gif", ".svg"}
@@ -55,6 +55,9 @@ def patch_paths(html: str, alias: UrlAlias) -> str:
 
 
 def build_alias(alias: UrlAlias) -> bool:
+    if alias.short_slug in INDEPENDENT_AUTHORITY_SLUGS:
+        print(f"[skip] independent authority /{alias.short_slug}/ is the source of truth")
+        return False
     src = ROOT / alias.source_slug / "code.html"
     if not src.is_file():
         print(f"[skip] missing source {alias.source_slug}")

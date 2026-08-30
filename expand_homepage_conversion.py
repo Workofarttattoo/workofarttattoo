@@ -32,6 +32,7 @@ ALLOWED_PARTS = frozenset(
         "home_work_of_art_tattoo_piercing",
         "client-portfolio",
         "hero-premium",
+        "cover-up-tattoos-las-vegas",
         "cover_up_tattoos_las_vegas_master_authority_guide",
         "artists",
         "reviews_vault_100_verified_masterpieces",

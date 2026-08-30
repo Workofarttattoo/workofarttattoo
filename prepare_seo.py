@@ -67,6 +67,7 @@ PIPELINE: list[str] = [
     "fix_piercing_content_integrity.py",
     "repair_visual_intent.py",
     "remove_elevenlabs_widget.py",
+    "build_retired_cover_up_redirect.py",
 ]
 
 
