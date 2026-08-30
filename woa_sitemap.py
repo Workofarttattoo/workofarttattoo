@@ -63,6 +63,8 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
         if home_slug and slug == home_slug:
             continue
         if slug in SKIP_DEPLOY_SLUGS or slug in RETIRE_OVERLAP_SLUGS:
+            # Alias source folders (e.g. cover_up_tattoos_las_vegas_master_authority_guide)
+            # stay on disk as retirement stubs and must not appear in the sitemap.
             continue
         local_dir = merged[slug]
         if not (local_dir / "code.html").is_file():

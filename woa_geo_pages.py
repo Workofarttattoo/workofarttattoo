@@ -54,7 +54,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         related_guides=(
             ("Joshua Cole portfolio", "/artists/joshua-cole/"),
             ("Realism tattoos", "/realism_tattoos_las_vegas_master_authority_guide/"),
-            ("Cover-up tattoos", "/cover_up_tattoos_las_vegas_master_authority_guide/"),
+            ("Cover-up tattoos", "/cover-up-tattoos-las-vegas/"),
             ("Teralyn fine line", "/artists/teralyn/"),
             ("Healed tattoo gallery", "/healed_tattoo_gallery_las_vegas/"),
             ("Appointments", "/appointments/"),
@@ -334,7 +334,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         ),
         drive_time="Spring Valley to E. Tropicana trip; timing varies by west-valley starting point",
         related_guides=(
-            ("Cover-up guide", "/cover_up_tattoos_las_vegas_master_authority_guide/"),
+            ("Cover-up guide", "/cover-up-tattoos-las-vegas/"),
             ("Sleeve planning", "/best_tattoo_styles_for_sleeves_large_scale_project_hub/"),
             ("Healed gallery", "/healed_tattoo_gallery_las_vegas/"),
         ),
@@ -438,7 +438,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         related_guides=(
             ("Near-Strip visitor hub", "/tattoo_shop_near_the_strip_nap_corrected/"),
             ("Large-scale tattoo planning", "/best_tattoo_styles_for_sleeves_large_scale_project_hub/"),
-            ("Cover-up tattoos", "/cover_up_tattoos_las_vegas_master_authority_guide/"),
+            ("Cover-up tattoos", "/cover-up-tattoos-las-vegas/"),
             ("Piercing guide", "/piercing_types_las_vegas_authority_hub/"),
             ("Appointments", "/appointments/"),
         ),

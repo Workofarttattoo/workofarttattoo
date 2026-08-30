@@ -11,7 +11,7 @@ GALLERY = "studio_gallery"
 PORTFOLIO = "home_work_of_art_tattoo_piercing/client-portfolio"
 HUB = "healed_tattoo_gallery_las_vegas"
 BEFORE_AFTER = "tattoo_healing_before_after_real_results"
-COVER = "cover_up_tattoos_las_vegas_master_authority_guide"
+COVER = "cover-up-tattoos-las-vegas"
 
 # studio_gallery image stems (without extension)
 IMG = {
@@ -471,7 +471,7 @@ PAGE_STRIPS: dict[str, GuideProofStrip] = {
         settled_caption="Settled line-and-shade reference from healed studio documentation.",
         fresh_redness_caption="Fresh tattoo surface detail shown later as healing context, not as the lead fine-line proof.",
     ),
-    "cover_up_tattoos_las_vegas_master_authority_guide": tattoo_strip(
+    "cover-up-tattoos-las-vegas": tattoo_strip(
         "Cover-up",
         close=_p(IMG["cover_before_hand"], COVER),
         week1=_p(IMG["cover_sunflower_fresh"], COVER),

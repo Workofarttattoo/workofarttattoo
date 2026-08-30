@@ -15,7 +15,7 @@ CODE = HOME / "code.html"
 ROOT_CODE = ROOT / "code.html"
 CLIENT = HOME / "client-portfolio"
 HERO_PREMIUM = HOME / "hero-premium"
-COVER = ROOT / "cover_up_tattoos_las_vegas_master_authority_guide"
+COVER = ROOT / "cover-up-tattoos-las-vegas"
 
 _ASSETS_DIRS = (
     ROOT / "assets",

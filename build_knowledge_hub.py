@@ -19,8 +19,14 @@ HEAD_LINKS = """<link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.c
 
 
 def qa_page_html(slug: str, question: str, answer: str, guide_slug: str) -> str:
-    guide_href = f"/{guide_slug}/"
-    guide_title = guide_slug.replace("_", " ").replace("authority guide", "").strip().title()
+    from woa_nav_config import GUIDE_META
+    from woa_url_aliases import short_href
+
+    guide_href = short_href(guide_slug)
+    if guide_slug in GUIDE_META:
+        guide_title = GUIDE_META[guide_slug][0]
+    else:
+        guide_title = guide_slug.replace("_", " ").replace("-", " ").replace("authority guide", "").strip().title()
     graph = faq_page_graph(slug=f"knowledge/{slug}", title=question, faqs=[(question, answer)])
     return f"""<!DOCTYPE html>
 <html class="dark" lang="en"><head>

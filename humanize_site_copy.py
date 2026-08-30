@@ -226,7 +226,7 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             '<p class="font-body-lg text-on-surface-variant">Common requests here: cinematic portraits, lions and other wildlife, roses and florals, wolves and snakes, skull panels, and full sleeves planned over multiple sessions. We map session count and healing windows before you commit.</p>',
         ),
     ],
-    "cover_up_tattoos_las_vegas_master_authority_guide": [
+    "cover-up-tattoos-las-vegas": [
         (
             '<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Our <strong>tattoo cover up</strong> team redesigns old work, <strong>cover up tattoos</strong> from Strip regrets, and <strong>scar cover tattoo</strong> pieces that put confidence back on your skin — minutes from the Strip at 2375 E. Tropicana Ave, Suite 3.</p>',
             '<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl">You are not stuck with ink you outgrew. Joshua Cole redesigns old work — Strip regrets, faded color, and scar camouflage — with in-studio consults at 2375 E. Tropicana Ave, Suite 3, a short drive from major resorts.</p>',

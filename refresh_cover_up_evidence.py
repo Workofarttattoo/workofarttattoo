@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-PAGE_SLUGS = ("cover_up_tattoos_las_vegas_master_authority_guide", "cover-up-tattoos-las-vegas")
+PAGE_SLUGS = ("cover-up-tattoos-las-vegas",)
 CANONICAL_SLUG = "cover-up-tattoos-las-vegas"
 CANON = f"https://www.workofarttattoo.com/{CANONICAL_SLUG}/"
 MARKER = 'data-woa-coverup-evidence="2026-08"'
@@ -280,14 +280,8 @@ def patch_page(path: Path) -> bool:
         count=1,
     )
     text = re.sub(
-        r'<section[^>]*id="studio-portfolio"[\s\S]*?(?=<section[^>]*id="scar-cover")',
+        r'<section[^>]*id="studio-portfolio"[\s\S]*?(?=<section[^>]*id="(?:scar-cover|coverable|pricing)")',
         evidence_sections(),
-        text,
-        count=1,
-    )
-    text = re.sub(
-        r'<section[^>]*id="scar-cover"[\s\S]*?(?=<section[^>]*id="pricing")',
-        "",
         text,
         count=1,
     )

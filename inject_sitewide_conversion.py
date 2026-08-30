@@ -20,7 +20,7 @@ MAJOR_SLUGS: tuple[str, ...] = (
     "tattoo_healing_in_desert_climate_expert_aftercare_guide",
     "realism_tattoos_las_vegas_master_authority_guide",
     "fine_line_tattoos_las_vegas_master_authority_guide",
-    "cover_up_tattoos_las_vegas_master_authority_guide",
+    "cover-up-tattoos-las-vegas",
     "best_piercing_shop_las_vegas_updated_jewelry_standards",
     "tattoo_shop_near_the_strip_nap_corrected",
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide",

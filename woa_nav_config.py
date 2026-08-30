@@ -157,7 +157,7 @@ NAV_TATTOO_GUIDE_SLUGS: tuple[str, ...] = (
     "how_to_choose_a_tattoo_artist_master_selection_guide_2",
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide",
     "realism_tattoos_las_vegas_master_authority_guide",
-    "cover_up_tattoos_las_vegas_master_authority_guide",
+    "cover-up-tattoos-las-vegas",
     "walk_in_tattoos_las_vegas_authority_guide",
     "tattoo_healing_in_desert_climate_expert_aftercare_guide",
     "skin_science_tattoo_dermatology_authority_guide",

@@ -80,7 +80,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
             "and a realistic plan for sessions and healing."
         ),
         primary_label="Cover-up tattoo guide",
-        primary_href="/cover_up_tattoos_las_vegas_master_authority_guide/",
+        primary_href="/cover-up-tattoos-las-vegas/",
         links=(
             ("Healed cover-up gallery", "/healed_cover_up_tattoos_las_vegas/"),
             ("How to choose an artist", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/"),

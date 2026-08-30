@@ -57,7 +57,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
             ("Offsite bookings — VIP events", "/offsite_bookings/"),
             ("Designs to book — custom concepts", "/studio_gallery/#joshua-designs"),
             ("Joshua Cole — realism artist", "/artists/joshua-cole/"),
-            ("Cover-up tattoos Las Vegas", "/cover_up_tattoos_las_vegas_master_authority_guide/"),
+            ("Cover-up tattoos Las Vegas", "/cover-up-tattoos-las-vegas/"),
             ("Large-scale project planning", "/large_scale_projects_variant_a_authentic_art_rotation/"),
             ("Choose a tattoo artist", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/"),
             ("Verified client reviews", "/reviews_vault_100_verified_masterpieces/"),
