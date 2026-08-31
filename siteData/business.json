@@ -11,7 +11,7 @@
   },
   "phoneDisplay": "(725) 224-1240",
   "phoneE164": "+17252241240",
-  "bookingEmail": "thewhiteknight702@gmail.com",
+  "bookingEmail": "booking@workofarttattoo.com",
   "hours": {
     "summary": "Daily 12 PM - 12 AM",
     "displayRows": [
@@ -32,5 +32,18 @@
       "sourceNote": "Owner confirmed Work of Art is SNHD licensed whenever operating."
     }
   },
+  "awards": [
+    {
+      "name": "Best of Las Vegas",
+      "years": [2025, 2026],
+      "issuer": "BusinessRate.com",
+      "category": "Tattoo and Piercing Shop",
+      "city": "Las Vegas, NV",
+      "listingUrl": "https://businessrate.com/report/3306384?geocatSerial=143754216&scoreType=br",
+      "awardsPortalUrl": "https://www.businessrate.com/awards",
+      "verificationStatus": "owner-verified",
+      "sourceNote": "Owner confirmed Best of 2025 and 2026 from BusinessRate.com. Public listing at businessrate.com/report/3306384 matches studio NAP (2375 E Tropicana Ave #3, 725-224-1240, workofarttattoo.com). https://www.businessrate.com/awards is BusinessRate's award claim portal, not a public winners directory."
+    }
+  ],
   "dataSourceNote": "Values supplied by owner in SEO implementation brief; update here first, then run tools/seo_qa.py."
 }

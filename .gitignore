@@ -1,6 +1,5 @@
 .DS_Store
 __pycache__/
-<<<<<<< HEAD
 *.py[cod]
 .Python
 .pytest_cache/
@@ -9,14 +8,8 @@ __pycache__/
 .snapshots/
 .claude/
 *.pyc
-<<<<<<< HEAD
 .claude/settings.local.json
 
 # Local recovery bundles — do not publish to GitHub Pages
 *.bundle
 workofarttattoo-reconciled-*.bundle
-=======
->>>>>>> integration/seo-rebuild
-=======
-*.pyc
->>>>>>> 84f299c (Apply A+ factual and editorial cleanup [skip ci])
