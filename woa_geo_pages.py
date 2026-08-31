@@ -165,7 +165,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         related_guides=(
             ("Walk-in vs appointment", "/walk_in_tattoos_las_vegas_authority_guide/"),
             ("Strip vs studio comparison", "/vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison/"),
-            ("Directions hub", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Directions hub", "/tattoo-shop-near-las-vegas-strip/"),
         ),
     ),
     GeoPage(
@@ -233,7 +233,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         related_guides=(
             ("Tattoo flying after session", "/knowledge/tattoo-flying-after-session/"),
             ("First tattoo tips", "/knowledge/first-tattoo-tips-before-you-book/"),
-            ("Airport-area directions", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Airport-area directions", "/tattoo-shop-near-las-vegas-strip/"),
         ),
     ),
     GeoPage(
@@ -436,7 +436,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         ),
         drive_time="Cross-valley trip from Henderson; timing depends heavily on neighborhood and commute traffic",
         related_guides=(
-            ("Near-Strip visitor hub", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Near-Strip visitor hub", "/tattoo-shop-near-las-vegas-strip/"),
             ("Large-scale tattoo planning", "/best_tattoo_styles_for_sleeves_large_scale_project_hub/"),
             ("Cover-up tattoos", "/cover-up-tattoos-las-vegas/"),
             ("Piercing guide", "/piercing_types_las_vegas_authority_hub/"),
@@ -507,7 +507,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         drive_time="Convention Center to E. Tropicana trip; leave buffer around show opening and closing traffic",
         related_guides=(
             ("Sphere guide", "/tattoo_shop_near_the_sphere_las_vegas/"),
-            ("Strip guide", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Strip guide", "/tattoo-shop-near-las-vegas-strip/"),
             ("Tattoo flying after session", "/knowledge/tattoo-flying-after-session/"),
             ("Walk-in guide", "/walk_in_tattoos_las_vegas_authority_guide/"),
             ("Appointments", "/appointments/"),
@@ -543,7 +543,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         related_guides=(
             ("Allegiant Stadium guide", "/tattoo_shop_near_allegiant_stadium_las_vegas/"),
             ("Airport guide", "/tattoo_shop_near_las_vegas_airport/"),
-            ("Strip guide", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Strip guide", "/tattoo-shop-near-las-vegas-strip/"),
             ("Tattoo aftercare in Vegas", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
             ("Appointments", "/appointments/"),
         ),
@@ -577,7 +577,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         drive_time="T-Mobile Arena area to Tropicana studio trip; event traffic can add meaningful delay",
         related_guides=(
             ("MGM Grand guide", "/tattoo_shop_near_mgm_grand_las_vegas/"),
-            ("Strip guide", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Strip guide", "/tattoo-shop-near-las-vegas-strip/"),
             ("Allegiant Stadium guide", "/tattoo_shop_near_allegiant_stadium_las_vegas/"),
             ("Walk-in tattoo guide", "/walk_in_tattoos_las_vegas_authority_guide/"),
             ("Appointments", "/appointments/"),
@@ -679,16 +679,16 @@ GEO_PAGE_ACTIONS: dict[str, str] = {
 
 GEO_PAGE_REDIRECTS: dict[str, str] = {
     "tattoo_shop_serving_summerlin_las_vegas": "/tattoo_shop_spring_valley_las_vegas/",
-    "tattoo_shop_serving_downtown_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+    "tattoo_shop_serving_downtown_las_vegas": "/tattoo-shop-near-las-vegas-strip/",
     "tattoo_piercing_shop_near_unlv": "/tattoo_shop_paradise_nevada/",
-    "tattoo_shop_enterprise_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+    "tattoo_shop_enterprise_las_vegas": "/tattoo-shop-near-las-vegas-strip/",
     "tattoo_shop_green_valley_henderson": "/tattoo_shop_serving_henderson_nevada/",
-    "tattoo_shop_serving_north_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+    "tattoo_shop_serving_north_las_vegas": "/tattoo-shop-near-las-vegas-strip/",
     "tattoo_shop_near_las_vegas_convention_center": "/tattoo_shop_near_the_sphere_las_vegas/",
     "tattoo_shop_near_mandalay_bay_las_vegas": "/tattoo_shop_near_allegiant_stadium_las_vegas/",
     "tattoo_shop_near_t_mobile_arena_las_vegas": "/tattoo_shop_near_mgm_grand_las_vegas/",
     "tattoo_shop_near_fashion_show_las_vegas": "/tattoo_shop_near_the_sphere_las_vegas/",
-    "tattoo_shop_near_fremont_street_las_vegas": "/tattoo_shop_near_the_strip_nap_corrected/",
+    "tattoo_shop_near_fremont_street_las_vegas": "/tattoo-shop-near-las-vegas-strip/",
 }
 
 INDEXABLE_GEO_ACTIONS = frozenset({"KEEP", "KEEP_IMPROVE"})

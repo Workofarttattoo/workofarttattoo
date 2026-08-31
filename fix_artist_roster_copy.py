@@ -138,6 +138,14 @@ REPLACEMENTS: list[tuple[str, str]] = [
         "3 Resident Artists",
     ),
     (
+        "TWO RESIDENT SPECIALISTS",
+        "THREE RESIDENT ARTISTS",
+    ),
+    (
+        "Two resident specialists",
+        "Three resident artists",
+    ),
+    (
         "Joshua Cole leads tattoo, piercing, and training; Katelyn Cole is our professional piercer — two resident specialists in-studio today with appointments open seven nights a week.",
         "Joshua Cole leads tattoo, piercing, and training; Katelyn Cole is our professional piercer; Teralyn is a tattoo artist and piercer — three resident artists in-studio today with appointments open seven nights a week.",
     ),

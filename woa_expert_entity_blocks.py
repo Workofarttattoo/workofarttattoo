@@ -25,7 +25,7 @@ JOSHUA_LINKS: tuple[tuple[str, str], ...] = (
     ("Fine art", "/realism_tattoos_las_vegas_master_authority_guide/"),
     ("Tattoo educator", "/artists/joshua-cole/#seminars"),
     ("Skin science", "/skin_science_tattoo_dermatology_authority_guide/"),
-    ("Las Vegas", "/tattoo_shop_near_the_strip_nap_corrected/"),
+    ("Las Vegas", "/tattoo-shop-near-las-vegas-strip/"),
 )
 
 

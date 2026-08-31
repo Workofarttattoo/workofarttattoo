@@ -40,7 +40,7 @@ SLIM_BLOCK = f"""
 <li><a class="text-secondary underline hover:no-underline" href="/appointments/">Book an appointment</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/artists/">Our artists</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/knowledge/">Tattoo &amp; piercing Q&amp;A</a></li>
-<li><a class="text-secondary underline hover:no-underline" href="/tattoo_shop_near_the_strip_nap_corrected/">Directions &amp; hours</a></li>
+<li><a class="text-secondary underline hover:no-underline" href="/tattoo-shop-near-las-vegas-strip/">Directions &amp; hours</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/privacy-policy/">Privacy policy</a></li>
 </ul>
 </div>

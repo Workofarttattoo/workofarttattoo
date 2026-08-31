@@ -1,43 +1,54 @@
-[
-  {
-    "id": "joshua-cole",
-    "name": "Joshua Cole",
-    "url": "/artists/joshua-cole/",
-    "role": "Tattoo artist",
-    "verifiedSpecialties": [
-      "awarded Top Ten Best Black & Grey Realism Artists in Las Vegas",
-      "black and grey realism",
-      "color realistic imagery",
-      "blackwork",
-      "sleeves",
-      "cover-ups"
-    ]
-  },
-  {
-    "id": "katelyn-cole",
-    "name": "Katelyn Cole",
-    "url": "/artists/katelyn-cole/",
-    "role": "Piercer",
-    "verifiedSpecialties": [
-      "piercing",
-      "ear curation",
-      "jewelry styling"
-    ]
-  },
-  {
-    "id": "teralyn",
-    "name": "Teralyn",
-    "url": "/artists/teralyn/",
-    "role": "Tattoo artist and piercer",
-    "instagram": "https://www.instagram.com/mischiefmodifies/",
-    "verifiedSpecialties": [
-      "fine line floral work",
-      "fine line",
-      "script",
-      "small detailed tattoos",
-      "custom drawings by commission",
-      "flash",
-      "piercing"
-    ]
-  }
-]
+{
+  "artists": [
+    {
+      "id": "joshua-cole",
+      "name": "Joshua Cole",
+      "url": "/artists/joshua-cole/",
+      "role": "Tattoo artist / studio lead",
+      "alsoOffers": ["piercing"],
+      "verifiedSpecialties": [
+        "black and grey realism",
+        "realism",
+        "cover-ups",
+        "large custom work",
+        "color realistic imagery",
+        "blackwork",
+        "sleeves",
+        "portraits"
+      ],
+      "bioNote": "Studio lead with fine-art background; trains resident artists and alumni."
+    },
+    {
+      "id": "katelyn-cole",
+      "name": "Katelyn Cole",
+      "url": "/artists/katelyn-cole/",
+      "role": "Professional piercer",
+      "verifiedSpecialties": [
+        "ear piercing",
+        "curated ears",
+        "jewelry changes",
+        "anatomy-focused placement",
+        "facial and body piercing"
+      ],
+      "bioNote": "Anatomy-first placement planning and jewelry fit."
+    },
+    {
+      "id": "teralyn",
+      "name": "Teralyn",
+      "url": "/artists/teralyn/",
+      "role": "Tattoo artist and piercer",
+      "instagram": "https://www.instagram.com/mischiefmodifies/",
+      "verifiedSpecialties": [
+        "fine line",
+        "floral",
+        "script",
+        "commissioned custom drawings",
+        "detailed smaller tattoos",
+        "piercing"
+      ],
+      "bioNote": "Fine line, floral, script, and detailed smaller tattoos; also offers piercing."
+    }
+  ],
+  "residentArtistCount": 3,
+  "dataSourceNote": "Canonical in-studio roster — update here first, then run prepare_seo.py and tools/seo_qa.py."
+}

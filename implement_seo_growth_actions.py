@@ -24,7 +24,7 @@ PRIORITY_URLS: tuple[tuple[str, str, str], ...] = (
     ("Piercing guide", "/piercing-guide-las-vegas/", "Main piercing hub"),
     ("Helix piercing", "/helix-piercing-las-vegas/", "Long-tail piercing page"),
     ("Piercing jewelry", "/piercing_jewelry_guide_las_vegas/", "Trust/quality support page"),
-    ("Near the Strip", "/tattoo_shop_near_the_strip_nap_corrected/", "Local geo hub"),
+    ("Near the Strip", "/tattoo-shop-near-las-vegas-strip/", "Local geo hub"),
     ("Near MGM Grand", "/tattoo_shop_near_mgm_grand_las_vegas/", "Hotel/location long-tail"),
     ("Near the Sphere", "/tattoo_shop_near_the_sphere_las_vegas/", "Event/location long-tail"),
     ("Reviews", "/reviews_vault_100_verified_masterpieces/", "Trust page"),
@@ -74,7 +74,7 @@ BLOCKS: dict[str, str] = {
             ("Cover-up tattoos", "/cover-up-tattoos-las-vegas/", "How we look at old ink, darkness, size, and whether laser needs to come first."),
             ("Fine line tattoos", "/fine_line_tattoos_las_vegas_master_authority_guide/", "What makes fine line work age well, where it works best, and when to adjust the idea."),
             ("Complete piercing guide", "/piercing-guide-las-vegas/", "Piercing placement, jewelry, healing, and how Katelyn plans anatomy-first work."),
-            ("Near the Strip", "/tattoo_shop_near_the_strip_nap_corrected/", "Studio directions and why a short ride off the Strip can be worth it."),
+            ("Near the Strip", "/tattoo-shop-near-las-vegas-strip/", "Studio directions and why a short ride off the Strip can be worth it."),
             ("Reviews and healed proof", "/reviews_vault_100_verified_masterpieces/", "Client reviews, proof, and what to look for before trusting a studio."),
         ),
     ),
@@ -192,7 +192,7 @@ Link: https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authori
 Staying near the Strip? Work of Art Tattoo & Piercing is a short ride from the resort corridor, with tattoos, piercings, consultations, and real studio portfolio work on display.
 
 CTA: Directions
-Link: https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/
+Link: https://www.workofarttattoo.com/tattoo-shop-near-las-vegas-strip/
 """,
         encoding="utf-8",
     )

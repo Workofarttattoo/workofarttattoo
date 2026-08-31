@@ -45,7 +45,7 @@ FORBIDDEN = {
     "wrong zip 89109": r"\b89109\b",
     "wrong zip 89101": r"\b89101\b",
     "old review count 2400": r"\b2,400\s+(google\s+)?reviews?\b|\b2400\s+(google\s+)?reviews?\b",
-    "wrong artist count two": r"\btwo\s+(resident\s+artists|in-studio\s+artists|artists\s+in\s+studio)\b",
+    "wrong artist count two": r"\btwo\s+(resident|in-studio)\s+(artists|specialists)\b|\b2\s+In-Studio\s+Specialists\b|\bTWO\s+RESIDENT\s+SPECIALISTS\b",
     "deprecated phone (725) 224-1240": r"725[-\s.]224[-\s.]2617",
     "deprecated phone (725) 224-1240": r"725[-\s.]224[-\s.]2931",
     "deprecated phone 725-260-6376": r"725[-\s.]260[-\s.]6376",
@@ -130,6 +130,7 @@ ELEVENLABS_RE = re.compile(
 )
 GEO_EXTRA_SLUGS = {
     "official_location_hours_contact",
+    "tattoo-shop-near-las-vegas-strip",
     "tattoo_shop_near_the_strip_nap_corrected",
     "tattoo_shop_near_the_strip_geo_seo_optimized",
     "vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know",
@@ -689,7 +690,7 @@ def validate_geo_page(
         robots_content = (robots.get("content", "") if robots else "").lower()
         canonical = soup.find("link", rel="canonical")
         canonical_href = canonical.get("href", "") if canonical else ""
-        expected = GEO_PAGE_REDIRECTS.get(slug) or "/tattoo_shop_near_the_strip_nap_corrected/"
+        expected = GEO_PAGE_REDIRECTS.get(slug) or "/tattoo-shop-near-las-vegas-strip/"
         if "noindex" not in robots_content:
             failures.append(f"{context}: retired geo page is not noindex")
         if f"/{slug}/" in canonical_href:

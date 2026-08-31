@@ -30,4 +30,4 @@ Link: https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authori
 Staying near the Strip? Work of Art Tattoo & Piercing is a short ride from the resort corridor, with tattoos, piercings, consultations, and real studio portfolio work on display.
 
 CTA: Directions
-Link: https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/
+Link: https://www.workofarttattoo.com/tattoo-shop-near-las-vegas-strip/
