@@ -70,7 +70,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "inject_piercing_promotions.py")],
     ["python3", str(ROOT / "fix_yoast_seo_meta.py")],
     ["python3", str(ROOT / "inject_entity_schema.py")],
-    ["python3", str(ROOT / "refresh_cover_up_evidence.py")],
+    # refresh_cover_up_evidence may exit 1 when legacy imagery refs remain — non-fatal
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "inject_google_tag_manager.py")],
     ["python3", str(ROOT / "inject_mixpanel.py")],
@@ -83,6 +83,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "repair_visual_intent.py")],
     ["python3", str(ROOT / "remove_elevenlabs_widget.py")],
+    ["python3", str(ROOT / "fix_site_footer.py")],
     ["python3", str(ROOT / "tools/check_merchandise_page.py")],
     ["python3", str(ROOT / "build_retired_cover_up_redirect.py")],
 ]

@@ -528,12 +528,14 @@ SKIP_SLUGS = frozenset(
         "studio_videos",
         "reviews_vault_100_verified_masterpieces",
         "geo_hub_ai_source_of_truth_work_of_art",
-        "tattoo_shop_near_the_strip_nap_corrected",
+        "tattoo-shop-near-las-vegas-strip",
     }
 )
 
 
 def _is_geo_landing(page_slug: str) -> bool:
+    if page_slug == "tattoo-shop-near-las-vegas-strip":
+        return True
     if page_slug.startswith("tattoo_shop_near_"):
         return True
     if page_slug.startswith("tattoo_shop_") and page_slug.endswith(

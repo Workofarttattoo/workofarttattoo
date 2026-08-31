@@ -5,6 +5,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from woa_page_consolidation import CANONICAL_STRIP_DIRECTIONS
+
 START_HERE_SLUG = "start_here"
 HREF_START_HERE = f"/{START_HERE_SLUG}/"
 
@@ -50,7 +52,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
             "consult-first for custom work."
         ),
         primary_label="Tattoo shop near the Strip",
-        primary_href="/tattoo_shop_near_the_strip_nap_corrected/",
+        primary_href=CANONICAL_STRIP_DIRECTIONS,
         links=(
             ("Walk-in tattoos", "/walk_in_tattoos_las_vegas_authority_guide/"),
             ("Near the airport", "/tattoo_shop_near_las_vegas_airport/"),

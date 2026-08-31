@@ -45,6 +45,25 @@ EMPTY_FOOTER_ROW_CLASSES = {
     "gap-4",
 }
 
+STUDIO_NAP_DEDUPE_RE = re.compile(
+    r'<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl"(?:\s[^>]*)?>\s*'
+    r'<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-\[11px\]">Studio</h5>\s*'
+    r'<p class="mt-3 text-on-surface-variant text-\[13px\] font-body-md leading-relaxed">'
+    r"Work of Art Tattoo &amp; (?:Piercing|piercing)<br/>2375 E\. Tropicana Ave, Suite 3<br/>"
+    r"Las Vegas, NV 89119<br/>[\s\S]*?Daily 12 PM–12 AM</p>\s*</div>",
+    re.I,
+)
+
+
+def dedupe_studio_nap_blocks(raw: str) -> str:
+    """Keep one Studio NAP footer block; remove accidental duplicates."""
+    matches = list(STUDIO_NAP_DEDUPE_RE.finditer(raw))
+    if len(matches) <= 1:
+        return raw
+    for match in reversed(matches[1:]):
+        raw = raw[: match.start()] + raw[match.end() :]
+    return raw
+
 SLIM_FOOTER_INNER = f"""
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
 <div class="space-y-3">
@@ -104,6 +123,12 @@ def trim_footer(soup: BeautifulSoup) -> bool:
     if not grid:
         return False
     changed = remove_empty_footer_rows(soup)
+    # Remove legacy Studio NAP blocks before injecting the slim footer (avoids duplicates).
+    for nap_div in list(soup.find_all("div", class_=lambda c: c and "mt-10" in (c or []) and "max-w-3xl" in (c or []))):
+        h5 = nap_div.find("h5")
+        if h5 and h5.get_text(strip=True).lower() == "studio":
+            nap_div.decompose()
+            changed = True
     slim = BeautifulSoup(SLIM_FOOTER_INNER, "html.parser")
     grid.replace_with(slim)
     # Drop duplicate copyright row if still present above slim block
@@ -157,7 +182,8 @@ def main() -> int:
         if trim_internal_links(soup):
             changed = True
         if changed:
-            path.write_text(str(soup), encoding="utf-8")
+            updated = dedupe_studio_nap_blocks(str(soup))
+            path.write_text(updated, encoding="utf-8")
             print(f"[ok] {path.relative_to(ROOT)}")
             n += 1
     print(f"done — updated {n} file(s)")

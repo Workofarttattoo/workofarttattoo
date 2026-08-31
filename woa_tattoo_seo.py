@@ -13,9 +13,11 @@ from woa_nav_config import (
     STUDIO_STREET_ADDRESS,
 )
 
+from woa_page_consolidation import CANONICAL_STRIP_DIRECTIONS
+
 BOOK = "/appointments/"
 JOSHUA_PAGE = "/artists/joshua-cole/"
-LOCATION_PAGE = "/tattoo_shop_near_the_strip_nap_corrected/"
+LOCATION_PAGE = CANONICAL_STRIP_DIRECTIONS
 REALISM_GUIDE = "/realism_tattoos_las_vegas_master_authority_guide/"
 DESERT_AFTERCARE = "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"
 PHONE_TEL = STUDIO_PHONE_TEL

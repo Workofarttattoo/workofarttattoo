@@ -26,7 +26,7 @@ ROWS = [
         "redirect_target": "",
     },
     {
-        "url": "/tattoo_shop_near_the_strip_nap_corrected/",
+        "url": "/tattoo-shop-near-las-vegas-strip/",
         "page_type": "geo_hub",
         "action": "KEEP_IMPROVE",
         "primary_intent": "Help Strip visitors plan tattoo and piercing appointments around hotels, shows, flights, pools, and sun.",
@@ -166,7 +166,7 @@ ROWS = [
         "indexing_reason": "Does not deserve independent indexing after consolidation.",
         "factual_cleanup": "Legacy exact minutes/free-lot claims retired behind redirect placeholder.",
         "risk_fixed_or_remaining": "Redirect preserves any legacy signals while removing duplicate indexable content.",
-        "redirect_target": "/tattoo_shop_near_the_strip_nap_corrected/",
+        "redirect_target": "/tattoo-shop-near-las-vegas-strip/",
     },
 ]
 

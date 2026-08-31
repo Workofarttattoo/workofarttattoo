@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent
 MARKER = 'data-woa-official-nap-link="1"'
 
 STRIP_SLUGS: tuple[str, ...] = (
+    "tattoo-shop-near-las-vegas-strip",
     "tattoo_shop_near_the_strip_nap_corrected",
     "tattoo_shop_near_the_strip_geo_seo_optimized",
 )

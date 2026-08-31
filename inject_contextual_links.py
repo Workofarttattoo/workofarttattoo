@@ -99,7 +99,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
         "Walk-in & booking cluster",
         [
             ("Flash deals under $100", "/flash_art_deals_under_100/"),
-            ("Studio location near the Strip", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Studio location near the Strip", "/tattoo-shop-near-las-vegas-strip/"),
             ("What to know before you ink", "/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/"),
             ("Tattoo pricing guide", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/"),
             ("Book ahead", "/appointments/"),
@@ -119,7 +119,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
         "Las Vegas location cluster",
         [
             ("Official hours & location", "/official_location_hours_contact/"),
-            ("Directions from the Strip", "/tattoo_shop_near_the_strip_nap_corrected/"),
+            ("Directions from the Strip", "/tattoo-shop-near-las-vegas-strip/"),
             ("Walk-in tattoos", "/walk-in-tattoos-las-vegas/"),
             ("Book appointment", "/appointments/"),
         ],

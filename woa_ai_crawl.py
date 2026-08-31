@@ -127,7 +127,7 @@ def _build_llms_txt() -> str:
             "",
             f"- [Official location, hours & contact (NAP)]({SITE_ORIGIN}/official_location_hours_contact/)",
             f"- [Desert tattoo aftercare]({SITE_ORIGIN}/tattoo-aftercare-desert-climate/)",
-            f"- [Studio location & hours]({SITE_ORIGIN}/tattoo_shop_near_the_strip_nap_corrected/)",
+            f"- [Studio location & hours]({SITE_ORIGIN}/tattoo-shop-near-las-vegas-strip/)",
             f"- [How to choose an artist]({SITE_ORIGIN}/how_to_choose_a_tattoo_artist_master_selection_guide_2/)",
             f"- [Fine line tattoos]({SITE_ORIGIN}/fine_line_tattoos_las_vegas_master_authority_guide/)",
             f"- [Piercing & jewelry standards]({SITE_ORIGIN}/best_piercing_shop_las_vegas_updated_jewelry_standards/)",

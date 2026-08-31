@@ -1,5 +1,6 @@
 {
   "googleRating": 5.0,
   "googleReviewCount": 323,
-  "sourceNote": "Owner-supplied current Google rating/review count. Do not add AggregateRating schema unless platform policy and visible evidence support it."
+  "displayPhrase": "Hundreds of Google reviews",
+  "sourceNote": "Owner-supplied current Google rating/review count. Use displayPhrase in visible copy; do not hard-code exact counts that become stale. Do not add AggregateRating schema unless platform policy and visible evidence support it."
 }

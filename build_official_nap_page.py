@@ -116,7 +116,7 @@ def main_html() -> str:
 <div class="aspect-video w-full border border-outline-variant/40 overflow-hidden bg-surface-container">
 <iframe allowfullscreen="" height="100%" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="{MAP_EMBED}" style="border:0;" title="Work of Art Tattoo &amp; Piercing on Google Maps" width="100%"></iframe>
 </div>
-<p class="font-body-md"><a class="text-secondary underline hover:no-underline" href="{MAP_LINK}" rel="noopener noreferrer" target="_blank">Open directions in Google Maps</a> · <a class="text-secondary underline hover:no-underline" href="/tattoo_shop_near_the_strip_nap_corrected/">Strip-area driving guide</a></p>
+<p class="font-body-md"><a class="text-secondary underline hover:no-underline" href="{MAP_LINK}" rel="noopener noreferrer" target="_blank">Open directions in Google Maps</a> · <a class="text-secondary underline hover:no-underline" href="/tattoo-shop-near-las-vegas-strip/">Strip-area driving guide</a></p>
 </div>
 </section>
 

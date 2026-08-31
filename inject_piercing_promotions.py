@@ -17,6 +17,7 @@ PROMO_TARGETS: dict[str, tuple[str, str]] = {
     "home_work_of_art_tattoo_piercing": ("compact", "homepage"),
     "artists/katelyn-cole": ("standard", "katelyn-artist"),
     "ear_piercing_guide_las_vegas": ("compact", "ear-guide"),
+    "tattoo-shop-near-las-vegas-strip": ("compact", "near-strip"),
     "tattoo_shop_near_the_strip_nap_corrected": ("compact", "near-strip"),
     "tattoo_piercing_shop_near_unlv": ("compact", "unlv"),
     "tattoo_shop_near_paradise_las_vegas": ("compact", "paradise"),

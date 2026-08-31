@@ -234,7 +234,7 @@ NAV_PIERCING_GUIDE_SLUGS: tuple[str, ...] = (
 
 NAV_LOCATION_SLUGS: tuple[str, ...] = (
     "official_location_hours_contact",
-    "tattoo_shop_near_the_strip_nap_corrected",
+    "tattoo-shop-near-las-vegas-strip",
     "tattoo_shop_near_mgm_grand_las_vegas",
     "tattoo_shop_near_allegiant_stadium_las_vegas",
     "tattoo_shop_near_las_vegas_airport",
@@ -481,7 +481,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Tattoo Shop Near the Strip",
         "Location, parking, and why locals and tourists choose us minutes from the Las Vegas Strip.",
     ),
-    "tattoo_shop_near_the_strip_nap_corrected": (
+    "tattoo-shop-near-las-vegas-strip": (
         "Studio Location & Hours",
         "Directions to Work of Art at 2375 E. Tropicana Ave, Suite 3 — easy access from the Strip and airport.",
     ),

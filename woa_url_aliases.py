@@ -87,6 +87,11 @@ URL_ALIASES: tuple[UrlAlias, ...] = (
         "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison",
         "Studio vs Strip Shops",
     ),
+    UrlAlias(
+        "tattoo-shop-near-las-vegas-strip",
+        "tattoo_shop_near_the_strip_nap_corrected",
+        "Tattoo Shop Near the Las Vegas Strip | Work of Art",
+    ),
 )
 
 ALIASES_BY_SHORT: dict[str, UrlAlias] = {a.short_slug: a for a in URL_ALIASES}
