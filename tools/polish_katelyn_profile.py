@@ -20,7 +20,9 @@ BIO_BLOCK = """<h2 class="text-headline-lg font-headline-lg mb-12">About Katelyn
 <p>Appointments are practical and unhurried: anatomy check, placement mark, jewelry discussion, piercing, and clear aftercare. Single-use needles and the studio's sterilization and surface-disinfection procedures are part of the normal setup.</p>
 <h3 class="text-headline-md text-on-surface mt-12 mb-4">Aftercare and follow-up</h3>
 <p>Katelyn talks through pressure, snagging, sleep, headphones, swimming, downsizing, and other everyday factors that can affect healing. Healing time varies by placement, anatomy, jewelry, aftercare, pressure, and individual biology.</p>
-</div></div>
+</div>
+</div>
+</section>
 """
 
 
