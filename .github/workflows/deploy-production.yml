@@ -198,6 +198,18 @@ jobs:
           hits = [p for p in banned_home if p.lower() in home.lower()]
           if hits:
               raise SystemExit('Homepage still contains banned phrases: ' + ', '.join(hits))
+          import re as _re
+          nap_footer_count = len(_re.findall(
+              r'<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl"[^>]*>\s*'
+              r'<h5[^>]*>Studio</h5>\s*'
+              r'<p class="mt-3 text-on-surface-variant[^"]*"[^>]*>'
+              r'Work of Art Tattoo &amp; Piercing<br/>2375 E\. Tropicana Ave, Suite 3<br/>'
+              r'Las Vegas, NV 89119<br/>[\s\S]*?Daily 12 PM–12 AM</p>\s*</div>',
+              home,
+              flags=_re.I,
+          ))
+          if nap_footer_count > 1:
+              raise SystemExit(f'Homepage has {nap_footer_count} duplicate Studio NAP footer blocks; expected 1')
           public_gmails = ('thewhiteknight702@gmail.com', 'kmorgen14@gmail.com')
           for path in Path('.').rglob('*.html'):
               if any(part in path.parts for part in ('.git', '.github', 'tools', 'audits', 'skipped_upload_build', 'artists_raw')):

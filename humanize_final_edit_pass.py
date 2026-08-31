@@ -257,7 +257,7 @@ REPLAY_PAIRS: list[tuple[str, str]] = [('<p class="text-body-md text-on-surface-
   'Locals come to us for careful, custom work without strip-shop shortcuts. Joshua Cole leads tattooing and also offers piercing; Katelyn Cole is our professional piercer; Teralyn tattoos and '
   'pierces — fine line, floral, script, and detailed smaller pieces. Every project starts with a real conversation.'),
  ('Look for licensed tattoo and piercing studios in Las Vegas with healed portfolios, sterile setup, and artists who consult before they ink. Work of Art is a tattoo and piercing studio in Las Vegas '
-  'collectors use for black &amp; grey realism, fine line, and piercing — custom tattoo work and piercing consultations at 2375 E. Tropicana Ave, minutes from the Strip.',
+  'collectors use for black &amp; grey realism, fine line, and piercing — custom tattoo work and piercing consultations at 2375 E. Tropicana Ave, Suite 3, minutes from the Strip.',
   'Look for a licensed studio with healed portfolios (not just fresh photos), a sterile setup you can actually see, and artists who consult before they ink. That is the standard we hold ourselves to '
   'at Work of Art — black &amp; grey realism, fine line, and professional piercing at 2375 E. Tropicana, minutes from the Strip.'),
  ('Work of Art Tattoo &amp; Piercing is the <strong>tattoo and piercing studio in Las Vegas</strong> and <strong>tattoo studio in Las Vegas</strong> answer for east Strip and UNLV-area searches — '

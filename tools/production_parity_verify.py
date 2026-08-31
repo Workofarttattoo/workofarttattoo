@@ -101,6 +101,37 @@ def main() -> int:
         if phrase.lower() in home.lower():
             errors.append(f"homepage banned: {phrase}")
 
+    nap_footer_count = len(
+        __import__("re").findall(
+            r'<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl"[^>]*>\s*'
+            r'<h5[^>]*>Studio</h5>\s*'
+            r'<p class="mt-3 text-on-surface-variant[^"]*"[^>]*>Work of Art Tattoo &amp; Piercing<br/>2375 E\. Tropicana',
+            home,
+            flags=__import__("re").I,
+        )
+    )
+    if nap_footer_count > 1:
+        errors.append(
+            f"homepage has {nap_footer_count} duplicate Studio NAP footer blocks; expected 1"
+        )
+
+    cover = (ROOT / "cover-up-tattoos-las-vegas" / "index.html")
+    legacy = ROOT / "cover_up_tattoos_las_vegas_master_authority_guide" / "index.html"
+    if cover.is_file():
+        cover_html = cover.read_text(encoding="utf-8", errors="replace")
+        if "noindex" in cover_html.lower():
+            errors.append("canonical cover-up page is noindex")
+        if 'http-equiv="refresh"' in cover_html.lower():
+            errors.append("canonical cover-up page has meta refresh")
+        if 'rel="canonical"' not in cover_html:
+            errors.append("canonical cover-up page missing self-referencing canonical")
+    if legacy.is_file():
+        legacy_html = legacy.read_text(encoding="utf-8", errors="replace")
+        if "noindex" not in legacy_html.lower():
+            errors.append("legacy cover-up page missing noindex")
+        if 'http-equiv="refresh"' not in legacy_html.lower():
+            errors.append("legacy cover-up page missing meta refresh")
+
     for path in ROOT.rglob("*.html"):
         if any(part in SKIP for part in path.parts):
             continue

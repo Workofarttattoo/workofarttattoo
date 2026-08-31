@@ -189,6 +189,22 @@ def verify_homepage() -> None:
         if needle in html:
             errors.append(f"still has {label}")
 
+    nap_footer_count = len(
+        re.findall(
+            r'<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl"[^>]*>\s*'
+            r'<h5[^>]*>Studio</h5>\s*'
+            r'<p class="mt-3 text-on-surface-variant[^"]*"[^>]*>'
+            r'Work of Art Tattoo &amp; Piercing<br/>2375 E\. Tropicana Ave, Suite 3<br/>'
+            r'Las Vegas, NV 89119<br/>[\s\S]*?Daily 12 PM–12 AM</p>\s*</div>',
+            html,
+            flags=re.I,
+        )
+    )
+    if nap_footer_count > 1:
+        errors.append(
+            f"homepage has {nap_footer_count} duplicate Studio NAP footer blocks; expected 1"
+        )
+
     masonry = re.search(
         r'id="home-gallery-masonry"[\s\S]*?</section>',
         html,

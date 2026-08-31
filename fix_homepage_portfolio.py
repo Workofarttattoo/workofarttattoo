@@ -9,6 +9,15 @@ from pathlib import Path
 
 from PIL import Image, ImageOps
 
+from woa_nav_config import (
+    HREF_INSTAGRAM_JOSHUA,
+    HREF_INSTAGRAM_JOSHUA_HANDLE,
+    HREF_INSTAGRAM_KATELYN,
+    HREF_INSTAGRAM_KATELYN_HANDLE,
+    HREF_INSTAGRAM_TERALYN,
+    HREF_INSTAGRAM_TERALYN_HANDLE,
+)
+
 ROOT = Path(__file__).resolve().parent
 HOME = ROOT / "home_work_of_art_tattoo_piercing"
 CODE = HOME / "code.html"
@@ -295,7 +304,7 @@ def artist_cards_html() -> str:
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Joshua Cole</span>
 <span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Tattoo Artist / Studio Lead</span>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/workofarttattoo/" rel="noopener noreferrer" target="_blank">@workofarttattoo</a>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="{HREF_INSTAGRAM_JOSHUA}" rel="noopener noreferrer" target="_blank">@{HREF_INSTAGRAM_JOSHUA_HANDLE}</a>
 </div>
 <div class="text-center">
 <a class="group block" href="/artists/katelyn-cole/">
@@ -306,7 +315,7 @@ def artist_cards_html() -> str:
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Katelyn Cole</span>
 <span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Professional Piercer</span>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/stabislifee/" rel="noopener noreferrer" target="_blank">@stabislifee</a>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="{HREF_INSTAGRAM_KATELYN}" rel="noopener noreferrer" target="_blank">@{HREF_INSTAGRAM_KATELYN_HANDLE}</a>
 </div>
 <div class="text-center">
 <a class="group block" href="/artists/teralyn/">
@@ -317,7 +326,7 @@ def artist_cards_html() -> str:
 <span class="font-label-caps text-label-caps text-on-surface group-hover:text-secondary transition-colors block">Teralyn</span>
 <span class="font-body-md text-[13px] text-on-surface-variant block mt-1">Fine Line · Floral · Script</span>
 </a>
-<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="https://www.instagram.com/mischiefmodifies/" rel="noopener noreferrer" target="_blank">@mischiefmodifies</a>
+<a class="font-body-md text-[12px] text-secondary hover:underline block mt-2" href="{HREF_INSTAGRAM_TERALYN}" rel="noopener noreferrer" target="_blank">@{HREF_INSTAGRAM_TERALYN_HANDLE}</a>
 </div>
 </div>"""
 

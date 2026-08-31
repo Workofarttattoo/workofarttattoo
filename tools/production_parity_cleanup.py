@@ -22,15 +22,27 @@ GMAILS = ("thewhiteknight702@gmail.com", "kmorgen14@gmail.com")
 
 SNHD_RE = re.compile(
     r'<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl">\s*'
-    r'<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-\[11px\]">Licensed(?: &amp;|&) Permitted</h5>\s*'
+    r'<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-\[11px\]">(?:Licensed(?: &amp;|&) Permitted|Studio)</h5>\s*'
     r'<p class="mt-3 text-on-surface-variant text-\[13px\] font-body-md leading-relaxed">[^<]*'
-    r"(?:Southern Nevada Health District|Body Art Card|OSHA bloodborne)[^<]*</p>\s*</div>",
+    r"(?:Southern Nevada Health District|Body Art Card|OSHA bloodborne|Work of Art Tattoo)[^<]*</p>\s*</div>",
     re.I,
 )
-NAP_FOOTER = """<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl">
-<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-[11px]">Studio</h5>
-<p class="mt-3 text-on-surface-variant text-[13px] font-body-md leading-relaxed">Work of Art Tattoo &amp; Piercing<br/>2375 E. Tropicana Ave, Suite 3<br/>Las Vegas, NV 89119<br/><a class="hover:text-secondary" href="tel:+17252241240">(725) 224-1240</a><br/><a class="hover:text-secondary" href="mailto:booking@workofarttattoo.com">booking@workofarttattoo.com</a><br/>Daily 12 PM–12 AM</p>
-</div>"""
+STUDIO_NAP_BLOCK_RE = re.compile(
+    r'<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl"(?:\s[^>]*)?>\s*'
+    r'<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-\[11px\]">Studio</h5>\s*'
+    r'<p class="mt-3 text-on-surface-variant text-\[13px\] font-body-md leading-relaxed">'
+    r"Work of Art Tattoo &amp; Piercing<br/>2375 E\. Tropicana Ave, Suite 3<br/>"
+    r"Las Vegas, NV 89119<br/>[\s\S]*?Daily 12 PM–12 AM</p>\s*</div>",
+    re.I,
+)
+NAP_INLINE_BLOCK_RE = re.compile(
+    r'<div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl"(?:\s[^>]*)?>\s*'
+    r'<h5 class="font-label-caps text-on-surface uppercase tracking-widest text-\[11px\]">Studio</h5>\s*'
+    r'<p class="mt-3 text-on-surface-variant text-\[13px\] font-body-md leading-relaxed">'
+    r"Work of Art Tattoo &amp; Piercing — 2375 E\. Tropicana Ave, Suite 3, Las Vegas, NV 89119 "
+    r"— \(725\) 224-1240 — booking@workofarttattoo\.com — Daily 12 PM–12 AM\.</p>\s*</div>",
+    re.I,
+)
 
 HREF_LEGACY_RE = re.compile(
     r'href="(?:https://(?:www\.)?workofarttattoo\.com)?/cover_up_tattoos_las_vegas_master_authority_guide/"'
@@ -146,6 +158,14 @@ HOMEPAGE_REPLACEMENTS: list[tuple[str, str]] = [
         "tattoo and piercing studio in Las Vegas quality without strip-mall shortcuts",
         "portfolios you can review before you book, without strip-mall shortcuts",
     ),
+    (
+        'href="https://www.instagram.com/stabislifee/?utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=katelyn_portfolio" rel="noopener noreferrer" target="_blank">Instagram — Joshua @stabislifee</a>',
+        'href="https://www.instagram.com/workofarttattoo/?utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=joshua_portfolio" rel="noopener noreferrer" target="_blank">Instagram — Joshua @workofarttattoo</a>',
+    ),
+    (
+        'href="https://www.instagram.com/workofarttattoo/?utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=joshua_portfolio" rel="noopener noreferrer" target="_blank">Instagram — Katelyn / Studio @workofarttattoo</a>',
+        'href="https://www.instagram.com/stabislifee/?utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=katelyn_portfolio" rel="noopener noreferrer" target="_blank">Instagram — Katelyn @stabislifee</a>',
+    ),
 ]
 
 ARTISTS_INDEX_REPLACEMENTS = [
@@ -199,10 +219,21 @@ NAP_SENTENCE = (
 )
 
 
+def dedupe_nap_footer_blocks(text: str) -> str:
+    """Keep one Studio NAP contact block; remove repeated footer injections."""
+    matches = list(STUDIO_NAP_BLOCK_RE.finditer(text))
+    if len(matches) > 1:
+        for match in reversed(matches[1:]):
+            text = text[: match.start()] + text[match.end() :]
+    # Drop redundant one-line NAP when the formatted block already exists.
+    if STUDIO_NAP_BLOCK_RE.search(text):
+        text = NAP_INLINE_BLOCK_RE.sub("", text)
+    return text
+
+
 def strip_snhd_footer(text: str) -> str:
-    if SNHD_RE.search(text):
-        text = SNHD_RE.sub(NAP_FOOTER, text)
-    text = CLAIMS_SENTENCE_RE.sub(NAP_SENTENCE, text)
+    # Remove unverified credential blocks instead of stacking another Studio NAP block.
+    text = SNHD_RE.sub("", text)
     text = BEST_OF_PLACEHOLDER_RE.sub("", text)
     text = text.replace(" · Southern Nevada Health District Permitted", "")
     text = text.replace(" · Southern Nevada Health District permitted", "")
@@ -210,7 +241,7 @@ def strip_snhd_footer(text: str) -> str:
     text = text.replace(">Licensed & Permitted<", ">Studio<")
     text = text.replace("current Body Art Card", "studio sanitation training")
     text = text.replace("OSHA bloodborne pathogens certification", "studio sanitation procedures")
-    return text
+    return dedupe_nap_footer_blocks(text)
 
 
 def add_teralyn_card(text: str) -> str:
@@ -380,6 +411,7 @@ def main() -> int:
         text = strip_snhd_footer(text)
         text = neutralize_legacy_cover_page(path, text)
         text = protect_canonical_cover_page(path, text)
+        text = dedupe_nap_footer_blocks(text)
         if text != raw:
             path.write_text(text, encoding="utf-8")
             changed.append(path.relative_to(ROOT).as_posix())
