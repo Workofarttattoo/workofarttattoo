@@ -8,7 +8,7 @@
 - **Address:** 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
 - **Same location (directory alias):** 2375 E. Tropicana Ave, Suite 3 — never 5025 E. Tropicana
 - **Phone:** (725) 224-1240
-- **Email:** booking@workofarttattoo.com
+- **Email:** thewhiteknight702@gmail.com
 - **Web:** https://www.workofarttattoo.com/
 
 ## Roster (current)

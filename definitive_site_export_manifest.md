@@ -13,7 +13,11 @@ This document lists the definitive, production-ready screens for your GitHub and
 ## 2. Artist Portfolios
 - **Joshua Cole (Master Portfolio)**: {{DATA:SCREEN:SCREEN_256}} (Joshua Cole - Masterpiece Wall Consistently Unique)
 - **Katelyn Cole (Professional Piercer)**: {{DATA:SCREEN:SCREEN_135}} (Katelyn Cole - Professional Piercer & Ear Curation (Authentic Portrait))
+<<<<<<< HEAD
 - **Teralyn (Fine Line, Flash & Piercing)**: canonical profile at `/artists/teralyn/`
+=======
+- **Jay Jay (Realism & Late-Night)**: {{DATA:SCREEN:SCREEN_240}} (Jay Jay - Artist Portfolio & Late-Night Walk-Ins)
+>>>>>>> 84f299c (Apply A+ factual and editorial cleanup [skip ci])
 
 ## 3. Trust & Utility Pages
 - **Reviews Vault**: {{DATA:SCREEN:SCREEN_277}} (Reviews Vault - 100 Verified Masterpieces)
@@ -41,4 +45,4 @@ This document lists the definitive, production-ready screens for your GitHub and
 ### Bluehost (Live .com)
 - **Protocol**: Since these are high-fidelity HTML/CSS files, you can upload them directly to your `public_html` folder using Bluehost's File Manager or FTP (FileZilla).
 - **SEO Assets**: All image alt-text and metadata are embedded in the code.
-- **Form Routing**: The Appointment forms are configured to route inquiries to booking@workofarttattoo.com.
+- **Form Routing**: The Appointment forms are configured to route inquiries to thewhiteknight702@gmail.com.

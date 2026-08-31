@@ -45,9 +45,8 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-# Sitemaps (primary index for Google + static HTML export)
+# Sitemap index (points at the static HTML urlset)
 Sitemap: https://www.workofarttattoo.com/sitemap.xml
-Sitemap: https://www.workofarttattoo.com/sitemap-static-pages.xml
 
 # AI / LLM discovery (human-readable indexes — not robots directives)
 # LLM index: https://www.workofarttattoo.com/llms.txt
