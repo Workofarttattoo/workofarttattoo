@@ -11,6 +11,19 @@ from woa_nav_config import SITE_CANONICAL_HOST
 
 ROOT = Path(__file__).resolve().parent
 
+# Legacy overlap pages outside GEO_PAGES that should not stay indexable.
+EXTRA_CONSOLIDATION_STUBS: dict[str, str] = {
+    "tattoo_shop_near_the_strip_geo_seo_optimized": "/tattoo_shop_near_the_strip_nap_corrected/",
+}
+
+
+def write_stub(slug: str, target: str) -> None:
+    out_dir = ROOT / slug
+    out_dir.mkdir(parents=True, exist_ok=True)
+    html_text = redirect_html(slug, target)
+    (out_dir / "code.html").write_text(html_text, encoding="utf-8")
+    (out_dir / "index.html").write_text(html_text, encoding="utf-8")
+
 
 def redirect_html(slug: str, target: str) -> str:
     title = "Redirecting | Work of Art"
@@ -44,6 +57,10 @@ def main() -> int:
         out_dir = ROOT / slug
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "code.html").write_text(redirect_html(slug, target), encoding="utf-8")
+        count += 1
+        print(f"[redirect] /{slug}/ -> {target}")
+    for slug, target in sorted(EXTRA_CONSOLIDATION_STUBS.items()):
+        write_stub(slug, target)
         count += 1
         print(f"[redirect] /{slug}/ -> {target}")
     print(f"Done: {count} retired geo redirect placeholder(s)")

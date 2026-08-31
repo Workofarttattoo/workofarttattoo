@@ -175,6 +175,24 @@ ARTISTS_INDEX_REPLACEMENTS = [
     ),
 ]
 
+WALK_IN_REPLACEMENTS: list[tuple[str, str]] = [
+    ("TWO RESIDENT SPECIALISTS", "3 IN-STUDIO RESIDENTS"),
+    ("Two resident specialists", "Three in-studio residents"),
+    ("two resident specialists", "three in-studio residents"),
+]
+
+REVIEW_COUNT_REPLACEMENTS: list[tuple[str, str]] = [
+    ("5.0 RATING (480+ REVIEWS)", "5.0 RATING (323 REVIEWS)"),
+    ("5.0 RATING (480 + REVIEWS)", "5.0 RATING (323 REVIEWS)"),
+    ("5.0 RATING (hundreds of Google reviews)", "5.0 RATING (323 Google reviews)"),
+    ("hundreds of Google reviews, 5.0 RATING", "323 Google reviews, 5.0 RATING"),
+    ("Hundreds of Google Reviews", "323 Google Reviews"),
+    ("hundreds of Google reviews", "323 Google reviews"),
+    ("480+ REVIEWS", "323 REVIEWS"),
+    ("480+ reviews", "323 reviews"),
+    ("480+ Google reviews", "323 Google reviews"),
+]
+
 
 def iter_html() -> list[Path]:
     out = []
@@ -326,6 +344,39 @@ def fix_homepage(text: str) -> str:
     return text
 
 
+def fix_walk_in_copy(text: str) -> str:
+    for old, new in WALK_IN_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def fix_review_counts(text: str, path: Path) -> str:
+    scoped = (
+        "walk_in_tattoos_las_vegas_authority_guide" in path.as_posix()
+        or "walk-in-tattoos-las-vegas" in path.as_posix()
+        or "home_work_of_art_tattoo_piercing" in path.as_posix()
+        or path.name in {"code.html", "index.html"} and path.parent == ROOT
+    )
+    if not scoped:
+        return text
+    for old, new in REVIEW_COUNT_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def fix_katelyn_grammar(text: str) -> str:
+    replacements = {
+        "she has focuses": "she focuses",
+        "Katelyn has uses": "Katelyn uses",
+        "clean studio process for clean studio process": "clean studio process",
+        "careful placement in a Luxury Environment": "Clean studio practices",
+        "Professional Piercer in Las Vegas\" by a loyal clientele": "professional piercer\" by clients",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    return text
+
+
 def protect_canonical_cover_page(path: Path, text: str) -> str:
     """The clean cover-up URL must stay indexable. Never inherit the stub's noindex/refresh."""
     if "cover-up-tattoos-las-vegas" not in path.as_posix():
@@ -398,14 +449,27 @@ def main() -> int:
         ROOT / "home_work_of_art_tattoo_piercing" / "code.html",
         ROOT / "home_work_of_art_tattoo_piercing" / "index.html",
     }
+    walk_in_markers = (
+        "walk_in_tattoos_las_vegas_authority_guide",
+        "walk-in-tattoos-las-vegas",
+    )
+    katelyn_markers = (
+        "artists/katelyn-cole/",
+        "artists_build/katelyn-cole.html",
+    )
     for path in iter_html():
         raw = path.read_text(encoding="utf-8", errors="replace")
         text = raw
         if path in homepage_names or path.name in {"code.html", "index.html"} and "home_work_of_art" in path.as_posix():
             text = fix_homepage(text)
+        if any(marker in path.as_posix() for marker in walk_in_markers):
+            text = fix_walk_in_copy(text)
+        if any(marker in path.as_posix() for marker in katelyn_markers):
+            text = fix_katelyn_grammar(text)
         if path.as_posix().endswith("artists/index.html") or path.as_posix().endswith("artists/code.html"):
             for old, new in ARTISTS_INDEX_REPLACEMENTS:
                 text = text.replace(old, new)
+        text = fix_review_counts(text, path)
         text = replace_public_email(text)
         text = rewrite_cover_hrefs(text)
         text = strip_snhd_footer(text)
