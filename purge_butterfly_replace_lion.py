@@ -18,12 +18,14 @@ BUTTERFLY_ASSET_GLOBS = (
     "**/color-butterfly-back-tattoo-las-vegas.*",
     "**/realism-tattoos-color-butterfly-and-floral-coverup.*",
     "**/blue-butterfly-color-tattoo-rework-las-vegas*",
+    "**/cover-up-tattoo-faded-butterflies-hand-before*",
 )
 
 BUTTERFLY_PATTERNS: tuple[tuple[str, str], ...] = (
     ("color-butterfly-back-tattoo-las-vegas", LION_STEM),
     ("realism-tattoos-color-butterfly-and-floral-coverup", LION_STEM),
     ("blue-butterfly-color-tattoo-rework-las-vegas", LION_STEM),
+    ("cover-up-tattoo-faded-butterflies-hand-before", LION_STEM),
     (
         "img_0279.jpeg/realism-tattoos-color-butterfly-and-floral-coverup",
         f"home_work_of_art_tattoo_piercing/client-portfolio/{LION_STEM}",
