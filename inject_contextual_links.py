@@ -34,6 +34,8 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
             ("Tattoo healing — fresh to healed", "/tattoo_healing_before_after_real_results/"),
             ("Desert climate aftercare", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
             ("Why tattoos stay forever", "/why_tattoos_stay_forever_skin_science_las_vegas_authority_guide/"),
+            ("Fine line longevity", "/fine_line_tattoos_las_vegas_master_authority_guide/"),
+            ("Cover-up tattoo consultations", "/cover-up-tattoos-las-vegas/"),
             ("Joshua Cole — artist page", "/artists/joshua-cole/"),
             ("Book tattoo consult", "/appointments/"),
         ],
@@ -64,9 +66,10 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
     "fine_line": (
         "Fine line cluster",
         [
-            ("Fine line tattoos in Vegas", "/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/"),
+            ("Fine line tattoos in Las Vegas", "/fine_line_tattoos_las_vegas_master_authority_guide/"),
+            ("Teralyn — floral fine line", "/artists/teralyn/"),
+            ("How to choose a fine line artist", "/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/"),
             ("Healing in desert climate", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
-            ("Pain & placement chart", "/tattoo_pain_chart_placement_sensitivity_guide/"),
             ("Joshua Cole portfolio", "/artists/joshua-cole/"),
             ("Book appointment", "/appointments/"),
         ],
