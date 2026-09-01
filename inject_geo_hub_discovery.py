@@ -12,6 +12,7 @@ from woa_ai_crawl import (
     ai_crawl_endpoints_html,
     authoritative_canonical_links_html,
     search_ai_discovery_html,
+    tattoo_piercing_truth_hub_html,
 )
 
 ROOT = Path(__file__).resolve().parent
@@ -54,6 +55,14 @@ def inject_geo_hub_discovery(html: str) -> str:
         html = _replace_section(html, "search-ai-discovery", search_ai_discovery_html())
     else:
         html = _insert_after_section(html, "ai-crawl-endpoints", search_ai_discovery_html())
+    if 'id="tattoo-piercing-truth-hub"' in html:
+        html = _replace_section(
+            html, "tattoo-piercing-truth-hub", tattoo_piercing_truth_hub_html()
+        )
+    else:
+        html = _insert_after_section(
+            html, "search-ai-discovery", tattoo_piercing_truth_hub_html()
+        )
     if 'id="authoritative-canonical-pages"' in html:
         html = _replace_section(
             html, "authoritative-canonical-pages", authoritative_canonical_links_html()
