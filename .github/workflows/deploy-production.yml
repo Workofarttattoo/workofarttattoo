@@ -266,6 +266,18 @@ jobs:
               raise SystemExit('Repeated broken internal links block deployment: ' + ', '.join(f'{u} ({n})' for u,n in sorted(severe)[:30]))
           PY
 
+      - name: Capture previous production SHA (for IndexNow diff)
+        id: prev_deploy
+        run: |
+          set -euo pipefail
+          git fetch origin gh-pages 2>/dev/null || true
+          prev=""
+          if git cat-file -e origin/gh-pages:DEPLOYED_MAIN_SHA 2>/dev/null; then
+            prev="$(git show origin/gh-pages:DEPLOYED_MAIN_SHA | tr -d '\n')"
+          fi
+          echo "sha=$prev" >> "$GITHUB_OUTPUT"
+          echo "Previous production SHA: ${prev:-none}"
+
       - name: Publish generated site to gh-pages
         run: |
           set -euo pipefail
@@ -426,4 +438,29 @@ jobs:
               time.sleep(15)
 
           raise SystemExit('Production did not verify: ' + '; '.join(last))
+          PY
+
+      - name: Submit changed URLs to IndexNow
+        if: steps.prev_deploy.outputs.sha != ''
+        continue-on-error: true
+        run: |
+          python3 woa_indexnow.py --from-deploy --base-ref "${{ steps.prev_deploy.outputs.sha }}" --head-ref "$GITHUB_SHA"
+          echo "IndexNow step finished (non-blocking on API errors)"
+
+      - name: Verify IndexNow key file on live site
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request
+          from pathlib import Path
+
+          cfg = json.loads(Path('config/indexnow.json').read_text(encoding='utf-8'))
+          key = cfg['key'].strip()
+          url = f"https://www.workofarttattoo.com/{key}.txt"
+          with urllib.request.urlopen(url, timeout=30) as r:
+              body = r.read().decode('utf-8').strip()
+              status = r.status
+          assert status == 200, status
+          assert body == key, f'key file mismatch: {body!r}'
+          print(f'IndexNow key file OK: {url}')
           PY
