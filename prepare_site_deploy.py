@@ -85,6 +85,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "remove_elevenlabs_widget.py")],
     ["python3", str(ROOT / "tools/check_merchandise_page.py")],
     ["python3", str(ROOT / "build_retired_cover_up_redirect.py")],
+    ["python3", str(ROOT / "fix_gsc_winner_optimization.py")],
 ]
 
 
