@@ -10,6 +10,9 @@ MARKER = 'data-woa-ga4-conversions="1"'
 GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
 (function () {{
   "use strict";
+  if (window.__woaGa4ConversionsInit) return;
+  window.__woaGa4ConversionsInit = true;
+
   var EVENT_SOURCE = "woa_site";
   var DEDUPE_MS = 1200;
   var sentRecently = {{}};
@@ -28,6 +31,19 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
 
   function debugMode() {{
     return (location.search || "").indexOf("debug_analytics=1") >= 0;
+  }}
+
+  function isAutomatedTraffic() {{
+    var ua = navigator.userAgent || "";
+    if (/WOA-Deploy-Verifier|HeadlessChrome|Lighthouse|PageSpeed|PTST|GTmetrix|Chrome-Lighthouse|Google-InspectionTool/i.test(ua)) {{
+      return true;
+    }}
+    if (navigator.webdriver) return true;
+    if ((location.search || "").indexOf("woa_qa=1") >= 0) return true;
+    try {{
+      if (window.sessionStorage && window.sessionStorage.getItem("woa_analytics_opt_out") === "1") return true;
+    }} catch (e) {{}}
+    return false;
   }}
 
   function storageGet(key) {{
@@ -115,6 +131,8 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
   }}
 
   function send(name, params, options) {{
+    if (isAutomatedTraffic()) return;
+
     var payload = baseParams(params);
     var key = eventKey(name, payload);
     var t = now();
@@ -135,12 +153,20 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
     var dedupeKey = "woa_form_submit_success_" + service;
     if (storageGet(dedupeKey)) return;
     storageSet(dedupeKey, String(now()));
-    var payload = attributionParams(params);
-    send("form_submit_success", payload);
-    send("booking_submit", assign({{ legacy_event: true }}, payload), {{ allowRepeat: true }});
-    send("booking_complete", assign({{ legacy_event: true }}, payload), {{ allowRepeat: true }});
+    var payload = attributionParams(assign({{
+      artist_name: params.artist || params.artist_name || "no_preference",
+    }}, params));
+    send("booking_submit", payload);
+    send("generate_lead", assign({{
+      currency: "USD",
+      value: 1,
+      lead_type: service,
+    }}, payload));
+    pushDataLayer("verified_lead", payload);
+    send("form_submit_success", assign({{ legacy_event: true }}, payload));
+    send("booking_complete", assign({{ legacy_event: true }}, payload));
     if (service === "piercing") {{
-      send("piercing_booking_submit", assign({{ legacy_event: true }}, payload), {{ allowRepeat: true }});
+      send("piercing_booking_submit", assign({{ legacy_event: true }}, payload));
     }}
   }}
 
@@ -200,6 +226,7 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
         service_category: service,
         service_type: serviceTypeFromForm(form, id),
         artist: artistFromForm(form, id),
+        artist_name: artistFromForm(form, id),
       }},
       extras || {{}}
     ));
@@ -345,6 +372,10 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
         send("email_click", base);
         return;
       }}
+      if (h.indexOf("instagram.com") >= 0 || h.indexOf("instagr.am") >= 0) {{
+        send("instagram_click", assign({{ cta_location: clickLocation(link) }}, base));
+        return;
+      }}
       if (h.indexOf("/appointments") >= 0) {{
         if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link) || link.hasAttribute("data-woa-piercing-booking-start")) {{
           send("piercing_cta_click", attributionParams(assign({{ service_type: "piercing", cta_type: "book" }}, base)));
@@ -403,9 +434,15 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
   observePiercingDeals();
 
   if (/^\\/appointments\\/?$/.test(location.pathname)) {{
-    var bookingViewParams = attributionParams({{ interface_present: !!document.getElementById("woa-booking-app") }});
-    send("booking_page_view", bookingViewParams, {{ allowRepeat: true }});
-    send("booking_view", assign({{ legacy_event: true }}, bookingViewParams), {{ allowRepeat: true }});
+    if (!storageGet("woa_booking_view_session")) {{
+      storageSet("woa_booking_view_session", "1");
+      var bookingViewParams = attributionParams({{
+        interface_present: !!document.getElementById("woa-booking-app"),
+        cta_location: "appointments_page",
+      }});
+      send("booking_page_view", bookingViewParams);
+      send("booking_view", assign({{ legacy_event: true }}, bookingViewParams));
+    }}
   }}
 
   var sent = "";

@@ -73,6 +73,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "refresh_cover_up_evidence.py")],
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "inject_google_tag_manager.py")],
+    ["python3", str(ROOT / "inject_google_tag.py")],
     ["python3", str(ROOT / "inject_mixpanel.py")],
     # Last: banner markup + woa-home.css + repaired <img> tags (earlier steps may drop the CSS link)
     ["python3", str(ROOT / "repair_homepage_banner_and_images.py")],
@@ -123,6 +124,8 @@ def verify_homepage() -> None:
         ("work-of-art-studio-banner-las-vegas", "studio banner image asset ref"),
         ("woa-home.css", "homepage banner/layout stylesheet"),
         ("GTM-TZTQSQBB", "Google Tag Manager container"),
+        ("G-XLXNGGW7SX", "Google Analytics 4 measurement ID"),
+        ("data-woa-ga4-conversions", "sitewide GA4 conversion listener"),
         ("/start_here/", "Start Here hub link"),
         ("WOA_BUILD_STAMP:", "deploy build stamp"),
         ("woa-typography.css", "site typography bundle"),

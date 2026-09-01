@@ -514,6 +514,11 @@ def validate_analytics_source(failures: list[str]) -> None:
         "booking_start",
         "booking_submit_attempt",
         "booking_submit",
+        "generate_lead",
+        "instagram_click",
+        "phone_click",
+        "email_click",
+        "directions_click",
         "piercing_cta_click",
         "piercing_booking_start",
         "piercing_booking_submit",
@@ -529,6 +534,28 @@ def validate_analytics_source(failures: list[str]) -> None:
     for event in required_events:
         if event not in ga:
             failures.append(f"{ga_path.relative_to(ROOT)}: missing GA4 event {event}")
+
+    if "__woaGa4ConversionsInit" not in ga:
+        failures.append(f"{ga_path.relative_to(ROOT)}: missing analytics init guard")
+    if "isAutomatedTraffic" not in ga:
+        failures.append(f"{ga_path.relative_to(ROOT)}: missing automated-traffic suppression")
+    if "woa_verified_lead" not in ga and 'pushDataLayer("verified_lead"' not in ga:
+        failures.append(f"{ga_path.relative_to(ROOT)}: missing verified_lead GTM hook")
+
+    record_block = re.search(r"function recordFormSubmitSuccess[\s\S]*?^  \}", ga, re.MULTILINE)
+    if not record_block:
+        failures.append(f"{ga_path.relative_to(ROOT)}: recordFormSubmitSuccess missing")
+    else:
+        block = record_block.group(0)
+        if 'send("booking_submit"' not in block:
+            failures.append(f"{ga_path.relative_to(ROOT)}: booking_submit not fired from success handler")
+        if 'send("generate_lead"' not in block:
+            failures.append(f"{ga_path.relative_to(ROOT)}: generate_lead not fired from success handler")
+        if "allowRepeat: true" in block and 'send("booking_submit"' in block:
+            failures.append(f"{ga_path.relative_to(ROOT)}: booking_submit must not allow repeat firing")
+
+    if "woa_booking_view_session" not in ga:
+        failures.append(f"{ga_path.relative_to(ROOT)}: booking_view missing session dedupe")
 
     if 'send("booking_form_submit"' in ga:
         failures.append(f"{ga_path.relative_to(ROOT)}: legacy booking_form_submit still fires from source")
