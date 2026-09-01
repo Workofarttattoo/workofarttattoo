@@ -60,6 +60,11 @@ FORBIDDEN = {
     "unsupported highest rated": r"\bhighest[-\s]?rated\b",
     "unsupported number one": r"\bnumber\s+one\b",
     "unsupported #1": r"(?<![A-Za-z0-9])#1(?:\s|$)",
+    "walk-in heart of strip claim": r"heart of the Strip",
+    "stale 480 review claim": r"480\+?\s*(google\s+)?reviews?",
+    "hard-coded caesars drive time": r"4\s*MIN\s*FROM\s*CAESARS",
+    "hard-coded resorts world drive time": r"6\s*MIN\s*FROM\s*RESORTS",
+    "retired artist Jay Jay": r"\bJay\s*Jay\b",
 }
 
 VISIBLE_ONLY_FORBIDDEN = {

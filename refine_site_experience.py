@@ -14,9 +14,18 @@ import subprocess
 import sys
 from pathlib import Path
 
+from woa_location_copy import (
+    WALK_IN_FOOTER_BLURB,
+    WALK_IN_STUDIO_LOCATION,
+    WALK_IN_STUDIO_LOCATION_STALE,
+)
 from woa_page_consolidation import HREF_REPLACEMENTS
 
 ROOT = Path(__file__).resolve().parent
+WALK_IN_MARKERS = (
+    "walk-in-tattoos-las-vegas",
+    "walk_in_tattoos_las_vegas_authority_guide",
+)
 
 TOPIC_CLUSTER_RE = re.compile(
     r'<nav[^>]*data-woa-topic-cluster="1"[^>]*>.*?</nav>\s*',
@@ -65,6 +74,18 @@ def clean_citations(html: str) -> str:
     return html
 
 
+def enforce_walk_in_location(html: str) -> str:
+    if WALK_IN_STUDIO_LOCATION_STALE in html:
+        html = html.replace(WALK_IN_STUDIO_LOCATION_STALE, WALK_IN_STUDIO_LOCATION)
+    stale_footer = (
+        "Custom tattoos and piercings, a consult-first approach, and healed work to back it up. "
+        + WALK_IN_STUDIO_LOCATION_STALE
+    )
+    if stale_footer in html:
+        html = html.replace(stale_footer, WALK_IN_FOOTER_BLURB)
+    return html
+
+
 def trim_link_bloat(html: str) -> tuple[str, bool]:
     """Drop redundant footer-style link blocks; keep compact hub bar."""
     changed = False
@@ -109,6 +130,8 @@ def patch_file(path: Path) -> bool:
     raw = path.read_text(encoding="utf-8", errors="replace")
     html = consolidate_hrefs(raw)
     html = clean_citations(html)
+    if any(marker in path.as_posix() for marker in WALK_IN_MARKERS):
+        html = enforce_walk_in_location(html)
     html, c1 = trim_link_bloat(html)
     html, c2 = slim_remaining_clusters(html)
     if html != raw:

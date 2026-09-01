@@ -11,9 +11,20 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from woa_location_copy import (
+    WALK_IN_FOOTER_BLURB,
+    WALK_IN_STUDIO_LOCATION,
+    WALK_IN_STUDIO_LOCATION_STALE,
+)
+from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
+
 SKIP_DIRS = {".git", ".github", "node_modules", "__pycache__", "skipped_upload_build", "audits", "tools", "artists_raw"}
 PUBLIC_EMAIL = "booking@workofarttattoo.com"
 LEGACY_COVER = "/cover_up_tattoos_las_vegas_master_authority_guide/"
@@ -179,10 +190,7 @@ WALK_IN_REPLACEMENTS: list[tuple[str, str]] = [
     ("TWO RESIDENT SPECIALISTS", "3 IN-STUDIO RESIDENTS"),
     ("Two resident specialists", "Three in-studio residents"),
     ("two resident specialists", "three in-studio residents"),
-    (
-        "Located in the heart of the Strip.",
-        "Located on E. Tropicana, minutes from the Las Vegas Strip.",
-    ),
+    (WALK_IN_STUDIO_LOCATION_STALE, WALK_IN_STUDIO_LOCATION),
     (
         "Walk-In Tattoos Las Vegas | Tattoo and Piercing Shop Near Me | Work of Art",
         "Walk-In Tattoos Las Vegas | Work of Art",
@@ -215,6 +223,14 @@ LOCATION_REPLACEMENTS: list[tuple[str, str]] = [
 
 GALLERY_ARTIST_GRID_START = '<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter max-w-5xl mx-auto">'
 GALLERY_FILTERS_START = '<div aria-label="Gallery category filter"'
+
+STRIP_STALE_REPLACEMENTS: list[tuple[str, str]] = [
+    ("4 MIN FROM CAESARS PALACE", ""),
+    ("6 MIN FROM RESORTS WORLD", ""),
+    ("tattoo shop near me pick just minutes from the Strip", "tattoo and piercing studio near the Las Vegas Strip"),
+    ("tattoo and piercing shop near me", "tattoo and piercing studio in Las Vegas"),
+    ("tattoo and piercing shops in near me", "tattoo and piercing studios near the Las Vegas Strip"),
+]
 
 REVIEW_COUNT_REPLACEMENTS: list[tuple[str, str]] = [
     ("5.0 RATING (480+ REVIEWS)", "5.0 RATING (323 REVIEWS)"),
@@ -387,7 +403,31 @@ def fix_homepage(text: str) -> str:
 def fix_walk_in_copy(text: str) -> str:
     for old, new in WALK_IN_REPLACEMENTS:
         text = text.replace(old, new)
+    stale_footer = (
+        "Custom tattoos and piercings, a consult-first approach, and healed work to back it up. "
+        + WALK_IN_STUDIO_LOCATION_STALE
+    )
+    if stale_footer in text:
+        text = text.replace(stale_footer, WALK_IN_FOOTER_BLURB)
     return text
+
+
+def fix_strip_stale_copy(text: str) -> str:
+    for old, new in STRIP_STALE_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def is_retired_overlap_stub(path: Path) -> bool:
+    rel = path.relative_to(ROOT)
+    slug = rel.parts[0] if rel.parts else ""
+    if slug not in RETIRE_OVERLAP_SLUGS:
+        return False
+    try:
+        body = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return False
+    return 'name="robots"' in body and "noindex" in body.lower() and 'http-equiv="refresh"' in body.lower()
 
 
 def fix_location_claims(text: str) -> str:
@@ -524,12 +564,16 @@ def main() -> int:
         "artists_build/katelyn-cole.html",
     )
     for path in iter_html():
+        if is_retired_overlap_stub(path):
+            continue
         raw = path.read_text(encoding="utf-8", errors="replace")
         text = raw
         if path in homepage_names or path.name in {"code.html", "index.html"} and "home_work_of_art" in path.as_posix():
             text = fix_homepage(text)
         if any(marker in path.as_posix() for marker in walk_in_markers):
             text = fix_walk_in_copy(text)
+        if "tattoo_shop_near_the_strip_nap_corrected" in path.as_posix():
+            text = fix_strip_stale_copy(text)
         if any(marker in path.as_posix() for marker in katelyn_markers):
             text = fix_katelyn_grammar(text)
         if path.as_posix().endswith("artists/index.html") or path.as_posix().endswith("artists/code.html"):
@@ -548,6 +592,10 @@ def main() -> int:
             changed.append(path.relative_to(ROOT).as_posix())
 
     patch_business_json()
+
+    retired_script = ROOT / "build_retired_geo_redirects.py"
+    if retired_script.is_file():
+        subprocess.run([sys.executable, str(retired_script)], cwd=ROOT, check=True)
 
     # Keep root code.html aligned with the homepage export after edits.
     home = ROOT / "home_work_of_art_tattoo_piercing" / "code.html"
