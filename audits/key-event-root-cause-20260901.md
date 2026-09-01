@@ -2,7 +2,7 @@
 
 ## Summary
 
-**99.41% session key-event rate** is caused by a combination of (1) GA4 Admin marking low-intent funnel/engagement events as key events, and (2) GTM Google Ads conversion `ads_conversion_Submit_lead_form_1` firing on pre-success triggers (~219 events vs ~847 sessions).
+**99.41% session key-event rate** is caused by (1) GA4 Admin marking low-intent funnel/engagement events as key events, and (2) GTM Google Ads conversion `ads_conversion_Submit_lead_form_1` firing on pre-success triggers (~219 events vs ~847 sessions).
 
 Site code did **not** emit `ads_conversion_Submit_lead_form_1` — that name is GTM/Google Ads imported.
 
@@ -21,22 +21,12 @@ Site code did **not** emit `ads_conversion_Submit_lead_form_1` — that name is 
 | `booking_submit_attempt` | Form submit before response | Attempt ≠ success | **No** | Unmark |
 | `booking_submit` | Verified success only (after fix) | True lead | **Yes** | Keep ON |
 | `generate_lead` | Verified success only (after fix) | GA4 recommended lead | Optional Yes | Keep ON if used |
-| `booking_complete` | Legacy alias of success | Same as submit | No (use booking_submit) | Unmark |
-| `form_submit_success` | Legacy alias | Same as submit | No | Unmark |
 | `ads_conversion_Submit_lead_form_1` | **GTM** (likely booking_view/start) | Pre-success trigger | **No until fixed** | Remap GTM to `woa_verified_lead` |
-| `phone_click` / `call_click` | tel: clicks | Call intent | Optional | Owner choice |
-| `email_click` | mailto: clicks | Email intent | Optional | Owner choice |
 
 ## Code fixes applied
 
 1. `booking_submit` + `generate_lead` fire **only** in `recordFormSubmitSuccess` (deduped).
 2. `booking_view` deduped once per session (`woa_booking_view_session`).
-3. Init guard prevents duplicate listeners on re-injection.
+3. Init guard prevents duplicate listeners.
 4. `woa_verified_lead` dataLayer event for GTM Ads mapping.
-5. Automated traffic suppression (headless, Lighthouse, `woa_qa=1`).
-
-## Expected outcome after deploy + GA4 Admin cleanup
-
-- Session key-event rate drops to low single digits (true lead rate).
-- Bounce rate normalizes as false key events stop counting as engagement conversions.
-- `ads_conversion_Submit_lead_form_1` count aligns with actual form successes.
+5. Automated traffic suppression.
