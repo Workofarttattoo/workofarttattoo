@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 
 <html class="dark" lang="en"><head>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XLXNGGW7SX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-XLXNGGW7SX');
+</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -12,16 +21,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Tattoo &amp; Piercing Studio Near the Las Vegas Strip | Work of Art</title>
-<meta content="Directions to Work of Art at 2375 E. Tropicana Ave, Suite 3 — easy access from the Strip and airport. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" name="description"/>
+<meta content="Tattoo and piercing studio minutes from the Las Vegas Strip — professional ear, nose, and body piercing with Katelyn Cole. Directions from MGM, Sphere, and the airport." name="description"/>
 <link href="https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/" rel="canonical"/>
 <meta content="https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/" property="og:url"/>
 <meta content="Tattoo &amp; Piercing Studio Near the Las Vegas Strip | Work of Art" property="og:title"/>
-<meta content="Directions to Work of Art at 2375 E. Tropicana Ave, Suite 3 — easy access from the Strip and airport. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" property="og:description"/>
+<meta content="Tattoo and piercing studio minutes from the Las Vegas Strip — professional ear, nose, and body piercing with Katelyn Cole. Directions from MGM, Sphere, and the airport." property="og:description"/>
 <meta content="https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/tattoo-shop-near-the-strip-nap-corrected-las-vegas.png" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="Tattoo &amp; Piercing Studio Near the Las Vegas Strip | Work of Art" name="twitter:title"/>
-<meta content="Directions to Work of Art at 2375 E. Tropicana Ave, Suite 3 — easy access from the Strip and airport. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" name="twitter:description"/>
+<meta content="Tattoo and piercing studio minutes from the Las Vegas Strip — professional ear, nose, and body piercing with Katelyn Cole. Directions from MGM, Sphere, and the airport." name="twitter:description"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-typography.css" rel="stylesheet"/>
 <style data-woa-desktop-nav-css="1">
@@ -448,7 +457,7 @@ html.woa-mnav-lock body {
 <!-- WOA_PIERCING_PROMO_END -->
 <section class="space-y-3">
 <h2 class="font-headline-md text-on-surface text-xl">Strip Areas This Hub Serves</h2>
-<ul class="space-y-2 list-disc pl-5 marker:text-secondary"><li class="font-body-md text-on-surface-variant">MGM Grand, Park MGM, New York-New York, and T-Mobile Arena visitors should use the south Strip/MGM guide for event and show-day planning.</li><li class="font-body-md text-on-surface-variant">The Sphere, Venetian, Wynn, Encore, Fashion Show, and Convention Center visitors should use the Sphere guide for north Strip and event-corridor planning.</li><li class="font-body-md text-on-surface-variant">Mandalay Bay, Luxor, and Allegiant Stadium visitors should use the Allegiant guide when stadium traffic shapes the day.</li><li class="font-body-md text-on-surface-variant">Harry Reid International Airport visitors should use the airport guide when flights, rental cars, and luggage timing matter.</li></ul>
+<ul class="space-y-2 list-disc pl-5 marker:text-secondary"><li class="font-body-md text-on-surface-variant">MGM Grand, Park MGM, New York-New York, and T-Mobile Arena visitors should use the south Strip/MGM guide for event and show-day planning.</li><li class="font-body-md text-on-surface-variant">The Sphere, Venetian, Wynn, Encore, Fashion Show, and Convention Center visitors should use the Sphere guide for north Strip and event-corridor planning.</li><li class="font-body-md text-on-surface-variant">Mandalay Bay, Luxor, and Allegiant Stadium visitors should use the Allegiant guide when stadium traffic shapes the day.</li><li class="font-body-md text-on-surface-variant">Las Vegas airport visitors should use the airport guide when flights, rental cars, and luggage timing matter.</li></ul>
 </section>
 <section class="space-y-3">
 <h2 class="font-headline-md text-on-surface text-xl">Why Leave The Strip For A Tattoo Or Piercing</h2>
@@ -586,6 +595,9 @@ else mq.addListener(onWide);
 <script data-woa-ga4-conversions="1" type="text/javascript">
 (function () {
   "use strict";
+  if (window.__woaGa4ConversionsInit) return;
+  window.__woaGa4ConversionsInit = true;
+
   var EVENT_SOURCE = "woa_site";
   var DEDUPE_MS = 1200;
   var sentRecently = {};
@@ -604,6 +616,19 @@ else mq.addListener(onWide);
 
   function debugMode() {
     return (location.search || "").indexOf("debug_analytics=1") >= 0;
+  }
+
+  function isAutomatedTraffic() {
+    var ua = navigator.userAgent || "";
+    if (/WOA-Deploy-Verifier|HeadlessChrome|Lighthouse|PageSpeed|PTST|GTmetrix|Chrome-Lighthouse|Google-InspectionTool/i.test(ua)) {
+      return true;
+    }
+    if (navigator.webdriver) return true;
+    if ((location.search || "").indexOf("woa_qa=1") >= 0) return true;
+    try {
+      if (window.sessionStorage && window.sessionStorage.getItem("woa_analytics_opt_out") === "1") return true;
+    } catch (e) {}
+    return false;
   }
 
   function storageGet(key) {
@@ -691,6 +716,8 @@ else mq.addListener(onWide);
   }
 
   function send(name, params, options) {
+    if (isAutomatedTraffic()) return;
+
     var payload = baseParams(params);
     var key = eventKey(name, payload);
     var t = now();
@@ -711,12 +738,20 @@ else mq.addListener(onWide);
     var dedupeKey = "woa_form_submit_success_" + service;
     if (storageGet(dedupeKey)) return;
     storageSet(dedupeKey, String(now()));
-    var payload = attributionParams(params);
-    send("form_submit_success", payload);
-    send("booking_submit", assign({ legacy_event: true }, payload), { allowRepeat: true });
-    send("booking_complete", assign({ legacy_event: true }, payload), { allowRepeat: true });
+    var payload = attributionParams(assign({
+      artist_name: params.artist || params.artist_name || "no_preference",
+    }, params));
+    send("booking_submit", payload);
+    send("generate_lead", assign({
+      currency: "USD",
+      value: 1,
+      lead_type: service,
+    }, payload));
+    pushDataLayer("verified_lead", payload);
+    send("form_submit_success", assign({ legacy_event: true }, payload));
+    send("booking_complete", assign({ legacy_event: true }, payload));
     if (service === "piercing") {
-      send("piercing_booking_submit", assign({ legacy_event: true }, payload), { allowRepeat: true });
+      send("piercing_booking_submit", assign({ legacy_event: true }, payload));
     }
   }
 
@@ -776,6 +811,7 @@ else mq.addListener(onWide);
         service_category: service,
         service_type: serviceTypeFromForm(form, id),
         artist: artistFromForm(form, id),
+        artist_name: artistFromForm(form, id),
       },
       extras || {}
     ));
@@ -921,6 +957,10 @@ else mq.addListener(onWide);
         send("email_click", base);
         return;
       }
+      if (h.indexOf("instagram.com") >= 0 || h.indexOf("instagr.am") >= 0) {
+        send("instagram_click", assign({ cta_location: clickLocation(link) }, base));
+        return;
+      }
       if (h.indexOf("/appointments") >= 0) {
         if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link) || link.hasAttribute("data-woa-piercing-booking-start")) {
           send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "book" }, base)));
@@ -979,9 +1019,15 @@ else mq.addListener(onWide);
   observePiercingDeals();
 
   if (/^\/appointments\/?$/.test(location.pathname)) {
-    var bookingViewParams = attributionParams({ interface_present: !!document.getElementById("woa-booking-app") });
-    send("booking_page_view", bookingViewParams, { allowRepeat: true });
-    send("booking_view", assign({ legacy_event: true }, bookingViewParams), { allowRepeat: true });
+    if (!storageGet("woa_booking_view_session")) {
+      storageSet("woa_booking_view_session", "1");
+      var bookingViewParams = attributionParams({
+        interface_present: !!document.getElementById("woa-booking-app"),
+        cta_location: "appointments_page",
+      });
+      send("booking_page_view", bookingViewParams);
+      send("booking_view", assign({ legacy_event: true }, bookingViewParams));
+    }
   }
 
   var sent = "";
