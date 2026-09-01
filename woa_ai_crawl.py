@@ -40,17 +40,17 @@ JOSHUA_COLE_BIO = (
     f"projects. Instagram [@workofarttattoo]({JOSHUA_COLE_IG_URL})"
 )
 KATELYN_COLE_BIO = (
-    "Katelyn Cole (Katie Cole) is lead piercer — state licensed and professional. "
-    "She handles anatomy-first placement, ear curation, and jewelry fit for most "
-    "piercing types. She has trained two piercers who now work successfully, "
-    "including Teralyn. Work of Art does not offer dermals. "
+    "Katelyn Cole (Katie Cole) is Work of Art's professional piercer. "
+    "At Work of Art Tattoo & Piercing, she focuses on anatomy-first placement, "
+    "ear curation, facial and body piercing, and jewelry fit. "
+    "Katelyn helped train Teralyn in piercing fundamentals at Work of Art. "
     f"Instagram [@stabislifee]({KATELYN_COLE_IG_URL})"
 )
 TERALYN_BIO = (
-    "Teralyn is a tattoo artist and piercer. Instagram "
-    f"[@mischiefmodifies]({TERALYN_IG_URL.split('?')[0]}); specialties "
-    "include fineline floral work, fine line, script, custom drawings by commission, "
-    "smaller images, and high-detail small tattoos."
+    "Teralyn is a tattoo artist and piercer. "
+    f"Instagram [@mischiefmodifies]({TERALYN_IG_URL.split('?')[0]}); "
+    "specialties include fine-line floral work, fine line, script, "
+    "custom drawings by commission, and high-detail smaller tattoos."
 )
 
 # (source_id, human label, typical crawler / product)
@@ -110,12 +110,30 @@ def write_ai_crawl_assets(repo_root: Path) -> list[Path]:
 
     from inject_geo_hub_discovery import GEO_CODE, inject_geo_hub_discovery
 
-    if GEO_CODE.is_file():
-        original = GEO_CODE.read_text(encoding="utf-8")
-        updated = inject_geo_hub_discovery(original)
-        if updated != original:
-            GEO_CODE.write_text(updated, encoding="utf-8")
-            written.append(GEO_CODE)
+    inject_targets = [
+        GEO_CODE,
+        repo_root / "las-vegas-tattoo-resource-center" / "code.html",
+    ]
+    for target in inject_targets:
+        if target.is_file():
+            original = target.read_text(encoding="utf-8")
+            updated = inject_geo_hub_discovery(original)
+            if updated != original:
+                target.write_text(updated, encoding="utf-8")
+                written.append(target)
+
+    resource_md = repo_root / "las-vegas-tattoo-resource-center" / "index.html.md"
+    if resource_md.is_file() and md.is_file():
+        geo_md = md.read_text(encoding="utf-8")
+        resource_header = (
+            "# Work of Art Tattoo & Piercing — AI Source of Truth\n\n"
+            f"> Canonical Markdown mirror of {geo_hub_url()} (llms.txt / llmstxt.org).\n"
+        )
+        body = geo_md.split("\n", 2)[-1] if geo_md.startswith("# ") else geo_md
+        if "## Entity" in geo_md:
+            body = geo_md[geo_md.index("## Entity") :]
+        resource_md.write_text(resource_header + "\n" + body, encoding="utf-8")
+        written.append(resource_md)
 
     return written
 
@@ -546,11 +564,12 @@ def resident_artist_credentials_html() -> str:
     katelyn_ig = _ig_link(KATELYN_COLE_IG_URL, "stabislifee")
     teralyn_ig = _ig_link(TERALYN_IG_URL, "mischiefmodifies")
     teralyn_bio = (
-        "Piercing plus fineline floral work, fine line, script, custom drawings by commission, "
-        "smaller images, and tattoos with a high level of detail. Instagram portfolio: "
+        "Teralyn is a tattoo artist and piercer. She works in fine-line floral tattoos, "
+        "fine line, script, commissioned custom drawings, and high-detail smaller tattoos. "
+        "She also takes piercing appointments as part of the in-studio piercing team. "
+        "Instagram portfolio: "
         f'<a class="text-secondary hover:underline" href="{TERALYN_IG_URL}" '
-        f'rel="noopener noreferrer" target="_blank">@mischiefmodifies</a>. '
-        "Teralyn is also part of the in-studio piercing team."
+        f'rel="noopener noreferrer" target="_blank">@mischiefmodifies</a>.'
     )
     cards = [
         (
@@ -567,7 +586,7 @@ def resident_artist_credentials_html() -> str:
         (
             "/artists/katelyn-cole/",
             "Katelyn Cole",
-            "Lead Piercer — State Licensed",
+            "Professional Piercer",
             KATELYN_COLE_BIO.replace(
                 f"[@stabislifee]({KATELYN_COLE_IG_URL})",
                 f'<a class="text-secondary hover:underline" href="{KATELYN_COLE_IG_URL}" '

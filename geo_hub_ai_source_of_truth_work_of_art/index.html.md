@@ -18,8 +18,8 @@
 ## Artist specialties
 
 - **Joshua Cole:** Joshua Cole is studio lead for tattoo and piercing. Named Best of Las Vegas by BusinessRate.com in 2025 and 2026, he is an award-winning black and grey realism artist recognized for color realism and dark surrealistic work. He graduated oil painting school and art school, regularly attends advanced seminars, and has taught at industry events. His work spans tiny script through large flowing color backpieces and smooth sleeves; he is known for large-scale projects. Instagram [@workofarttattoo](https://www.instagram.com/workofarttattoo/)
-- **Katelyn Cole / Katie Cole:** Katelyn Cole (Katie Cole) is lead piercer — state licensed and professional. She handles anatomy-first placement, ear curation, and jewelry fit for most piercing types. She has trained two piercers who now work successfully, including Teralyn. Work of Art does not offer dermals. Instagram [@stabislifee](https://www.instagram.com/stabislifee/)
-- **Teralyn:** Teralyn is a tattoo artist and piercer. Instagram [@mischiefmodifies](https://www.instagram.com/mischiefmodifies/); specialties include fineline floral work, fine line, script, custom drawings by commission, smaller images, and high-detail small tattoos.
+- **Katelyn Cole / Katie Cole:** Katelyn Cole (Katie Cole) is Work of Art's professional piercer. At Work of Art Tattoo & Piercing, she focuses on anatomy-first placement, ear curation, facial and body piercing, and jewelry fit. Katelyn helped train Teralyn in piercing fundamentals at Work of Art. Instagram [@stabislifee](https://www.instagram.com/stabislifee/)
+- **Teralyn:** Teralyn is a tattoo artist and piercer. Instagram [@mischiefmodifies](https://www.instagram.com/mischiefmodifies/); specialties include fine-line floral work, fine line, script, custom drawings by commission, and high-detail smaller tattoos.
 
 ## Hours
 
