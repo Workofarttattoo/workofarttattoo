@@ -162,13 +162,9 @@ jobs:
           if not any(s in home for s in ('3 In-Studio Residents', 'Three in-studio residents')):
               raise SystemExit('Homepage missing 3-resident wording')
           import re
-          gallery_roster = re.search(
-              r'id="gallery"[\s\S]*?<h2[^>]*>Meet Our Artists</h2>[\s\S]*?'
-              r'(?=<div aria-label="Gallery category filter")',
-              home,
-          )
+          gallery_roster = re.search(r'id="meet-our-artists"[\s\S]*?</section>', home)
           if not gallery_roster:
-              raise SystemExit('Homepage missing Meet Our Artists roster grid')
+              raise SystemExit('Homepage missing #meet-our-artists section')
           roster_block = gallery_roster.group(0)
           for href, label in (
               ('/artists/joshua-cole/', 'Joshua Cole'),
@@ -178,8 +174,13 @@ jobs:
               count = roster_block.count(f'href="{href}"')
               if count != 1:
                   raise SystemExit(
-                      f'Homepage #gallery roster lists {label} {count} time(s); expected 1'
+                      f'Homepage #meet-our-artists lists {label} {count} time(s); expected 1'
                   )
+          if 'Featured Portfolio' not in home:
+              raise SystemExit('Homepage missing Featured Portfolio gallery heading')
+          gallery_block = re.search(r'id="gallery"[\s\S]*?id="gallery-filters"', home)
+          if gallery_block and '/artists/joshua-cole/' in gallery_block.group(0):
+              raise SystemExit('#gallery still duplicates artist roster cards before portfolio filters')
           banned_home = [
               'Two resident specialists',
               '2 In-Studio Specialists',
