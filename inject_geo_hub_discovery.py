@@ -11,6 +11,7 @@ from woa_ai_crawl import (
     GEO_SLUG,
     ai_crawl_endpoints_html,
     authoritative_canonical_links_html,
+    resident_artist_credentials_html,
     search_ai_discovery_html,
     tattoo_piercing_truth_hub_html,
 )
@@ -21,6 +22,13 @@ GEO_CODE = ROOT / GEO_SLUG / "code.html"
 _SECTION_RE = re.compile(
     r'<section[^>]*\bid="(?P<id>[^"]+)"[^>]*>.*?</section>',
     re.DOTALL | re.IGNORECASE,
+)
+
+_RESIDENT_ARTIST_LEGACY_RE = re.compile(
+    r'<section(?:\s[^>]*)?>\s*<div class="border-b border-surface-variant pb-4 mb-8">\s*'
+    r'<h2[^>]*>\s*<span[^>]*>badge</span>\s*&lt;Resident Artist Credentials&gt;'
+    r"[\s\S]*?</section>",
+    re.IGNORECASE,
 )
 
 
@@ -70,6 +78,14 @@ def inject_geo_hub_discovery(html: str) -> str:
     else:
         html = _insert_after_section(
             html, "search-ai-discovery", authoritative_canonical_links_html()
+        )
+    if 'id="resident-artist-credentials"' in html:
+        html = _replace_section(
+            html, "resident-artist-credentials", resident_artist_credentials_html()
+        )
+    elif _RESIDENT_ARTIST_LEGACY_RE.search(html):
+        html = _RESIDENT_ARTIST_LEGACY_RE.sub(
+            resident_artist_credentials_html(), html, count=1
         )
     return html
 

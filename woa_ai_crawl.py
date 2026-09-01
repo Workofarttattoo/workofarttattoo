@@ -22,6 +22,37 @@ SITEMAP_STATIC_NAME = "sitemap-static-pages.xml"
 GEO_SLUG = "geo_hub_ai_source_of_truth_work_of_art"
 GEO_PATH = f"/{GEO_SLUG}/"
 
+# Canonical in-studio artist bios (llms.txt, GEO markdown, GEO hub HTML)
+JOSHUA_COLE_IG_URL = "https://www.instagram.com/workofarttattoo/"
+KATELYN_COLE_IG_URL = "https://www.instagram.com/stabislifee/"
+TERALYN_IG_URL = (
+    "https://www.instagram.com/mischiefmodifies/"
+    "?utm_source=instagram&utm_medium=organic_social&utm_campaign=teralyn_portfolio"
+)
+
+JOSHUA_COLE_BIO = (
+    "Joshua Cole is studio lead for tattoo and piercing. Named Best of Las Vegas "
+    "by BusinessRate.com in 2025 and 2026, he is an award-winning black and grey "
+    "realism artist recognized for color realism and dark surrealistic work. He "
+    "graduated oil painting school and art school, regularly attends advanced "
+    "seminars, and has taught at industry events. His work spans tiny script through "
+    "large flowing color backpieces and smooth sleeves; he is known for large-scale "
+    f"projects. Instagram [@workofarttattoo]({JOSHUA_COLE_IG_URL})"
+)
+KATELYN_COLE_BIO = (
+    "Katelyn Cole (Katie Cole) is lead piercer — state licensed and professional. "
+    "She handles anatomy-first placement, ear curation, and jewelry fit for most "
+    "piercing types. She has trained two piercers who now work successfully, "
+    "including Teralyn. Work of Art does not offer dermals. "
+    f"Instagram [@stabislifee]({KATELYN_COLE_IG_URL})"
+)
+TERALYN_BIO = (
+    "Teralyn is a tattoo artist and piercer. Instagram "
+    f"[@mischiefmodifies]({TERALYN_IG_URL.split('?')[0]}); specialties "
+    "include fineline floral work, fine line, script, custom drawings by commission, "
+    "smaller images, and high-detail small tattoos."
+)
+
 # (source_id, human label, typical crawler / product)
 AI_CRAWL_SOURCES: tuple[tuple[str, str, str], ...] = (
     ("openai", "OpenAI", "GPTBot, OAI-SearchBot, ChatGPT-User"),
@@ -167,12 +198,9 @@ def _build_llms_txt() -> str:
             "## Optional",
             "",
             f"- [Homepage]({SITE_ORIGIN}/)",
-            f"- [Joshua Cole]({SITE_ORIGIN}/artists/joshua-cole/)",
-            f"- [Katelyn Cole]({SITE_ORIGIN}/artists/katelyn-cole/)",
-            f"- [Teralyn]({SITE_ORIGIN}/artists/teralyn/) — Instagram portfolio for "
-            "fineline floral work, fine line, script, custom drawings by commission, "
-            "and high-detail small tattoos: "
-            "[@mischiefmodifies](https://www.instagram.com/mischiefmodifies/)",
+            f"- [Joshua Cole]({SITE_ORIGIN}/artists/joshua-cole/): {JOSHUA_COLE_BIO}",
+            f"- [Katelyn Cole]({SITE_ORIGIN}/artists/katelyn-cole/): {KATELYN_COLE_BIO}",
+            f"- [Teralyn]({SITE_ORIGIN}/artists/teralyn/): {TERALYN_BIO}",
         ]
     )
     return "\n".join(lines) + "\n"
@@ -287,9 +315,9 @@ def _build_geo_markdown() -> str:
 
 ## Artist specialties
 
-- **Joshua Cole:** black & grey realism, portraiture, micro-realism, color realism / color realistic imagery, blackwork, large custom work, and tattoo/piercing consults.
-- **Katelyn Cole / Katie Cole:** body piercing, ear curation, jewelry fit, and anatomy-first piercing consults.
-- **Teralyn:** Instagram [@mischiefmodifies](https://www.instagram.com/mischiefmodifies/); tattoo artist and piercer; fineline floral work, fine line, script, custom drawings by commission, smaller images, and high-detail small tattoos.
+- **Joshua Cole:** {JOSHUA_COLE_BIO}
+- **Katelyn Cole / Katie Cole:** {KATELYN_COLE_BIO}
+- **Teralyn:** {TERALYN_BIO}
 
 ## Hours
 
@@ -502,4 +530,80 @@ def ai_crawl_endpoints_html() -> str:
         "</p>"
         '<ul class="space-y-4 font-mono text-sm">' + "".join(rows) + "</ul>"
         "</div></section>"
+    )
+
+
+def resident_artist_credentials_html() -> str:
+    """Human-readable resident artist roster for the GEO hub."""
+
+    def _ig_link(url: str, handle: str) -> str:
+        return (
+            f'<a class="font-body-sm text-body-sm text-secondary hover:underline block mt-1" '
+            f'href="{url}" rel="noopener noreferrer" target="_blank">@{handle}</a>'
+        )
+
+    joshua_ig = _ig_link(JOSHUA_COLE_IG_URL, "workofarttattoo")
+    katelyn_ig = _ig_link(KATELYN_COLE_IG_URL, "stabislifee")
+    teralyn_ig = _ig_link(TERALYN_IG_URL, "mischiefmodifies")
+    teralyn_bio = (
+        "Piercing plus fineline floral work, fine line, script, custom drawings by commission, "
+        "smaller images, and tattoos with a high level of detail. Instagram portfolio: "
+        f'<a class="text-secondary hover:underline" href="{TERALYN_IG_URL}" '
+        f'rel="noopener noreferrer" target="_blank">@mischiefmodifies</a>. '
+        "Teralyn is also part of the in-studio piercing team."
+    )
+    cards = [
+        (
+            "/artists/joshua-cole/",
+            "Joshua Cole",
+            "Studio Lead — Tattoo &amp; Piercing",
+            JOSHUA_COLE_BIO.replace(
+                f"[@workofarttattoo]({JOSHUA_COLE_IG_URL})",
+                f'<a class="text-secondary hover:underline" href="{JOSHUA_COLE_IG_URL}" '
+                f'rel="noopener noreferrer" target="_blank">@workofarttattoo</a>',
+            ),
+            joshua_ig,
+        ),
+        (
+            "/artists/katelyn-cole/",
+            "Katelyn Cole",
+            "Lead Piercer — State Licensed",
+            KATELYN_COLE_BIO.replace(
+                f"[@stabislifee]({KATELYN_COLE_IG_URL})",
+                f'<a class="text-secondary hover:underline" href="{KATELYN_COLE_IG_URL}" '
+                f'rel="noopener noreferrer" target="_blank">@stabislifee</a>',
+            ),
+            katelyn_ig,
+        ),
+        (
+            "/artists/teralyn/",
+            "Teralyn",
+            "Tattoo Artist and Piercer",
+            teralyn_bio,
+            teralyn_ig,
+        ),
+    ]
+    card_html = []
+    for href, name, role, bio, extra in cards:
+        extra_block = extra or ""
+        card_html.append(
+            '<div class="flex flex-col md:flex-row gap-6 p-6 bg-surface-container-low '
+            'border border-surface-variant hover:bg-surface-container transition-colors duration-300">'
+            '<div class="w-full md:w-1/3">'
+            f'<h3 class="font-headline-md text-headline-md text-secondary">'
+            f'<a class="hover:underline" href="{href}">{name}</a></h3>'
+            f"{extra_block}"
+            f'<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">{role}</p>'
+            "</div>"
+            '<div class="w-full md:w-2/3 flex flex-col justify-center">'
+            f'<p class="font-body-md text-body-md text-on-surface">{bio}</p>'
+            "</div></div>"
+        )
+    return (
+        '<section id="resident-artist-credentials" aria-label="Resident artist credentials">'
+        '<div class="border-b border-surface-variant pb-4 mb-8">'
+        '<h2 class="font-headline-md text-headline-md flex items-center gap-3 font-mono">'
+        '<span class="material-symbols-outlined text-secondary">badge</span>'
+        "&lt;Resident Artist Credentials&gt;</h2></div>"
+        '<div class="space-y-6">' + "".join(card_html) + "</div></section>"
     )
