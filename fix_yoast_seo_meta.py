@@ -220,7 +220,11 @@ def fix_file(path: Path) -> list[str]:
         if 'property="og:title"' in html:
             html = replace_meta(html, prop="og:title", content=title)
         if 'property="og:url"' in html:
-            html = replace_meta(html, prop="og:url", content=canonical_for(slug))
+            url = canonical_for(slug)
+            html = replace_meta(html, prop="og:url", content=url)
+            canon_pat = r'(<link\s+href=")[^"]*("\s+rel="canonical")'
+            if re.search(canon_pat, html, re.I):
+                html = re.sub(canon_pat, rf"\1{url}\2", html, count=1, flags=re.I)
 
         if 'name="twitter:description"' in html or "twitter:description" in html:
             html = replace_meta(html, name="twitter:description", content=desc)

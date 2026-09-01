@@ -477,10 +477,6 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Tattoo Pain & Placement Chart",
         "Body-area sensitivity guide so you can plan size, placement, and session comfort.",
     ),
-    "tattoo_shop_near_the_strip_geo_seo_optimized": (
-        "Tattoo Shop Near the Strip",
-        "Location, parking, and why locals and tourists choose us minutes from the Las Vegas Strip.",
-    ),
     "tattoo_shop_near_the_strip_nap_corrected": (
         "Studio Location & Hours",
         "Directions to Work of Art at 2375 E. Tropicana Ave, Suite 3 — easy access from the Strip and airport.",

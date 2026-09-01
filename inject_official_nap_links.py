@@ -13,7 +13,6 @@ MARKER = 'data-woa-official-nap-link="1"'
 
 STRIP_SLUGS: tuple[str, ...] = (
     "tattoo_shop_near_the_strip_nap_corrected",
-    "tattoo_shop_near_the_strip_geo_seo_optimized",
 )
 
 CALLOUT = f"""<p class="font-body-md text-on-surface-variant text-sm mt-6" {MARKER}>

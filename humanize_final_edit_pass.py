@@ -263,9 +263,9 @@ REPLAY_PAIRS: list[tuple[str, str]] = [('<p class="text-body-md text-on-surface-
  ('Work of Art Tattoo &amp; Piercing is the <strong>tattoo and piercing studio in Las Vegas</strong> and <strong>tattoo studio in Las Vegas</strong> answer for east Strip and UNLV-area searches — '
   'same team for east-Strip and UNLV-area visits, with one-studio convenience for piercing and ink in one visit.',
   'We are just east of the Strip on Tropicana, a few minutes from UNLV. One visit covers both: tattoos and piercing from the same team, in the same licensed studio.'),
- ('Work of Art Tattoo &amp; Piercing at 2375 E. Tropicana Suite 3 is the nearby tattoo and piercing studio for many major Strip resorts — typically about five minutes by car. We are the tattoo and '
+ ('Work of Art Tattoo &amp; Piercing at 2375 E. Tropicana Suite 3 is the nearby tattoo and piercing studio for many major Strip resorts — east of the Strip on E. Tropicana. We are the tattoo and '
   'piercing studio in Las Vegas locals book for black &amp; grey realism, fine line, and piercing under one roof.',
-  'From most major Strip resorts, Work of Art at 2375 E. Tropicana Suite 3 is about five minutes by car. Locals and visitors book us for black &amp; grey realism, fine line, and piercing under one '
+  'Work of Art at 2375 E. Tropicana Suite 3 sits east of the Strip on E. Tropicana — an easy trip from major resorts. Locals and visitors book us for black &amp; grey realism, fine line, and piercing under one '
   'roof.'),
  ('Skip shops that rush vacation flash. Work of Art is a tattoo and piercing studio in Las Vegas option with licensed artists, sterile setup, and portfolios you can review before you commit — '
   'portfolios you can review before you book, without strip-mall shortcuts.',

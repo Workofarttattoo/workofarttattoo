@@ -75,7 +75,7 @@ def _service_faqs(keyword: str, style: str) -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic. "
+            f"Yes — {STUDIO_STREET_ADDRESS}, conveniently located east of the Strip on E. Tropicana. "
             f"Private parking, licensed studio, desert-climate aftercare coaching included.",
         ),
         (
@@ -112,7 +112,7 @@ def _aftercare_faqs() -> tuple[tuple[str, str], ...]:
         ),
         (
             "Where is Work of Art Tattoo & Piercing?",
-            f"{STUDIO_ADDRESS_SINGLE_LINE}. Private parking, licensed studio, about 10 minutes from the Strip. "
+            f"{STUDIO_ADDRESS_SINGLE_LINE}. Private parking, licensed studio, minutes from the Las Vegas Strip on E. Tropicana. "
             f"Directions and hours on our location page.",
         ),
         (
@@ -149,7 +149,7 @@ def _pricing_faqs() -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic with private parking.",
+            f"Yes — {STUDIO_STREET_ADDRESS}, conveniently located east of the Strip on E. Tropicana with private parking.",
         ),
     )
 
@@ -178,7 +178,7 @@ def _walk_in_faqs() -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic.",
+            f"Yes — {STUDIO_STREET_ADDRESS}, conveniently located east of the Strip on E. Tropicana.",
         ),
     )
 
@@ -237,7 +237,7 @@ def _sleeve_faqs() -> tuple[tuple[str, str], ...]:
         ),
         (
             "Is Work of Art near the Las Vegas Strip?",
-            f"Yes — {STUDIO_STREET_ADDRESS}, roughly 10 minutes from major Strip resorts in light traffic.",
+            f"Yes — {STUDIO_STREET_ADDRESS}, conveniently located east of the Strip on E. Tropicana.",
         ),
     )
 

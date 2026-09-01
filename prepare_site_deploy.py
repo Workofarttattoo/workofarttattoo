@@ -73,6 +73,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "refresh_cover_up_evidence.py")],
     ["python3", str(ROOT / "fix_piercing_content_integrity.py")],
     ["python3", str(ROOT / "inject_google_tag_manager.py")],
+    ["python3", str(ROOT / "inject_google_tag.py")],
     ["python3", str(ROOT / "inject_mixpanel.py")],
     # Last: banner markup + woa-home.css + repaired <img> tags (earlier steps may drop the CSS link)
     ["python3", str(ROOT / "repair_homepage_banner_and_images.py")],
@@ -124,6 +125,8 @@ def verify_homepage() -> None:
         ("work-of-art-studio-banner-las-vegas", "studio banner image asset ref"),
         ("woa-home.css", "homepage banner/layout stylesheet"),
         ("GTM-TZTQSQBB", "Google Tag Manager container"),
+        ("G-XLXNGGW7SX", "Google Analytics 4 measurement ID"),
+        ("data-woa-ga4-conversions", "sitewide GA4 conversion listener"),
         ("/start_here/", "Start Here hub link"),
         ("WOA_BUILD_STAMP:", "deploy build stamp"),
         ("woa-typography.css", "site typography bundle"),
@@ -150,13 +153,9 @@ def verify_homepage() -> None:
         if name not in html:
             errors.append(f"missing resident {name} on homepage")
 
-    gallery_roster = re.search(
-        r'id="gallery"[\s\S]*?<h2[^>]*>Meet Our Artists</h2>[\s\S]*?'
-        r'(?=<div aria-label="Gallery category filter")',
-        html,
-    )
+    gallery_roster = re.search(r'id="meet-our-artists"[\s\S]*?</section>', html)
     if not gallery_roster:
-        errors.append("missing Meet Our Artists roster grid before gallery filters")
+        errors.append("missing #meet-our-artists section")
     else:
         block = gallery_roster.group(0)
         for href, label in (
@@ -167,8 +166,15 @@ def verify_homepage() -> None:
             count = block.count(f'href="{href}"')
             if count != 1:
                 errors.append(
-                    f"#gallery roster lists {label} {count} time(s); expected exactly 1"
+                    f"#meet-our-artists lists {label} {count} time(s); expected exactly 1"
                 )
+
+    if 'id="gallery"' not in html:
+        errors.append("missing #gallery portfolio section")
+    elif "Featured Portfolio" not in html:
+        gallery_block = re.search(r'id="gallery"[\s\S]*?id="gallery-filters"', html)
+        if gallery_block and 'href="/artists/joshua-cole/"' in gallery_block.group(0):
+            errors.append("#gallery still duplicates artist roster cards before portfolio filters")
 
     team = re.search(r'id="meet-our-artists"[\s\S]*?</section>', html)
     if team:

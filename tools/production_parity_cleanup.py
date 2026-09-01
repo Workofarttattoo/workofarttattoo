@@ -179,7 +179,42 @@ WALK_IN_REPLACEMENTS: list[tuple[str, str]] = [
     ("TWO RESIDENT SPECIALISTS", "3 IN-STUDIO RESIDENTS"),
     ("Two resident specialists", "Three in-studio residents"),
     ("two resident specialists", "three in-studio residents"),
+    (
+        "Located in the heart of the Strip.",
+        "Located on E. Tropicana, minutes from the Las Vegas Strip.",
+    ),
+    (
+        "Walk-In Tattoos Las Vegas | Tattoo and Piercing Shop Near Me | Work of Art",
+        "Walk-In Tattoos Las Vegas | Work of Art",
+    ),
 ]
+
+LOCATION_REPLACEMENTS: list[tuple[str, str]] = [
+    (
+        "roughly 10 minutes from major Strip resorts in light traffic. Private parking, licensed studio, desert-climate aftercare coaching included.",
+        "conveniently located east of the Strip on E. Tropicana. Private parking, licensed studio, desert-climate aftercare coaching included.",
+    ),
+    (
+        "roughly 10 minutes from major Strip resorts in light traffic with private parking.",
+        "conveniently located east of the Strip on E. Tropicana with private parking.",
+    ),
+    (
+        "roughly 10 minutes from major Strip resorts in light traffic.",
+        "conveniently located east of the Strip on E. Tropicana.",
+    ),
+    (
+        "Private parking, licensed studio, about 10 minutes from the Strip. Directions and hours on our location page.",
+        "Private parking, licensed studio, minutes from the Las Vegas Strip on E. Tropicana. Directions and hours on our location page.",
+    ),
+    (
+        "about 10 minutes from the Strip. Directions and hours on our location page.",
+        "minutes from the Las Vegas Strip on E. Tropicana. Directions and hours on our location page.",
+    ),
+    ("Harry Reid International Airport", "Las Vegas airport"),
+]
+
+GALLERY_ARTIST_GRID_START = '<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter max-w-5xl mx-auto">'
+GALLERY_FILTERS_START = '<div aria-label="Gallery category filter"'
 
 REVIEW_COUNT_REPLACEMENTS: list[tuple[str, str]] = [
     ("5.0 RATING (480+ REVIEWS)", "5.0 RATING (323 REVIEWS)"),
@@ -337,6 +372,11 @@ def ensure_homepage_deploy_audit(text: str) -> str:
 def fix_homepage(text: str) -> str:
     for old, new in HOMEPAGE_REPLACEMENTS:
         text = text.replace(old, new)
+    text = text.replace(
+        "Hundreds of positive Google reviews · Work of Art Tattoo &amp; Piercing, Las Vegas",
+        "323 Google reviews · Work of Art Tattoo &amp; Piercing, Las Vegas",
+    )
+    text = dedupe_homepage_gallery(text)
     text = add_teralyn_card(text)
     text = add_teralyn_footer_link(text)
     text = add_teralyn_nav_if_missing(text)
@@ -348,6 +388,32 @@ def fix_walk_in_copy(text: str) -> str:
     for old, new in WALK_IN_REPLACEMENTS:
         text = text.replace(old, new)
     return text
+
+
+def fix_location_claims(text: str) -> str:
+    for old, new in LOCATION_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def dedupe_homepage_gallery(text: str) -> str:
+    """Drop duplicate artist cards from #gallery; keep #meet-our-artists as the roster section."""
+    gallery_idx = text.find('id="gallery"')
+    filters_idx = text.find('id="gallery-filters"')
+    if gallery_idx == -1 or filters_idx == -1 or filters_idx <= gallery_idx:
+        return text
+    block = text[gallery_idx:filters_idx]
+    if 'href="/artists/joshua-cole/"' not in block:
+        return text
+    block = block.replace("Meet Our Artists", "Featured Portfolio", 1)
+    grid_start = block.find(GALLERY_ARTIST_GRID_START)
+    if grid_start == -1:
+        return text[:gallery_idx] + block + text[filters_idx:]
+    grid_end = block.find(GALLERY_FILTERS_START, grid_start)
+    if grid_end == -1:
+        return text
+    block = block[:grid_start] + block[grid_end:]
+    return text[:gallery_idx] + block + text[filters_idx:]
 
 
 def fix_review_counts(text: str, path: Path) -> str:
@@ -470,6 +536,7 @@ def main() -> int:
             for old, new in ARTISTS_INDEX_REPLACEMENTS:
                 text = text.replace(old, new)
         text = fix_review_counts(text, path)
+        text = fix_location_claims(text)
         text = replace_public_email(text)
         text = rewrite_cover_hrefs(text)
         text = strip_snhd_footer(text)

@@ -348,20 +348,10 @@ FILE_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
             "<a class=\"text-secondary underline\" href=\"/appointments/\">book a piercing or tattoo consult</a>",
         ),
     ],
-    "tattoo_shop_near_the_strip_geo_seo_optimized": [
-        (
-            "tattoo studio near the Las Vegas Strip",
-            "tattoo studio near the Las Vegas Strip",
-        ),
-        (
-            "For people comparing Las Vegas tattoo and piercing studios near the Strip, Work of Art is a licensed studio on E. Tropicana with realism, fine line, and piercing under one address.",
-            "Staying on the Strip? Work of Art is a licensed tattoo and piercing studio on E. Tropicana — about five minutes from major resorts, with realism, fine line, and ear curation under one address.",
-        ),
-    ],
     "tattoo_shop_near_the_strip_nap_corrected": [
         (
-            "Looking for a tattoo or piercing studio from the Strip? Work of Art at 2375 E. Tropicana is a short drive from Caesars, Bellagio, and airport arrivals, with one address for custom tattoos and piercing.",
-            "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Ave, Suite 3 is a straightforward Tropicana-area trip from Caesars, Bellagio, and Harry Reid Airport — licensed tattoo and piercing under one roof.",
+            "Looking for a tattoo or piercing studio from the Strip? Work of Art at 2375 E. Tropicana is a straightforward trip from Caesars, Bellagio, and airport arrivals, with one address for custom tattoos and piercing.",
+            "Coming from the Strip or airport? Work of Art at 2375 E. Tropicana Ave, Suite 3 is east of the Strip on Tropicana — an easy trip from Caesars, Bellagio, and Harry Reid Airport — licensed tattoo and piercing under one roof.",
         ),
     ],
 }
