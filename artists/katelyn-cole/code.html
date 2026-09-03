@@ -1959,9 +1959,15 @@ t.src=base+"?woa-retry="+Date.now();
   observePiercingDeals();
 
   if (/^\/appointments\/?$/.test(location.pathname)) {
-    var bookingViewParams = attributionParams({ interface_present: !!document.getElementById("woa-booking-app") });
-    send("booking_page_view", bookingViewParams, { allowRepeat: true });
-    send("booking_view", assign({ legacy_event: true }, bookingViewParams), { allowRepeat: true });
+    if (!storageGet("woa_booking_view_session")) {
+      storageSet("woa_booking_view_session", "1");
+      var bookingViewParams = attributionParams({
+        interface_present: !!document.getElementById("woa-booking-app"),
+        cta_location: "appointments_page",
+      });
+      send("booking_page_view", bookingViewParams);
+      send("booking_view", assign({ legacy_event: true }, bookingViewParams));
+    }
   }
 
   var sent = "";

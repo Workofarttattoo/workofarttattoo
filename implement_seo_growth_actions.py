@@ -130,11 +130,14 @@ BLOCKS: dict[str, str] = {
     ),
     "tattoo_shop_near_the_strip_nap_corrected/code.html": growth_block(
         "strip-location-links",
-        "Nearby pages for Vegas visitors",
-        "If you are comparing shops from a hotel, start with the page closest to where you are staying, then book through the same appointment form.",
+        "Tattoo and piercing from the Strip",
+        "Work of Art is a short ride off the resort corridor — one address for tattoos, cover-ups, fine line, realism, and professional piercing.",
         (
-            ("Near MGM Grand", "/tattoo_shop_near_mgm_grand_las_vegas/", "Short ride from the south Strip and arena traffic."),
-            ("Near the Sphere", "/tattoo_shop_near_the_sphere_las_vegas/", "Useful for event weekends and show traffic."),
+            ("Cover-up tattoos in Las Vegas", "/cover-up-tattoos-las-vegas/", "Joshua Cole — redesign consults and healed proof."),
+            ("Meet Joshua Cole", "/artists/joshua-cole/", "Realism, portraits, sleeves, and cover-up planning."),
+            ("Black and grey realism", "/realism-tattoos-las-vegas/", "Portfolio and what to expect in Vegas heat."),
+            ("Fine line tattoos", "/fine_line_tattoos_las_vegas_master_authority_guide/", "Joshua Cole and Teralyn — floral, script, delicate work."),
+            ("Professional piercing", "/piercing-guide-las-vegas/", "Katelyn Cole — anatomy-first placement and jewelry."),
             ("Official location and hours", "/official_location_hours_contact/", "Address, phone, hours, ID reminders, and arrival details."),
         ),
     ),

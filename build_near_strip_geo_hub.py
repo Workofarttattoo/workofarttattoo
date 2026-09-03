@@ -12,10 +12,10 @@ from woa_nav_config import SIMPLE_TOP_NAV_SHELL, STUDIO_ADDRESS_SINGLE_LINE, STU
 ROOT = Path(__file__).resolve().parent
 SITE = "https://www.workofarttattoo.com"
 SLUG = "tattoo_shop_near_the_strip_nap_corrected"
-TITLE = "Tattoo & Piercing Studio Near the Las Vegas Strip"
+TITLE = "Tattoo & Piercing Shop Near Me — Las Vegas Strip"
 DESCRIPTION = (
-    "Visitor guide for reaching Work of Art Tattoo & Piercing from the Strip, MGM, "
-    "The Sphere, Allegiant Stadium, and Harry Reid International Airport."
+    "Tattoo and piercing shop minutes from the Las Vegas Strip — Work of Art on E. Tropicana. "
+    "Custom tattoos, cover-ups, fine line, realism, and professional piercing. Directions, artists, booking."
 )
 
 HEAD_LINKS = """<link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
