@@ -117,8 +117,111 @@ def _default_complete(slug_id: str, name: str, base: EncyclopediaSections) -> En
     )
 
 
+# Studio-education notes from Katelyn's apprenticeship workbook — gaps only, no duplicate heal/jewelry copy.
+_WORKBOOK_SUPPLEMENTS: dict[str, dict[str, object]] = {
+    "ear_lobe": {
+        "extra_sections": (
+            (
+                "stretching-healed-lobes",
+                "Stretching healed lobes",
+                (
+                    "Start only after your initial lobe heal is stable — no tenderness, no crust cycles — usually at least 3 months out.",
+                    "Tape method: wrap a few layers of non-adhesive stretching tape around your jewelry, reinsert, and let the tissue settle for about a week before adding more. Stop if skin gets angry.",
+                    "Full gauge jumps: one size at a time is fine if you stay patient — allow about 1.5× the time your original piercing took to heal before each increase.",
+                    "Burning, bleeding, or a ring of thin skin means the jump was too fast — come in before you tear the fistula.",
+                ),
+            ),
+        ),
+    },
+    "helix": {
+        "history": (
+            "Helix and other cartilage piercings appear across Indigenous and tribal body-art traditions; "
+            "today they are just as often a curated-ear or fashion choice.",
+        ),
+        "extra_sections": (
+            (
+                "cartilage-angle",
+                "Why cartilage angle matters",
+                (
+                    "Cartilage has less blood flow than lobe tissue — it heals slower and bumps more easily when jewelry fights the ear's curve.",
+                    "I pierce perpendicular to the tissue at the contact point so pressure stays even along the fistula, not straight through on a guess.",
+                ),
+            ),
+        ),
+    },
+    "nostril": {
+        "history": (
+            "Nostril piercings carry long roots in South Asia, the Middle East, and North Africa — "
+            "often tied to marriage, status, and tradition long before they became a Western fashion staple.",
+        ),
+        "extra_sections": (
+            (
+                "nostril-curve",
+                "Along the nostril curve",
+                (
+                    "The nostril is soft tissue over cartilage — too shallow and the stud migrates; too deep and jewelry sits wrong against the natural crease.",
+                    "I mark where your nostril curve supports a clean exit, not a generic dot from a photo.",
+                ),
+            ),
+        ),
+    },
+    "eyebrow": {
+        "history": (
+            "The eyebrow piercing is newer than most facial work — it emerged in 1970s punk subculture, "
+            "crossed into mainstream pop style in the 1990s, and today reads as a unisex accent rather than a counterculture signal.",
+        ),
+        "extra_sections": (
+            (
+                "eyebrow-placement",
+                "Placement along the brow",
+                (
+                    "Vertical placements along the brow ridge are the most common — one stud or a deliberate series when anatomy and hair line allow.",
+                    "Horizontal placements above, below, or through the brow line are an option when we can mark safely around superficial veins.",
+                    "You do not need to shave or trim brows — I pierce through whatever hair you have. Thicker hair at the center can mean more drainage during heal, so extra saline patience there.",
+                ),
+            ),
+        ),
+    },
+    "labret": {
+        "extra_sections": (
+            (
+                "needle-vs-punch",
+                "Needle vs larger gauge vs dermal punch",
+                (
+                    "Standard needle piercings part the skin — tissue stays in place, which makes downsizing easier if you change your mind about a large look.",
+                    "A larger-gauge needle for the initial piercing is an option with an experienced piercer; expect a longer heal than a standard 14G or 16G start.",
+                    "Dermal punches remove a circle of flesh outright — instant size, but more scarring if you retire the piercing and harder to scale down later. I recommend needle technique unless we discuss a specific medical or aesthetic plan at consult.",
+                ),
+            ),
+            (
+                "labret-jewelry-styles",
+                "Which lip jewelry fits your goal",
+                (
+                    "Flat-back labret studs are the default starter — long enough for swelling, then downsized to protect teeth and gums.",
+                    "Captive rings and circular barbells are usually a healed-jewelry choice; a ring large enough to clear day-one swelling tends to stick straight out and snag.",
+                    "Tell me if you want a ring aesthetic long-term — we can mark placement and gauge with that end goal in mind.",
+                ),
+            ),
+        ),
+    },
+}
+
+
+def _apply_workbook_supplements(slug_id: str, base: EncyclopediaSections) -> EncyclopediaSections:
+    patch = _WORKBOOK_SUPPLEMENTS.get(slug_id)
+    if not patch:
+        return base
+    return replace(
+        base,
+        history=tuple(patch.get("history", ())) or base.history,
+        extra_sections=tuple(patch.get("extra_sections", ())) or base.extra_sections,
+    )
+
+
 def complete_sections_for(slug_id: str, name: str) -> EncyclopediaSections:
     base = sections_for(slug_id, name)
     if slug_id == "industrial":
-        return _industrial(name, base)
-    return _default_complete(slug_id, name, base)
+        base = _industrial(name, base)
+    else:
+        base = _default_complete(slug_id, name, base)
+    return _apply_workbook_supplements(slug_id, base)

@@ -29,7 +29,7 @@ from woa_piercing_catalog_extra import PIERCING_CATALOG_EXTRA
 from woa_expert_entity_blocks import katelyn_entity_block
 from woa_piercing_complete_guides import complete_guide_h1, complete_sections_for
 from woa_piercing_pillars import ORAL_SLUGS, PILLARS, SKIP_STANDALONE_CLUSTER, pillar_for_slug_id
-from woa_piercing_profiles import sections_for
+from woa_piercing_profiles import EncyclopediaSections, sections_for
 from woa_piercing_seo import (
     PHONE_TEL,
     STUDIO_LINE,
@@ -132,6 +132,68 @@ def prose_section(title: str, text: str, anchor: str) -> str:
 <h2 class="font-headline-md text-on-surface text-2xl">{html.escape(title)}</h2>
 <p class="font-body-md text-on-surface-variant leading-relaxed">{html.escape(text)}</p>
 </section>"""
+
+
+def history_section(paragraphs: tuple[str, ...]) -> str:
+    if not paragraphs:
+        return ""
+    body = "".join(
+        f'<p class="font-body-md text-on-surface-variant leading-relaxed">{html.escape(p)}</p>'
+        for p in paragraphs
+    )
+    return f"""<section class="space-y-4" id="history">
+<h2 class="font-headline-md text-on-surface text-2xl">Background</h2>
+{body}
+</section>"""
+
+
+def extra_sections_block(sections: tuple[tuple[str, str, tuple[str, ...]], ...]) -> str:
+    blocks: list[str] = []
+    for anchor, title, items in sections:
+        block = section_block(title, items, anchor)
+        if block:
+            blocks.append(block)
+    return "\n".join(blocks)
+
+
+def guide_toc_items(sec: EncyclopediaSections) -> tuple[tuple[str, str], ...]:
+    items: list[tuple[str, str]] = []
+    if sec.history:
+        items.append(("Background", "history"))
+    items.extend(
+        (
+            ("Anatomy", "anatomy"),
+            ("Who is not a candidate", "not-a-candidate"),
+            ("Pain level", "pain-level"),
+            ("Healing timeline", "healing-time"),
+        )
+    )
+    for anchor, title, bullets in sec.extra_sections:
+        if bullets:
+            items.append((title, anchor))
+    items.extend(
+        (
+            ("Jewelry sizing", "jewelry-sizing"),
+            ("Downsizing", "downsizing"),
+            ("Swelling", "swelling"),
+            ("Sleeping", "sleeping"),
+            ("Exercise", "exercise"),
+            ("Headphones", "headphones"),
+            ("Helmets", "helmets"),
+            ("Migration", "migration"),
+            ("Rejection", "rejection"),
+            ("Keloids vs bumps", "keloids-bumps"),
+            ("Desert climate", "desert-climate"),
+            ("Katelyn's notes", "katelyn-notes"),
+            ("Cleaning", "cleaning"),
+            ("Swimming", "swimming"),
+            ("FAQ", "faq"),
+            ("Photos", "photos"),
+            ("Videos", "videos"),
+            ("Book", "book"),
+        )
+    )
+    return tuple(items)
 
 
 def pillar_breadcrumb(guide: PiercingGuide) -> str:
@@ -357,32 +419,7 @@ def type_main(guide: PiercingGuide) -> str:
 </div>
 {render_current_piercing_special(variant="compact", context="helix-top")}"""
 
-    toc = toc_nav(
-        (
-            ("Anatomy", "anatomy"),
-            ("Who is not a candidate", "not-a-candidate"),
-            ("Pain level", "pain-level"),
-            ("Healing timeline", "healing-time"),
-            ("Jewelry sizing", "jewelry-sizing"),
-            ("Downsizing", "downsizing"),
-            ("Swelling", "swelling"),
-            ("Sleeping", "sleeping"),
-            ("Exercise", "exercise"),
-            ("Headphones", "headphones"),
-            ("Helmets", "helmets"),
-            ("Migration", "migration"),
-            ("Rejection", "rejection"),
-            ("Keloids vs bumps", "keloids-bumps"),
-            ("Desert climate", "desert-climate"),
-            ("Katelyn's notes", "katelyn-notes"),
-            ("Cleaning", "cleaning"),
-            ("Swimming", "swimming"),
-            ("FAQ", "faq"),
-            ("Photos", "photos"),
-            ("Videos", "videos"),
-            ("Book", "book"),
-        )
-    )
+    toc = toc_nav(guide_toc_items(sec))
 
     pain_section = f"""<section class="space-y-4" id="pain-level">
 <h2 class="font-headline-md text-on-surface text-2xl">Pain level</h2>
@@ -454,15 +491,19 @@ def type_main(guide: PiercingGuide) -> str:
 </section>"""
 
     quirks_block = section_block("Placement quirks", guide.quirks) if guide.quirks else ""
+    workbook_extra = extra_sections_block(sec.extra_sections)
+    history_block = history_section(sec.history)
 
     body_sections = "\n".join(
         s
         for s in (
+            history_block,
             section_block("Anatomy requirements", sec.anatomy_requirements, "anatomy"),
             section_block("Who is NOT a candidate", sec.who_should_avoid, "not-a-candidate"),
             section_block("Who it's good for", sec.who_its_good_for, "who-its-good-for"),
             pain_section,
             healing_section,
+            workbook_extra,
             cta_top,
             section_block("Jewelry sizing", sec.jewelry_sizing or ((guide.jewelry_notes,) if guide.jewelry_notes else ()), "jewelry-sizing"),
             section_block("Downsizing", sec.downsizing, "downsizing"),
@@ -535,45 +576,46 @@ def patch_meta(page_html: str, slug: str, title: str, description: str, og_path:
         page_html,
         count=1,
     )
+    og_img = f"{SITE}{og_path}.webp"
+    full_title = f"{html.escape(title)} | Work of Art"
     page_html = re.sub(
-        r'<meta content="https://www.workofarttattoo.com/tattoo_healing[^"]*" property="og:url"/>',
+        r'<meta content="https://www.workofarttattoo.com/[^"]*" property="og:url"/>',
         f'<meta content="{canon}" property="og:url"/>',
         page_html,
         count=1,
     )
-    og_img = f"{SITE}{og_path}.webp"
     page_html = re.sub(
-        r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" property="og:image"/>',
+        r'<meta content="https://www.workofarttattoo.com/[^"]*" property="og:image"/>',
         f'<meta content="{og_img}" property="og:image"/>',
         page_html,
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="Tattoo &amp; Piercing Aftercare in Desert Climate \| Work of Art" property="og:title"/>',
-        f'<meta content="{html.escape(title)} | Work of Art" property="og:title"/>',
+        r'<meta content="[^"]*" property="og:title"/>',
+        f'<meta content="{full_title}" property="og:title"/>',
         page_html,
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="Vegas-specific healing:[^"]*" property="og:description"/>',
+        r'<meta content="[^"]*" property="og:description"/>',
         f'<meta content="{html.escape(description)}" property="og:description"/>',
         page_html,
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="https://www.workofarttattoo.com/how_much[^"]*" name="twitter:image"/>',
+        r'<meta content="https://www.workofarttattoo.com/[^"]*" name="twitter:image"/>',
         f'<meta content="{og_img}" name="twitter:image"/>',
         page_html,
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="Tattoo &amp; Piercing Aftercare in Desert Climate \| Work of Art" name="twitter:title"/>',
-        f'<meta content="{html.escape(title)} | Work of Art" name="twitter:title"/>',
+        r'<meta content="[^"]*" name="twitter:title"/>',
+        f'<meta content="{full_title}" name="twitter:title"/>',
         page_html,
         count=1,
     )
     page_html = re.sub(
-        r'<meta content="Vegas-specific healing:[^"]*" name="twitter:description"/>',
+        r'<meta content="[^"]*" name="twitter:description"/>',
         f'<meta content="{html.escape(description)}" name="twitter:description"/>',
         page_html,
         count=1,

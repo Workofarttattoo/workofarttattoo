@@ -39,6 +39,8 @@ class EncyclopediaSections:
     headphones: tuple[str, ...] = ()
     helmets: tuple[str, ...] = ()
     keloids_vs_bumps: tuple[str, ...] = ()
+    history: tuple[str, ...] = ()
+    extra_sections: tuple[tuple[str, str, tuple[str, ...]], ...] = ()
 
 
 def _extras(profile: HealProfile) -> dict[str, tuple[str, ...]]:

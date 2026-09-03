@@ -9,7 +9,8 @@ HUB_SLUG = "katelyn_cole_piercing_authority_hub_las_vegas"
 HUB_TITLE = "Katelyn Cole — Piercing Topics"
 HUB_INTRO = (
     "Professional piercer Katelyn Cole on jewelry fit, ear curation, anatomy, and aftercare — "
-    "the topics clients search before they sit in my chair."
+    "the topics clients search before they sit in my chair. Deeper placement notes live in the "
+    "piercing encyclopedia guides, drawn from studio education and apprenticeship training."
 )
 
 BOOK = "/appointments/"
