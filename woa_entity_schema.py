@@ -28,10 +28,17 @@ from woa_nav_config import (
 
 SITE = SITE_CANONICAL_HOST
 ID_WEBSITE = f"{SITE}/#website"
-ID_BUSINESS = f"{SITE}/#localbusiness"
-ID_JOSHUA = f"{SITE}/#person-joshua-cole"
-ID_KATELYN = f"{SITE}/#person-katelyn-cole"
-ID_TERALYN = f"{SITE}/#person-teralyn"
+ID_BUSINESS = f"{SITE}/#business"
+ID_TATTOO_SERVICE = f"{SITE}/#tattoo-service"
+ID_PIERCING_SERVICE = f"{SITE}/#piercing-service"
+JOSHUA_PAGE = f"{SITE}/artists/joshua-cole/"
+KATELYN_PAGE = f"{SITE}/artists/katelyn-cole/"
+TERALYN_PAGE = f"{SITE}/artists/teralyn/"
+ID_JOSHUA = f"{JOSHUA_PAGE}#person"
+ID_KATELYN = f"{KATELYN_PAGE}#person"
+ID_TERALYN = f"{TERALYN_PAGE}#person"
+GEO_HUB_PAGE = f"{SITE}/geo_hub_ai_source_of_truth_work_of_art/"
+ID_GEO_WEBPAGE = f"{GEO_HUB_PAGE}#webpage"
 IMAGE_LICENSE_URL = f"{SITE}/image-license/"
 IMAGE_CREDIT_TEXT = "Work of Art Tattoo & Piercing"
 IMAGE_COPYRIGHT_NOTICE = "Copyright Work of Art Tattoo & Piercing. All rights reserved."
@@ -207,9 +214,6 @@ SERVICE_BY_SLUG: dict[str, tuple[str, str]] = {
     ),
 }
 
-JOSHUA_PAGE = f"{SITE}/artists/joshua-cole/"
-KATELYN_PAGE = f"{SITE}/artists/katelyn-cole/"
-TERALYN_PAGE = f"{SITE}/artists/teralyn/"
 JOSHUA_IMAGE = f"{SITE}/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp"
 KATELYN_IMAGE = (
     f"{SITE}/artists/katelyn-cole/"
@@ -345,6 +349,41 @@ def load_studio_videos(root: Path) -> list[dict]:
     return []
 
 
+def tattoo_service_node() -> dict:
+    return {
+        "@type": "Service",
+        "@id": ID_TATTOO_SERVICE,
+        "name": "Tattoo Services",
+        "provider": {"@id": ID_BUSINESS},
+        "areaServed": {"@type": "City", "name": "Las Vegas"},
+        "url": f"{SITE}/",
+    }
+
+
+def piercing_service_node() -> dict:
+    from woa_url_aliases import short_canonical
+
+    page_url = short_canonical("best_piercing_shop_las_vegas_updated_jewelry_standards")
+    return {
+        "@type": "Service",
+        "@id": ID_PIERCING_SERVICE,
+        "name": "Body Piercing Services",
+        "provider": {"@id": ID_BUSINESS},
+        "areaServed": {"@type": "City", "name": "Las Vegas"},
+        "url": page_url,
+    }
+
+
+def specialty_service_node(*, slug: str, name: str, description: str) -> dict:
+    from woa_url_aliases import short_canonical
+
+    page_url = short_canonical(slug)
+    node = service_node(slug=slug, name=name, description=description)
+    node["mainEntityOfPage"] = f"{page_url}#webpage"
+    node["isRelatedTo"] = {"@id": ID_TATTOO_SERVICE}
+    return node
+
+
 def person_joshua() -> dict:
     return {
         "@type": "Person",
@@ -369,6 +408,7 @@ def person_katelyn() -> dict:
         "@type": "Person",
         "@id": ID_KATELYN,
         "name": "Katelyn Cole",
+        "alternateName": "Katie Cole",
         "url": KATELYN_PAGE,
         "image": KATELYN_IMAGE,
         "jobTitle": "Professional Piercer",
@@ -404,7 +444,7 @@ def person_teralyn() -> dict:
 
 def local_business_node() -> dict:
     return {
-        "@type": ["LocalBusiness", "TattooParlor"],
+        "@type": "TattooParlor",
         "@id": ID_BUSINESS,
         "name": STUDIO_LEGAL_NAME,
         "alternateName": "Work of Art",
@@ -426,6 +466,10 @@ def local_business_node() -> dict:
         ],
         "numberOfEmployees": RESIDENT_ARTIST_COUNT,
         "employee": [{"@id": ID_JOSHUA}, {"@id": ID_KATELYN}, {"@id": ID_TERALYN}],
+        "makesOffer": [
+            {"@id": ID_TATTOO_SERVICE},
+            {"@id": ID_PIERCING_SERVICE},
+        ],
         **({"award": STUDIO_AWARD_SHORT} if STUDIO_AWARD_SHORT else {}),
         "areaServed": [
             {"@type": "City", "name": "Las Vegas"},
@@ -591,38 +635,64 @@ def artists_index_graph() -> dict:
 
 
 def geo_source_graph() -> dict:
-    page_url = f"{SITE}/geo_hub_ai_source_of_truth_work_of_art/"
+    realism_svc = specialty_service_node(
+        slug="realism_tattoos_las_vegas_master_authority_guide",
+        name="Realism Tattoos Las Vegas",
+        description=(
+            "Custom black-and-grey realism tattoos — portraits, wildlife, and sleeves "
+            "at Work of Art Las Vegas."
+        ),
+    )
+    fine_line_svc = specialty_service_node(
+        slug="fine_line_tattoos_las_vegas_master_authority_guide",
+        name="Fine Line Tattoos Las Vegas",
+        description="Fine line and micro-detail tattoo work with longevity-focused planning.",
+    )
+    tattoo_svc = tattoo_service_node()
+    piercing_svc = piercing_service_node()
     return {
         "@context": "https://schema.org",
         "@graph": [
             website_node(),
             local_business_node(),
-            person_joshua(),
-            person_katelyn(),
-            person_teralyn(),
             {
                 "@type": "WebPage",
-                "@id": f"{page_url}#webpage",
-                "url": page_url,
+                "@id": ID_GEO_WEBPAGE,
+                "url": GEO_HUB_PAGE,
                 "name": "GEO Hub & AI Source of Truth - Work of Art Tattoo & Piercing",
                 "description": sanitize_schema_text(
                     "Official generative engine optimization source for verified studio identity, "
                     "NAP, current artist roster, and canonical service guides."
                 ),
                 "isPartOf": {"@id": ID_WEBSITE},
-                "about": {"@id": ID_BUSINESS},
+                "mainEntity": {"@id": ID_BUSINESS},
+                "about": [
+                    {"@id": ID_BUSINESS},
+                    {"@id": ID_JOSHUA},
+                    {"@id": ID_KATELYN},
+                    {"@id": ID_TERALYN},
+                    {"@id": ID_TATTOO_SERVICE},
+                    {"@id": ID_PIERCING_SERVICE},
+                ],
                 "alternateUrl": [
-                    f"{page_url}?source=openai",
-                    f"{page_url}?source_openai=1",
-                    f"{page_url}?source=anthropic",
-                    f"{page_url}?source=perplexity",
-                    f"{page_url}?source=google",
+                    f"{GEO_HUB_PAGE}?source=openai",
+                    f"{GEO_HUB_PAGE}?source_openai=1",
+                    f"{GEO_HUB_PAGE}?source=anthropic",
+                    f"{GEO_HUB_PAGE}?source=perplexity",
+                    f"{GEO_HUB_PAGE}?source=google",
                 ],
                 "isBasedOn": f"{SITE}/llms.txt",
             },
+            person_joshua(),
+            person_katelyn(),
+            person_teralyn(),
+            tattoo_svc,
+            piercing_svc,
+            realism_svc,
+            fine_line_svc,
             {
                 "@type": "BreadcrumbList",
-                "@id": f"{page_url}#breadcrumb",
+                "@id": f"{GEO_HUB_PAGE}#breadcrumb",
                 "itemListElement": [
                     {
                         "@type": "ListItem",
@@ -634,7 +704,7 @@ def geo_source_graph() -> dict:
                         "@type": "ListItem",
                         "position": 2,
                         "name": "AI Source",
-                        "item": page_url,
+                        "item": GEO_HUB_PAGE,
                     },
                 ],
             },

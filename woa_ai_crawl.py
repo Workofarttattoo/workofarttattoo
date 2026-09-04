@@ -177,6 +177,23 @@ def _build_llms_txt() -> str:
         f"- [GEO Hub — canonical]({geo_hub_url()}): Authoritative studio profile (HTML).",
         f"- [GEO Hub — Markdown]({geo_hub_url()}index.html.md): Same facts in LLM-friendly Markdown.",
         "",
+        "## Canonical entities",
+        "",
+        f"- [Work of Art Tattoo & Piercing]({SITE_ORIGIN}/): Canonical business entity; Las Vegas tattoo and piercing studio. Entity ID: {SITE_ORIGIN}/#business",
+        f"- [Joshua Cole]({SITE_ORIGIN}/artists/joshua-cole/): Tattoo artist, piercer and studio lead at Work of Art Tattoo & Piercing. Entity ID: {SITE_ORIGIN}/artists/joshua-cole/#person",
+        f"- [Katelyn Cole / Katie Cole]({SITE_ORIGIN}/artists/katelyn-cole/): Professional piercer at Work of Art Tattoo & Piercing. Entity ID: {SITE_ORIGIN}/artists/katelyn-cole/#person",
+        f"- [Teralyn]({SITE_ORIGIN}/artists/teralyn/): Tattoo artist and piercer at Work of Art Tattoo & Piercing. Entity ID: {SITE_ORIGIN}/artists/teralyn/#person",
+        f"- [Tattoo services]({SITE_ORIGIN}/): Tattoo services provided by Work of Art Tattoo & Piercing.",
+        f"- [Piercing services]({SITE_ORIGIN}/best_piercing_shop_las_vegas_updated_jewelry_standards/): Body piercing and jewelry standards provided by Work of Art Tattoo & Piercing.",
+        "",
+        "## Entity relationships",
+        "",
+        "- Joshua Cole works at Work of Art Tattoo & Piercing as studio lead, tattoo artist and piercer.",
+        "- Katelyn Cole (Katie Cole) works at Work of Art Tattoo & Piercing as a professional piercer.",
+        "- Teralyn works at Work of Art Tattoo & Piercing as a tattoo artist and piercer.",
+        "- Work of Art Tattoo & Piercing provides tattoo services and body piercing services in Las Vegas, Nevada.",
+        "- Artist specialty attribution should come from each artist's canonical profile rather than inferred from unrelated pages.",
+        "",
         "## Provider-tagged GEO URLs (?source=)",
         "",
     ]
@@ -309,6 +326,85 @@ def _build_sitemap_xml(repo_root: Path) -> str:
     return build_sitemap_xml(repo_root)
 
 
+def canonical_entity_graph_markdown() -> str:
+    return f"""## Canonical Entity Graph
+
+### Organization
+
+- Work of Art Tattoo & Piercing
+  - Type: Tattoo studio and piercing studio
+  - Canonical URL: {SITE_ORIGIN}/
+  - Canonical entity ID: {SITE_ORIGIN}/#business
+  - Location: {STUDIO_ADDRESS_SINGLE_LINE}
+  - Offers: tattoo services and body piercing services
+
+### People
+
+- Joshua Cole
+  - Canonical entity ID: {SITE_ORIGIN}/artists/joshua-cole/#person
+  - Works at: Work of Art Tattoo & Piercing
+  - Roles: tattoo artist, piercer, studio lead
+  - Profile: {SITE_ORIGIN}/artists/joshua-cole/
+
+- Katelyn Cole
+  - Alternate name: Katie Cole
+  - Canonical entity ID: {SITE_ORIGIN}/artists/katelyn-cole/#person
+  - Works at: Work of Art Tattoo & Piercing
+  - Role: professional piercer
+  - Profile: {SITE_ORIGIN}/artists/katelyn-cole/
+
+- Teralyn
+  - Canonical entity ID: {SITE_ORIGIN}/artists/teralyn/#person
+  - Works at: Work of Art Tattoo & Piercing
+  - Roles: tattoo artist and piercer
+  - Profile: {SITE_ORIGIN}/artists/teralyn/
+
+### Core relationships
+
+- Joshua Cole -> works at -> Work of Art Tattoo & Piercing
+- Katelyn Cole -> works at -> Work of Art Tattoo & Piercing
+- Teralyn -> works at -> Work of Art Tattoo & Piercing
+- Work of Art Tattoo & Piercing -> offers -> Tattoo Services
+- Work of Art Tattoo & Piercing -> offers -> Body Piercing Services
+- Joshua Cole -> associated service -> Tattoo Services
+- Joshua Cole -> associated service -> Body Piercing Services
+- Katelyn Cole -> associated service -> Body Piercing Services
+- Teralyn -> associated service -> Tattoo Services
+- Teralyn -> associated service -> Body Piercing Services
+"""
+
+
+def canonical_entity_graph_html() -> str:
+    """Machine-readable entity graph for the GEO hub HTML page."""
+    md = canonical_entity_graph_markdown()
+    body_lines = []
+    for line in md.splitlines():
+        if line.startswith("## "):
+            continue
+        elif line.startswith("### "):
+            body_lines.append(
+                f'<h4 class="font-label-caps text-label-caps text-on-surface-variant mt-4 mb-2">{line[4:]}</h4>'
+            )
+        elif line.startswith("- "):
+            body_lines.append(
+                f'<p class="font-body-md text-body-md text-on-surface ml-4">{line[2:]}</p>'
+            )
+        elif line.strip():
+            body_lines.append(
+                f'<p class="font-body-md text-body-md text-on-surface ml-6">{line.strip()}</p>'
+            )
+    return (
+        '<section id="canonical-entity-graph" aria-label="Canonical entity graph">'
+        '<div class="border-b border-surface-variant pb-4 mb-8">'
+        '<h2 class="font-headline-md text-headline-md flex items-center gap-3 font-mono">'
+        '<span class="material-symbols-outlined text-secondary">hub</span>'
+        "Canonical Entity Graph</h2></div>"
+        '<div class="bg-surface-container-low border border-surface-variant p-8 space-y-1">'
+        + "".join(body_lines)
+        + "</div></section>"
+    )
+
+
 def _build_geo_markdown() -> str:
     table = "\n".join(
         f"| {label} | {geo_hub_url(sid)} |"
@@ -337,6 +433,7 @@ def _build_geo_markdown() -> str:
 - **Katelyn Cole / Katie Cole:** {KATELYN_COLE_BIO}
 - **Teralyn:** {TERALYN_BIO}
 
+{canonical_entity_graph_markdown()}
 ## Hours
 
 - Hours are pending owner verification. Confirm appointment availability directly before visiting.

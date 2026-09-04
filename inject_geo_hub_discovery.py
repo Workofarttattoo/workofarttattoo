@@ -9,8 +9,10 @@ from pathlib import Path
 
 from woa_ai_crawl import (
     GEO_SLUG,
+    SITE_ORIGIN,
     ai_crawl_endpoints_html,
     authoritative_canonical_links_html,
+    canonical_entity_graph_html,
     resident_artist_credentials_html,
     search_ai_discovery_html,
     tattoo_piercing_truth_hub_html,
@@ -18,6 +20,15 @@ from woa_ai_crawl import (
 
 ROOT = Path(__file__).resolve().parent
 GEO_CODE = ROOT / GEO_SLUG / "code.html"
+GEO_MD_LINK = (
+    f'<link href="{SITE_ORIGIN}/geo_hub_ai_source_of_truth_work_of_art/index.html.md" '
+    'rel="alternate" type="text/markdown" title="Markdown for LLMs"/>'
+)
+GEO_LLMS_DESCRIBEDBY = f'<link href="{SITE_ORIGIN}/llms.txt" rel="describedby"/>'
+WRONG_GEO_MD = (
+    f'<link href="{SITE_ORIGIN}/las-vegas-tattoo-resource-center/index.html.md" '
+    'rel="alternate" title="Markdown for LLMs" type="text/markdown"/>'
+)
 
 _SECTION_RE = re.compile(
     r'<section[^>]*\bid="(?P<id>[^"]+)"[^>]*>.*?</section>',
@@ -57,7 +68,18 @@ def _insert_after_section(html: str, after_id: str, new_block: str) -> str:
     return inserted
 
 
+def inject_geo_hub_head(html: str) -> str:
+    if WRONG_GEO_MD in html:
+        html = html.replace(WRONG_GEO_MD, GEO_MD_LINK, 1)
+    elif GEO_MD_LINK not in html:
+        html = html.replace("</head>", GEO_MD_LINK + "\n</head>", 1)
+    if GEO_LLMS_DESCRIBEDBY not in html:
+        html = html.replace("</head>", GEO_LLMS_DESCRIBEDBY + "\n</head>", 1)
+    return html
+
+
 def inject_geo_hub_discovery(html: str) -> str:
+    html = inject_geo_hub_head(html)
     html = _replace_section(html, "ai-crawl-endpoints", ai_crawl_endpoints_html())
     if 'id="search-ai-discovery"' in html:
         html = _replace_section(html, "search-ai-discovery", search_ai_discovery_html())
@@ -86,6 +108,14 @@ def inject_geo_hub_discovery(html: str) -> str:
     elif _RESIDENT_ARTIST_LEGACY_RE.search(html):
         html = _RESIDENT_ARTIST_LEGACY_RE.sub(
             resident_artist_credentials_html(), html, count=1
+        )
+    if 'id="canonical-entity-graph"' in html:
+        html = _replace_section(
+            html, "canonical-entity-graph", canonical_entity_graph_html()
+        )
+    else:
+        html = _insert_after_section(
+            html, "resident-artist-credentials", canonical_entity_graph_html()
         )
     return html
 

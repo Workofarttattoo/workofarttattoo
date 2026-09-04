@@ -49,6 +49,8 @@ def pick_graph(path: Path, html: str) -> dict:
             return artist_profile_graph("joshua", root=ROOT)
         if slug == "katelyn-cole":
             return artist_profile_graph("katelyn", root=ROOT)
+        if slug == "teralyn":
+            return artist_profile_graph("teralyn", root=ROOT)
     slug = rel.parts[0] if len(rel.parts) > 1 else ""
     if slug == "official_location_hours_contact":
         return sitewide_graph()

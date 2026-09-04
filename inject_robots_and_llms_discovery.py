@@ -14,6 +14,7 @@ ROBOTS_META = (
     '<meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>'
 )
 LLMS_LINK = f'<link href="{SITE}/llms.txt" rel="alternate" title="LLMs" type="text/plain"/>'
+LLMS_DESCRIBEDBY = f'<link href="{SITE}/llms.txt" rel="describedby"/>'
 
 HEAD_RE = re.compile(r"(<head[^>]*>)", re.IGNORECASE)
 SKIP_PARTS = frozenset(("artists_raw", "__pycache__", "skipped_upload_build"))
@@ -57,6 +58,11 @@ def inject(html: str) -> tuple[str, bool]:
         m = HEAD_RE.search(html)
         if m:
             html = html[: m.end()] + "\n" + LLMS_LINK + html[m.end() :]
+            changed = True
+    if 'rel="describedby"' not in html and "rel='describedby'" not in html:
+        m = HEAD_RE.search(html)
+        if m:
+            html = html[: m.end()] + "\n" + LLMS_DESCRIBEDBY + html[m.end() :]
             changed = True
     return html, changed
 
