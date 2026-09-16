@@ -126,5 +126,5 @@ If you are researching before booking, start with this page for verified studio 
 - [Walk-in tattoos](https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/)
 - [Near-the-Strip visitor page](https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/)
 - [Official location & contact](https://www.workofarttattoo.com/official_location_hours_contact/)
-- [Choose artist](https://www.workofarttattoo.com/how_to_choose_a_tattoo_artist_master_selection_guide_2/)
-- [Piercing standards](https://www.workofarttattoo.com/best_piercing_shop_las_vegas_updated_jewelry_standards/)
+- [Choose artist](https://www.workofarttattoo.com/how-to-choose-a-tattoo-artist/)
+- [Piercing standards](https://www.workofarttattoo.com/piercing-shop-standards/)

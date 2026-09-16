@@ -22,21 +22,21 @@ gtag('config', 'G-XLXNGGW7SX');
 <meta charset="utf-8"/>
 <meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Walk-In Tattoos Las Vegas | Work of Art</title>
-<meta content="Same-day chairs when available — text first for today's openings. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." name="description"/>
+<title>Walk-In Tattoos Las Vegas</title>
+<meta content="Same-day tattoo and piercing when the schedule allows — call before you drive. Work of Art on E. Tropicana, open daily 12 PM–12 AM." name="description"/>
 <link href="https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/" property="og:url"/>
-<meta content="Walk-In Tattoos Las Vegas | Work of Art" property="og:title"/>
-<meta content="Same-day chairs when available — text first for today's openings. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." property="og:description"/>
+<meta content="Walk-In Tattoos Las Vegas" property="og:title"/>
+<meta content="Same-day tattoo and piercing when the schedule allows — call before you drive. Work of Art on E. Tropicana, open daily 12 PM–12 AM." property="og:description"/>
 <meta content="https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/walk-in-tattoos-las-vegas-authority-guide.webp" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="Work of Art Tattoo &amp; Piercing" property="og:site_name"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Walk-In Tattoos Las Vegas | Work of Art" name="twitter:title"/>
-<meta content="Same-day chairs when available — text first for today's openings. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." name="twitter:description"/>
+<meta content="Walk-In Tattoos Las Vegas" name="twitter:title"/>
+<meta content="Same-day tattoo and piercing when the schedule allows — call before you drive. Work of Art on E. Tropicana, open daily 12 PM–12 AM." name="twitter:description"/>
 <meta content="https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/walk-in-tattoos-las-vegas-authority-guide.webp" name="twitter:image"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=UnifrakturMaguntia&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -848,6 +848,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -872,6 +888,18 @@ html.woa-mnav-lock body {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -944,7 +972,9 @@ html.woa-mnav-lock body {
       "headline": "Walk-In Tattoos Las Vegas",
       "description": "Same-day chairs when available — text first for today's openings.",
       "url": "https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/",
-      "mainEntityOfPage": "https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/#webpage",
+      "mainEntityOfPage": {
+        "@id": "https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/#webpage"
+      },
       "author": {
         "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person"
       },
@@ -957,7 +987,10 @@ html.woa-mnav-lock body {
       "about": {
         "@id": "https://www.workofarttattoo.com/#business"
       },
-      "inLanguage": "en-US"
+      "inLanguage": "en-US",
+      "image": "https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/walk-in-tattoos-las-vegas-authority-guide.webp",
+      "datePublished": "2026-09-16",
+      "dateModified": "2026-09-16"
     },
     {
       "@type": "WebPage",
@@ -1561,6 +1594,7 @@ t.src=base+"?woa-retry="+Date.now();
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("text_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1582,6 +1616,7 @@ t.src=base+"?woa-retry="+Date.now();
           service_type: serviceInterestFromPath(location.pathname),
           source_action: "appointment_link_click",
         }, base)));
+        send("appointment_cta_click", assign({ cta_location: clickLocation(link) }, base));
         send("book_click", base);
         return;
       }

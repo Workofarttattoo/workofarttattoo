@@ -22,12 +22,12 @@ gtag('config', 'G-XLXNGGW7SX');
 </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Vegas Tattoo and Piercing Shop vs Cheap Strip Tattoo | Work of Art Studio</title>
+<title>What to Know Before You Ink</title>
 <meta content="Red flags, pricing traps, and how to avoid regret on vacation tattoos in Vegas. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." name="description"/>
 <link href="https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/" property="og:url"/>
-<meta content="Vegas Tattoo and Piercing Shop vs Cheap Strip Tattoo | Work of Art Studio" property="og:title"/>
+<meta content="What to Know Before You Ink" property="og:title"/>
 <meta content="Red flags, pricing traps, and how to avoid regret on vacation tattoos in Vegas. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." property="og:description"/>
 <meta content="https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/vegas-tattoo-shop-vs-cheap-strip-tattoo-what-you-need-to-know-las-vegas.webp" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
@@ -35,7 +35,7 @@ gtag('config', 'G-XLXNGGW7SX');
 <meta content="en_US" property="og:locale"/>
 <meta content="Work of Art Tattoo &amp; Piercing" property="og:site_name"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Vegas Tattoo and Piercing Shop vs Cheap Strip Tattoo | Work of Art Studio" name="twitter:title"/>
+<meta content="What to Know Before You Ink" name="twitter:title"/>
 <meta content="Red flags, pricing traps, and how to avoid regret on vacation tattoos in Vegas. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." name="twitter:description"/>
 <meta content="https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/vegas-tattoo-shop-vs-cheap-strip-tattoo-what-you-need-to-know-las-vegas.webp" name="twitter:image"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -564,6 +564,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -588,6 +604,18 @@ html.woa-mnav-lock body {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -660,7 +688,9 @@ html.woa-mnav-lock body {
       "headline": "What to Know Before You Ink",
       "description": "Red flags, pricing traps, and how to avoid regret on vacation tattoos in Vegas.",
       "url": "https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/",
-      "mainEntityOfPage": "https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/#webpage",
+      "mainEntityOfPage": {
+        "@id": "https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/#webpage"
+      },
       "author": {
         "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person"
       },
@@ -673,7 +703,10 @@ html.woa-mnav-lock body {
       "about": {
         "@id": "https://www.workofarttattoo.com/#business"
       },
-      "inLanguage": "en-US"
+      "inLanguage": "en-US",
+      "image": "https://www.workofarttattoo.com/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/vegas-tattoo-shop-vs-cheap-strip-tattoo-what-you-need-to-know-las-vegas.webp",
+      "datePublished": "2026-09-16",
+      "dateModified": "2026-09-16"
     },
     {
       "@type": "WebPage",
@@ -1282,6 +1315,7 @@ t.src=base+"?woa-retry="+Date.now();
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("text_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1303,6 +1337,7 @@ t.src=base+"?woa-retry="+Date.now();
           service_type: serviceInterestFromPath(location.pathname),
           source_action: "appointment_link_click",
         }, base)));
+        send("appointment_cta_click", assign({ cta_location: clickLocation(link) }, base));
         send("book_click", base);
         return;
       }

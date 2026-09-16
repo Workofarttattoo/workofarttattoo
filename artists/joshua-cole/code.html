@@ -2,7 +2,6 @@
 
 <html class="dark" lang="en">
 <head>
-<link href="https://www.workofarttattoo.com/llms.txt" rel="describedby"/>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -10,6 +9,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TZTQSQBB');</script>
 <!-- End Google Tag Manager -->
+<link href="https://www.workofarttattoo.com/llms.txt" rel="describedby"/>
 <link href="https://www.workofarttattoo.com/llms.txt" rel="alternate" title="LLMs" type="text/plain"/>
 <meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>
 <!-- Google tag (gtag.js) -->
@@ -366,6 +366,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -390,6 +406,18 @@ html.woa-mnav-lock body {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -1713,6 +1741,7 @@ t.src=base+"?woa-retry="+Date.now();
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("text_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1734,6 +1763,7 @@ t.src=base+"?woa-retry="+Date.now();
           service_type: serviceInterestFromPath(location.pathname),
           source_action: "appointment_link_click",
         }, base)));
+        send("appointment_cta_click", assign({ cta_location: clickLocation(link) }, base));
         send("book_click", base);
         return;
       }

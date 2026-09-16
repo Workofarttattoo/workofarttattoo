@@ -22,12 +22,12 @@ gtag('config', 'G-XLXNGGW7SX');
 </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Piercing Jewelry Guide Las Vegas | Piercing Shop Near the Strip | Work of Art</title>
+<title>Piercing Jewelry Guide</title>
 <meta content="Starter jewelry fit, threadless ends, downsizing, and when to upgrade healed piercings. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." name="description"/>
 <link href="https://www.workofarttattoo.com/piercing_jewelry_guide_las_vegas/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="https://www.workofarttattoo.com/piercing_jewelry_guide_las_vegas/" property="og:url"/>
-<meta content="Piercing Jewelry Guide Las Vegas | Piercing Shop Near the Strip | Work of Art" property="og:title"/>
+<meta content="Piercing Jewelry Guide" property="og:title"/>
 <meta content="Starter jewelry fit, threadless ends, downsizing, and when to upgrade healed piercings. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." property="og:description"/>
 <meta content="https://www.workofarttattoo.com/home_work_of_art_tattoo_piercing/las-vegas-tattoo-hero-background.webp" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
@@ -35,7 +35,7 @@ gtag('config', 'G-XLXNGGW7SX');
 <meta content="en_US" property="og:locale"/>
 <meta content="Work of Art Tattoo &amp; Piercing" property="og:site_name"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Piercing Jewelry Guide Las Vegas | Piercing Shop Near the Strip | Work of Art" name="twitter:title"/>
+<meta content="Piercing Jewelry Guide" name="twitter:title"/>
 <meta content="Starter jewelry fit, threadless ends, downsizing, and when to upgrade healed piercings. Work of Art Tattoo &amp; Piercing, Las Vegas — E. Tropicana." name="twitter:description"/>
 <meta content="https://www.workofarttattoo.com/home_work_of_art_tattoo_piercing/las-vegas-tattoo-hero-background.webp" name="twitter:image"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -564,6 +564,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -588,6 +604,18 @@ html.woa-mnav-lock body {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -674,7 +702,9 @@ html.woa-mnav-lock body {
       "headline": "Piercing Jewelry Guide",
       "description": "Starter jewelry fit, threadless ends, downsizing, and when to upgrade healed piercings.",
       "url": "https://www.workofarttattoo.com/piercing_jewelry_guide_las_vegas/",
-      "mainEntityOfPage": "https://www.workofarttattoo.com/piercing_jewelry_guide_las_vegas/#webpage",
+      "mainEntityOfPage": {
+        "@id": "https://www.workofarttattoo.com/piercing_jewelry_guide_las_vegas/#webpage"
+      },
       "author": {
         "@id": "https://www.workofarttattoo.com/artists/katelyn-cole/#person"
       },
@@ -692,7 +722,10 @@ html.woa-mnav-lock body {
           "@id": "https://www.workofarttattoo.com/piercing_jewelry_guide_las_vegas/#service"
         }
       ],
-      "inLanguage": "en-US"
+      "inLanguage": "en-US",
+      "image": "https://www.workofarttattoo.com/home_work_of_art_tattoo_piercing/work-of-art-studio-banner-las-vegas.webp",
+      "datePublished": "2026-09-16",
+      "dateModified": "2026-09-16"
     },
     {
       "@type": "WebPage",
@@ -1244,6 +1277,7 @@ t.src=base+"?woa-retry="+Date.now();
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("text_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1265,6 +1299,7 @@ t.src=base+"?woa-retry="+Date.now();
           service_type: serviceInterestFromPath(location.pathname),
           source_action: "appointment_link_click",
         }, base)));
+        send("appointment_cta_click", assign({ cta_location: clickLocation(link) }, base));
         send("book_click", base);
         return;
       }

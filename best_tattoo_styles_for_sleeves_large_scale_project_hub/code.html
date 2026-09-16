@@ -22,7 +22,7 @@ gtag('config', 'G-XLXNGGW7SX');
 <meta charset="utf-8"/>
 <meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Best Tattoo Styles For Sleeves | Work of Art Tattoo Las Vegas</title>
+<title>Sleeve &amp; Large-Scale Tattoo Styles</title>
 <meta content="Planning full sleeves and big projects: style fit, sessions, and building cohesive large-scale art. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" name="description"/>
 <link href="https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/" rel="canonical"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -152,10 +152,10 @@ gtag('config', 'G-XLXNGGW7SX');
   color: #f5d76e;
 }
 </style>
-<meta content="https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/" property="og:url"/><meta content="Best Tattoo Styles For Sleeves | Work of Art Tattoo Las Vegas" property="og:title"/><meta content="Planning full sleeves and big projects: style fit, sessions, and building cohesive large-scale art. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" property="og:description"/>
+<meta content="https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/" property="og:url"/><meta content="Sleeve &amp; Large-Scale Tattoo Styles" property="og:title"/><meta content="Planning full sleeves and big projects: style fit, sessions, and building cohesive large-scale art. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" property="og:description"/>
 <meta content="https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/black-and-grey-artistry-dynamic-snake-masterpiece.webp" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/><meta content="Best Tattoo Styles For Sleeves | Work of Art Tattoo Las Vegas" name="twitter:title"/><meta content="Planning full sleeves and big projects: style fit, sessions, and building cohesive large-scale art. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" name="twitter:description"/><meta content="website" property="og:type"/><meta content="summary_large_image" name="twitter:card"/>
+<meta content="630" property="og:image:height"/><meta content="Sleeve &amp; Large-Scale Tattoo Styles" name="twitter:title"/><meta content="Planning full sleeves and big projects: style fit, sessions, and building cohesive large-scale art. Work of Art Tattoo &amp; Piercing, Las Vegas — E…" name="twitter:description"/><meta content="website" property="og:type"/><meta content="summary_large_image" name="twitter:card"/>
 <style data-woa-mnav-style="1">
 
 /* Work of Art — mobile nav (inject_mobile_hamburger_nav.py) — narrow rail + larger type */
@@ -543,6 +543,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -567,6 +583,18 @@ html.woa-mnav-lock body {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -639,7 +667,9 @@ html.woa-mnav-lock body {
       "headline": "Sleeve & Large-Scale Tattoo Styles",
       "description": "Planning full sleeves and big projects: style fit, sessions, and building cohesive large-scale art.",
       "url": "https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/",
-      "mainEntityOfPage": "https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/#webpage",
+      "mainEntityOfPage": {
+        "@id": "https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/#webpage"
+      },
       "author": {
         "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person"
       },
@@ -652,7 +682,10 @@ html.woa-mnav-lock body {
       "about": {
         "@id": "https://www.workofarttattoo.com/#business"
       },
-      "inLanguage": "en-US"
+      "inLanguage": "en-US",
+      "image": "https://www.workofarttattoo.com/best_tattoo_styles_for_sleeves_large_scale_project_hub/black-and-grey-artistry-dynamic-snake-masterpiece.webp",
+      "datePublished": "2026-09-16",
+      "dateModified": "2026-09-16"
     },
     {
       "@type": "WebPage",
@@ -1379,6 +1412,7 @@ t.src=base+"?woa-retry="+Date.now();
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
+        send("text_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1400,6 +1434,7 @@ t.src=base+"?woa-retry="+Date.now();
           service_type: serviceInterestFromPath(location.pathname),
           source_action: "appointment_link_click",
         }, base)));
+        send("appointment_cta_click", assign({ cta_location: clickLocation(link) }, base));
         send("book_click", base);
         return;
       }
