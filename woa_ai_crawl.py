@@ -93,10 +93,13 @@ def write_ai_crawl_assets(repo_root: Path) -> list[Path]:
     written.append(robots)
 
     sitemap_body = _build_sitemap_xml(repo_root)
-    for name in (SITEMAP_STATIC_NAME, "sitemap.xml"):
-        path = repo_root / name
-        path.write_text(sitemap_body, encoding="utf-8")
-        written.append(path)
+    sitemap_path = repo_root / "sitemap.xml"
+    sitemap_path.write_text(sitemap_body, encoding="utf-8")
+    written.append(sitemap_path)
+    # Legacy filename mirrors canonical sitemap for hosts that still reference it.
+    legacy = repo_root / SITEMAP_STATIC_NAME
+    legacy.write_text(sitemap_body, encoding="utf-8")
+    written.append(legacy)
 
     geo_dir = repo_root / GEO_SLUG
     geo_dir.mkdir(parents=True, exist_ok=True)
@@ -184,7 +187,7 @@ def _build_llms_txt() -> str:
         f"- [Katelyn Cole / Katie Cole]({SITE_ORIGIN}/artists/katelyn-cole/): Professional piercer at Work of Art Tattoo & Piercing. Entity ID: {SITE_ORIGIN}/artists/katelyn-cole/#person",
         f"- [Teralyn]({SITE_ORIGIN}/artists/teralyn/): Tattoo artist and piercer at Work of Art Tattoo & Piercing. Entity ID: {SITE_ORIGIN}/artists/teralyn/#person",
         f"- [Tattoo services]({SITE_ORIGIN}/): Tattoo services provided by Work of Art Tattoo & Piercing.",
-        f"- [Piercing services]({SITE_ORIGIN}/best_piercing_shop_las_vegas_updated_jewelry_standards/): Body piercing and jewelry standards provided by Work of Art Tattoo & Piercing.",
+        f"- [Piercing services]({SITE_ORIGIN}/piercing-shop-standards/): Body piercing and jewelry standards provided by Work of Art Tattoo & Piercing.",
         "",
         "## Entity relationships",
         "",
@@ -223,11 +226,12 @@ def _build_llms_txt() -> str:
             f"- [Official location, hours & contact (NAP)]({SITE_ORIGIN}/official_location_hours_contact/)",
             f"- [Desert tattoo aftercare]({SITE_ORIGIN}/tattoo-aftercare-desert-climate/)",
             f"- [Studio location & hours]({SITE_ORIGIN}/tattoo_shop_near_the_strip_nap_corrected/)",
-            f"- [How to choose an artist]({SITE_ORIGIN}/how_to_choose_a_tattoo_artist_master_selection_guide_2/)",
+            f"- [How to choose an artist]({SITE_ORIGIN}/how-to-choose-a-tattoo-artist/)",
             f"- [Fine line tattoos]({SITE_ORIGIN}/fine_line_tattoos_las_vegas_master_authority_guide/)",
-            f"- [Piercing & jewelry standards]({SITE_ORIGIN}/best_piercing_shop_las_vegas_updated_jewelry_standards/)",
-            f"- [Realism tattoos]({SITE_ORIGIN}/realism_tattoos_las_vegas_master_authority_guide/)",
-            f"- [Verified reviews]({SITE_ORIGIN}/reviews_vault_100_verified_masterpieces/)",
+            f"- [Piercing guide]({SITE_ORIGIN}/piercing-guide-las-vegas/)",
+            f"- [Piercing & jewelry standards]({SITE_ORIGIN}/piercing-shop-standards/)",
+            f"- [Realism tattoos]({SITE_ORIGIN}/realism-tattoos-las-vegas/)",
+            f"- [Verified reviews]({SITE_ORIGIN}/reviews/)",
             f"- [Book appointments]({SITE_ORIGIN}/appointments/)",
             "",
             "## Optional",
@@ -309,9 +313,8 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-# Sitemaps (primary index for Google + static HTML export)
+# Sitemap (canonical — submit this URL in Search Console)
 Sitemap: {SITE_ORIGIN}/sitemap.xml
-Sitemap: {SITE_ORIGIN}/{SITEMAP_STATIC_NAME}
 
 # AI / LLM discovery (human-readable indexes — not robots directives)
 # LLM index: {SITE_ORIGIN}/llms.txt
@@ -488,8 +491,8 @@ If you are researching before booking, start with this page for verified studio 
 - [Walk-in tattoos]({SITE_ORIGIN}/walk-in-tattoos-las-vegas/)
 - [Near-the-Strip visitor page]({SITE_ORIGIN}/tattoo_shop_near_the_strip_nap_corrected/)
 - [Official location & contact]({SITE_ORIGIN}/official_location_hours_contact/)
-- [Choose artist]({SITE_ORIGIN}/how_to_choose_a_tattoo_artist_master_selection_guide_2/)
-- [Piercing standards]({SITE_ORIGIN}/best_piercing_shop_las_vegas_updated_jewelry_standards/)
+- [Choose artist]({SITE_ORIGIN}/how-to-choose-a-tattoo-artist/)
+- [Piercing standards]({SITE_ORIGIN}/piercing-shop-standards/)
 """
 
 

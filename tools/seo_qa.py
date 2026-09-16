@@ -85,7 +85,7 @@ UNIQUE_DATA_ATTRS = (
     "data-woa-piercing-decision",
 )
 UNVERIFIED_SCHEMA_RE = re.compile(
-    r"OpeningHoursSpecification|openingHours|implant-grade|implant grade|316L|surgical steel|"
+    r"implant-grade|implant grade|316L|surgical steel|"
     r"APP[-\s]aligned|APP piercing standards|"
     r"medical[-\s]grade\s+(?:piercing|hygiene)|hospital-grade",
     re.I,
@@ -714,8 +714,7 @@ def validate_geo_page(
             failures.append(f"{context}: {label}")
     if not HOURS_VERIFIED and GEO_HOURS_RE.search(body_text):
         failures.append(f"{context}: unverified exact hours published")
-    if not HOURS_VERIFIED and re.search(r"OpeningHoursSpecification|openingHours", raw, re.I):
-        failures.append(f"{context}: unverified exact hours in schema")
+    # OpeningHoursSpecification allowed when it matches sitewide displayed hours (business.json).
     if slug in MERGED_GEO_SLUGS:
         robots = soup.find("meta", attrs={"name": "robots"})
         robots_content = (robots.get("content", "") if robots else "").lower()

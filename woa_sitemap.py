@@ -37,6 +37,7 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
     """
     from deploy_stitch_site_root import SKIP_DEPLOY_SLUGS, gather_folders, resolve_home_slug
     from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
+    from woa_url_aliases import ALIASES_BY_SOURCE, NEVER_RETIRE_SOURCE_SLUGS
 
     repo_root = repo_root.resolve()
     merged = gather_folders()
@@ -57,14 +58,14 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
 
     add("/", "1.0", "weekly")
 
+    alias_sources = frozenset(ALIASES_BY_SOURCE.keys()) - NEVER_RETIRE_SOURCE_SLUGS
+
     for slug in sorted(merged.keys()):
         if slug == "artists_build":
             continue
         if home_slug and slug == home_slug:
             continue
-        if slug in SKIP_DEPLOY_SLUGS or slug in RETIRE_OVERLAP_SLUGS:
-            # Alias source folders (e.g. cover_up_tattoos_las_vegas_master_authority_guide)
-            # stay on disk as retirement stubs and must not appear in the sitemap.
+        if slug in SKIP_DEPLOY_SLUGS or slug in RETIRE_OVERLAP_SLUGS or slug in alias_sources:
             continue
         local_dir = merged[slug]
         if not (local_dir / "code.html").is_file():

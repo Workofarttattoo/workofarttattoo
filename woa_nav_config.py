@@ -128,8 +128,8 @@ STUDIO_PHONE_SCHEMA = STUDIO_PHONE_PARENS
 # Homepage SEO — evidence-led, not "Best Tattoo Shop" superlative stacking
 HOME_TITLE = "Work of Art Tattoo & Piercing | Las Vegas | Walk-Ins on E. Tropicana"
 HOME_META_DESCRIPTION = (
-    "Warm, no-attitude tattoo & piercing on E. Tropicana — free consultations, walk-ins welcome. "
-    f"Joshua, Katelyn & Teralyn in-studio. Questions encouraged. {STUDIO_PHONE_PARENS}."
+    "Walk-ins welcome at Work of Art Tattoo & Piercing in Las Vegas. "
+    "Realism, cover-ups, fine line and professional piercing. Open daily 12 PM–12 AM."
 )
 
 _HOURS = _BUSINESS.get("hours", {})
@@ -209,39 +209,25 @@ NAV_TATTOO_GUIDE_SLUGS: tuple[str, ...] = (
     "how_to_choose_a_tattoo_artist_master_selection_guide_2",
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide",
     "realism_tattoos_las_vegas_master_authority_guide",
+    "fine_line_tattoos_las_vegas_master_authority_guide",
     "cover-up-tattoos-las-vegas",
     "walk_in_tattoos_las_vegas_authority_guide",
     "tattoo_healing_in_desert_climate_expert_aftercare_guide",
-    "skin_science_tattoo_dermatology_authority_guide",
-    "healing_database_tattoo_timeline_encyclopedia_las_vegas",
-    "healed_tattoo_gallery_las_vegas",
-    "real_client_tattoo_timeline_las_vegas",
     "best_tattoo_styles_for_sleeves_large_scale_project_hub",
-    "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison",
 )
 
 NAV_PIERCING_GUIDE_SLUGS: tuple[str, ...] = (
     "piercing_types_las_vegas_authority_hub",
-    "ear_piercing_guide_las_vegas",
-    "facial_piercing_guide_las_vegas",
-    "body_piercing_guide_las_vegas",
-    "piercing_jewelry_guide_las_vegas",
-    "piercing_aftercare_guide_las_vegas",
-    "helix_piercing_las_vegas_authority_guide",
     "best_piercing_shop_las_vegas_updated_jewelry_standards",
+    "ear_piercing_guide_las_vegas",
+    "piercing_aftercare_guide_las_vegas",
+    "piercing-specials-las-vegas",
     "katelyn_cole_piercing_authority_hub_las_vegas",
 )
 
 NAV_LOCATION_SLUGS: tuple[str, ...] = (
     "official_location_hours_contact",
     "tattoo_shop_near_the_strip_nap_corrected",
-    "tattoo_shop_near_mgm_grand_las_vegas",
-    "tattoo_shop_near_allegiant_stadium_las_vegas",
-    "tattoo_shop_near_las_vegas_airport",
-    "tattoo_shop_near_the_sphere_las_vegas",
-    "tattoo_shop_paradise_nevada",
-    "tattoo_shop_spring_valley_las_vegas",
-    "tattoo_shop_serving_henderson_nevada",
     "geo_hub_ai_source_of_truth_work_of_art",
 )
 
@@ -346,7 +332,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Planning full sleeves and big projects: style fit, sessions, and building cohesive large-scale art.",
     ),
     "fine_line_tattoos_las_vegas_master_authority_guide": (
-        "Fine Line Tattoo Guide",
+        "Fine Line Tattoos Las Vegas | Joshua Cole & Teralyn",
         "Needle depth, ink load, artist selection, and aftercare for fine line work in desert heat.",
     ),
     "real_client_tattoo_timeline_las_vegas": (
@@ -354,7 +340,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "One tattoo documented fresh to 1 year — cross, eye & skull forearm by Joshua Cole. Honest heal stages.",
     ),
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide": (
-        "Tattoo Pricing in Las Vegas",
+        "Tattoo Prices Las Vegas: Rates & Deposits | Work of Art",
         "Transparent breakdown of shop rates, artist tiers, size, and what affects your quote.",
     ),
     "how_to_choose_a_tattoo_artist_master_selection_guide_2": (
@@ -366,7 +352,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Multi-session roadmaps, reference prep, and timelines for ambitious tattoo projects.",
     ),
     "realism_tattoos_las_vegas_master_authority_guide": (
-        "Realism Tattoos in Vegas",
+        "Black & Grey Realism Tattoo Artist Las Vegas | Joshua Cole",
         "Black-and-grey and color realism: what to expect, healing, and artist fit near the Strip.",
     ),
     "review_funnel_google_authority_hub": (
@@ -578,7 +564,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Cross-valley planning for North Las Vegas clients choosing expertise over proximity.",
     ),
     "realism-tattoos-las-vegas": (
-        "Realism Tattoos Las Vegas",
+        "Black & Grey Realism Tattoo Artist Las Vegas | Joshua Cole",
         "Black-and-grey and color realism — portfolio, healing, and artist fit near the Strip.",
     ),
     "cover-up-tattoos-las-vegas": (
@@ -590,8 +576,12 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Same-day chairs when available — text first for today's openings.",
     ),
     "piercing-guide-las-vegas": (
-        "Complete Piercing Guide Las Vegas",
+        "Piercing Las Vegas: Ear, Nose & Body | Work of Art",
         "All placement guides, jewelry standards, and Katelyn Cole's piercing hub.",
+    ),
+    "piercing_types_las_vegas_authority_hub": (
+        "Piercing Las Vegas: Ear, Nose & Body | Work of Art",
+        "Piercing placement guides, jewelry tips, and aftercare from Katelyn Cole.",
     ),
     "tattoo-aftercare-desert-climate": (
         "Desert Tattoo Aftercare",

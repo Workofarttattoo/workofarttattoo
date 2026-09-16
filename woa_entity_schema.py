@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from bs4 import BeautifulSoup
 
@@ -442,6 +444,82 @@ def person_teralyn() -> dict:
     }
 
 
+def opening_hours_specification() -> list[dict]:
+    """Matches sitewide visible hours: Daily 12 PM–12 AM."""
+    days = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ]
+    return [
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": days,
+            "opens": "12:00",
+            "closes": "00:00",
+        }
+    ]
+
+
+def page_content_dates(slug: str, root: Path | None) -> tuple[str | None, str | None]:
+    """Derive ISO dates from git history or file mtime — never invent."""
+    if root is None:
+        return None, None
+    from woa_url_aliases import ALIASES_BY_SOURCE
+
+    candidates = [slug]
+    alias = ALIASES_BY_SOURCE.get(slug)
+    if alias:
+        candidates.append(alias.short_slug)
+    for candidate in candidates:
+        code = root / candidate / "code.html"
+        if not code.is_file():
+            continue
+        rel = code.relative_to(root).as_posix()
+        try:
+            proc = subprocess.run(
+                ["git", "log", "-1", "--format=%cs", "--", rel],
+                capture_output=True,
+                text=True,
+                cwd=root,
+                timeout=8,
+            )
+            if proc.returncode == 0 and proc.stdout.strip():
+                day = proc.stdout.strip()
+                return day, day
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+        mtime = datetime.fromtimestamp(code.stat().st_mtime, tz=timezone.utc).date().isoformat()
+        return mtime, mtime
+    return None, None
+
+
+def guide_representative_image(slug: str, root: Path | None) -> str | None:
+    if root is None:
+        return None
+    from woa_url_aliases import ALIASES_BY_SOURCE
+
+    check_slugs = [slug]
+    alias = ALIASES_BY_SOURCE.get(slug)
+    if alias:
+        check_slugs.insert(0, alias.short_slug)
+    for folder_name in check_slugs:
+        folder = root / folder_name
+        if not folder.is_dir():
+            continue
+        for ext in ("*.webp", "*.png", "*.jpg", "*.jpeg"):
+            hits = sorted(folder.glob(ext))
+            if hits:
+                return f"{SITE}/{folder_name}/{hits[0].name}"
+    if slug == "realism_tattoos_las_vegas_master_authority_guide":
+        return f"{SITE}/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.webp"
+    return f"{SITE}/home_work_of_art_tattoo_piercing/work-of-art-studio-banner-las-vegas.webp"
+
+
 def local_business_node() -> dict:
     return {
         "@type": "TattooParlor",
@@ -460,6 +538,7 @@ def local_business_node() -> dict:
             "latitude": 36.1008,
             "longitude": -115.1189,
         },
+        "openingHoursSpecification": opening_hours_specification(),
         "sameAs": [
             HREF_INSTAGRAM_STUDIO,
             HREF_FACEBOOK_STUDIO,
@@ -470,6 +549,18 @@ def local_business_node() -> dict:
             {"@id": ID_TATTOO_SERVICE},
             {"@id": ID_PIERCING_SERVICE},
         ],
+        "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": f"{SITE}/appointments/",
+                "inLanguage": "en-US",
+                "actionPlatform": [
+                    "http://schema.org/DesktopWebPlatform",
+                    "http://schema.org/MobileWebPlatform",
+                ],
+            },
+        },
         **({"award": STUDIO_AWARD_SHORT} if STUDIO_AWARD_SHORT else {}),
         "areaServed": [
             {"@type": "City", "name": "Las Vegas"},
@@ -738,21 +829,31 @@ def guide_article_graph(
         graph.append(svc)
         article_about.append({"@id": svc["@id"]})
 
+    published, modified = page_content_dates(slug, root)
+    image_url = guide_representative_image(slug, root)
+    article_node: dict = {
+        "@type": "Article",
+        "@id": f"{page_url}#article",
+        "headline": title,
+        "description": safe_description,
+        "url": page_url,
+        "mainEntityOfPage": {"@id": f"{page_url}#webpage"},
+        "author": {"@id": author_id or ID_JOSHUA},
+        "publisher": {"@id": ID_BUSINESS},
+        "isPartOf": {"@id": ID_WEBSITE},
+        "about": article_about if len(article_about) > 1 else article_about[0],
+        "inLanguage": "en-US",
+    }
+    if image_url:
+        article_node["image"] = image_url
+    if published:
+        article_node["datePublished"] = published
+    if modified:
+        article_node["dateModified"] = modified
+
     graph.extend(
         [
-            {
-                "@type": "Article",
-                "@id": f"{page_url}#article",
-                "headline": title,
-                "description": safe_description,
-                "url": page_url,
-                "mainEntityOfPage": f"{page_url}#webpage",
-                "author": {"@id": author_id or ID_JOSHUA},
-                "publisher": {"@id": ID_BUSINESS},
-                "isPartOf": {"@id": ID_WEBSITE},
-                "about": article_about if len(article_about) > 1 else article_about[0],
-                "inLanguage": "en-US",
-            },
+            article_node,
             {
                 "@type": "WebPage",
                 "@id": f"{page_url}#webpage",

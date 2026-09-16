@@ -34,7 +34,7 @@ def main_html() -> str:
 <div class="space-y-6">
 <p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-xs">This week at Work of Art</p>
 <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface leading-tight">Piercing Specials in Las Vegas</h1>
-<p class="font-body-lg text-on-surface-variant leading-relaxed">See the current Work of Art piercing feature, what's included, and how to book with Katelyn. Text or book online for this week's featured placement, jewelry-fit options, and same-day openings.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">See the current Work of Art piercing special, what's included, and how to book with Katelyn. Text or book online for eligible placements, jewelry-fit options, and same-day openings.</p>
 <div class="flex flex-col sm:flex-row gap-3">
 <a class="inline-flex bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase" href="/appointments/" data-woa-piercing-booking-start="1">Book piercing</a>
 <a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase hover:border-secondary" href="{STUDIO_PHONE_TEL.replace('tel:', 'sms:')}" data-woa-piercing-text-click="1">Text for today</a>
@@ -59,7 +59,7 @@ def main_html() -> str:
 <div class="max-w-3xl mx-auto space-y-12">
 <section class="space-y-4">
 <h2 class="font-headline-md text-on-surface text-2xl">Piercings offered</h2>
-<p class="font-body-md text-on-surface-variant">The weekly feature can change, but the consult process stays the same: anatomy first, clean placement marks, starter fit, and aftercare you can actually follow in Las Vegas.</p>
+<p class="font-body-md text-on-surface-variant">Specials can change, but the consult process stays the same: anatomy first, clean placement marks, starter fit, and aftercare you can actually follow in Las Vegas.</p>
 <ul class="font-body-md text-on-surface-variant space-y-2 list-disc pl-5">{eligible}</ul>
 </section>
 <section class="space-y-4">
@@ -82,12 +82,12 @@ def main_html() -> str:
 </section>
 <section class="space-y-4">
 <h2 class="font-headline-md text-on-surface text-2xl">Questions clients ask</h2>
-<details class="border border-outline-variant/30 bg-surface-container-high p-5"><summary class="font-headline-md text-on-surface cursor-pointer">Is the weekly feature still professional piercing?</summary><p class="font-body-md text-on-surface-variant mt-4">Yes. The point is a current feature, not racing to the lowest price. Placement, sterile setup, jewelry fit, and aftercare time still matter.</p></details>
-<details class="border border-outline-variant/30 bg-surface-container-high p-5"><summary class="font-headline-md text-on-surface cursor-pointer">Can I walk in for the weekly piercing special?</summary><p class="font-body-md text-on-surface-variant mt-4">Sometimes. Text first for today's availability so the studio can confirm Katelyn's schedule and whether the placement fits your anatomy.</p></details>
+<details class="border border-outline-variant/30 bg-surface-container-high p-5"><summary class="font-headline-md text-on-surface cursor-pointer">Is the piercing special still professional piercing?</summary><p class="font-body-md text-on-surface-variant mt-4">Yes. The point is a current studio offer, not racing to the lowest price. Placement, sterile setup, jewelry fit, and aftercare time still matter.</p></details>
+<details class="border border-outline-variant/30 bg-surface-container-high p-5"><summary class="font-headline-md text-on-surface cursor-pointer">Can I walk in for the piercing special?</summary><p class="font-body-md text-on-surface-variant mt-4">Sometimes. Text first for today's availability so the studio can confirm Katelyn's schedule and whether the placement fits your anatomy.</p></details>
 <details class="border border-outline-variant/30 bg-surface-container-high p-5"><summary class="font-headline-md text-on-surface cursor-pointer">Can I upgrade or change jewelry?</summary><p class="font-body-md text-on-surface-variant mt-4">Ask during the consult. Fresh-piercing jewelry choices depend on fit, swelling, placement, and what is appropriate for the stage of healing.</p></details>
 </section>
 <section class="space-y-4">
-<h2 class="font-headline-md text-on-surface text-2xl">Book this week's piercing feature</h2>
+<h2 class="font-headline-md text-on-surface text-2xl">Book the current piercing special</h2>
 <div class="flex flex-col sm:flex-row gap-3">
 <a class="inline-flex bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase" href="/appointments/" data-woa-piercing-booking-start="1">Book piercing</a>
 <a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase hover:border-secondary" href="{STUDIO_PHONE_TEL.replace('tel:', 'sms:')}" data-woa-piercing-text-click="1">Text for today</a>

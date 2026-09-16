@@ -292,6 +292,15 @@ def htaccess_redirect_block() -> str:
         REDIRECT_MARKER,
         "<IfModule mod_rewrite.c>",
         "RewriteEngine On",
+        "# Canonical host: https://www.workofarttattoo.com",
+        "RewriteCond %{HTTPS} off [OR]",
+        "RewriteCond %{HTTP_HOST} !^www\\.workofarttattoo\\.com$ [NC]",
+        "RewriteRule ^ https://www.workofarttattoo.com%{REQUEST_URI} [R=301,L]",
+        "# Trailing slash for directory URLs (not files/assets)",
+        "RewriteCond %{REQUEST_FILENAME} !-f",
+        "RewriteCond %{REQUEST_URI} !\\.(xml|txt|json|webp|jpe?g|png|gif|svg|css|js|ico|pdf|md)$ [NC]",
+        "RewriteCond %{REQUEST_URI} !(.*)/$",
+        "RewriteRule ^(.*)$ /$1/ [R=301,L]",
     ]
     for alias in URL_ALIASES:
         if alias.source_slug in NEVER_RETIRE_SOURCE_SLUGS:

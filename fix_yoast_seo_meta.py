@@ -7,7 +7,8 @@ import re
 from html import escape, unescape
 from pathlib import Path
 
-from woa_nav_config import GUIDE_META
+from woa_nav_config import GUIDE_META, HOME_META_DESCRIPTION
+from woa_url_aliases import short_canonical
 
 ROOT = Path(__file__).resolve().parent
 SITE = "https://www.workofarttattoo.com"
@@ -71,9 +72,38 @@ DESC_EXTRA: dict[str, str] = {
         "Book tattoo and piercing appointments at Work of Art in Las Vegas — "
         "custom tattoos, consults, and walk-ins. 2375 E. Tropicana Ave, Suite 3. (725) 224-1240."
     ),
-    "home_work_of_art_tattoo_piercing": (
-        "Las Vegas tattoo and piercing studio on E. Tropicana — custom tattoos, "
-        "black and grey realism, color work, cover-ups, and walk-ins. (725) 224-1240."
+    "home_work_of_art_tattoo_piercing": HOME_META_DESCRIPTION,
+    "realism-tattoos-las-vegas": (
+        "Black-and-grey realism portraits, wildlife, and sleeves with healed portfolio proof — "
+        "consult Joshua Cole at Work of Art Tattoo, Las Vegas."
+    ),
+    "realism_tattoos_las_vegas_master_authority_guide": (
+        "Black-and-grey realism portraits, wildlife, and sleeves with healed portfolio proof — "
+        "consult Joshua Cole at Work of Art Tattoo, Las Vegas."
+    ),
+    "fine_line_tattoos_las_vegas_master_authority_guide": (
+        "Fine line and micro-detail tattoos planned for longevity in desert heat — "
+        "Joshua Cole and Teralyn at Work of Art Las Vegas."
+    ),
+    "piercing-guide-las-vegas": (
+        "Ear, nose, and body piercing with anatomy-first placement and jewelry-fit planning — "
+        "Katelyn Cole at Work of Art Las Vegas."
+    ),
+    "piercing_types_las_vegas_authority_hub": (
+        "Ear, nose, and body piercing with anatomy-first placement and jewelry-fit planning — "
+        "Katelyn Cole at Work of Art Las Vegas."
+    ),
+    "walk-in-tattoos-las-vegas": (
+        "Same-day tattoo and piercing when the schedule allows — call before you drive. "
+        "Work of Art on E. Tropicana, open daily 12 PM–12 AM."
+    ),
+    "walk_in_tattoos_las_vegas_authority_guide": (
+        "Same-day tattoo and piercing when the schedule allows — call before you drive. "
+        "Work of Art on E. Tropicana, open daily 12 PM–12 AM."
+    ),
+    "how_much_do_tattoos_cost_in_las_vegas_authority_guide": (
+        "Shop minimums, hourly rates, deposits, and what changes your quote — "
+        "honest tattoo pricing guidance from Work of Art Las Vegas."
     ),
     "artists": (
         "Meet Joshua Cole, Katelyn Cole, and Teralyn at Work of Art in Las Vegas — "
@@ -109,10 +139,16 @@ def description_for(slug: str, title: str) -> str:
     )
 
 
+def title_for(slug: str, parsed: str) -> str:
+    if slug in GUIDE_META:
+        return GUIDE_META[slug][0]
+    return parsed
+
+
 def canonical_for(slug: str) -> str:
     if slug.startswith("home_work_of_art"):
         return f"{SITE}/"
-    return f"{SITE}/{slug}/"
+    return short_canonical(slug)
 
 
 def og_image_for(slug: str) -> str:
@@ -198,8 +234,17 @@ def fix_file(path: Path) -> list[str]:
         html = insert_head_block(html, build_head_extras(title, desc, slug))
         changes.append("head+seo")
     else:
-        title = parse_title(html)
+        title = title_for(slug, parse_title(html))
         desc = description_for(slug, title)
+        if title != parse_title(html):
+            html = re.sub(
+                r"<title>[^<]*</title>",
+                f"<title>{escape(title)}</title>",
+                html,
+                count=1,
+                flags=re.I,
+            )
+            changes.append("title")
         if re.search(r'name=["\']description["\']', html, re.I):
             html = replace_meta(html, name="description", content=desc)
         else:

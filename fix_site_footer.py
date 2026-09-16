@@ -52,7 +52,7 @@ SLIM_FOOTER_INNER = f"""
 <ul class="space-y-2 text-on-surface-variant text-[13px] font-body-md">
 <li><a class="hover:text-secondary transition-colors" href="{HREF_APPOINTMENTS}">Free consultation</a></li>
 <li><a class="hover:text-secondary transition-colors" href="{STUDIO_PHONE_TEL}">Text {STUDIO_PHONE_PARENS}</a></li>
-<li><a class="hover:text-secondary transition-colors" href="/reviews_vault_100_verified_masterpieces/">Client reviews</a></li>
+<li><a class="hover:text-secondary transition-colors" href="/reviews/">Client reviews</a></li>
 </ul>
 </div>
 <div class="space-y-3">
@@ -61,7 +61,7 @@ SLIM_FOOTER_INNER = f"""
 <li><a class="hover:text-secondary transition-colors" href="/#gallery">Portfolio</a></li>
 <li><a class="hover:text-secondary transition-colors" href="/artists/">Artists</a></li>
 <li><a class="hover:text-secondary transition-colors" href="{HREF_OFFICIAL_NAP}">Hours &amp; location</a></li>
-<li><a class="hover:text-secondary transition-colors" href="/geo_hub_ai_source_of_truth_work_of_art/">{GEO_HUB_CUSTOMER_LABEL}</a></li>
+<li><a class="hover:text-secondary transition-colors" href="/las-vegas-tattoo-resource-center/">{GEO_HUB_CUSTOMER_LABEL}</a></li>
 </ul>
 </div>
 <div class="space-y-3">

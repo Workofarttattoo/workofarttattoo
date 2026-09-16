@@ -18,6 +18,22 @@ SITE = "https://www.workofarttattoo.com"
 HEAD_LINKS = """<link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-typography.css" rel="stylesheet"/>"""
 
+KNOWLEDGE_TITLE_OVERRIDES: dict[str, str] = {
+    "best-soap-for-tattoo-aftercare": "Best Soap for Tattoo Aftercare: What's Safe?",
+    "tattoo-on-ribs-recovery": "Rib Tattoo Pain & Healing Time | Work of Art",
+}
+
+KNOWLEDGE_DESC_OVERRIDES: dict[str, str] = {
+    "best-soap-for-tattoo-aftercare": (
+        "Fragrance-free, mild liquid soap is safest for new tattoos — avoid alcohol, "
+        "exfoliants, and scented body wash. Work of Art aftercare tips."
+    ),
+    "tattoo-on-ribs-recovery": (
+        "Ribs are high-movement and often higher pain — expect 2–3 weeks of careful "
+        "aftercare and slower healing. Work of Art placement guide."
+    ),
+}
+
 
 def qa_page_html(slug: str, question: str, answer: str, guide_slug: str) -> str:
     from woa_nav_config import GUIDE_META
@@ -28,13 +44,18 @@ def qa_page_html(slug: str, question: str, answer: str, guide_slug: str) -> str:
         guide_title = GUIDE_META[guide_slug][0]
     else:
         guide_title = guide_slug.replace("_", " ").replace("-", " ").replace("authority guide", "").strip().title()
-    graph = faq_page_graph(slug=f"knowledge/{slug}", title=question, faqs=[(question, answer)])
+    page_title = KNOWLEDGE_TITLE_OVERRIDES.get(slug, f"{question} | Work of Art Knowledge")
+    meta_desc = KNOWLEDGE_DESC_OVERRIDES.get(slug, answer[:155])
+    graph = faq_page_graph(slug=f"knowledge/{slug}", title=page_title, faqs=[(question, answer)])
+    from woa_url_aliases import short_href as _short_href
+
+    aftercare_href = _short_href("tattoo_healing_in_desert_climate_expert_aftercare_guide")
     return f"""<!DOCTYPE html>
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>{html.escape(question)} | Work of Art Knowledge</title>
-<meta content="{html.escape(answer[:155])}" name="description"/>
+<title>{html.escape(page_title)}</title>
+<meta content="{html.escape(meta_desc)}" name="description"/>
 <link href="{SITE}/knowledge/{slug}/" rel="canonical"/>
 {HEAD_LINKS}
 {schema_script(graph)}
@@ -46,7 +67,7 @@ def qa_page_html(slug: str, question: str, answer: str, guide_slug: str) -> str:
 <h1 class="font-headline-lg text-on-surface mb-6">{html.escape(question)}</h1>
 <p class="font-body-lg text-on-surface-variant leading-relaxed mb-8">{html.escape(answer)}</p>
 <p class="font-body-md text-on-surface-variant mb-4"><strong class="text-on-surface">Related guide:</strong> <a class="text-secondary underline hover:no-underline" href="{guide_href}">{html.escape(guide_title)}</a></p>
-<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline hover:no-underline" href="/appointments/">Book a consult</a> · <a class="text-secondary underline hover:no-underline" href="/artists/">Meet our artists</a> · <a class="text-secondary underline hover:no-underline" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">Desert aftercare guide</a></p>
+<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline hover:no-underline" href="/appointments/">Book a consult</a> · <a class="text-secondary underline hover:no-underline" href="/artists/">Meet our artists</a> · <a class="text-secondary underline hover:no-underline" href="{aftercare_href}">Desert aftercare guide</a></p>
 </main>
 </body></html>
 """

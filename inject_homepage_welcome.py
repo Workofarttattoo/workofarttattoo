@@ -51,8 +51,11 @@ Don't just get a tattoo or piercing — leave feeling valued. Like you made a li
 <div class="flex flex-col sm:flex-row flex-wrap gap-3 pt-2">
 <a class="inline-flex justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest gold-glow transition-all" href="/appointments/">Book a free consult</a>
 <a class="inline-flex justify-center border border-outline px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="{STUDIO_PHONE_TEL}">Call {STUDIO_PHONE_PARENS}</a>
-<a class="inline-flex justify-center border border-outline-variant/50 px-8 py-4 font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors" href="/walk_in_tattoos_las_vegas_authority_guide/">Walk-in info</a>
+<a class="inline-flex justify-center border border-outline-variant/50 px-8 py-4 font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors" href="/walk-in-tattoos-las-vegas/">Walk-in info</a>
 </div>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+Custom tattoos, ear and body piercing, and jewelry-fit consults with our in-studio team — walk-ins welcome daily <strong class="text-on-surface">12&nbsp;PM–12&nbsp;AM</strong>.
+</p>
 <p class="font-body-md text-on-surface-variant text-sm pt-1"><a class="text-secondary underline hover:no-underline" href="/official_location_hours_contact/" aria-label="{STUDIO_ADDRESS_SINGLE_LINE}">{STUDIO_STREET_ADDRESS}</a> · {STUDIO_ROSTER_BLURB}</p>
 </div>
 </section>
