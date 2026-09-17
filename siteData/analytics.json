@@ -1,0 +1,59 @@
+{
+  "ga4MeasurementId": "G-XLXNGGW7SX",
+  "gtmContainerId": "GTM-TZTQSQBB",
+  "canonicalSiteUrl": "https://www.workofarttattoo.com/",
+  "searchConsoleProperty": "https://www.workofarttattoo.com/",
+  "gscWizard": {
+    "mcpEndpoint": "https://mcp.gscwizard.com/mcp",
+    "docsUrl": "https://www.gscwizard.com/google-analytics-4-reports.html",
+    "requiredOAuthScopes": [
+      "webmasters.readonly",
+      "analytics.readonly"
+    ],
+    "notes": "Couple the GA4 property that receives G-XLXNGGW7SX to the Search Console property above inside the GSC Wizard web app."
+  },
+  "keyEventsForGscWizard": {
+    "primary": "booking_submit",
+    "recommendedSecondary": [
+      "generate_lead",
+      "phone_click",
+      "text_click",
+      "email_click",
+      "directions_click",
+      "appointment_cta_click"
+    ],
+    "diagnosticNotKeyEvents": [
+      "booking_start",
+      "booking_submit_attempt",
+      "booking_view",
+      "book_click",
+      "form_start",
+      "scroll_depth",
+      "page_view",
+      "session_start",
+      "call_click",
+      "piercing_booking_start",
+      "piercing_booking_submit",
+      "ads_conversion_Submit_lead_form_1"
+    ]
+  },
+  "gscWizardBlendedReports": {
+    "description": "Landing-page join uses canonical https://www URLs with trailing slashes.",
+    "priorityLandingPages": [
+      "/",
+      "/appointments/",
+      "/piercing-guide-las-vegas/",
+      "/cover-up-tattoos-las-vegas/",
+      "/realism-tattoos-las-vegas/",
+      "/walk-in-tattoos-las-vegas/",
+      "/fine_line_tattoos_las_vegas_master_authority_guide/",
+      "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/",
+      "/artists/joshua-cole/",
+      "/artists/katelyn-cole/",
+      "/official_location_hours_contact/",
+      "/tattoo_shop_near_the_strip_nap_corrected/"
+    ]
+  },
+  "implementationSource": "woa_ga4_conversions.py",
+  "eventContractDoc": "docs/analytics-event-contract.md"
+}

@@ -64,6 +64,7 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "implement_seo_growth_actions.py")],
     ["python3", str(ROOT / "enhance_protected_seo_pages.py")],
     ["python3", str(ROOT / "inject_contextual_links.py")],
+    ["python3", str(ROOT / "implement_priority_seo_upgrades.py")],
     ["python3", str(ROOT / "final_copy_polish.py")],
     ["python3", str(ROOT / "fix_social_links.py")],
     ["python3", str(ROOT / "fix_studio_booking_email.py")],

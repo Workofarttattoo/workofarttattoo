@@ -577,11 +577,11 @@ GUIDE_META: dict[str, tuple[str, str]] = {
     ),
     "piercing-guide-las-vegas": (
         "Piercing Las Vegas: Ear, Nose & Body | Work of Art",
-        "All placement guides, jewelry standards, and Katelyn Cole's piercing hub.",
+        "Explore professional piercing in Las Vegas with Katelyn Cole. Compare placements, jewelry, healing and anatomy considerations, then check availability.",
     ),
     "piercing_types_las_vegas_authority_hub": (
         "Piercing Las Vegas: Ear, Nose & Body | Work of Art",
-        "Piercing placement guides, jewelry tips, and aftercare from Katelyn Cole.",
+        "Explore professional piercing in Las Vegas with Katelyn Cole. Compare placements, jewelry, healing and anatomy considerations, then check availability.",
     ),
     "tattoo-aftercare-desert-climate": (
         "Desert Tattoo Aftercare",

@@ -2,6 +2,10 @@
 
 GitHub Pages cannot emit HTTP 301 responses. Configure these **Bulk Redirects** (or equivalent Page Rules) in the Cloudflare dashboard for `workofarttattoo.com` so every alternate URL reaches its canonical form in **one hop**.
 
+**Import file:** `config/cloudflare-bulk-redirects.csv`
+
+**Live verification (2026-09-16):** `python3 tools/test_canonical_redirects.py --live` — 8/8 passed, single 301 hop for all alternate host/protocol variants (homepage + deep URLs, query strings preserved).
+
 ## Host canonicalization
 
 | Source | Target | Status |

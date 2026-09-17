@@ -10,6 +10,9 @@ __pycache__/
 *.pyc
 .claude/settings.local.json
 
+# Local MCP keys (use .cursor/mcp.json.example as template)
+.cursor/mcp.json
+
 # Local recovery bundles — do not publish to GitHub Pages
 *.bundle
 workofarttattoo-reconciled-*.bundle

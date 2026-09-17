@@ -17,11 +17,11 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
         "Aftercare & healing cluster",
         [
             ("Skin Science hub — how skin holds ink", "/skin_science_tattoo_dermatology_authority_guide/"),
-            ("Healing Database — day 1 to year 1 encyclopedia", "/healing_database_tattoo_timeline_encyclopedia_las_vegas/"),
-            ("Fresh vs healed — real studio photos", "/tattoo_healing_before_after_real_results/"),
+            ("Tattoo healing guide — fresh to settled", "/las-vegas-tattoo-healing-guide/"),
+            ("Real client timeline — every stage", "/real_client_tattoo_timeline_las_vegas/"),
             ("Healed tattoo gallery by style", "/healed_tattoo_gallery_las_vegas/"),
-            ("Joshua Cole — oil painting & aging", "/joshua_oil_painting_black_grey_tattoo_aging_las_vegas/"),
-            ("Desert climate aftercare guide", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
+            ("Epidermis guide — peeling explained", "/epidermis_skin_science_las_vegas_authority_guide/"),
+            ("Desert climate aftercare guide", "/tattoo-aftercare-desert-climate/"),
             ("Tattoo pain & placement chart", "/tattoo_pain_chart_placement_sensitivity_guide/"),
             ("How tattoos age over time", "/knowledge/tattoo-aging-and-fading-over-time/"),
             ("Book a healing check-in", "/appointments/"),
@@ -59,8 +59,8 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
             ("Joshua Cole — realism artist", "/artists/joshua-cole/"),
             ("Cover-up tattoos Las Vegas", "/cover-up-tattoos-las-vegas/"),
             ("Large-scale project planning", "/large_scale_projects_variant_a_authentic_art_rotation/"),
-            ("Choose a tattoo artist", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/"),
-            ("Verified client reviews", "/reviews_vault_100_verified_masterpieces/"),
+            ("How to choose a tattoo artist", "/how-to-choose-a-tattoo-artist/"),
+            ("Verified client reviews", "/reviews/"),
         ],
     ),
     "fine_line": (
@@ -111,7 +111,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
     "cost": (
         "Pricing & planning cluster",
         [
-            ("How to choose a tattoo artist", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/"),
+            ("How to choose a tattoo artist", "/how-to-choose-a-tattoo-artist/"),
             ("Large-scale project planning", "/large_scale_projects_variant_a_authentic_art_rotation/"),
             ("Realism guide", "/realism_tattoos_las_vegas_master_authority_guide/"),
             ("Walk-in tattoos guide", "/walk_in_tattoos_las_vegas_authority_guide/"),

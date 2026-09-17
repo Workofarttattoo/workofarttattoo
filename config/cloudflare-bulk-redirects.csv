@@ -1,0 +1,4 @@
+source_url,target_url,status_code,preserve_query_string,include_subdomains,subpath_matching,path_matching
+http://workofarttattoo.com/*,https://www.workofarttattoo.com/${1},301,true,false,true,true
+https://workofarttattoo.com/*,https://www.workofarttattoo.com/${1},301,true,false,true,true
+http://www.workofarttattoo.com/*,https://www.workofarttattoo.com/${1},301,true,false,true,true
