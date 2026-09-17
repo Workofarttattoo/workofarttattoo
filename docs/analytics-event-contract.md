@@ -51,3 +51,16 @@ Events suppressed for headless QA, Lighthouse, `navigator.webdriver`, `?woa_qa=1
 ## Privacy
 
 Never send customer name, email, phone, form free text, medical info, or tattoo/piercing descriptions in analytics payloads.
+
+## GSC Wizard (Search Console + GA4 reporting)
+
+GSC Wizard reads GA4 **key events** via the Data API — it does not implement tags. After site events flow to property `G-XLXNGGW7SX`:
+
+| GSC Wizard use | GA4 key event to select |
+|----------------|-------------------------|
+| Primary conversion reporting | `booking_submit` |
+| Lead alternate | `generate_lead` |
+| Call / text / email / directions | `phone_click`, `text_click`, `email_click`, `directions_click` |
+| Book CTA (diagnostic in GA4, optional key event) | `appointment_cta_click` |
+
+Setup: `analytics/gsc-wizard-ga4-setup.md` · config: `siteData/analytics.json` · MCP: `.cursor/mcp.json.example`
