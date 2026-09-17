@@ -3,24 +3,32 @@
     "id": "joshua-cole",
     "name": "Joshua Cole",
     "url": "/artists/joshua-cole/",
-    "role": "Tattoo artist",
+    "role": "Studio lead — black & grey realism tattoo artist",
     "verifiedSpecialties": [
-      "awarded Top Ten Best Black & Grey Realism Artists in Las Vegas",
       "black and grey realism",
-      "color realistic imagery",
-      "blackwork",
-      "sleeves",
-      "cover-ups"
+      "realism tattooing",
+      "portrait tattooing",
+      "large-scale tattooing",
+      "sleeve tattooing",
+      "cover-up and rework tattooing",
+      "color realism",
+      "surrealistic and illustrative tattooing",
+      "floral work",
+      "select fine-line tattooing"
     ]
   },
   {
     "id": "katelyn-cole",
     "name": "Katelyn Cole",
     "url": "/artists/katelyn-cole/",
-    "role": "Piercer",
+    "role": "Professional piercer",
     "verifiedSpecialties": [
-      "piercing",
+      "professional piercing",
       "ear curation",
+      "anatomy-first placement",
+      "facial piercing",
+      "body piercing",
+      "jewelry fit",
       "jewelry styling"
     ]
   },
@@ -28,15 +36,14 @@
     "id": "teralyn",
     "name": "Teralyn",
     "url": "/artists/teralyn/",
-    "role": "Tattoo artist and piercer",
+    "role": "Fine-line tattoo artist and piercer",
     "instagram": "https://www.instagram.com/mischiefmodifies/",
     "verifiedSpecialties": [
+      "fine-line tattoos",
       "fine line floral work",
-      "fine line",
       "script",
       "small detailed tattoos",
       "custom drawings by commission",
-      "flash",
       "piercing"
     ]
   }
