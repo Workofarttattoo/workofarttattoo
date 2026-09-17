@@ -33,7 +33,7 @@ JOSHUA_RELATED = """
 <ul class="font-body-md text-on-surface-variant space-y-2">
 <li><a class="text-secondary underline hover:no-underline" href="/realism-tattoos-las-vegas/">Black &amp; grey realism in Las Vegas</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/cover-up-tattoos-las-vegas/">Cover-up tattoo planning</a></li>
-<li><a class="text-secondary underline hover:no-underline" href="/skin_science_tattoo_dermatology_authority_guide/">Skin science for tattoo collectors</a></li>
+<li><a class="text-secondary underline hover:no-underline" href="/tattoo-skin-science/">Skin science for tattoo collectors</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/healed_tattoo_gallery_las_vegas/">Healed tattoo gallery</a></li>
 </ul>
 </nav>

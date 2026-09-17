@@ -90,7 +90,7 @@ Skin tone normal; yellows and oranges softened into a stable, matte finish. Deta
 <p><strong>2. Excess ink clears.</strong> Some pigment sits too shallow and washes out with plasma — that is why we wipe and refine during the session. What remains is the stable layer in the dermis.</p>
 <p><strong>3. White highlights are skin, not ink.</strong> Bright spots in fresh color work often come from leaving skin open. After healing, those areas look naturally lighter — by design.</p>
 <p><strong>4. Scar tissue maturation.</strong> The dermis contracts and settles over 6–12 weeks. Contrast evens out; harsh edges soften into a readable long-term image.</p>
-<p><strong>5. Sun, dryness, and aftercare.</strong> In Las Vegas, UV and low humidity can fade color faster if you skip SPF or let the tattoo dry out. Follow our <a class="text-secondary underline" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">desert climate aftercare guide</a>.</p>
+<p><strong>5. Sun, dryness, and aftercare.</strong> In Las Vegas, UV and low humidity can fade color faster if you skip SPF or let the tattoo dry out. Follow our <a class="text-secondary underline" href="/tattoo-aftercare-desert-climate/">desert climate aftercare guide</a>.</p>
 </div>
 <div class="bg-surface border-l-4 border-secondary p-8 mt-8">
 <h3 class="font-label-caps text-label-caps text-secondary mb-2">What “normal” looks like</h3>
@@ -196,18 +196,18 @@ def patch_meta(html: str) -> str:
 
 
 def patch_guide_hub(html: str) -> str:
-    current = 'aria-current="page" class="woa-guide-pill is-current" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/"'
+    current = 'aria-current="page" class="woa-guide-pill is-current" href="/tattoo-aftercare-desert-climate/"'
     if current in html:
         html = html.replace(
             current,
-            'class="woa-guide-pill" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/"',
+            'class="woa-guide-pill" href="/tattoo-aftercare-desert-climate/"',
             1,
         )
     pill = (
         f'<a aria-current="page" class="woa-guide-pill is-current" href="/{SLUG}/">'
         "Fresh vs Healed Healing</a>"
     )
-    anchor = 'href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">Desert Climate Aftercare</a>'
+    anchor = 'href="/tattoo-aftercare-desert-climate/">Desert Climate Aftercare</a>'
     return html.replace(anchor, anchor + pill, 1)
 
 
@@ -226,7 +226,7 @@ def link_from_desert_guide() -> None:
     if not DESERT_GUIDE.is_file():
         return
     raw = DESERT_GUIDE.read_text(encoding="utf-8")
-    link = 'href="/tattoo_healing_before_after_real_results/"'
+    link = 'href="/las-vegas-tattoo-healing-guide/"'
     if link in raw:
         return
     needle = '<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 leading-relaxed">\n                        Healing a tattoo in a desert climate'

@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parent
 HOME_VAULT_GROUPS: tuple[tuple[str, tuple[str, ...]], ...] = ()
 
 RECENTLY_UPDATED: tuple[tuple[str, str, str], ...] = (
-    ("Tattoo Healing Database — timeline encyclopedia", "/healing_database_tattoo_timeline_encyclopedia_las_vegas/", "June 2026"),
+    ("Tattoo Healing Database — timeline encyclopedia", "/real_client_tattoo_timeline_las_vegas/", "June 2026"),
     ("New healed black & grey gallery", "/healed_black_grey_tattoos_las_vegas/", "June 2026"),
     ("Complete helix piercing guide", "/helix_piercing_las_vegas_authority_guide/", "June 2026"),
     ("Piercing jewelry guide", "/piercing_jewelry_guide_las_vegas/", "June 2026"),

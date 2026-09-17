@@ -903,7 +903,7 @@ def guide_article_graph(
     if slug == "tattoo_healing_before_after_real_results":
         graph.append(
             image_object(
-                url=f"{SITE}/tattoo_healing_before_after_real_results/eagle-memorial-calf-fresh-vs-healed-comparison-las-vegas.webp",
+                url=f"{SITE}/las-vegas-tattoo-healing-guide/eagle-memorial-calf-fresh-vs-healed-comparison-las-vegas.webp",
                 caption="Color memorial eagle tattoos — fresh vs healed comparison, Work of Art Las Vegas",
                 creator_id=ID_JOSHUA,
             )

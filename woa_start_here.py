@@ -34,12 +34,12 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
             "tattoos cost in Las Vegas before you book."
         ),
         primary_label="How to choose a tattoo artist",
-        primary_href="/how_to_choose_a_tattoo_artist_master_selection_guide_2/",
+        primary_href="/how-to-choose-a-tattoo-artist_2/",
         links=(
             ("Tattoo pain by placement", "/tattoo_pain_chart_placement_sensitivity_guide/"),
             ("Tattoo pricing in Vegas", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/"),
-            ("Desert aftercare basics", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
-            ("Skin science — how skin holds ink", "/skin_science_tattoo_dermatology_authority_guide/"),
+            ("Desert aftercare basics", "/tattoo-aftercare-desert-climate/"),
+            ("Skin science — how skin holds ink", "/tattoo-skin-science/"),
         ),
     ),
     StartHerePath(
@@ -52,7 +52,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         primary_label="Tattoo shop near the Strip",
         primary_href="/tattoo_shop_near_the_strip_nap_corrected/",
         links=(
-            ("Walk-in tattoos", "/walk_in_tattoos_las_vegas_authority_guide/"),
+            ("Walk-in tattoos", "/walk-in-tattoos-las-vegas/"),
             ("Near the airport", "/tattoo_shop_near_las_vegas_airport/"),
             ("Hours & directions", "/official_location_hours_contact/"),
         ),
@@ -83,7 +83,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         primary_href="/cover-up-tattoos-las-vegas/",
         links=(
             ("Healed cover-up gallery", "/healed_cover_up_tattoos_las_vegas/"),
-            ("How to choose an artist", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/"),
+            ("How to choose an artist", "/how-to-choose-a-tattoo-artist_2/"),
             ("Book a consult", "/appointments/"),
         ),
     ),
@@ -97,7 +97,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         primary_label="Healed tattoo gallery",
         primary_href="/healed_tattoo_gallery_las_vegas/",
         links=(
-            ("Healing Database — day 1 to year 1", "/healing_database_tattoo_timeline_encyclopedia_las_vegas/"),
+            ("Healing Database — day 1 to year 1", "/real_client_tattoo_timeline_las_vegas/"),
             ("Real client timeline (fresh → 1 year)", "/real_client_tattoo_timeline_las_vegas/"),
             ("Healed black & grey", "/healed_black_grey_tattoos_las_vegas/"),
             ("Studio gallery", "/studio_gallery/"),
@@ -114,7 +114,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         primary_href="/how_much_do_tattoos_cost_in_las_vegas_authority_guide/",
         links=(
             ("Flash under $100", "/flash_art_deals_under_100/"),
-            ("Walk-in availability", "/walk_in_tattoos_las_vegas_authority_guide/"),
+            ("Walk-in availability", "/walk-in-tattoos-las-vegas/"),
             ("Book a consult", "/appointments/"),
         ),
     ),

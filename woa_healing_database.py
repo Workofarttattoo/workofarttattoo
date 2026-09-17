@@ -38,7 +38,7 @@ COVER = "cover-up-tattoos-las-vegas"
 BEFORE_AFTER = "tattoo_healing_before_after_real_results"
 STUDIO = "studio_gallery"
 
-AFTERCARE_GUIDE = "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"
+AFTERCARE_GUIDE = "/tattoo-aftercare-desert-climate/"
 HEALED_HUB = "/healed_tattoo_gallery_las_vegas/"
 BOOK = "/appointments/"
 REAL_CLIENT = "/real_client_tattoo_timeline_las_vegas/"
@@ -461,7 +461,7 @@ STYLE_CATEGORIES: tuple[StyleCategory, ...] = (
             "Joshua Cole documents most of our black & grey heal stages in-studio."
         ),
         "healed_black_grey_tattoos_las_vegas",
-        "/realism_tattoos_las_vegas_master_authority_guide/",
+        "/realism-tattoos-las-vegas/",
         {
             "day_1": ("Deep blacks look wet and glossy under plasma — highlights stay open by design.",),
             "month_3": ("Mid-tone separation returns after milky phase — judge contrast now, not week one.",),
@@ -483,7 +483,7 @@ STYLE_CATEGORIES: tuple[StyleCategory, ...] = (
             "months later in Las Vegas sun."
         ),
         "healed_color_tattoos_las_vegas",
-        "/realism_tattoos_las_vegas_master_authority_guide/",
+        "/realism-tattoos-las-vegas/",
         {
             "day_1": ("Color reads brightest day zero — expect 10–20% softening as skin regenerates.",),
             "month_3": ("Yellows and oranges settle most; blues and greens usually hold if aftercare followed.",),
@@ -589,7 +589,7 @@ STYLE_CATEGORIES: tuple[StyleCategory, ...] = (
             "the milky phase clears."
         ),
         "healed_portrait_tattoos_las_vegas",
-        "/realism_tattoos_las_vegas_master_authority_guide/",
+        "/realism-tattoos-las-vegas/",
         {
             "day_1": ("Portrait greys look harsh day zero — soft transitions return after peel.",),
             "month_3": ("Likeness and eye detail benchmark — tentacle fine lines, hair strands, etc.",),

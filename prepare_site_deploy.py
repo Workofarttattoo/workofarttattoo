@@ -269,8 +269,8 @@ def main() -> int:
     run_step(["python3", str(ROOT / "inject_entity_schema.py")])
     run_step(["python3", str(ROOT / "tools" / "polish_katelyn_profile.py")])
     run_step(["python3", str(ROOT / "tools" / "production_parity_cleanup.py")])
-    run_step(["python3", str(ROOT / "build_retired_geo_redirects.py")])
-    run_step(["python3", str(ROOT / "build_retired_cover_up_redirect.py")])
+    run_step(["python3", str(ROOT / "fix_obsolete_internal_links.py")])
+    run_step(["python3", str(ROOT / "generate_cloudflare_bulk_redirects.py")])
     sync_root_home_copy()
     verify_homepage()
 

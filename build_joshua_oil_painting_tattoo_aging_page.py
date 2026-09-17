@@ -51,7 +51,7 @@ MAIN = f"""
 
 <h2 class="font-headline-lg text-on-surface pt-4">What I cannot promise — and what I document instead</h2>
 <p>No ethical artist guarantees a tattoo will age "better" than someone else's in every case. Skin type, lifestyle, sun exposure, and aftercare all matter. What I can show you is <strong>healed documentation</strong>: fresh photos, follow-ups, and honest notes about touch-ups when they happen.</p>
-<p>Browse our <a class="text-secondary underline" href="/healed_tattoo_gallery_las_vegas/">healed tattoo gallery</a>, <a class="text-secondary underline" href="/tattoo_healing_before_after_real_results/">fresh vs healed color comparison</a>, and <a class="text-secondary underline" href="/realism_tattoos_las_vegas_master_authority_guide/">realism portfolio</a> — then book a consult if the approach matches what you want on your skin for years, not just for vacation photos.</p>
+<p>Browse our <a class="text-secondary underline" href="/healed_tattoo_gallery_las_vegas/">healed tattoo gallery</a>, <a class="text-secondary underline" href="/las-vegas-tattoo-healing-guide/">fresh vs healed color comparison</a>, and <a class="text-secondary underline" href="/realism-tattoos-las-vegas/">realism portfolio</a> — then book a consult if the approach matches what you want on your skin for years, not just for vacation photos.</p>
 </div>
 </section>
 

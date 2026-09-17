@@ -151,7 +151,7 @@ def hub_main() -> str:
 <p class="font-body-md text-on-surface-variant">Joshua Cole documents fresh and healed photos in-studio. Start with a consult — we walk through design, session length, and desert aftercare before you commit.</p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center">
 <a class="bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest" href="/appointments/">Book consult</a>
-<a class="border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors" href="/tattoo_healing_before_after_real_results/">Fresh vs healed guide</a>
+<a class="border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:border-secondary transition-colors" href="/las-vegas-tattoo-healing-guide/">Fresh vs healed guide</a>
 </div>
 <p class="font-body-md text-on-surface-variant pt-2"><a class="text-secondary underline" href="/joshua_oil_painting_black_grey_tattoo_aging_las_vegas/">Why oil painting training shapes how Joshua plans for long-term healing</a></p>
 </div>

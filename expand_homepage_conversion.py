@@ -444,7 +444,7 @@ def reviews_section_html() -> str:
 </div>
 <div class="flex flex-col sm:flex-row gap-3 shrink-0">
 <a class="bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest text-center min-h-[48px] flex items-center justify-center gold-glow" href="/reviews_vault_100_verified_masterpieces/">All Reviews</a>
-<a class="border border-outline-variant text-on-surface px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest text-center min-h-[48px] flex items-center justify-center hover:border-secondary transition-colors" href="/review_funnel_google_authority_hub/">Leave a Review</a>
+<a class="border border-outline-variant text-on-surface px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest text-center min-h-[48px] flex items-center justify-center hover:border-secondary transition-colors" href="/reviews/">Leave a Review</a>
 </div>
 </div>
 {screenshots}

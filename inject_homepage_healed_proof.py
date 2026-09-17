@@ -16,7 +16,7 @@ END = "<!-- WOA_HOME_HEALED_PROOF_END -->"
 COMPARISONS = (
     (
         "Color memorial eagle",
-        "/tattoo_healing_before_after_real_results/",
+        "/las-vegas-tattoo-healing-guide/",
         "/healed_tattoo_gallery_las_vegas/fresh-eagle-memorial-calf-tattoo-las-vegas",
         "/healed_tattoo_gallery_las_vegas/eagle-memorial-calf-healed-tattoo-las-vegas",
         "Same calf piece — day-zero saturation vs. settled color months later.",
@@ -82,7 +82,7 @@ def block_html() -> str:
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-4xl">
 {cards}
 </div>
-<p class="font-body-md text-on-surface-variant text-sm text-center"><a class="text-secondary underline hover:no-underline" href="/healing_database_tattoo_timeline_encyclopedia_las_vegas/">Healing Database</a> · <a class="text-secondary underline hover:no-underline" href="/healed_tattoo_gallery_las_vegas/">Full healed gallery</a> · <a class="text-secondary underline hover:no-underline" href="/tattoo_healing_before_after_real_results/">Healing before &amp; after guide</a> · <a class="text-secondary underline hover:no-underline" href="/reviews_vault_100_verified_masterpieces/">Client reviews</a></p>
+<p class="font-body-md text-on-surface-variant text-sm text-center"><a class="text-secondary underline hover:no-underline" href="/real_client_tattoo_timeline_las_vegas/">Healing Database</a> · <a class="text-secondary underline hover:no-underline" href="/healed_tattoo_gallery_las_vegas/">Full healed gallery</a> · <a class="text-secondary underline hover:no-underline" href="/las-vegas-tattoo-healing-guide/">Healing before &amp; after guide</a> · <a class="text-secondary underline hover:no-underline" href="/reviews_vault_100_verified_masterpieces/">Client reviews</a></p>
 </div>
 </section>
 {END}

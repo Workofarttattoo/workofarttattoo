@@ -19,7 +19,7 @@ from woa_location_copy import (
     WALK_IN_STUDIO_LOCATION,
     WALK_IN_STUDIO_LOCATION_STALE,
 )
-from woa_page_consolidation import HREF_REPLACEMENTS
+from woa_page_consolidation import ALL_HREF_REPLACEMENTS
 
 ROOT = Path(__file__).resolve().parent
 WALK_IN_MARKERS = (
@@ -45,7 +45,7 @@ CITATION_REPLACEMENTS: tuple[tuple[str, str], ...] = (
     ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
     ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
     ("2375 E. Tropicana Ave, Suite 3", "2375 E. Tropicana Ave, Suite 3"),
-    ("/tattoo_shop_near_the_strip_geo_seo_optimized/", "/tattoo_shop_near_the_strip_nap_corrected/"),
+    ("/tattoo_shop_near_the_strip_nap_corrected/", "/tattoo_shop_near_the_strip_nap_corrected/"),
 )
 
 
@@ -63,7 +63,7 @@ def iter_html() -> list[Path]:
 
 
 def consolidate_hrefs(html: str) -> str:
-    for old, new in HREF_REPLACEMENTS:
+    for old, new in ALL_HREF_REPLACEMENTS:
         html = html.replace(old, new)
     return html
 

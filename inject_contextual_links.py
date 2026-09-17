@@ -16,7 +16,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
     "healing": (
         "Aftercare & healing cluster",
         [
-            ("Skin Science hub — how skin holds ink", "/skin_science_tattoo_dermatology_authority_guide/"),
+            ("Skin Science hub — how skin holds ink", "/tattoo-skin-science/"),
             ("Tattoo healing guide — fresh to settled", "/las-vegas-tattoo-healing-guide/"),
             ("Real client timeline — every stage", "/real_client_tattoo_timeline_las_vegas/"),
             ("Healed tattoo gallery by style", "/healed_tattoo_gallery_las_vegas/"),
@@ -30,9 +30,9 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
     "skin_science": (
         "Skin science cluster",
         [
-            ("Skin Science hub", "/skin_science_tattoo_dermatology_authority_guide/"),
-            ("Tattoo healing — fresh to healed", "/tattoo_healing_before_after_real_results/"),
-            ("Desert climate aftercare", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
+            ("Skin Science hub", "/tattoo-skin-science/"),
+            ("Tattoo healing — fresh to healed", "/las-vegas-tattoo-healing-guide/"),
+            ("Desert climate aftercare", "/tattoo-aftercare-desert-climate/"),
             ("Why tattoos stay forever", "/why_tattoos_stay_forever_skin_science_las_vegas_authority_guide/"),
             ("Fine line longevity", "/fine_line_tattoos_las_vegas_master_authority_guide/"),
             ("Cover-up tattoo consultations", "/cover-up-tattoos-las-vegas/"),
@@ -43,8 +43,8 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
     "pain": (
         "Placement & comfort cluster",
         [
-            ("Desert climate aftercare", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
-            ("Realism tattoos guide", "/realism_tattoos_las_vegas_master_authority_guide/"),
+            ("Desert climate aftercare", "/tattoo-aftercare-desert-climate/"),
+            ("Realism tattoos guide", "/realism-tattoos-las-vegas/"),
             ("Fine line master guide", "/fine_line_tattoos_las_vegas_master_authority_guide/"),
             ("Tattoo pricing in Las Vegas", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/"),
             ("Book consult", "/appointments/"),
@@ -69,7 +69,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
             ("Fine line tattoos in Las Vegas", "/fine_line_tattoos_las_vegas_master_authority_guide/"),
             ("Teralyn — floral fine line", "/artists/teralyn/"),
             ("How to choose a fine line artist", "/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/"),
-            ("Healing in desert climate", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
+            ("Healing in desert climate", "/tattoo-aftercare-desert-climate/"),
             ("Joshua Cole portfolio", "/artists/joshua-cole/"),
             ("Book appointment", "/appointments/"),
         ],
@@ -113,8 +113,8 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
         [
             ("How to choose a tattoo artist", "/how-to-choose-a-tattoo-artist/"),
             ("Large-scale project planning", "/large_scale_projects_variant_a_authentic_art_rotation/"),
-            ("Realism guide", "/realism_tattoos_las_vegas_master_authority_guide/"),
-            ("Walk-in tattoos guide", "/walk_in_tattoos_las_vegas_authority_guide/"),
+            ("Realism guide", "/realism-tattoos-las-vegas/"),
+            ("Walk-in tattoos guide", "/walk-in-tattoos-las-vegas/"),
             ("Request a quote", "/appointments/"),
         ],
     ),
@@ -133,9 +133,9 @@ DEFAULT_CLUSTER = (
     "Explore related studio guides",
     [
         ("Artists directory", "/artists/"),
-        ("Realism tattoos", "/realism_tattoos_las_vegas_master_authority_guide/"),
+        ("Realism tattoos", "/realism-tattoos-las-vegas/"),
         ("Piercing standards", "/best_piercing_shop_las_vegas_updated_jewelry_standards/"),
-        ("Aftercare in desert climate", "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"),
+        ("Aftercare in desert climate", "/tattoo-aftercare-desert-climate/"),
         ("Book appointment", "/appointments/"),
     ],
 )

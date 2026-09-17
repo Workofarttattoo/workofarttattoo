@@ -29,7 +29,7 @@ MAIN = """
 <h1 class="font-headline-xl text-on-surface leading-tight">Piercing aftercare in the Las Vegas desert</h1>
 {REVIEWED_BY}
 <p class="font-body-lg text-on-surface-variant">Humidity below 10% is normal here. Your crusties tighten faster, pools are everywhere, and dust storms show up without warning. This guide is what I tell every client before they leave my chair.</p>
-<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline" href="/piercing_types_las_vegas_authority_hub/">Piercing encyclopedia</a> · <a class="text-secondary underline" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">Tattoo desert aftercare</a> · <a class="text-secondary underline" href="/studio_videos/#katelyn-piercing">Piercing videos</a></p>
+<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline" href="/piercing-guide-las-vegas/">Piercing encyclopedia</a> · <a class="text-secondary underline" href="/tattoo-aftercare-desert-climate/">Tattoo desert aftercare</a> · <a class="text-secondary underline" href="/studio_videos/#katelyn-piercing">Piercing videos</a></p>
 </div>
 </section>
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant/20">

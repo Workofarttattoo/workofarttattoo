@@ -195,7 +195,7 @@ def build_main(sheets: list[tuple[str, str, str, str]]) -> str:
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Pick a design from our current flash sheets — palm-size only, finished in under an hour. Perfect for first tattoos, gap fillers, and vacation ink without Strip-booth regret.</p>
 <div class="flex flex-col sm:flex-row gap-4 mt-8">
 <a class="bg-secondary text-on-secondary px-10 py-4 font-label-caps text-label-caps tracking-widest hover:glow-sm transition-all text-center" href="/appointments/">Book flash slot</a>
-<a class="border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:bg-on-surface hover:text-surface transition-all text-center" href="/walk_in_tattoos_las_vegas_authority_guide/">Walk-in info</a>
+<a class="border border-outline px-10 py-4 font-label-caps text-label-caps tracking-widest hover:bg-on-surface hover:text-surface transition-all text-center" href="/walk-in-tattoos-las-vegas/">Walk-in info</a>
 </div>
 </div>
 </section>
@@ -223,9 +223,9 @@ def build_main(sheets: list[tuple[str, str, str, str]]) -> str:
 <h2 class="font-headline-lg text-on-surface">How flash works here</h2>
 <ol class="space-y-6 font-body-md text-on-surface-variant list-decimal pl-5">
 <li><strong class="text-on-surface">Pick a design</strong> from the sheets above — screenshot the one you want.</li>
-<li><strong class="text-on-surface">Book or walk in</strong> when we have flash slots. <a class="text-secondary underline" href="/walk_in_tattoos_las_vegas_authority_guide/">Walk-in guide</a> · <a class="text-secondary underline" href="/appointments/">Appointments</a></li>
+<li><strong class="text-on-surface">Book or walk in</strong> when we have flash slots. <a class="text-secondary underline" href="/walk-in-tattoos-las-vegas/">Walk-in guide</a> · <a class="text-secondary underline" href="/appointments/">Appointments</a></li>
 <li><strong class="text-on-surface">Confirm size &amp; placement</strong> with the artist — palm-scale only on this deal menu.</li>
-<li><strong class="text-on-surface">Healed aftercare</strong> — follow our <a class="text-secondary underline" href="/tattoo_healing_in_desert_climate_expert_aftercare_guide/">desert climate guide</a> so small work stays crisp.</li>
+<li><strong class="text-on-surface">Healed aftercare</strong> — follow our <a class="text-secondary underline" href="/tattoo-aftercare-desert-climate/">desert climate guide</a> so small work stays crisp.</li>
 </ol>
 <div class="bg-surface border-l-4 border-secondary p-6">
 <p class="font-body-md text-on-surface-variant"><strong class="text-on-surface">Not on this menu:</strong> custom portraits, cover-ups, large color pieces, or anything that needs multiple sessions. Those start with a full consult — see <a class="text-secondary underline" href="/how_much_do_tattoos_cost_in_las_vegas_authority_guide/">pricing guide</a>.</p>
@@ -301,7 +301,7 @@ def patch_meta(html: str) -> str:
 
 def patch_guide_hub(html: str) -> str:
     pill = f'<a aria-current="page" class="woa-guide-pill is-current" href="/{SLUG}/">Flash Under $100</a>'
-    anchor = 'href="/walk_in_tattoos_las_vegas_authority_guide/">Walk-In Tattoos in Las Vegas</a>'
+    anchor = 'href="/walk-in-tattoos-las-vegas/">Walk-In Tattoos in Las Vegas</a>'
     if f'href="/{SLUG}/"' in html:
         return html
     return html.replace(anchor, anchor + pill, 1)

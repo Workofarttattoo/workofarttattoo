@@ -19,9 +19,9 @@ HUB_INTRO = (
 
 BOOK = "/appointments/"
 JOSHUA_PAGE = "/artists/joshua-cole/"
-DESERT_AFTERCARE = "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"
+DESERT_AFTERCARE = "/tattoo-aftercare-desert-climate/"
 HEALED_HUB = "/healed_tattoo_gallery_las_vegas/"
-HEALING_PROOF = "/tattoo_healing_before_after_real_results/"
+HEALING_PROOF = "/las-vegas-tattoo-healing-guide/"
 FINE_LINE = "/fine_line_tattoos_las_vegas_master_authority_guide/"
 COVER_UP = "/cover-up-tattoos-las-vegas/"
 

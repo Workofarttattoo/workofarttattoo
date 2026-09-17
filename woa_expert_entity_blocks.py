@@ -12,19 +12,19 @@ KATELYN_LINKS: tuple[tuple[str, str], ...] = (
     ("Luxury jewelry", "/piercing_jewelry_guide_las_vegas/"),
     ("Piercing healing", "/piercing_healing_guide_las_vegas/"),
     ("Anatomy", "/katelyn_anatomy_matters_las_vegas_authority_guide/"),
-    ("Las Vegas piercing", "/piercing_types_las_vegas_authority_hub/"),
+    ("Las Vegas piercing", "/piercing-guide-las-vegas/"),
 )
 
 JOSHUA_LINKS: tuple[tuple[str, str], ...] = (
     ("Joshua Cole", "/artists/joshua-cole/"),
     ("Oil painter", "/artists/joshua-cole/#oil-painting"),
-    ("Realism", "/realism_tattoos_las_vegas_master_authority_guide/"),
-    ("Black & grey", "/realism_tattoos_las_vegas_master_authority_guide/"),
+    ("Realism", "/realism-tattoos-las-vegas/"),
+    ("Black & grey", "/realism-tattoos-las-vegas/"),
     ("Portraiture", "/healed_portrait_tattoos_las_vegas/"),
     ("Composition", "/best_tattoo_styles_for_sleeves_large_scale_project_hub/"),
-    ("Fine art", "/realism_tattoos_las_vegas_master_authority_guide/"),
+    ("Fine art", "/realism-tattoos-las-vegas/"),
     ("Tattoo educator", "/artists/joshua-cole/#seminars"),
-    ("Skin science", "/skin_science_tattoo_dermatology_authority_guide/"),
+    ("Skin science", "/tattoo-skin-science/"),
     ("Las Vegas", "/tattoo_shop_near_the_strip_nap_corrected/"),
 )
 

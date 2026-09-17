@@ -28,8 +28,8 @@ ROUTES: tuple[str, ...] = (
     "/best_piercing_shop_las_vegas_updated_jewelry_standards/",
     "/fine_line_tattoos_las_vegas_master_authority_guide/",
     "/best_tattoo_styles_for_sleeves_large_scale_project_hub/",
-    "/walk_in_tattoos_las_vegas_authority_guide/",
-    "/tattoo_shop_near_the_strip_geo_seo_optimized/",
+    "/walk-in-tattoos-las-vegas/",
+    "/tattoo_shop_near_the_strip_nap_corrected/",
     "/dermis_skin_science_las_vegas_authority_guide/",
 )
 

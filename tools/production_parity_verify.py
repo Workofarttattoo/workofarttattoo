@@ -139,7 +139,7 @@ def main() -> int:
         for gmail in GMAILS:
             if gmail in body:
                 errors.append(f"{path.relative_to(ROOT)} has {gmail}")
-        if 'href="/cover_up_tattoos_las_vegas_master_authority_guide/"' in body:
+        if 'href="/cover-up-tattoos-las-vegas/"' in body:
             errors.append(f"{path.relative_to(ROOT)} links to legacy cover-up URL")
         if "Southern Nevada Health District body art establishment Health Permit" in body:
             errors.append(f"{path.relative_to(ROOT)} has SNHD permit claim")

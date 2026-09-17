@@ -14,7 +14,7 @@ HUB_INTRO = (
 )
 
 BOOK = "/appointments/"
-ENCYCLOPEDIA = "/piercing_types_las_vegas_authority_hub/"
+ENCYCLOPEDIA = "/piercing-guide-las-vegas/"
 DESERT = "/piercing_aftercare_desert_climate_las_vegas_expert_guide/"
 KATELYN_PAGE = "/artists/katelyn-cole/"
 

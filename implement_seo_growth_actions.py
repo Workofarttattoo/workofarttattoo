@@ -29,8 +29,8 @@ PRIORITY_URLS: tuple[tuple[str, str, str], ...] = (
     ("Near the Sphere", "/tattoo_shop_near_the_sphere_las_vegas/", "Event/location long-tail"),
     ("Reviews", "/reviews_vault_100_verified_masterpieces/", "Trust page"),
     ("Studio videos", "/studio_videos/", "Proof and freshness"),
-    ("Healing database", "/healing_database_tattoo_timeline_encyclopedia_las_vegas/", "New authority hub"),
-    ("Skin science", "/skin_science_tattoo_dermatology_authority_guide/", "New authority hub"),
+    ("Healing database", "/real_client_tattoo_timeline_las_vegas/", "New authority hub"),
+    ("Skin science", "/tattoo-skin-science/", "New authority hub"),
     ("Knowledge base", "/knowledge/", "Q&A hub"),
 )
 
@@ -85,7 +85,7 @@ BLOCKS: dict[str, str] = {
         (
             ("Cover-up pricing", "/cover-up-tattoos-las-vegas/", "Old ink changes the plan, size, and sometimes the number of sessions."),
             ("Fine line tattoos", "/fine_line_tattoos_las_vegas_master_authority_guide/", "Small does not always mean simple; placement and detail matter."),
-            ("Choose the right artist", "/how_to_choose_a_tattoo_artist_master_selection_guide_2/", "A cheaper mismatch costs more than a clean consult."),
+            ("Choose the right artist", "/how-to-choose-a-tattoo-artist_2/", "A cheaper mismatch costs more than a clean consult."),
         ),
     ),
     "cover-up-tattoos-las-vegas/code.html": growth_block(

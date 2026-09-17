@@ -659,7 +659,7 @@ def _deploy_all(
     print("Then run: python3 verify_live_deploy.py")
     print(
         "Example slug: "
-        "https://www.workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/"
+        "https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/"
     )
     return 0
 

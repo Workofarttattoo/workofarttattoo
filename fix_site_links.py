@@ -123,7 +123,7 @@ def process_file(path: Path) -> dict[str, int]:
         elif PORTFOLIO_RE.match(text):
             href = "/#meet-our-artists"
         elif REVIEW_RE.search(text):
-            href = "/review_funnel_google_authority_hub/"
+            href = "/reviews/"
         if not href:
             continue
 

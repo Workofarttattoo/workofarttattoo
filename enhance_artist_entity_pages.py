@@ -87,7 +87,7 @@ JOSHUA_EEAT = """
 <div class="space-y-4">
 <h3 class="font-label-caps text-secondary uppercase tracking-widest text-sm">Start here</h3>
 <ul class="font-body-md text-on-surface-variant space-y-2">
-<li><a class="text-secondary underline hover:no-underline" href="/realism_tattoos_las_vegas_master_authority_guide/">Realism tattoos in Las Vegas</a></li>
+<li><a class="text-secondary underline hover:no-underline" href="/realism-tattoos-las-vegas/">Realism tattoos in Las Vegas</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/cover-up-tattoos-las-vegas/">Cover-up planning</a></li>
 <li><a class="text-secondary underline hover:no-underline" href="/appointments/">Book a consult with Joshua</a></li>
 </ul>

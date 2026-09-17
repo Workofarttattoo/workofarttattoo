@@ -143,7 +143,7 @@ ROWS = [
         "redirect_target": "",
     },
     {
-        "url": "/vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison/",
+        "url": "/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/",
         "page_type": "comparison",
         "action": "KEEP",
         "primary_intent": "Expanded Strip-vs-studio commercial comparison.",
@@ -156,7 +156,7 @@ ROWS = [
         "redirect_target": "",
     },
     {
-        "url": "/tattoo_shop_near_the_strip_geo_seo_optimized/",
+        "url": "/tattoo_shop_near_the_strip_nap_corrected/",
         "page_type": "legacy_geo_variant",
         "action": "MERGE_301",
         "primary_intent": "Legacy Strip location landing page.",

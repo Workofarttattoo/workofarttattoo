@@ -189,7 +189,7 @@ def main() -> int:
         f"Done. Uploaded {uploaded} section roots + homepage, skipped {skipped} folders without code.html."
     )
     print(f"Try: https://www.workofarttattoo.com/")
-    print("Example slug: https://www.workofarttattoo.com/walk_in_tattoos_las_vegas_authority_guide/")
+    print("Example slug: https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/")
     return 0
 
 

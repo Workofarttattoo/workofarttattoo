@@ -27,7 +27,7 @@ from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
 
 SKIP_DIRS = {".git", ".github", "node_modules", "__pycache__", "skipped_upload_build", "audits", "tools", "artists_raw"}
 PUBLIC_EMAIL = "booking@workofarttattoo.com"
-LEGACY_COVER = "/cover_up_tattoos_las_vegas_master_authority_guide/"
+LEGACY_COVER = "/cover-up-tattoos-las-vegas/"
 CLEAN_COVER = "/cover-up-tattoos-las-vegas/"
 GMAILS = ("thewhiteknight702@gmail.com", "kmorgen14@gmail.com")
 
@@ -56,7 +56,7 @@ NAP_INLINE_BLOCK_RE = re.compile(
 )
 
 HREF_LEGACY_RE = re.compile(
-    r'href="(?:https://(?:www\.)?workofarttattoo\.com)?/cover_up_tattoos_las_vegas_master_authority_guide/"'
+    r'href="(?:https://(?:www\.)?workofarttattoo\.com)?/cover-up-tattoos-las-vegas/"'
 )
 
 TERALYN_CARD = """<a class="group text-center" href="/artists/teralyn/">
@@ -269,7 +269,7 @@ def replace_public_email(text: str) -> str:
 def rewrite_cover_hrefs(text: str) -> str:
     text = HREF_LEGACY_RE.sub(f'href="{CLEAN_COVER}"', text)
     text = re.sub(
-        r'(href=["\'])(?:https://(?:www\.)?workofarttattoo\.com)?/cover_up_tattoos_las_vegas_master_authority_guide/?(["\'])',
+        r'(href=["\'])(?:https://(?:www\.)?workofarttattoo\.com)?/cover-up-tattoos-las-vegas/?(["\'])',
         rf"\1{CLEAN_COVER}\2",
         text,
     )

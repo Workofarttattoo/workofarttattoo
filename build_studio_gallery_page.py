@@ -158,7 +158,7 @@ def build_main(buckets: dict[MediaCategory, list[MediaItem]], hero: MediaItem | 
 
 <section class="py-10 px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant/20">
 <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
-<div class="space-y-2"><a class="text-secondary underline font-headline-md" href="/artists/joshua-cole/">Joshua Cole</a><p class="font-body-md text-on-surface-variant text-sm">Tattoos &amp; original art · <a class="text-secondary underline" href="/realism_tattoos_las_vegas_master_authority_guide/">realism guide</a></p></div>
+<div class="space-y-2"><a class="text-secondary underline font-headline-md" href="/artists/joshua-cole/">Joshua Cole</a><p class="font-body-md text-on-surface-variant text-sm">Tattoos &amp; original art · <a class="text-secondary underline" href="/realism-tattoos-las-vegas/">realism guide</a></p></div>
 <div class="space-y-2"><a class="text-secondary underline font-headline-md" href="/artists/katelyn-cole/">Katelyn Cole</a><p class="font-body-md text-on-surface-variant text-sm">Piercing &amp; ear curation · <a class="text-secondary underline" href="/best_piercing_shop_las_vegas_updated_jewelry_standards/">piercing standards</a></p></div>
 </div>
 </section>
@@ -222,7 +222,7 @@ def patch_meta(html: str, hero_stem: str) -> str:
 
 def patch_guide_hub(html: str) -> str:
     pill = f'<a class="woa-guide-pill" href="/{SLUG}/">Studio Gallery</a>'
-    anchor = 'href="/realism_tattoos_las_vegas_master_authority_guide/">Realism Tattoos in Las Vegas</a>'
+    anchor = 'href="/realism-tattoos-las-vegas/">Realism Tattoos in Las Vegas</a>'
     if f'href="/{SLUG}/"' in html:
         return html
     return html.replace(anchor, anchor + pill, 1)

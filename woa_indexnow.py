@@ -65,7 +65,7 @@ INITIAL_SUBMISSION_URLS: tuple[str, ...] = (
     f"{SITE_ORIGIN}/artists/katelyn-cole/",
     f"{SITE_ORIGIN}/piercing-guide-las-vegas/",
     f"{SITE_ORIGIN}/start_here/",
-    f"{SITE_ORIGIN}/skin_science_tattoo_dermatology_authority_guide/",
+    f"{SITE_ORIGIN}/tattoo-skin-science/",
     f"{SITE_ORIGIN}/dermis_skin_science_las_vegas_authority_guide/",
 )
 

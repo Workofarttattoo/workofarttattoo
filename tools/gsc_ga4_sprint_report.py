@@ -30,7 +30,7 @@ GA4_PAGE_VIEWS = [
     ("/artists/joshua-cole/", "Joshua Cole", 96, "artist proof"),
     ("/cover-up-tattoos-las-vegas/", "Cover Up", 94, "tattoo correction/cover-up demand"),
     ("/artists/katelyn-cole/", "Katelyn Cole", 94, "piercing expert proof"),
-    ("/skin_science_tattoo_dermatology_authority_guide/", "Skin Science", 92, "~3s engagement; intent likely too abstract"),
+    ("/tattoo-skin-science/", "Skin Science", 92, "~3s engagement; intent likely too abstract"),
     ("/helix-piercing-las-vegas/", "Helix", 78, "~1s engagement; answer/booking path likely needs tightening"),
 ]
 
@@ -140,7 +140,7 @@ def write_sprint_outputs() -> list[str]:
             "query_or_intent": "cover_up_tattoos_las_vegas_master_authority_guide duplicate",
             "gsc_impressions_visible": "not provided",
             "canonical_url": "/cover-up-tattoos-las-vegas/",
-            "supporting_url": "/cover_up_tattoos_las_vegas_master_authority_guide/",
+            "supporting_url": "/cover-up-tattoos-las-vegas/",
             "issue": "duplicate page exists with low inbound links and same title",
             "action": "do not delete automatically; keep canonical-to-primary and include in consolidation backlog",
         },
@@ -157,7 +157,7 @@ def write_sprint_outputs() -> list[str]:
             "status": "IMPROVE",
         },
         {
-            "url": "/skin_science_tattoo_dermatology_authority_guide/",
+            "url": "/tattoo-skin-science/",
             "signal": "GA4 92 views, about 3s engagement",
             "diagnosis": "hub title is abstract and may not answer a client question quickly enough",
             "action": "prioritize direct-answer intros and links to healing, dermis, scar tissue, and artist-reviewed pages",
@@ -310,9 +310,9 @@ def write_sprint_outputs() -> list[str]:
         { "url": "/cover-up-tattoos-las-vegas/", "score": 88, "bucket": "Invest", "why": "two visible cover-up queries and GA4 traffic; protect one canonical page" },
         { "url": "/piercing-guide-las-vegas/", "score": 84, "bucket": "Invest", "why": "162 GA4 views with clear service intent; GSC query export needed" },
         { "url": "/appointments/", "score": 80, "bucket": "Maintain", "why": "420 GA4 views; conversion-critical" },
-        { "url": "/skin_science_tattoo_dermatology_authority_guide/", "score": 55, "bucket": "Repair", "why": "92 views but low engagement; abstract intent" },
+        { "url": "/tattoo-skin-science/", "score": 55, "bucket": "Repair", "why": "92 views but low engagement; abstract intent" },
         { "url": "/dermis_skin_science_las_vegas_authority_guide/", "score": 45, "bucket": "Repair", "why": "GSC decliner -77%; diagnose before expanding" },
-        { "url": "/cover_up_tattoos_las_vegas_master_authority_guide/", "score": 35, "bucket": "Consolidate", "why": "duplicate of canonical cover-up page" },
+        { "url": "/cover-up-tattoos-las-vegas/", "score": 35, "bucket": "Consolidate", "why": "duplicate of canonical cover-up page" },
         { "url": "healing_database_* merge backlog", "score": 30, "bucket": "Consolidate", "why": "thin healing variants should not stay indexable without studio documentation" },
     ]
     write_csv(AUDITS / "seo-opportunity-score.csv", ["url", "score", "bucket", "why"], opportunity_rows)
@@ -388,13 +388,13 @@ The previous GA4 funnel work remains the conversion layer. This sprint connects 
 ## 13. Pages to Repair
 
 - `/dermis_skin_science_las_vegas_authority_guide/`
-- `/skin_science_tattoo_dermatology_authority_guide/`
+- `/tattoo-skin-science/`
 - `/helix-piercing-las-vegas/`
 - video pages once invalid video item URLs are exported
 
 ## 14. Pages to Consolidate
 
-- `/cover_up_tattoos_las_vegas_master_authority_guide/` into `/cover-up-tattoos-las-vegas/` after final redirect mapping
+- `/cover-up-tattoos-las-vegas/` into `/cover-up-tattoos-las-vegas/` after final redirect mapping
 - healing database pages already marked MERGE in `audits/content-consolidation.csv`, preserving any real studio evidence first
 
 ## 15. Pages to Retire

@@ -513,7 +513,7 @@ def _overview(name: str) -> EncyclopediaSections:
             f"Use this {name} overview to pick a placement, then read the specific guide before booking.",
             "Ear curation clients start with a consult map — not a walk-in stack of holes.",
         ),
-        video_links=(("Piercing encyclopedia hub", "/piercing_types_las_vegas_authority_hub/"),),
+        video_links=(("Piercing encyclopedia hub", "/piercing-guide-las-vegas/"),),
         photo_links=(("Studio gallery — piercing", "/studio_gallery/#katelyn-piercing"),),
     )
 
@@ -538,7 +538,7 @@ def _not_offered(name: str) -> EncyclopediaSections:
         katelyn_recommendations=(
             "Browse piercings we offer in the encyclopedia hub — I would rather redirect you honestly.",
         ),
-        video_links=(("Piercing types we offer", "/piercing_types_las_vegas_authority_hub/"),),
+        video_links=(("Piercing types we offer", "/piercing-guide-las-vegas/"),),
         photo_links=(),
     )
 

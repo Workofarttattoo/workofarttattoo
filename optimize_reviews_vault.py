@@ -24,7 +24,7 @@ GOOGLE_REVIEWS_BLOCK = """
 <p class="font-body-lg text-on-surface-variant">We do not publish invented review cards on this site. Read verified Google reviews from real clients — then leave your own after your appointment.</p>
 <div class="flex flex-col sm:flex-row gap-4 justify-center">
 <a class="inline-flex items-center justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:glow-sm transition-all" href="https://www.google.com/maps/search/?api=1&amp;query=Work+of+Art+Tattoo+%26+Piercing+Las+Vegas" rel="noopener noreferrer" target="_blank">Read on Google</a>
-<a class="inline-flex items-center justify-center border border-outline-variant px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="/review_funnel_google_authority_hub/">Leave a review</a>
+<a class="inline-flex items-center justify-center border border-outline-variant px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:border-secondary transition-colors" href="/reviews/">Leave a review</a>
 </div>
 <p class="font-body-md text-on-surface-variant text-sm">Featured quotes below are portfolio case studies with documented healing — not anonymous testimonials.</p>
 </div>
@@ -35,7 +35,7 @@ CASE_STUDIES_BLOCK = """
 <div class="max-w-5xl mx-auto space-y-10">
 <div class="text-center space-y-3 max-w-2xl mx-auto">
 <h2 class="font-headline-lg text-on-surface">Healed work &amp; client stories</h2>
-<p class="font-body-md text-on-surface-variant">Portfolio pieces with documented healing stages — not generated review cards. Leave your own experience on <a class="text-secondary underline" href="/review_funnel_google_authority_hub/">Google</a>.</p>
+<p class="font-body-md text-on-surface-variant">Portfolio pieces with documented healing stages — not generated review cards. Leave your own experience on <a class="text-secondary underline" href="/reviews/">Google</a>.</p>
 </div>
 <article class="grid grid-cols-1 md:grid-cols-12 gap-8 border border-outline-variant/30 p-8 bg-surface">
 <div class="md:col-span-5">
@@ -52,7 +52,7 @@ CASE_STUDIES_BLOCK = """
 <li><strong>4 weeks:</strong> peeling complete; mid-tones readable in daylight.</li>
 <li><strong>3+ months:</strong> blacks held in the thigh bend — no muddy grey wash.</li>
 </ul>
-<p class="font-body-md"><a class="text-secondary underline" href="/realism_tattoos_las_vegas_master_authority_guide/">Realism guide</a> · <a class="text-secondary underline" href="/artists/joshua-cole/">Joshua's portfolio</a></p>
+<p class="font-body-md"><a class="text-secondary underline" href="/realism-tattoos-las-vegas/">Realism guide</a> · <a class="text-secondary underline" href="/artists/joshua-cole/">Joshua's portfolio</a></p>
 </div>
 </article>
 <article class="grid grid-cols-1 md:grid-cols-12 gap-8 border border-outline-variant/30 p-8 bg-surface">

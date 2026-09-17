@@ -669,7 +669,7 @@ def validate_retired_cover_up_page(failures: list[str]) -> None:
 
 
 def validate_no_legacy_cover_up_hrefs(failures: list[str]) -> None:
-    stale = "/cover_up_tattoos_las_vegas_master_authority_guide/"
+    stale = "/cover-up-tattoos-las-vegas/"
     skip_parts = {".git", "__pycache__", "skipped_upload_build"}
     for path in ROOT.rglob("*"):
         if not path.is_file():

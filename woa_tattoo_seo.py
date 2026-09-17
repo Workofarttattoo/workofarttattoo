@@ -16,8 +16,8 @@ from woa_nav_config import (
 BOOK = "/appointments/"
 JOSHUA_PAGE = "/artists/joshua-cole/"
 LOCATION_PAGE = "/tattoo_shop_near_the_strip_nap_corrected/"
-REALISM_GUIDE = "/realism_tattoos_las_vegas_master_authority_guide/"
-DESERT_AFTERCARE = "/tattoo_healing_in_desert_climate_expert_aftercare_guide/"
+REALISM_GUIDE = "/realism-tattoos-las-vegas/"
+DESERT_AFTERCARE = "/tattoo-aftercare-desert-climate/"
 PHONE_TEL = STUDIO_PHONE_TEL
 PHONE_DISPLAY = STUDIO_PHONE_PARENS
 STUDIO_LINE = f"Work of Art Tattoo & Piercing · {STUDIO_ADDRESS_SINGLE_LINE}"

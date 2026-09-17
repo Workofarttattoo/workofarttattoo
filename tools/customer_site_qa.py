@@ -51,7 +51,7 @@ DEPRECATED_PHONE_RE = re.compile(
     re.I,
 )
 JAY_JAY_RE = re.compile(r"Jay\s*Jay|jay_jay_artist_portfolio", re.I)
-COVER_UNDERSCORE_BODY_RE = re.compile(r"/cover_up_tattoos_las_vegas_master_authority_guide/", re.I)
+COVER_UNDERSCORE_BODY_RE = re.compile(r"/cover-up-tattoos-las-vegas/", re.I)
 PIERCING_TATTOO_FOOTER_RE = re.compile(
     r"Photos from Work of Art tattoo clients[\s\S]{0,120}healed_tattoo_gallery_las_vegas",
     re.I,

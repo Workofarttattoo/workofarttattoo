@@ -24,7 +24,7 @@ DESCRIPTION = (
 BOOK = "/appointments/"
 JOSHUA = "/artists/joshua-cole/"
 HEALED_HUB = "/healed_tattoo_gallery_las_vegas/"
-REALISM = "/realism_tattoos_las_vegas_master_authority_guide/"
+REALISM = "/realism-tattoos-las-vegas/"
 
 
 def img(stem: str, folder: str, alt: str) -> str:

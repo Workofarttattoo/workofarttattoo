@@ -303,7 +303,7 @@ COPY_RULES.extend(REPLAY_PAIRS)
 
 STUB_LABELS = {'/cover-up-tattoos-las-vegas/': 'our cover-up tattoos guide',
  '/official_location_hours_contact/': 'our official location & hours page',
- '/tattoo_piercing_shop_near_unlv/': 'our UNLV-area guide',
+ '/tattoo_shop_paradise_nevada/': 'our UNLV-area guide',
  '/tattoo_shop_near_allegiant_stadium_las_vegas/': 'our Allegiant Stadium visitor guide',
  '/tattoo_shop_near_las_vegas_airport/': 'our airport visitor guide',
  '/tattoo_shop_near_mgm_grand_las_vegas/': 'our MGM Grand visitor guide',

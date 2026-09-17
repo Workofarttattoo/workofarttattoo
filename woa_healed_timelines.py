@@ -49,7 +49,7 @@ JOSHUA_CASE_STUDIES: tuple[CaseStudy, ...] = (
             TimelineStage("4 weeks healed", "Peeling finished; mid-tones read cleanly in daylight."),
             TimelineStage("3+ months", "Blacks stayed saturated; no muddy grey wash in the thigh bend."),
         ),
-        guide_href="/realism_tattoos_las_vegas_master_authority_guide/",
+        guide_href="/realism-tattoos-las-vegas/",
         image_stem="black-grey-lion-thigh-realism-las-vegas",
     ),
     CaseStudy(
@@ -66,7 +66,7 @@ JOSHUA_CASE_STUDIES: tuple[CaseStudy, ...] = (
             TimelineStage("4 weeks healed", "Linework and grey steps still separated — no blowout."),
             TimelineStage("3+ months", "Readable from arm's length; client returned for a touch-up consult only."),
         ),
-        guide_href="/realism_tattoos_las_vegas_master_authority_guide/",
+        guide_href="/realism-tattoos-las-vegas/",
         image_stem="skull-hourglass-forearm-realism-fresh-las-vegas",
     ),
     CaseStudy(
