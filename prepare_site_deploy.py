@@ -264,6 +264,9 @@ def main() -> int:
     # Human copy pass: keeps casing, breadcrumbs, and reader-facing copy fixes
     # applied even when earlier builders regenerate pages from templates.
     run_step(["python3", str(ROOT / "humanize_final_edit_pass.py")])
+    run_step(["python3", str(ROOT / "sharpen_entity_positioning.py")])
+    run_step(["python3", str(ROOT / "submit_google_recrawl.py")])
+    run_step(["python3", str(ROOT / "inject_entity_schema.py")])
     run_step(["python3", str(ROOT / "tools" / "polish_katelyn_profile.py")])
     run_step(["python3", str(ROOT / "tools" / "production_parity_cleanup.py")])
     run_step(["python3", str(ROOT / "build_retired_geo_redirects.py")])

@@ -75,7 +75,7 @@ JOSHUA_EEAT = """
 <li>20+ years tattooing; studio lead at Work of Art</li>
 <li>Trains resident artists and maintains alumni guest network</li>
 <li>Black &amp; grey realism, portraits, sleeves, cover-up redesigns</li>
-<li>Trained the in-studio team in piercing fundamentals</li>
+<li>Color realism, surrealistic work, and select fine-line projects</li>
 </ul>
 </div>
 <div class="space-y-4">

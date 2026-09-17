@@ -73,18 +73,22 @@ TERALYN_CARD = """<a class="group text-center" href="/artists/teralyn/">
 HOMEPAGE_REPLACEMENTS: list[tuple[str, str]] = [
     (
         "Two resident specialists in-studio today — Joshua Cole (tattoo &amp; piercing; studio lead) and Katelyn Cole (professional piercer). Tattoo and piercing consults book seven nights a week at 2375 E. Tropicana Suite 3.",
-        "Three in-studio residents today — Joshua Cole (tattoo artist and studio lead; also offers piercing), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos). Tattoo and piercing consults book at 2375 E. Tropicana Ave, Suite 3.",
+        "Three in-studio residents today — Joshua Cole (studio lead, black-and-grey realism), Katelyn Cole (professional piercer), and Teralyn (fine-line tattoos and piercing; floral fine line, script, custom drawings, and detailed smaller tattoos). Tattoo and piercing consults book at 2375 E. Tropicana Ave, Suite 3.",
     ),
     (
         "Two resident specialists in-studio today — Joshua Cole (tattoo & piercing; studio lead) and Katelyn Cole (professional piercer). Tattoo and piercing consults book seven nights a week at 2375 E. Tropicana Suite 3.",
-        "Three in-studio residents today — Joshua Cole (tattoo artist and studio lead; also offers piercing), Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos). Tattoo and piercing consults book at 2375 E. Tropicana Ave, Suite 3.",
+        "Three in-studio residents today — Joshua Cole (studio lead, black-and-grey realism), Katelyn Cole (professional piercer), and Teralyn (fine-line tattoos and piercing; floral fine line, script, custom drawings, and detailed smaller tattoos). Tattoo and piercing consults book at 2375 E. Tropicana Ave, Suite 3.",
     ),
     ("2 In-Studio Specialists", "3 In-Studio Residents"),
     ("Meet Our Tattoo and piercing Shop Near Me Team", "Meet Our Las Vegas Tattoo and Piercing Team"),
     ("Meet Our Tattoo and Piercing Shop Near Me Team", "Meet Our Las Vegas Tattoo and Piercing Team"),
     (
         "Joshua Cole leads tattoo, piercing, and training; Katelyn Cole is our professional piercer — two resident specialists in-studio today with appointments open seven nights a week.",
-        "Joshua Cole leads tattoo work and also offers piercing; Katelyn Cole is our professional piercer; Teralyn tattoos and pierces, including fine line, floral, script, and detailed smaller tattoos.",
+        "Joshua Cole leads black-and-grey realism tattooing; Katelyn Cole is our professional piercer; Teralyn specializes in fine line, floral, script, and detailed smaller tattoos.",
+    ),
+    (
+        "Joshua Cole — tattoo artist / studio lead; also offers piercing. Katelyn Cole — professional piercer. Teralyn — tattoo artist and piercer; fine line, floral, script, custom drawings, and detailed smaller tattoos.",
+        "Joshua Cole — studio lead, black-and-grey realism. Katelyn Cole — professional piercer. Teralyn — fine-line tattoos and piercing; floral fine line, script, custom drawings, and detailed smaller tattoos.",
     ),
     ("Joshua Cole and Joshua Cole", "Joshua Cole"),
     ("museum-level tattoos", "custom tattoo work"),

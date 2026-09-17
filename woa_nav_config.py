@@ -34,10 +34,10 @@ RESIDENT_ARTIST_COUNT = int(_BUSINESS.get("residentArtistCount", 3))
 TATTOO_ARTIST_COUNT = 2
 MENTORED_ARTIST_COUNT = 7
 STUDIO_ROSTER_BLURB = (
-    "Our in-studio team includes Joshua Cole (tattoo and piercing, studio lead), "
-    "Katelyn Cole (professional piercer), and Teralyn (tattoo artist and piercer; fineline "
-    "floral, script, custom drawings by commission, and high-detail small tattoos). Book tattoo "
-    "and piercing consults at our Tropicana studio."
+    "Our in-studio team includes Joshua Cole (studio lead, black-and-grey realism), "
+    "Katelyn Cole (professional piercer), and Teralyn (fine-line tattoos and piercing; "
+    "floral fine line, script, custom drawings by commission, and detailed smaller tattoos). "
+    "Book tattoo and piercing consults at our Tropicana studio."
 )
 STUDIO_ROSTER_LEGACY = (
     "Seven artists trained at Work of Art now run their own shops or travel as guest "

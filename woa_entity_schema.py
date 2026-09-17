@@ -225,13 +225,17 @@ TERALYN_IMAGE = f"{SITE}/artists/teralyn/teralyn-fine-line-tattoo-artist-las-veg
 
 JOSHUA_KNOWS_ABOUT = (
     "Black and grey realism tattoo",
+    "Realism tattoo",
     "Portrait tattoo",
-    "Hyperrealism",
-    "Color realism tattoo",
-    "Color realistic imagery",
-    "Blackwork tattoo",
+    "Large-scale tattoo",
     "Sleeve tattoo",
     "Cover-up tattoo",
+    "Rework tattoo",
+    "Color realism tattoo",
+    "Surrealistic tattoo",
+    "Illustrative tattoo",
+    "Floral tattoo",
+    "Select fine line tattoo",
     "Las Vegas tattoo artist",
     "Custom tattoo design",
 )
@@ -393,11 +397,13 @@ def person_joshua() -> dict:
         "name": "Joshua Cole",
         "url": JOSHUA_PAGE,
         "image": JOSHUA_IMAGE,
-        "jobTitle": "Studio Lead — Tattoo & Piercing Artist",
+        "jobTitle": "Studio Lead — Black & Grey Realism Tattoo Artist",
         "description": (
-            "Joshua Cole leads Work of Art Tattoo & Piercing in Las Vegas with black & grey "
-            "realism, portrait work, sleeves, cover-ups, and piercing. He mentors the "
-            "in-studio team and trained alumni."
+            "Joshua Cole is the studio lead and black-and-grey realism tattoo artist at "
+            "Work of Art Tattoo & Piercing in Las Vegas. He specializes in black-and-grey "
+            "realism, portraits, large-scale sleeves, and complex cover-up/rework projects. "
+            "He is also known for color realism, surrealistic and illustrative work, floral "
+            "work, and select fine-line tattooing."
         ),
         "knowsAbout": list(JOSHUA_KNOWS_ABOUT),
         "sameAs": [HREF_INSTAGRAM_JOSHUA],
@@ -415,8 +421,9 @@ def person_katelyn() -> dict:
         "image": KATELYN_IMAGE,
         "jobTitle": "Professional Piercer",
         "description": sanitize_schema_text(
-            "Katelyn Cole is Work of Art's piercer in Las Vegas — ear curation, "
-            "anatomy-first placement planning, jewelry fit, and piercing technique."
+            "Katelyn Cole is Work of Art Tattoo & Piercing's professional piercer in Las Vegas — "
+            "ear curation, anatomy-first placement planning, facial and body piercing, "
+            "and jewelry fit and styling."
         ),
         "knowsAbout": list(KATELYN_KNOWS_ABOUT),
         "sameAs": [HREF_INSTAGRAM_KATELYN],
@@ -431,12 +438,12 @@ def person_teralyn() -> dict:
         "name": "Teralyn",
         "url": TERALYN_PAGE,
         "image": TERALYN_IMAGE,
-        "jobTitle": "Tattoo Artist and Piercer",
+        "jobTitle": "Fine-Line Tattoo Artist and Piercer",
         "description": (
-            "Teralyn is a tattoo artist and piercer at Work of Art Tattoo & Piercing in "
-            "Las Vegas. She works in fine line floral tattoos, fine line, small script, "
-            "commissioned custom drawings, high-detail smaller tattoos, walk-in requests, "
-            "flash designs, and piercing services as part of the in-studio piercing team."
+            "Teralyn is Work of Art Tattoo & Piercing's primary fine-line tattoo artist in "
+            "Las Vegas. She focuses on fine-line floral work, script, small detailed tattoos, "
+            "and custom drawings by commission. She also takes piercing appointments as part "
+            "of the in-studio piercing team."
         ),
         "knowsAbout": list(TERALYN_KNOWS_ABOUT),
         "sameAs": [HREF_INSTAGRAM_TERALYN],

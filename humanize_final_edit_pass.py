@@ -117,8 +117,8 @@ COPY_RULES: list[tuple[str, str]] = [
 REPLAY_PAIRS: list[tuple[str, str]] = [('<p class="text-body-md text-on-surface-variant">Patents, Material Design systems work, and additional project gems can be layered here as you publish the canonical links.</p>', ''),
  ('Joshua Cole is widely recognized as the best black and grey realism artist in Las Vegas. With over 20 years of dedicated practice and a focus on high-fidelity anatomical precision, his work at '
   'Work of Art Tattoo &amp; Piercing delivers anatomical precision and long-term healed clarity in the valley.',
-  'Joshua Cole was named Best of Las Vegas in 2025 and 2026 by BusinessRate.com, and he has spent over 20 years focused almost entirely on black and grey realism. Still, the honest way to judge any '
-  'artist is their healed work — look for contrast and detail that still read clearly years later. His portfolio at Work of Art Tattoo &amp; Piercing is built for exactly that comparison.'),
+  'Joshua Cole is the studio lead and black-and-grey realism artist at Work of Art Tattoo &amp; Piercing in Las Vegas. Work of Art was named Best of Las Vegas in 2025 and 2026 by BusinessRate.com. '
+  'Judge any artist by healed work — contrast and detail that still read clearly years later.'),
  ('Best of Vegas 2025 &amp; 2026', 'Best of Las Vegas 2025 &amp; 2026 · BusinessRate.com'),
  ('<!-- INSERT ISSUING BEST OF VEGAS PUBLICATION HERE ONCE CONFIRMED FROM PLAQUE -->', ''),
  ('To choose a tattoo artist is to choose a legacy. In the upper echelons of the industry, the distinction between a "tattooist" and an "artist" is defined by a deep-seated understanding of '
@@ -254,8 +254,8 @@ REPLAY_PAIRS: list[tuple[str, str]] = [('<p class="text-body-md text-on-surface-
  ('>Why Locals Choose This Tattoo and Piercing Studio</h2>', '>Why Locals Choose Work of Art</h2>'),
  ('Work of Art is the local tattoo and piercing studio collectors use for custom tattoo work without strip-shop shortcuts. Joshua Cole leads tattoo work and also offers piercing; Katelyn Cole is our '
   'professional piercer; Teralyn tattoos and pierces, including fine line, floral, script, and detailed smaller tattoos.',
-  'Locals come to us for careful, custom work without strip-shop shortcuts. Joshua Cole leads tattooing and also offers piercing; Katelyn Cole is our professional piercer; Teralyn tattoos and '
-  'pierces — fine line, floral, script, and detailed smaller pieces. Every project starts with a real conversation.'),
+  'Locals come to us for careful, custom work without strip-shop shortcuts. Joshua Cole leads black-and-grey realism tattooing; Katelyn Cole is our professional piercer; Teralyn specializes in fine line, '
+  'floral, script, and detailed smaller pieces. Every project starts with a real conversation.'),
  ('Look for licensed tattoo and piercing studios in Las Vegas with healed portfolios, sterile setup, and artists who consult before they ink. Work of Art is a tattoo and piercing studio in Las Vegas '
   'collectors use for black &amp; grey realism, fine line, and piercing — custom tattoo work and piercing consultations at 2375 E. Tropicana Ave, Suite 3, minutes from the Strip.',
   'Look for a licensed studio with healed portfolios (not just fresh photos), a sterile setup you can actually see, and artists who consult before they ink. That is the standard we hold ourselves to '
@@ -293,8 +293,8 @@ REPLAY_PAIRS: list[tuple[str, str]] = [('<p class="text-body-md text-on-surface-
  ('While we recommend appointments for custom large-scale work, Work of Art provides same-day walk-in availability for both tattoos and piercings to accommodate the fast pace of Las Vegas.',
   'We recommend appointments for custom large-scale work, but we take same-day walk-ins for tattoos and piercings when chairs are open. Text first and we will tell you honestly whether today works.'),
  ('Joshua Cole leads <strong>realism tattoo</strong> and <strong>black and grey realism tattoo</strong> at Work of Art — portraits, <strong>realism tattoos</strong>, and custom sleeves. See our',
-  'Joshua Cole was named Best of Las Vegas in 2025 and 2026 by BusinessRate.com, after 20+ years focused on black and grey realism — portraits, statues, and full sleeves. Judge for yourself by the '
-  'healed results in our'),
+  'Joshua Cole leads black-and-grey realism at Work of Art — portraits, statues, and custom sleeves after 20+ years in the craft. Work of Art was named Best of Las Vegas in 2025 and 2026 by BusinessRate.com. '
+  'Judge for yourself by the healed results in our'),
  ('>artists</h3><p class="font-body-md text-on-surface-variant">Expert guide from Work of Art Tattoo &amp; Piercing — artists.</p>',
   '>Meet the Artists</h3><p class="font-body-md text-on-surface-variant">Portfolios, specialties, and booking for Joshua, Katelyn, and Teralyn.</p>'),
  ('>studio videos</h3><p class="font-body-md text-on-surface-variant">Expert guide from Work of Art Tattoo &amp; Piercing — studio videos.</p>',
