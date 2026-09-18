@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent
 META_PATCHES: dict[str, tuple[str, str]] = {
     "home_work_of_art_tattoo_piercing/code.html": (
         "Tattoo & Piercing Shop Las Vegas | Work of Art",
-        "Las Vegas tattoo and piercing studio — custom tattoos, realism, cover-ups, fine line work, and professional body piercing. Walk-ins and appointments on E. Tropicana. (725) 224-1240.",
+        "Visit Work of Art Tattoo & Piercing in Las Vegas for custom tattoos, realism, cover-ups and professional piercing. View healed work or book a consultation.",
     ),
     "cover-up-tattoos-las-vegas/code.html": (
         "Cover-Up Tattoo Artist Las Vegas | Joshua Cole | Work of Art",

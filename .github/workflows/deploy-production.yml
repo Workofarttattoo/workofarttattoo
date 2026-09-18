@@ -74,8 +74,11 @@ jobs:
 
           root = Path('.')
           copied = 0
+          skip_index_copy = {'home_work_of_art_tattoo_piercing'}
           for code in root.rglob('code.html'):
               if '.git' in code.parts or '.github' in code.parts or 'skipped_upload_build' in code.parts:
+                  continue
+              if code.parent.name in skip_index_copy:
                   continue
               shutil.copy2(code, code.with_name('index.html'))
               copied += 1
@@ -111,6 +114,9 @@ jobs:
           print(f'Homepage source: {home_src}')
           print(f'Generated {copied} index.html files from code.html sources')
           PY
+          python3 build_home_duplicate_redirect.py
+          python3 build_favicon_assets.py
+          python3 normalize_head_metadata.py
           python3 tools/check_merchandise_page.py
           test -s index.html
           grep -q 'woa-hero-banner' index.html

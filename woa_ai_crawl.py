@@ -315,7 +315,7 @@ User-agent: cohere-ai
 Allow: /
 
 # Sitemap (canonical — submit this URL in Search Console)
-Sitemap: {SITE_ORIGIN}/sitemap.xml
+Sitemap: {SITE_ORIGIN}/{SITEMAP_STATIC_NAME}
 
 # AI / LLM discovery (human-readable indexes — not robots directives)
 # LLM index: {SITE_ORIGIN}/llms.txt

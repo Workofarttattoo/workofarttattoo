@@ -90,6 +90,9 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "build_retired_cover_up_redirect.py")],
     ["python3", str(ROOT / "fix_gsc_winner_optimization.py")],
     ["python3", str(ROOT / "implement_gsc_seo_sprint.py")],
+    ["python3", str(ROOT / "build_favicon_assets.py")],
+    ["python3", str(ROOT / "normalize_head_metadata.py")],
+    ["python3", str(ROOT / "build_home_duplicate_redirect.py")],
     ["python3", str(ROOT / "tools/validate_seo_canonical.py")],
 ]
 

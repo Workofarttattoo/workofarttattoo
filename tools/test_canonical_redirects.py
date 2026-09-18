@@ -22,7 +22,7 @@ DEFAULT_URLS = [
     "http://workofarttattoo.com/piercing-guide-las-vegas/",
     "https://workofarttattoo.com/cover-up-tattoos-las-vegas/?utm=test",
     "http://www.workofarttattoo.com/how-to-choose-a-tattoo-artist/",
-    "https://workofarttattoo.com/sitemap.xml",
+    "https://workofarttattoo.com/sitemap-static-pages.xml",
     "http://workofarttattoo.com/knowledge/tattoo-on-ribs-recovery/",
 ]
 

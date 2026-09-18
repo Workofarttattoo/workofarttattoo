@@ -140,14 +140,16 @@ def validate_page(path: Path, failures: list[str], canonicals: dict[str, str]) -
 
 
 def validate_sitemap(failures: list[str]) -> int:
-    sitemap = ROOT / "sitemap.xml"
+    from woa_ai_crawl import SITEMAP_STATIC_NAME
+
+    sitemap = ROOT / SITEMAP_STATIC_NAME
     if not sitemap.is_file():
-        failures.append("missing sitemap.xml")
+        failures.append(f"missing {SITEMAP_STATIC_NAME}")
         return 0
     try:
         root_el = ElementTree.parse(sitemap).getroot()
     except ElementTree.ParseError as exc:
-        failures.append(f"sitemap.xml parse error: {exc}")
+        failures.append(f"{SITEMAP_STATIC_NAME} parse error: {exc}")
         return 0
     locs = [el.text.strip() for el in root_el.findall(".//sm:loc", NS) if el.text]
     issues = 0
@@ -169,8 +171,14 @@ def validate_sitemap(failures: list[str]) -> int:
     sitemap_lines = [ln for ln in robots.splitlines() if ln.lower().startswith("sitemap:")]
     if len(sitemap_lines) != 1:
         failures.append(f"robots.txt must list exactly one Sitemap (found {len(sitemap_lines)})")
+    elif SITEMAP_STATIC_NAME not in sitemap_lines[0]:
+        failures.append(f"robots.txt Sitemap must advertise /{SITEMAP_STATIC_NAME}")
     elif CANONICAL_ORIGIN not in sitemap_lines[0]:
         failures.append("robots.txt Sitemap must use canonical https://www host")
+    if locs.count(f"{CANONICAL_ORIGIN}/") != 1:
+        failures.append("sitemap must list homepage exactly once")
+    if any("/home_work_of_art_tattoo_piercing/" in loc for loc in locs):
+        failures.append("sitemap must not list duplicate homepage path")
     return len(locs)
 
 

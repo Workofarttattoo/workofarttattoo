@@ -121,6 +121,20 @@ def repair_meta(head, soup: BeautifulSoup, *, attr: str, key: str, content: str)
     return False
 
 
+FAVICON_BLOCK = (
+    '<link href="/favicon.ico" rel="icon" sizes="any"/>'
+    '<link href="/logo.png" rel="icon" type="image/png"/>'
+    '<link href="/home_work_of_art_tattoo_piercing/work-of-art-logo.webp" rel="icon" type="image/webp"/>'
+)
+
+
+def ensure_favicon_links(head) -> bool:
+    if head.find("link", rel=lambda rel: rel and "icon" in rel):
+        return False
+    head.insert(0, BeautifulSoup(FAVICON_BLOCK, "html.parser"))
+    return True
+
+
 def fill_social_metadata(head, soup: BeautifulSoup) -> bool:
     title = soup.title.string.strip() if soup.title and soup.title.string else ""
     description_tag = head.find("meta", attrs={"name": "description"})
@@ -175,6 +189,7 @@ def normalize_html(html: str) -> tuple[str, bool]:
         else "",
     )
     fill_social_metadata(head, soup)
+    ensure_favicon_links(head)
 
     rendered = str(soup)
     return rendered, rendered != original

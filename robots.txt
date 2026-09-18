@@ -46,7 +46,7 @@ User-agent: cohere-ai
 Allow: /
 
 # Sitemap (canonical — submit this URL in Search Console)
-Sitemap: https://www.workofarttattoo.com/sitemap.xml
+Sitemap: https://www.workofarttattoo.com/sitemap-static-pages.xml
 
 # AI / LLM discovery (human-readable indexes — not robots directives)
 # LLM index: https://www.workofarttattoo.com/llms.txt

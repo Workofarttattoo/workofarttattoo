@@ -25,6 +25,7 @@ GSC_OBSOLETE_PATH_REDIRECTS: tuple[tuple[str, str], ...] = (
         "/knowledge/implant-grade-titanium-vs-surgical-steel/",
         "/katelyn_implant_grade_titanium_las_vegas_authority_guide/",
     ),
+    ("/home_work_of_art_tattoo_piercing/", "/"),
 )
 
 # Complete GSC Wizard list (16 obsolete URLs → canonical targets).
@@ -53,6 +54,7 @@ GSC_WIZARD_OBSOLETE_REDIRECTS: tuple[tuple[str, str], ...] = (
     ("/tattoo_shop_enterprise_las_vegas/", "/official_location_hours_contact/"),
     ("/tattoo_shop_green_valley_henderson/", "/tattoo_shop_serving_henderson_nevada/"),
     GSC_OBSOLETE_PATH_REDIRECTS[0],
+    GSC_OBSOLETE_PATH_REDIRECTS[1],
     ("/review_funnel_google_authority_hub/", "/reviews/"),
 )
 
