@@ -152,13 +152,31 @@ jobs:
               'dermis_skin_science_las_vegas_authority_guide/index.html',
               'walk-in-tattoos-las-vegas/index.html',
               'realism-tattoos-las-vegas/index.html',
+              'geo_hub_ai_source_of_truth_work_of_art/index.html',
+              'geo_hub_ai_source_of_truth_work_of_art/index.html.md',
               'sitemap-static-pages.xml',
               'robots.txt',
+              'llms.txt',
+              'ai.txt',
               'CNAME',
           ]
           missing = [p for p in required if not Path(p).is_file()]
           if missing:
               raise SystemExit('Missing critical production files: ' + ', '.join(missing))
+
+          import importlib.util
+          spec = importlib.util.spec_from_file_location(
+              'generate_gh_pages_excludes', Path('generate_gh_pages_excludes.py')
+          )
+          mod = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(mod)
+          geo_slug = 'geo_hub_ai_source_of_truth_work_of_art'
+          if geo_slug in mod.gh_pages_exclude_slugs():
+              raise SystemExit(geo_slug + ' is excluded from GitHub Pages; AI source of truth would 404')
+          for crawl_name in ('robots.txt', 'llms.txt', 'ai.txt'):
+              crawl_body = Path(crawl_name).read_text(encoding='utf-8', errors='replace')
+              if '/' + geo_slug + '/' not in crawl_body:
+                  raise SystemExit(crawl_name + ' no longer points at the GEO hub')
 
           home = Path('index.html').read_text(encoding='utf-8', errors='replace')
           if '/artists/teralyn/' not in home:
@@ -357,6 +375,11 @@ jobs:
           git cat-file -e origin/gh-pages:studio-rules/index.html
           git cat-file -e origin/gh-pages:artists/teralyn/index.html
           git cat-file -e origin/gh-pages:dermis_skin_science_las_vegas_authority_guide/index.html
+          git cat-file -e origin/gh-pages:geo_hub_ai_source_of_truth_work_of_art/index.html
+          git cat-file -e origin/gh-pages:geo_hub_ai_source_of_truth_work_of_art/index.html.md
+          git show origin/gh-pages:llms.txt | grep -q '/geo_hub_ai_source_of_truth_work_of_art/'
+          git show origin/gh-pages:ai.txt | grep -q '/geo_hub_ai_source_of_truth_work_of_art/'
+          git show origin/gh-pages:robots.txt | grep -q '/geo_hub_ai_source_of_truth_work_of_art/'
           echo "gh-pages contains exact main marker $GITHUB_SHA"
 
       - name: Verify active website serves exact deployed main commit
@@ -382,7 +405,11 @@ jobs:
               '/walk-in-tattoos-las-vegas/': 'Instant Art',
               '/realism-tattoos-las-vegas/': None,
               '/dermis_skin_science_las_vegas_authority_guide/': 'Dermis',
-              '/robots.txt': None,
+              '/geo_hub_ai_source_of_truth_work_of_art/': 'primary-source',
+              '/geo_hub_ai_source_of_truth_work_of_art/index.html.md': 'AI Source of Truth',
+              '/robots.txt': '/geo_hub_ai_source_of_truth_work_of_art/',
+              '/llms.txt': '/geo_hub_ai_source_of_truth_work_of_art/',
+              '/ai.txt': '/geo_hub_ai_source_of_truth_work_of_art/',
               '/sitemap-static-pages.xml': None,
           }
 

@@ -99,6 +99,14 @@ NEVER_RETIRE_SOURCE_SLUGS: frozenset[str] = frozenset(
     }
 )
 
+# Alias sources cited as the AI source of truth. GitHub Pages cannot 301, so these
+# folders must ship even though a shorter customer URL is the HTML canonical.
+MUST_PUBLISH_ALIAS_SOURCES: frozenset[str] = frozenset(
+    {
+        "geo_hub_ai_source_of_truth_work_of_art",
+    }
+)
+
 # Short slugs that are independently authored — never overwrite from the legacy folder.
 INDEPENDENT_AUTHORITY_SLUGS: frozenset[str] = frozenset(
     {

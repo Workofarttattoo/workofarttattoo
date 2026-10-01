@@ -19,7 +19,7 @@ from deploy_stitch_site_root import SKIP_DEPLOY_SLUGS, gather_folders, resolve_h
 from generate_gh_pages_excludes import gh_pages_exclude_slugs
 from woa_canonical import CANONICAL_ORIGIN, canonical_url, normalize_path
 from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
-from woa_url_aliases import ALIASES_BY_SOURCE, short_canonical
+from woa_url_aliases import ALIASES_BY_SOURCE, MUST_PUBLISH_ALIAS_SOURCES, short_canonical
 
 NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 CANONICAL_NETLOC = urlparse(CANONICAL_ORIGIN).netloc
@@ -43,7 +43,9 @@ def route_for(path: Path) -> str:
 
 
 def indexable_code_files() -> list[Path]:
-    exclude = gh_pages_exclude_slugs()
+    # Published AI-source mirrors keep the short URL as their canonical, so they
+    # are not a second indexable URL.
+    exclude = gh_pages_exclude_slugs() | MUST_PUBLISH_ALIAS_SOURCES
     paths: list[Path] = []
     for path in sorted(ROOT.glob("*/code.html")):
         slug = path.parent.name
@@ -182,6 +184,44 @@ def validate_sitemap(failures: list[str]) -> int:
     return len(locs)
 
 
+def validate_ai_source_published(failures: list[str]) -> None:
+    """The GEO hub URL advertised to AI crawlers must be deployable, not a 404."""
+    excluded = gh_pages_exclude_slugs()
+    for slug in sorted(MUST_PUBLISH_ALIAS_SOURCES):
+        if slug in excluded:
+            failures.append(
+                f"{slug} is excluded from GitHub Pages; AI crawl files require HTTP 200"
+            )
+        folder = ROOT / slug
+        html = folder / "code.html"
+        markdown = folder / "index.html.md"
+        if not html.is_file():
+            failures.append(f"missing {slug}/code.html")
+        else:
+            text = html.read_text(encoding="utf-8", errors="replace")
+            if 'rel="canonical"' not in text:
+                failures.append(f"{slug}/code.html missing canonical")
+            if "index.html.md" not in text:
+                failures.append(f"{slug}/code.html missing markdown alternate")
+            if f"/{slug}/" not in text and "las-vegas-tattoo-resource-center/" not in text:
+                failures.append(f"{slug}/code.html missing a canonical or self URL")
+        if not markdown.is_file() or markdown.stat().st_size < 200:
+            failures.append(f"missing or empty {slug}/index.html.md")
+        else:
+            md = markdown.read_text(encoding="utf-8", errors="replace")
+            if f"/{slug}/" not in md and slug not in md:
+                failures.append(f"{slug}/index.html.md does not describe the GEO hub URL")
+    for name in ("llms.txt", "ai.txt", "robots.txt"):
+        path = ROOT / name
+        if not path.is_file():
+            failures.append(f"missing {name}")
+            continue
+        body = path.read_text(encoding="utf-8", errors="replace")
+        for slug in MUST_PUBLISH_ALIAS_SOURCES:
+            if f"/{slug}" not in body:
+                failures.append(f"{name} does not reference /{slug}/")
+
+
 def main() -> int:
     failures: list[str] = []
     canonicals: dict[str, str] = {}
@@ -190,6 +230,7 @@ def main() -> int:
         validate_page(path, failures, canonicals)
 
     sitemap_count = validate_sitemap(failures)
+    validate_ai_source_published(failures)
 
     print(f"Checked {len(pages)} indexable page(s), {sitemap_count} sitemap URL(s)")
     if failures:
