@@ -94,9 +94,13 @@
 
   function dispatchBookingSuccess(form, data, origin) {
     var isPiercing = form.id === "woa-form-piercing";
+    var submissionId = form.id + "_" + String(Date.now()) + "_" + Math.random().toString(36).slice(2, 10);
     var detail = {
       conversion_origin: origin,
       form_id: form.id,
+      form_name: form.id,
+      event_id: submissionId,
+      submission_id: submissionId,
       form_destination: origin === "php_success" ? "php_mailer" : "formsubmit_ajax",
       service_category: isPiercing ? "piercing" : "tattoo",
       service_type: isPiercing
