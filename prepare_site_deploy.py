@@ -283,6 +283,9 @@ def main() -> int:
     run_step(["python3", str(ROOT / "inject_google_tag.py")])
     run_step(["python3", str(ROOT / "inject_ga4_conversions.py")])
     verify_homepage()
+    # Re-apply after generators. The production workflow runs this again after
+    # code.html → index.html and the final parity cleanup.
+    run_step(["python3", str(ROOT / "inject_angel_numbers.py")])
 
     print(
         "\nReady for GitHub Pages deploy. Next:\n"

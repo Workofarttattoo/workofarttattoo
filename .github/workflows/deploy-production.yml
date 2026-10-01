@@ -131,6 +131,9 @@ jobs:
       - name: Restore duplicate homepage redirect stub
         run: python3 build_home_duplicate_redirect.py
 
+      - name: Apply angel numbers after generated HTML
+        run: python3 inject_angel_numbers.py
+
       - name: Audit final production tree
         run: |
           python3 - <<'PY'
