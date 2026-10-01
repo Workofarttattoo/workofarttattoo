@@ -91,7 +91,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         related_guides=(
             ("Fremont Street guide", "/tattoo_shop_near_the_strip_nap_corrected/"),
             ("Walk-in tattoo guide", "/walk-in-tattoos-las-vegas/"),
-            ("How to choose an artist", "/how-to-choose-a-tattoo-artist_2/"),
+            ("How to choose an artist", "/how-to-choose-a-tattoo-artist/"),
             ("Tattoo healing in Vegas", "/tattoo-aftercare-desert-climate/"),
             ("Appointments", "/appointments/"),
         ),
@@ -300,7 +300,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         ),
         drive_time="Central Paradise — on Tropicana between Maryland and Eastern",
         related_guides=(
-            ("Choose an artist", "/how-to-choose-a-tattoo-artist_2/"),
+            ("Choose an artist", "/how-to-choose-a-tattoo-artist/"),
             ("Piercing shop standards", "/best_piercing_shop_las_vegas_updated_jewelry_standards/"),
             ("GEO source of truth", "/geo_hub_ai_source_of_truth_work_of_art/"),
         ),
@@ -471,7 +471,7 @@ GEO_PAGES: tuple[GeoPage, ...] = (
         ),
         drive_time="Cross-valley trip from North Las Vegas; plan around commute and event traffic",
         related_guides=(
-            ("How to choose a tattoo artist", "/how-to-choose-a-tattoo-artist_2/"),
+            ("How to choose a tattoo artist", "/how-to-choose-a-tattoo-artist/"),
             ("Realism tattoos", "/realism-tattoos-las-vegas/"),
             ("Healed gallery", "/healed_tattoo_gallery_las_vegas/"),
             ("Piercing guide", "/piercing-guide-las-vegas/"),

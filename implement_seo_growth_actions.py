@@ -85,7 +85,7 @@ BLOCKS: dict[str, str] = {
         (
             ("Cover-up pricing", "/cover-up-tattoos-las-vegas/", "Old ink changes the plan, size, and sometimes the number of sessions."),
             ("Fine line tattoos", "/fine_line_tattoos_las_vegas_master_authority_guide/", "Small does not always mean simple; placement and detail matter."),
-            ("Choose the right artist", "/how-to-choose-a-tattoo-artist_2/", "A cheaper mismatch costs more than a clean consult."),
+            ("Choose the right artist", "/how-to-choose-a-tattoo-artist/", "A cheaper mismatch costs more than a clean consult."),
         ),
     ),
     "cover-up-tattoos-las-vegas/code.html": growth_block(

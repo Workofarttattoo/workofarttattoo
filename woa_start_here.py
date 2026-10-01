@@ -34,7 +34,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
             "tattoos cost in Las Vegas before you book."
         ),
         primary_label="How to choose a tattoo artist",
-        primary_href="/how-to-choose-a-tattoo-artist_2/",
+        primary_href="/how-to-choose-a-tattoo-artist/",
         links=(
             ("Tattoo pain by placement", "/tattoo_pain_chart_placement_sensitivity_guide/"),
             ("Tattoo pricing in Vegas", "/how_much_do_tattoos_cost_in_las_vegas_authority_guide/"),
@@ -83,7 +83,7 @@ START_HERE_PATHS: tuple[StartHerePath, ...] = (
         primary_href="/cover-up-tattoos-las-vegas/",
         links=(
             ("Healed cover-up gallery", "/healed_cover_up_tattoos_las_vegas/"),
-            ("How to choose an artist", "/how-to-choose-a-tattoo-artist_2/"),
+            ("How to choose an artist", "/how-to-choose-a-tattoo-artist/"),
             ("Book a consult", "/appointments/"),
         ),
     ),
