@@ -343,8 +343,12 @@ html.woa-mnav-lock body {
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -404,6 +408,15 @@ html.woa-mnav-lock body {
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
       "potentialAction": {
@@ -518,6 +531,74 @@ html.woa-mnav-lock body {
       "worksFor": {
         "@id": "https://www.workofarttattoo.com/#business"
       }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/#tattoo-service",
+      "name": "Tattoo Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      },
+      "url": "https://www.workofarttattoo.com/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/#piercing-service",
+      "name": "Body Piercing Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      },
+      "url": "https://www.workofarttattoo.com/piercing-shop-standards/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service",
+      "name": "Black and Grey Realism Tattoo",
+      "description": "Custom black-and-grey realism tattoos — portraits, wildlife, and sleeves at Work of Art Las Vegas.",
+      "url": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service",
+      "name": "Tattoo Cover-Up",
+      "description": "Cover-up consults and multi-session redesigns for old or faded tattoos in Las Vegas.",
+      "url": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service",
+      "name": "Fine Line Tattoo",
+      "description": "Fine line and micro-detail tattoo work with longevity-focused planning.",
+      "url": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
     }
   ]
 }
@@ -583,7 +664,7 @@ html.woa-mnav-lock body {
 </div>
 <div class="lg:col-span-4 relative mt-12 lg:mt-0">
 <div class="aspect-[3/4] bg-surface-container overflow-hidden border-2 border-secondary/20 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
-<picture><source srcset="/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp" type="image/webp"/><img alt="Joshua cole portrait — Joshua Cole tattoo artist Las Vegas, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out transform hover:scale-110" decoding="async" fetchpriority="high" height="1067" src="/artists/joshua-cole/joshua-cole-portrait-las-vegas.png" width="800"/></picture>
+<picture><source srcset="/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp" type="image/webp"/><img alt="Joshua cole portrait — Joshua Cole tattoo artist Las Vegas, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out transform hover:scale-110" decoding="async" fetchpriority="high" height="1067" loading="eager" src="/artists/joshua-cole/joshua-cole-portrait-las-vegas.png" width="800"/></picture>
 </div>
 </div>
 </section>
@@ -1431,6 +1512,26 @@ t.src=base+"?woa-retry="+Date.now();
 
   storageSetOnce("woa_first_landing_page", location.pathname || "/");
 
+  function captureUtmParams() {
+    try {
+      var sp = new URLSearchParams(location.search || "");
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {
+        var value = sp.get(key);
+        if (value) storageSet("woa_" + key, value);
+      });
+    } catch (e) {}
+  }
+  captureUtmParams();
+
+  function utmAttribution() {
+    var out = {};
+    ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {
+      var value = storageGet("woa_" + key);
+      if (value) out[key] = value;
+    });
+    return out;
+  }
+
   function firstLandingPage() {
     return storageGet("woa_first_landing_page") || location.pathname || "/";
   }
@@ -1450,11 +1551,14 @@ t.src=base+"?woa-retry="+Date.now();
 
   function attributionParams(params) {
     return assign(
-      {
-        landing_page: firstLandingPage(),
-        origin_page: bookingOriginPage(),
-        service_interest: serviceInterestFromPath(bookingOriginPage()),
-      },
+      assign(
+        {
+          landing_page: firstLandingPage(),
+          origin_page: bookingOriginPage(),
+          service_interest: serviceInterestFromPath(bookingOriginPage()),
+        },
+        utmAttribution()
+      ),
       params || {}
     );
   }
@@ -1505,25 +1609,45 @@ t.src=base+"?woa-retry="+Date.now();
   }
 
   function recordFormSubmitSuccess(params) {
-    var service = params.service_category || params.service_type || "unknown";
-    var dedupeKey = "woa_form_submit_success_" + service;
+    var service = params.service_category === "piercing" ? "piercing" : "tattoo";
+    var formName = params.form_name || params.form_id || "unknown";
+    var submissionId =
+      params.event_id ||
+      params.submission_id ||
+      formName + "_" + String(params.conversion_origin || "success") + "_" + String(now());
+    var dedupeKey = "woa_generate_lead_" + submissionId;
     if (storageGet(dedupeKey)) return;
     storageSet(dedupeKey, String(now()));
-    var payload = attributionParams(assign({
-      artist_name: params.artist || params.artist_name || "no_preference",
-    }, params));
+
+    var payload = attributionParams(
+      assign(
+        {
+          artist_name: params.artist || params.artist_name || "no_preference",
+          form_name: formName,
+          page_path: location.pathname || "/",
+          lead_type: service,
+          event_id: submissionId,
+          submission_id: submissionId,
+        },
+        params
+      )
+    );
+
     send("booking_submit", payload);
-    send("generate_lead", assign({
-      currency: "USD",
-      value: 1,
-      lead_type: service,
-    }, payload));
-    pushDataLayer("verified_lead", payload);
-    send("form_submit_success", assign({ legacy_event: true }, payload));
-    send("booking_complete", assign({ legacy_event: true }, payload));
-    if (service === "piercing") {
-      send("piercing_booking_submit", assign({ legacy_event: true }, payload));
-    }
+    send(
+      "generate_lead",
+      assign(
+        {
+          currency: "USD",
+          value: 1,
+          lead_type: service,
+          form_name: formName,
+          page_path: location.pathname || "/",
+          event_id: submissionId,
+        },
+        payload
+      )
+    );
   }
 
   function linkFromClick(target) {
@@ -1683,6 +1807,7 @@ t.src=base+"?woa-retry="+Date.now();
       };
       if (h.indexOf("/appointments") >= 0) {
         storageSet("woa_booking_origin_page", location.pathname || "/");
+        captureUtmParams();
       }
 
       if (link.hasAttribute("data-woa-promo-click")) {
@@ -1721,6 +1846,7 @@ t.src=base+"?woa-retry="+Date.now();
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
         send("text_click", base);
+        send("text_us_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1785,6 +1911,9 @@ t.src=base+"?woa-retry="+Date.now();
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
+      try {
+        sessionStorage.removeItem("woa_generate_lead_formsubmit_redirect_" + serviceFromFormId(id));
+      } catch (e) {}
       send("booking_submit_attempt", bookingParamsFromForm(form, id, { conversion_origin: "submit_attempt" }));
     });
   });
@@ -1799,6 +1928,7 @@ t.src=base+"?woa-retry="+Date.now();
         cta_location: "appointments_page",
       });
       send("booking_page_view", bookingViewParams);
+      send("appointment_page_view", bookingViewParams);
       send("booking_view", assign({ legacy_event: true }, bookingViewParams));
     }
   }
@@ -1811,12 +1941,20 @@ t.src=base+"?woa-retry="+Date.now();
     sent = q.indexOf("sent=piercing") >= 0 ? "piercing" : q.indexOf("sent=tattoo") >= 0 ? "tattoo" : "";
   }
   if (sent === "tattoo" || sent === "piercing") {
+    var redirectSubmissionId = "formsubmit_redirect_" + sent;
     recordFormSubmitSuccess(assign(storedPiercingAttribution(), {
       conversion_origin: "formsubmit_redirect",
       service_category: sent,
       service_type: sent,
+      form_name: sent === "piercing" ? "woa-form-piercing" : "woa-form-tattoo",
+      form_id: sent === "piercing" ? "woa-form-piercing" : "woa-form-tattoo",
+      event_id: redirectSubmissionId,
+      submission_id: redirectSubmissionId,
       form_destination: "formsubmit",
     }));
+    try {
+      history.replaceState(null, "", location.pathname + location.hash);
+    } catch (e) {}
   }
 
   document.addEventListener("woa_booking_submit_success", function (e) {
@@ -1825,6 +1963,9 @@ t.src=base+"?woa-retry="+Date.now();
     recordFormSubmitSuccess(assign(storedPiercingAttribution(), {
       conversion_origin: detail.conversion_origin || "ajax_success",
       form_id: detail.form_id || "",
+      form_name: detail.form_name || detail.form_id || "",
+      event_id: detail.event_id || detail.submission_id || "",
+      submission_id: detail.submission_id || detail.event_id || "",
       form_destination: detail.form_destination || "",
       service_category: service,
       service_type: safeSlug(detail.service_type || service),
@@ -1864,6 +2005,35 @@ t.src=base+"?woa-retry="+Date.now();
   );
 })();
 </script>
+<!-- WOA_PAGE_SPOTLIGHT_VIDEO_START -->
+<style data-woa-page-spotlight-css="1">
+[data-woa-page-spotlight] .woa-video-card {
+  margin: 0 auto;
+  max-width: 420px;
+}
+[data-woa-page-spotlight] .video-thumb {
+  min-height: 360px;
+}
+</style>
+<section class="py-10 px-margin-mobile md:px-margin-desktop border-t border-outline-variant/15 bg-surface-container/40" data-woa-page-spotlight="1">
+<div class="max-w-xl mx-auto space-y-4 text-center">
+<span class="font-label-caps text-[10px] text-secondary uppercase tracking-[0.22em]">Studio clip</span>
+<article class="woa-video-card">
+<a class="video-card" href="https://www.instagram.com/reel/C3GjVCdLUQ9/" rel="noopener noreferrer" target="_blank">
+<div aria-hidden="true" class="video-thumb" style="background-image:url('/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg');"><span class="video-thumb-play">▶</span></div>
+<h3>Piercing session — studio reel</h3>
+<p>In-studio with professional piercer Katelyn Cole.</p>
+<span class="video-card-cta">Watch on Instagram</span>
+</a>
+</article>
+<p class="font-body-md text-[13px] text-on-surface-variant">
+<a class="text-secondary underline hover:no-underline" href="/studio_videos/">Video library</a>
+ · 
+<a class="text-secondary underline hover:no-underline" href="https://www.instagram.com/workofarttattoo/?utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=joshua_portfolio" rel="noopener noreferrer" target="_blank">Instagram</a>
+</p>
+</div>
+</section>
+<!-- WOA_PAGE_SPOTLIGHT_VIDEO_END -->
 <section class="py-16 px-margin-mobile md:px-margin-desktop bg-surface border-y border-outline-variant/20" data-woa-studio-gallery-strip="joshua">
 <div class="max-w-6xl mx-auto space-y-8">
 <div class="max-w-3xl space-y-3">
@@ -1927,7 +2097,7 @@ t.src=base+"?woa-retry="+Date.now();
 <div class="md:col-span-5">
 <picture>
 <source srcset="/home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas.webp" type="image/webp"/>
-<img alt="Healed forearm tattoo — Work of Art Las Vegas" class="w-full h-auto object-cover border border-outline-variant/30" decoding="async" loading="lazy" src="/home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas.png"/>
+<img alt="Fresh black and grey realism skull and hourglass forearm tattoo by Joshua Cole, Work of Art Las Vegas" class="w-full h-auto object-cover border border-outline-variant/30" decoding="async" loading="lazy" src="/home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas.png"/>
 </picture>
 </div>
 <div class="md:col-span-7 space-y-3">
@@ -1955,35 +2125,6 @@ t.src=base+"?woa-retry="+Date.now();
 </article></div>
 </div>
 </section>
-<!-- WOA_PAGE_SPOTLIGHT_VIDEO_START -->
-<style data-woa-page-spotlight-css="1">
-[data-woa-page-spotlight] .woa-video-card {
-  margin: 0 auto;
-  max-width: 420px;
-}
-[data-woa-page-spotlight] .video-thumb {
-  min-height: 360px;
-}
-</style>
-<section class="py-10 px-margin-mobile md:px-margin-desktop border-t border-outline-variant/15 bg-surface-container/40" data-woa-page-spotlight="1">
-<div class="max-w-xl mx-auto space-y-4 text-center">
-<span class="font-label-caps text-[10px] text-secondary uppercase tracking-[0.22em]">Studio clip</span>
-<article class="woa-video-card">
-<a class="video-card" href="https://www.instagram.com/reel/C3GjVCdLUQ9/" rel="noopener noreferrer" target="_blank">
-<div aria-hidden="true" class="video-thumb" style="background-image:url('/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.jpg');"><span class="video-thumb-play">▶</span></div>
-<h3>Piercing session — studio reel</h3>
-<p>In-studio with professional piercer Katelyn Cole.</p>
-<span class="video-card-cta">Watch on Instagram</span>
-</a>
-</article>
-<p class="font-body-md text-[13px] text-on-surface-variant">
-<a class="text-secondary underline hover:no-underline" href="/studio_videos/">Video library</a>
- · 
-<a class="text-secondary underline hover:no-underline" href="https://www.instagram.com/workofarttattoo/?utm_source=instagram&amp;utm_medium=organic_social&amp;utm_campaign=joshua_portfolio" rel="noopener noreferrer" target="_blank">Instagram</a>
-</p>
-</div>
-</section>
-<!-- WOA_PAGE_SPOTLIGHT_VIDEO_END -->
 <footer class="bg-surface-container-lowest w-full px-margin-mobile md:px-margin-desktop py-12 border-t border-outline-variant/20" data-woa-footer-license="1">
 <div class="max-w-5xl mx-auto space-y-8">
 <div class="max-w-3xl">

@@ -438,8 +438,12 @@ html.woa-mnav-lock body {
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -499,6 +503,15 @@ html.woa-mnav-lock body {
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
       "potentialAction": {
@@ -612,6 +625,74 @@ html.woa-mnav-lock body {
       ],
       "worksFor": {
         "@id": "https://www.workofarttattoo.com/#business"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/#tattoo-service",
+      "name": "Tattoo Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      },
+      "url": "https://www.workofarttattoo.com/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/#piercing-service",
+      "name": "Body Piercing Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      },
+      "url": "https://www.workofarttattoo.com/piercing-shop-standards/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service",
+      "name": "Black and Grey Realism Tattoo",
+      "description": "Custom black-and-grey realism tattoos — portraits, wildlife, and sleeves at Work of Art Las Vegas.",
+      "url": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service",
+      "name": "Tattoo Cover-Up",
+      "description": "Cover-up consults and multi-session redesigns for old or faded tattoos in Las Vegas.",
+      "url": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service",
+      "name": "Fine Line Tattoo",
+      "description": "Fine line and micro-detail tattoo work with longevity-focused planning.",
+      "url": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
       }
     }
   ]
@@ -1639,6 +1720,26 @@ t.src=base+"?woa-retry="+Date.now();
 
   storageSetOnce("woa_first_landing_page", location.pathname || "/");
 
+  function captureUtmParams() {
+    try {
+      var sp = new URLSearchParams(location.search || "");
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {
+        var value = sp.get(key);
+        if (value) storageSet("woa_" + key, value);
+      });
+    } catch (e) {}
+  }
+  captureUtmParams();
+
+  function utmAttribution() {
+    var out = {};
+    ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {
+      var value = storageGet("woa_" + key);
+      if (value) out[key] = value;
+    });
+    return out;
+  }
+
   function firstLandingPage() {
     return storageGet("woa_first_landing_page") || location.pathname || "/";
   }
@@ -1658,11 +1759,14 @@ t.src=base+"?woa-retry="+Date.now();
 
   function attributionParams(params) {
     return assign(
-      {
-        landing_page: firstLandingPage(),
-        origin_page: bookingOriginPage(),
-        service_interest: serviceInterestFromPath(bookingOriginPage()),
-      },
+      assign(
+        {
+          landing_page: firstLandingPage(),
+          origin_page: bookingOriginPage(),
+          service_interest: serviceInterestFromPath(bookingOriginPage()),
+        },
+        utmAttribution()
+      ),
       params || {}
     );
   }
@@ -1713,25 +1817,45 @@ t.src=base+"?woa-retry="+Date.now();
   }
 
   function recordFormSubmitSuccess(params) {
-    var service = params.service_category || params.service_type || "unknown";
-    var dedupeKey = "woa_form_submit_success_" + service;
+    var service = params.service_category === "piercing" ? "piercing" : "tattoo";
+    var formName = params.form_name || params.form_id || "unknown";
+    var submissionId =
+      params.event_id ||
+      params.submission_id ||
+      formName + "_" + String(params.conversion_origin || "success") + "_" + String(now());
+    var dedupeKey = "woa_generate_lead_" + submissionId;
     if (storageGet(dedupeKey)) return;
     storageSet(dedupeKey, String(now()));
-    var payload = attributionParams(assign({
-      artist_name: params.artist || params.artist_name || "no_preference",
-    }, params));
+
+    var payload = attributionParams(
+      assign(
+        {
+          artist_name: params.artist || params.artist_name || "no_preference",
+          form_name: formName,
+          page_path: location.pathname || "/",
+          lead_type: service,
+          event_id: submissionId,
+          submission_id: submissionId,
+        },
+        params
+      )
+    );
+
     send("booking_submit", payload);
-    send("generate_lead", assign({
-      currency: "USD",
-      value: 1,
-      lead_type: service,
-    }, payload));
-    pushDataLayer("verified_lead", payload);
-    send("form_submit_success", assign({ legacy_event: true }, payload));
-    send("booking_complete", assign({ legacy_event: true }, payload));
-    if (service === "piercing") {
-      send("piercing_booking_submit", assign({ legacy_event: true }, payload));
-    }
+    send(
+      "generate_lead",
+      assign(
+        {
+          currency: "USD",
+          value: 1,
+          lead_type: service,
+          form_name: formName,
+          page_path: location.pathname || "/",
+          event_id: submissionId,
+        },
+        payload
+      )
+    );
   }
 
   function linkFromClick(target) {
@@ -1891,6 +2015,7 @@ t.src=base+"?woa-retry="+Date.now();
       };
       if (h.indexOf("/appointments") >= 0) {
         storageSet("woa_booking_origin_page", location.pathname || "/");
+        captureUtmParams();
       }
 
       if (link.hasAttribute("data-woa-promo-click")) {
@@ -1929,6 +2054,7 @@ t.src=base+"?woa-retry="+Date.now();
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
         send("text_click", base);
+        send("text_us_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1993,6 +2119,9 @@ t.src=base+"?woa-retry="+Date.now();
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
+      try {
+        sessionStorage.removeItem("woa_generate_lead_formsubmit_redirect_" + serviceFromFormId(id));
+      } catch (e) {}
       send("booking_submit_attempt", bookingParamsFromForm(form, id, { conversion_origin: "submit_attempt" }));
     });
   });
@@ -2007,6 +2136,7 @@ t.src=base+"?woa-retry="+Date.now();
         cta_location: "appointments_page",
       });
       send("booking_page_view", bookingViewParams);
+      send("appointment_page_view", bookingViewParams);
       send("booking_view", assign({ legacy_event: true }, bookingViewParams));
     }
   }
@@ -2019,12 +2149,20 @@ t.src=base+"?woa-retry="+Date.now();
     sent = q.indexOf("sent=piercing") >= 0 ? "piercing" : q.indexOf("sent=tattoo") >= 0 ? "tattoo" : "";
   }
   if (sent === "tattoo" || sent === "piercing") {
+    var redirectSubmissionId = "formsubmit_redirect_" + sent;
     recordFormSubmitSuccess(assign(storedPiercingAttribution(), {
       conversion_origin: "formsubmit_redirect",
       service_category: sent,
       service_type: sent,
+      form_name: sent === "piercing" ? "woa-form-piercing" : "woa-form-tattoo",
+      form_id: sent === "piercing" ? "woa-form-piercing" : "woa-form-tattoo",
+      event_id: redirectSubmissionId,
+      submission_id: redirectSubmissionId,
       form_destination: "formsubmit",
     }));
+    try {
+      history.replaceState(null, "", location.pathname + location.hash);
+    } catch (e) {}
   }
 
   document.addEventListener("woa_booking_submit_success", function (e) {
@@ -2033,6 +2171,9 @@ t.src=base+"?woa-retry="+Date.now();
     recordFormSubmitSuccess(assign(storedPiercingAttribution(), {
       conversion_origin: detail.conversion_origin || "ajax_success",
       form_id: detail.form_id || "",
+      form_name: detail.form_name || detail.form_id || "",
+      event_id: detail.event_id || detail.submission_id || "",
+      submission_id: detail.submission_id || detail.event_id || "",
       form_destination: detail.form_destination || "",
       service_category: service,
       service_type: safeSlug(detail.service_type || service),

@@ -12,7 +12,7 @@
 
 ## Roster (current)
 
-- **In-studio:** 3 — Joshua Cole (studio lead, black-and-grey realism), Katelyn Cole / Katie Cole (professional piercing), Teralyn (fine-line tattoos and piercing)
+- **In-studio:** 3 in-studio residents — Joshua Cole (studio lead, black-and-grey realism), Katelyn Cole / Katie Cole (professional piercing), Teralyn (fine-line tattoos and piercing)
 - **Mentored alumni:** 7+ artists trained here; not current headcount
 
 ## Artist specialties
@@ -113,17 +113,21 @@ If you are researching before booking, start with this page for verified studio 
 
 ## Canonical deep links
 
-- [Homepage](https://www.workofarttattoo.com/)
+- [Start here](https://www.workofarttattoo.com/start_here/)
+- [Official location, hours & contact (NAP)](https://www.workofarttattoo.com/official_location_hours_contact/)
+- [Studio location & hours](https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/)
 - [Book appointments](https://www.workofarttattoo.com/appointments/)
 - [Joshua Cole](https://www.workofarttattoo.com/artists/joshua-cole/)
 - [Katelyn Cole](https://www.workofarttattoo.com/artists/katelyn-cole/)
 - [Teralyn](https://www.workofarttattoo.com/artists/teralyn/)
-- [Fine line](https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/)
-- [Cover-up](https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/)
-- [Realism](https://www.workofarttattoo.com/realism-tattoos-las-vegas/)
-- [Piercing guide](https://www.workofarttattoo.com/piercing-guide-las-vegas/)
+- [How to choose an artist](https://www.workofarttattoo.com/how-to-choose-a-tattoo-artist/)
+- [Tattoo pricing](https://www.workofarttattoo.com/how_much_do_tattoos_cost_in_las_vegas_authority_guide/)
+- [Fine line tattoos](https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/)
+- [Realism tattoos](https://www.workofarttattoo.com/realism-tattoos-las-vegas/)
+- [Cover-up tattoos](https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/)
 - [Walk-in tattoos](https://www.workofarttattoo.com/walk-in-tattoos-las-vegas/)
-- [Near-the-Strip visitor page](https://www.workofarttattoo.com/tattoo_shop_near_the_strip_nap_corrected/)
-- [Official location & contact](https://www.workofarttattoo.com/official_location_hours_contact/)
-- [Choose artist](https://www.workofarttattoo.com/how-to-choose-a-tattoo-artist/)
-- [Piercing standards](https://www.workofarttattoo.com/piercing-shop-standards/)
+- [Desert tattoo aftercare](https://www.workofarttattoo.com/tattoo-aftercare-desert-climate/)
+- [Piercing guide](https://www.workofarttattoo.com/piercing-guide-las-vegas/)
+- [Piercing & jewelry standards](https://www.workofarttattoo.com/piercing-shop-standards/)
+- [Healed tattoo gallery](https://www.workofarttattoo.com/healed_tattoo_gallery_las_vegas/)
+- [Verified reviews](https://www.workofarttattoo.com/reviews/)

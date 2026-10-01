@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 
 <html class="dark" lang="en"><head>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XLXNGGW7SX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-XLXNGGW7SX');
+</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -11,15 +20,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://www.workofarttattoo.com/llms.txt" rel="describedby"/>
 <link href="https://www.workofarttattoo.com/llms.txt" rel="alternate" title="LLMs" type="text/plain"/>
 <meta content="index, follow, max-snippet:-1, max-image-preview:large" name="robots"/>
-<!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XLXNGGW7SX"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'G-XLXNGGW7SX');
-</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Premium Studio vs. Cheap Strip Shops</title>
@@ -552,8 +552,12 @@ html.woa-mnav-lock body {
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -613,6 +617,15 @@ html.woa-mnav-lock body {
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
       "potentialAction": {
@@ -727,6 +740,63 @@ html.woa-mnav-lock body {
       "worksFor": {
         "@id": "https://www.workofarttattoo.com/#business"
       }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.workofarttattoo.com/studio-vs-strip-shops/#article",
+      "headline": "Premium Studio vs. Cheap Strip Shops",
+      "description": "Side-by-side comparison of hygiene, artistry, and long-term value before you book.",
+      "url": "https://www.workofarttattoo.com/studio-vs-strip-shops/",
+      "mainEntityOfPage": {
+        "@id": "https://www.workofarttattoo.com/studio-vs-strip-shops/#webpage"
+      },
+      "author": {
+        "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person"
+      },
+      "publisher": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "isPartOf": {
+        "@id": "https://www.workofarttattoo.com/#website"
+      },
+      "about": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "inLanguage": "en-US",
+      "image": "https://www.workofarttattoo.com/studio-vs-strip-shops/vegas-tattoo-shop-vs-cheap-strip-tattoo-ultimate-comparison-las-vegas.webp",
+      "datePublished": "2026-10-01",
+      "dateModified": "2026-10-01"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.workofarttattoo.com/studio-vs-strip-shops/#webpage",
+      "url": "https://www.workofarttattoo.com/studio-vs-strip-shops/",
+      "name": "Premium Studio vs. Cheap Strip Shops",
+      "description": "Side-by-side comparison of hygiene, artistry, and long-term value before you book.",
+      "isPartOf": {
+        "@id": "https://www.workofarttattoo.com/#website"
+      },
+      "about": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.workofarttattoo.com/studio-vs-strip-shops/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.workofarttattoo.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Premium Studio vs. Cheap Strip Shops",
+          "item": "https://www.workofarttattoo.com/studio-vs-strip-shops/"
+        }
+      ]
     }
   ]
 }
@@ -1366,6 +1436,7 @@ t.src=base+"?woa-retry="+Date.now();
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
         send("text_click", base);
+        send("text_us_click", base);
         send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
         send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
         return;
@@ -1447,6 +1518,7 @@ t.src=base+"?woa-retry="+Date.now();
         cta_location: "appointments_page",
       });
       send("booking_page_view", bookingViewParams);
+      send("appointment_page_view", bookingViewParams);
       send("booking_view", assign({ legacy_event: true }, bookingViewParams));
     }
   }
