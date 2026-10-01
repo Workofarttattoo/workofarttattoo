@@ -456,7 +456,8 @@ def _build_geo_markdown() -> str:
 {canonical_entity_graph_markdown()}
 ## Hours
 
-- Hours are pending owner verification. Confirm appointment availability directly before visiting.
+- Daily: 12:00 PM - 12:00 AM
+- Walk-ins: When schedule allows
 
 ## Provider crawl URLs
 
@@ -472,8 +473,14 @@ Use these when fetching this document for a specific AI product (content is iden
 
 ## Safety
 
-- Studio safety and jewelry material claims are pending owner verification before being treated as authoritative.
-- No dermals (Clark County compliant)
+- Strict adherence to SNHD protocols, exceeding minimum industry requirements with documented studio materials.
+- Starter Jewelry Fit Stainless Steel
+- starter jewelry
+- High-polish clinical jewelry
+- SNHD (Southern Nevada Health District) certified
+- Bloodborne Pathogen (BBP) trained
+- Sterilization procedures
+- No dermals (Clark County code compliant)
 
 ## Search & AI Discovery
 
