@@ -175,8 +175,15 @@ def validate_sitemap(failures: list[str]) -> int:
     sitemap_lines = [ln for ln in robots.splitlines() if ln.lower().startswith("sitemap:")]
     if len(sitemap_lines) != 1:
         failures.append(f"robots.txt must list exactly one Sitemap (found {len(sitemap_lines)})")
-    elif SITEMAP_STATIC_NAME not in sitemap_lines[0]:
-        failures.append(f"robots.txt Sitemap must advertise /{SITEMAP_STATIC_NAME}")
+    elif "/sitemap.xml" not in sitemap_lines[0]:
+        failures.append("robots.txt Sitemap must advertise /sitemap.xml")
+    mirror = ROOT / SITEMAP_STATIC_NAME
+    primary = ROOT / "sitemap.xml"
+    if mirror.is_file() and primary.is_file():
+        if mirror.read_text(encoding="utf-8") != primary.read_text(encoding="utf-8"):
+            failures.append("sitemap.xml and sitemap-static-pages.xml must be identical")
+    elif not primary.is_file():
+        failures.append("missing sitemap.xml")
     elif CANONICAL_ORIGIN not in sitemap_lines[0]:
         failures.append("robots.txt Sitemap must use canonical https://www host")
     if locs.count(f"{CANONICAL_ORIGIN}/") != 1:

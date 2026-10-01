@@ -1,7 +1,13 @@
-"""Discover every deployable HTML URL for sitemap.xml (matches deploy_stitch_site_root.py)."""
+"""Discover every indexable public URL for sitemap.xml.
+
+Candidates follow the deploy folder rules, then each page is kept only when
+its HTML canonical is that exact https://www URL and the page is not noindex.
+Obsolete aliases, redirects, and pages that canonicalize elsewhere are omitted.
+"""
 
 from __future__ import annotations
 
+import re
 from datetime import date
 from pathlib import Path
 
@@ -14,6 +20,17 @@ GEO_SLUG = "geo_hub_ai_source_of_truth_work_of_art"
 NOINDEX_SITEMAP_SLUGS: frozenset[str] = frozenset(
     {"privacy-policy", "terms-of-service", "image-license"}
 )
+
+_CANONICAL_TAG_RE = re.compile(
+    r'<link\b[^>]*\brel=["\']canonical["\'][^>]*>',
+    re.IGNORECASE,
+)
+_ROBOTS_TAG_RE = re.compile(
+    r'<meta\b[^>]*\bname=["\']robots["\'][^>]*>',
+    re.IGNORECASE,
+)
+_HREF_RE = re.compile(r'\bhref=["\']([^"\']+)["\']', re.IGNORECASE)
+_CONTENT_RE = re.compile(r'\bcontent=["\']([^"\']+)["\']', re.IGNORECASE)
 
 
 def _priority_for_slug(slug: str, home_slug: str | None) -> tuple[str, str]:
@@ -105,7 +122,59 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
         for html in sorted(artists_build.glob("*.html")):
             add(f"/artists/{html.stem}/", "0.85", "monthly")
 
-    return rows
+    return [row for row in rows if _is_indexable_canonical(repo_root, row[0])]
+
+
+def _html_source_for_path(repo_root: Path, path: str) -> Path | None:
+    """Deploy source HTML for a public path. Homepage lives in the home export folder."""
+    if path == "/":
+        for candidate in (
+            repo_root / HOME_SLUG / "code.html",
+            repo_root / "code.html",
+            repo_root / "index.html",
+        ):
+            if candidate.is_file():
+                return candidate
+        return None
+    folder = repo_root / path.strip("/")
+    for name in ("code.html", "index.html"):
+        candidate = folder / name
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _head_signals(html_path: Path) -> tuple[str | None, bool]:
+    text = html_path.read_text(encoding="utf-8", errors="replace")[:120_000]
+    canonical = None
+    match = _CANONICAL_TAG_RE.search(text)
+    if match:
+        href = _HREF_RE.search(match.group(0))
+        if href:
+            canonical = href.group(1).strip()
+    noindex = False
+    robots = _ROBOTS_TAG_RE.search(text)
+    if robots:
+        content = _CONTENT_RE.search(robots.group(0))
+        if content and "noindex" in content.group(1).lower():
+            noindex = True
+    return canonical, noindex
+
+
+def _is_indexable_canonical(repo_root: Path, path: str) -> bool:
+    """Keep a URL only when it is the page's own HTTPS-www canonical and is indexable."""
+    if "?" in path or path.startswith("http"):
+        return False
+    source = _html_source_for_path(repo_root, path)
+    if source is None:
+        return False
+    canonical, noindex = _head_signals(source)
+    if noindex or not canonical or "?" in canonical:
+        return False
+    if not canonical.startswith(f"{SITE_ORIGIN}/") and canonical.rstrip("/") != SITE_ORIGIN:
+        return False
+    expected = SITE_ORIGIN if path == "/" else f"{SITE_ORIGIN}{path}"
+    return canonical.rstrip("/") == expected.rstrip("/")
 
 
 def build_sitemap_xml(repo_root: Path) -> str:

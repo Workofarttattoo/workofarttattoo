@@ -6,7 +6,13 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from woa_url_aliases import ALIASES_BY_SHORT, INDEPENDENT_AUTHORITY_SLUGS, SITE, UrlAlias
+from woa_url_aliases import (
+    ALIASES_BY_SHORT,
+    INDEPENDENT_AUTHORITY_SLUGS,
+    MUST_PUBLISH_ALIAS_SOURCES,
+    SITE,
+    UrlAlias,
+)
 
 ROOT = Path(__file__).resolve().parent
 ASSET_EXT = {".png", ".webp", ".jpg", ".jpeg", ".gif", ".svg"}
@@ -35,6 +41,29 @@ def patch_paths(html: str, alias: UrlAlias) -> str:
     short_canon = f"{SITE}{short}"
     legacy = f"/{alias.source_slug}/"
     legacy_canon = f"{SITE}{legacy}"
+
+    # The GEO hub is the indexable canonical. Its short alias must not compete.
+    if alias.source_slug in MUST_PUBLISH_ALIAS_SOURCES:
+        html = re.sub(
+            r'<link href="[^"]*" rel="canonical"/>',
+            f'<link href="{legacy_canon}" rel="canonical"/>',
+            html,
+            count=1,
+        )
+        html = re.sub(
+            r'<meta content="[^"]*" property="og:url"/>',
+            f'<meta content="{legacy_canon}" property="og:url"/>',
+            html,
+            count=1,
+        )
+        if re.search(r'name="robots"', html):
+            html = re.sub(
+                r'<meta content="[^"]*" name="robots"/>',
+                '<meta content="noindex, follow" name="robots"/>',
+                html,
+                count=1,
+            )
+        return html
 
     html = re.sub(
         rf'<link href="{re.escape(legacy_canon)}" rel="canonical"/>',
@@ -80,6 +109,8 @@ def update_internal_links() -> int:
         raw = path.read_text(encoding="utf-8")
         updated = raw
         for alias in ALIASES_BY_SHORT.values():
+            if alias.source_slug in MUST_PUBLISH_ALIAS_SOURCES:
+                continue
             old = f"/{alias.source_slug}/"
             new = f"/{alias.short_slug}/"
             if old in updated:
@@ -95,6 +126,8 @@ def update_internal_links() -> int:
         raw = html.read_text(encoding="utf-8")
         updated = raw
         for alias in ALIASES_BY_SHORT.values():
+            if alias.source_slug in MUST_PUBLISH_ALIAS_SOURCES:
+                continue
             updated = updated.replace(f"/{alias.source_slug}/", f"/{alias.short_slug}/")
         if updated != raw:
             html.write_text(updated, encoding="utf-8")
