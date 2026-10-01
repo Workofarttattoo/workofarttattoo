@@ -6,10 +6,24 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from woa_healed_gallery import HEALED_CATALOG
+from woa_healed_timeline_template import file_exists, timeline_html
 from woa_healed_timelines import (
     JOSHUA_CASE_STUDIES,
     KATELYN_CASE_STUDIES,
     CaseStudy,
+)
+
+JOSHUA_TIMELINE_IDS = (
+    "roaring-lion-thigh-fresh-healed",
+    "cross-eye-skull-forearm-1-year",
+    "eagle-memorial-calf",
+    "lion-thigh",
+    "phoenix-cover-up-hand",
+    "davy-jones-pirates-calf",
+    "steampunk-clock-forearm",
+    "skull-hourglass-forearm",
+    "all-seeing-eye-triangle-fresh",
 )
 
 ROOT = Path(__file__).resolve().parent
@@ -51,13 +65,72 @@ def _case_study_html(study: CaseStudy) -> str:
 </article>"""
 
 
+def _joshua_timeline_cards() -> str:
+    from build_healed_gallery_pages import entry_card
+
+    by_id = {entry.entry_id: entry for entry in HEALED_CATALOG}
+    cards = []
+    for entry_id in JOSHUA_TIMELINE_IDS:
+        entry = by_id.get(entry_id)
+        if entry is None:
+            continue
+        cards.append(
+            entry_card(entry, source_path=f"/artists/joshua-cole/#{entry_id}")
+        )
+    return "".join(cards)
+
+
+def _katelyn_timeline_card() -> str:
+    folder = "studio_gallery"
+    stem = "ear-curation-work-eb7d2939"
+    webp_ok, png_ok = file_exists(folder, stem)
+    photos = []
+    if webp_ok or png_ok:
+        photos.append(
+            (
+                "fresh",
+                folder,
+                stem,
+                "In-studio documentation",
+                "Ear curation in studio — Katelyn Cole, Work of Art Las Vegas",
+            )
+        )
+    stages = timeline_html(
+        photos,
+        has_healed=False,
+        source_path="/artists/katelyn-cole/#ear-curation",
+    )
+    return f"""
+<article class="woa-healed-case py-12 border-b border-outline-variant/20" id="ear-curation">
+<div class="space-y-4">
+<h3 class="font-headline-md text-on-surface">Ear curation — helix and flat</h3>
+<p class="font-body-md text-on-surface-variant">Katelyn Cole · left ear · planning visit and install. The in-studio photo is not a healed follow-up.</p>
+{stages}
+</div>
+</article>"""
+
+
 def timeline_section(studies: tuple[CaseStudy, ...], artist_key: str) -> str:
-    cards = "".join(_case_study_html(s) for s in studies)
+    if artist_key == "joshua":
+        cards = _joshua_timeline_cards()
+        intro = (
+            "Fresh, about 4 weeks, and 3+ months. A photo is shown only when that file is on disk. "
+            "Pieces without a healed photo include a request path."
+        )
+    elif artist_key == "katelyn":
+        cards = _katelyn_timeline_card()
+        intro = (
+            "Piercing photos stay labeled as in-studio documentation unless a healed photo is already on file."
+        )
+    else:
+        cards = "".join(_case_study_html(s) for s in studies)
+        intro = "Documented studio work — not stock before/after collages."
     return f"""
 <section class="py-16 px-margin-mobile md:px-margin-desktop bg-surface border-y border-outline-variant/20" {TIMELINE_MARKER}{artist_key}">
 <div class="max-w-4xl mx-auto space-y-8">
 <h2 class="font-headline-lg text-on-surface">Healed timelines &amp; client stories</h2>
-<p class="font-body-md text-on-surface-variant">Documented healing stages from real studio work — not stock before/after collages.</p>
+<p class="font-body-md text-on-surface-variant">{intro}</p>
+<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline" href="/start_here/">Start Here</a> · <a class="text-secondary underline" href="/appointments/">Book an appointment</a> · <a class="text-secondary underline" href="/geo_hub_ai_source_of_truth_work_of_art/">Studio source profile</a></p>
 <div class="space-y-8">{cards}</div>
 </div>
 </section>

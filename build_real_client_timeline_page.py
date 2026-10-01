@@ -36,21 +36,31 @@ def img(stem: str, folder: str, alt: str) -> str:
     )
 
 
-def stage_card(label: str, note: str, image_html: str, *, pending: bool = False) -> str:
-    badge = (
-        '<span class="font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant">Coming soon</span>'
-        if pending
-        else '<span class="font-label-caps text-[10px] uppercase tracking-widest text-secondary">Documented</span>'
-    )
-    media = image_html if image_html else '<p class="font-body-md text-on-surface-variant italic">Photo update in progress.</p>'
+def stage_card(label: str, note: str, image_html: str) -> str:
+    """Photo stages only. Callers must not pass an empty image."""
+    if not image_html:
+        raise ValueError(f"Refusing an empty photo slot for {label}")
+    badge = '<span class="font-label-caps text-[10px] uppercase tracking-widest text-secondary">Documented</span>'
     return f"""<article class="border border-outline-variant/30 bg-surface-container-high overflow-hidden">
 <div class="p-5 space-y-3 border-b border-outline-variant/20 flex justify-between items-start gap-4">
 <h2 class="font-headline-md text-on-surface text-xl">{html.escape(label)}</h2>
 {badge}
 </div>
 <div class="p-5 space-y-4">
-{media}
+{image_html}
 <p class="font-body-md text-on-surface-variant">{html.escape(note)}</p>
+</div>
+</article>"""
+
+
+def missing_stage(label: str) -> str:
+    return f"""<article class="border border-outline-variant/30 bg-surface-container-high overflow-hidden">
+<div class="p-5 space-y-3 border-b border-outline-variant/20 flex justify-between items-start gap-4">
+<h2 class="font-headline-md text-on-surface text-xl">{html.escape(label)}</h2>
+<span class="font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant">No photo on file</span>
+</div>
+<div class="p-5">
+<p class="font-body-md text-on-surface-variant">No studio photo on file for this stage.</p>
 </div>
 </article>"""
 
@@ -60,32 +70,15 @@ def main_html() -> str:
     healed_stem = "healed-1-year-cross-eye-skull-outer-forearm-joshua-cole-las-vegas"
 
     stages = stage_card(
-        "Fresh — day 0",
-        "Cross, eye, and skull mapped with soft grey wash; highlights left open. Single long session with Joshua Cole.",
+        "Fresh",
+        "Stage label already used on this photo: Fresh (day 0). Cross, eye, and skull mapped with soft grey wash; highlights left open. Single long session with Joshua Cole.",
         f'<figure class="border border-outline-variant/30 overflow-hidden">{img(fresh_stem, STUDIO, "Fresh cross eye skull forearm tattoo Joshua Cole Las Vegas")}</figure>',
     )
-    two_weeks = stage_card(
-        "2 weeks",
-        "Peeling complete; grey steps separated without blowout. Client used desert aftercare — saline, no sun, no picking.",
-        "",
-        pending=True,
-    )
-    three_months = stage_card(
-        "3 months",
-        "Contrast settling; cross bevel and iris detail still crisp. Same client, studio check-in — no touch-up required.",
-        "",
-        pending=True,
-    )
+    four_weeks = missing_stage("About 4 weeks")
     one_year = stage_card(
-        "1 year",
-        "Full forearm stack from multiple angles — eyelash detail, skull teeth, and cross beveling still read clearly. No touch-up before documentation.",
+        "3+ months",
+        "Stage label already used on this photo: Healed (1 year). Full forearm stack — eyelash detail, skull teeth, and cross beveling still read clearly. No touch-up before this documentation.",
         f'<figure class="border border-outline-variant/30 overflow-hidden">{img(healed_stem, GALLERY, "One year healed cross eye skull forearm Joshua Cole")}</figure>',
-    )
-    three_years = stage_card(
-        "3 years",
-        "Long-term documentation scheduled — this page updates as we publish multi-year healed photos of the same piece.",
-        "",
-        pending=True,
     )
 
     joshua_note = expert_callout(
@@ -101,8 +94,8 @@ def main_html() -> str:
 {reviewed_by_block(expert="joshua")}
 {joshua_entity_block()}
 <span class="font-label-caps text-secondary uppercase tracking-[0.2em]">Real client proof · Joshua Cole</span>
-<h1 class="font-headline-xl text-on-surface leading-tight">Real Client Timeline — One Tattoo, Every Stage</h1>
-<p class="font-body-lg text-on-surface-variant">Cross, eye &amp; skull forearm stack — black &amp; grey realism by Joshua Cole at Work of Art Las Vegas. One client. One piece. Honest heal documentation — not stock photos.</p>
+<h1 class="font-headline-xl text-on-surface leading-tight">Real Client Timeline — Fresh and 1 Year Healed</h1>
+<p class="font-body-lg text-on-surface-variant">Cross, eye &amp; skull forearm stack — black &amp; grey realism by Joshua Cole at Work of Art Las Vegas. One client. One piece. Photos are the fresh session and the one-year healed photo. About 4 weeks is not on file.</p>
 {joshua_note}
 <div class="flex flex-wrap gap-3">
 <a class="bg-secondary text-on-secondary px-8 py-4 font-label-caps tracking-widest" href="{BOOK}">Book realism consult</a>
@@ -112,15 +105,17 @@ def main_html() -> str:
 </section>
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant/20">
 <div class="max-w-4xl mx-auto space-y-8">
-<h2 class="font-headline-md text-on-surface text-2xl text-center">Fresh → 2 weeks → 3 months → 1 year → 3 years</h2>
+<h2 class="font-headline-md text-on-surface text-2xl text-center">Fresh → about 4 weeks → 3+ months</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 {stages}
-{two_weeks}
-{three_months}
+{four_weeks}
 {one_year}
-{three_years}
 </div>
-<p class="font-body-md text-on-surface-variant text-center pt-4">We add stages as we photograph the same client — this is a living reference, not a one-time SEO page.</p>
+<aside class="border border-outline-variant/40 bg-surface p-6 space-y-3" data-woa-request-healed="1">
+<h3 class="font-headline-md text-on-surface text-xl">Request a healed photo</h3>
+<p class="font-body-md text-on-surface-variant">The one-year photo is on file. About 4 weeks is not. Text or email a later photo — there is no upload form.</p>
+<p class="font-body-md"><a class="text-secondary underline" href="sms:+17252241240">Text (725) 224-1240</a> · <a class="text-secondary underline" href="mailto:booking@workofarttattoo.com?subject=Healed%20photo%20follow-up&amp;body=Page%3A%20%2Freal_client_tattoo_timeline_las_vegas%2F">Email booking@workofarttattoo.com</a> · <a class="text-secondary underline" href="/appointments/">Appointments form</a></p>
+</aside>
 </div>
 </section>
 </main>"""

@@ -111,6 +111,7 @@ MUST_PUBLISH_ALIAS_SOURCES: frozenset[str] = frozenset(
 INDEPENDENT_AUTHORITY_SLUGS: frozenset[str] = frozenset(
     {
         "cover-up-tattoos-las-vegas",
+        "reviews",
     }
 )
 

@@ -18,7 +18,7 @@ CLUSTERS: dict[str, tuple[str, list[tuple[str, str]]]] = {
         [
             ("Skin Science hub — how skin holds ink", "/tattoo-skin-science/"),
             ("Tattoo healing guide — fresh to settled", "/las-vegas-tattoo-healing-guide/"),
-            ("Real client timeline — every stage", "/real_client_tattoo_timeline_las_vegas/"),
+            ("Real client timeline — fresh and 1 year", "/real_client_tattoo_timeline_las_vegas/"),
             ("Healed tattoo gallery by style", "/healed_tattoo_gallery_las_vegas/"),
             ("Epidermis guide — peeling explained", "/epidermis_skin_science_las_vegas_authority_guide/"),
             ("Desert climate aftercare guide", "/tattoo-aftercare-desert-climate/"),
@@ -144,17 +144,21 @@ DEFAULT_CLUSTER = (
 def cluster_for_slug(slug: str) -> tuple[str, list[tuple[str, str]]]:
     low = slug.lower()
     if (
-        "best_piercing" in low
+        "piercing" in low
+        or "best_piercing" in low
         or "_piercing_las_vegas" in low
         or low.startswith("piercing")
         or "titanium" in low
         or "ear-curation" in low
+        or "ear_curation" in low
         or low.startswith("katelyn_")
         or "katelyn_cole_piercing" in low
         or low.endswith("_piercing_guide_las_vegas")
         or low.endswith("_piercing_las_vegas_authority_guide")
     ):
         return CLUSTERS["piercing"]
+    if "fine_line" in low or "fine-line" in low:
+        return CLUSTERS["fine_line"]
     if "skin_science" in low or low.endswith("_skin_science_las_vegas_authority_guide"):
         return CLUSTERS["skin_science"]
     if low.startswith("tattoo-healing") or low.startswith("how-often") or "aftercare" in low or "second-skin" in low or "scabbing" in low or "infection" in low or "healing_database" in low:
@@ -167,12 +171,117 @@ def cluster_for_slug(slug: str) -> tuple[str, list[tuple[str, str]]]:
         return CLUSTERS["pain"]
     if "realism" in low or "fine-line" in low or "sleeve" in low or "style" in low or "first-tattoo" in low:
         return CLUSTERS["realism"]
-    if "strip" in low or "compare" in low or "luxury" in low or "vegas" in low:
+    if "strip" in low or "compare" in low or "luxury" in low:
         return CLUSTERS["strip"]
     for key, value in CLUSTERS.items():
         if key in low:
             return value
     return DEFAULT_CLUSTER
+
+
+GUIDE_LINKS_MARKER = 'data-woa-guide-links="1"'
+GUIDE_LINKS_RE = re.compile(
+    rf"\s*<nav[^>]*{re.escape(GUIDE_LINKS_MARKER)}[^>]*>.*?</nav>\s*",
+    re.DOTALL,
+)
+SKIP_GUIDE_LINK_SLUGS = frozenset(
+    {
+        HOME_SLUG,
+        "start_here",
+        "appointments",
+        "artists",
+        "merchandise",
+        "cart",
+        "my-account",
+        "privacy-policy",
+        "terms-of-service",
+        "reviews",
+        "leave-a-review",
+        "review_funnel_google_authority_hub",
+        "reviews_vault_100_verified_masterpieces",
+        "workofarttattoo",
+    }
+)
+GEO_HUB = "/geo_hub_ai_source_of_truth_work_of_art/"
+START_HERE = "/start_here/"
+
+
+def artist_for_slug(slug: str) -> tuple[str, str]:
+    low = slug.lower()
+    if "fine_line" in low or "fine-line" in low or "teralyn" in low:
+        return ("Teralyn — fine line", "/artists/teralyn/")
+    if (
+        "piercing" in low
+        or "katelyn" in low
+        or "helix" in low
+        or "titanium" in low
+        or low.startswith("ear_")
+        or "jewelry" in low
+    ):
+        return ("Katelyn Cole — piercer", "/artists/katelyn-cole/")
+    return ("Joshua Cole — tattoo artist", "/artists/joshua-cole/")
+
+
+def guide_links_block(slug: str) -> str:
+    artist_label, artist_href = artist_for_slug(slug)
+    _heading, links = cluster_for_slug(slug)
+    fixed = [
+        ("Start Here", START_HERE),
+        (artist_label, artist_href),
+        ("Book an appointment", "/appointments/"),
+        ("Studio source profile", GEO_HUB),
+    ]
+    used = {href for _label, href in fixed}
+    used.add(f"/{slug}/")
+    related: list[tuple[str, str]] = []
+    pool = list(links) + list(DEFAULT_CLUSTER[1])
+    for label, href in pool:
+        if href in used:
+            continue
+        related.append((label, href))
+        used.add(href)
+        if len(related) == 3:
+            break
+    items = "\n".join(
+        f'<li><a class="text-secondary underline hover:no-underline" href="{href}">{label}</a></li>'
+        for label, href in fixed + related
+    )
+    return f"""
+<nav {GUIDE_LINKS_MARKER} aria-label="Studio links" class="py-8 px-margin-mobile md:px-margin-desktop bg-surface-container border-y border-outline-variant/20">
+<div class="max-w-4xl mx-auto">
+<p class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-3">From this guide</p>
+<ul class="font-body-md text-on-surface-variant space-y-2 sm:columns-2">{items}</ul>
+</div>
+</nav>
+"""
+
+
+def inject_guide_links(html: str, slug: str) -> str:
+    if slug in SKIP_GUIDE_LINK_SLUGS:
+        return html
+    if 'data-woa-guide-hub-bar="1"' not in html and not _looks_like_guide(slug):
+        return html
+    html = GUIDE_LINKS_RE.sub("\n", html)
+    block = guide_links_block(slug)
+    if "</main>" in html:
+        return html.replace("</main>", block + "\n</main>", 1)
+    return html
+
+
+def _looks_like_guide(slug: str) -> bool:
+    low = slug.lower()
+    needles = (
+        "guide",
+        "healing",
+        "healed_",
+        "piercing",
+        "tattoo",
+        "skin_science",
+        "aftercare",
+        "realism",
+        "cover",
+    )
+    return any(needle in low for needle in needles)
 
 
 def block_for_slug(slug: str, html: str) -> str:
@@ -210,17 +319,18 @@ def inject(html: str, slug: str) -> str:
             flags=re.DOTALL,
         )
     block = block_for_slug(slug, html)
-    if not block.strip():
-        return html
-    if 'data-woa-internal-links="1"' in html:
-        return html.replace(
-            f'<nav data-woa-internal-links="1"',
-            block + f'\n<nav data-woa-internal-links="1"',
-            1,
-        )
-    if "</main>" in html:
-        return html.replace("</main>", block + "\n</main>", 1)
-    return html.replace("</body>", block + "\n</body>", 1)
+    if block.strip():
+        if 'data-woa-internal-links="1"' in html:
+            html = html.replace(
+                '<nav data-woa-internal-links="1"',
+                block + '\n<nav data-woa-internal-links="1"',
+                1,
+            )
+        elif "</main>" in html:
+            html = html.replace("</main>", block + "\n</main>", 1)
+        else:
+            html = html.replace("</body>", block + "\n</body>", 1)
+    return inject_guide_links(html, slug)
 
 
 def main() -> int:
@@ -234,6 +344,9 @@ def main() -> int:
         if path.parent.parent.name == "knowledge":
             slug = path.parent.name
         raw = path.read_text(encoding="utf-8")
+        if "<<<<<<<" in raw:
+            print(f"[skip-conflict] {slug}")
+            continue
         updated = inject(raw, slug)
         if updated != raw:
             path.write_text(updated, encoding="utf-8")

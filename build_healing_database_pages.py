@@ -76,10 +76,13 @@ def photo_gallery(slots: list[PhotoSlot], *, eager: bool = False) -> str:
     if not slots:
         return (
             '<p class="font-body-md text-on-surface-variant italic border border-outline-variant/30 '
-            'bg-surface-container-low p-5">Studio photo for this style and stage is not yet documented. '
-            f'See our <a class="text-secondary underline" href="{HEALED_HUB}">healed gallery</a> '
+            'bg-surface-container-low p-5" data-woa-request-healed="1">Studio photo for this style and stage is not on file. '
+            f'See the <a class="text-secondary underline" href="{HEALED_HUB}">healed gallery</a> '
             f'and <a class="text-secondary underline" href="{REAL_CLIENT}">real client timeline</a> '
-            "for available proof.</p>"
+            'for photos we do have. '
+            '<a class="text-secondary underline" href="sms:+17252241240">Text (725) 224-1240</a> '
+            f'or use the <a class="text-secondary underline" href="{BOOK}">appointments form</a> '
+            "to request a healed photo.</p>"
         )
     figures = []
     for i, slot in enumerate(slots):
@@ -90,7 +93,15 @@ def photo_gallery(slots: list[PhotoSlot], *, eager: bool = False) -> str:
 </figure>"""
         )
     grid = "grid-cols-1" if len(figures) == 1 else "grid-cols-1 sm:grid-cols-2"
-    return f'<div class="grid {grid} gap-4">{"".join(figures)}</div>'
+    follow = (
+        '<aside class="border border-outline-variant/40 bg-surface-container-low p-5 space-y-2" data-woa-request-healed="1">'
+        '<p class="font-body-md text-on-surface">Send a later healed photo</p>'
+        '<p class="font-body-md text-on-surface-variant">A studio photo is on this page. '
+        'Text <a class="text-secondary underline" href="sms:+17252241240">(725) 224-1240</a> '
+        f'or use the <a class="text-secondary underline" href="{BOOK}">appointments form</a> '
+        'to send a later follow-up. There is no upload form.</p></aside>'
+    )
+    return f'<div class="grid {grid} gap-4">{"".join(figures)}</div>{follow}'
 
 
 def timeline_nav(stage: TimelineStage, *, style: StyleCategory | None = None) -> str:

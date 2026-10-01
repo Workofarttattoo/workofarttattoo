@@ -7,6 +7,8 @@ import re
 from html import escape
 from pathlib import Path
 
+from woa_nav_config import HOME_META_DESCRIPTION, HOME_TITLE
+
 ROOT = Path(__file__).resolve().parent
 
 PRIORITY_TITLES: dict[str, str] = {
@@ -39,11 +41,6 @@ META_DESCRIPTION_FIXES: dict[str, str] = {
         "walk-in flash, and piercing by request. Portfolio and booking at our Tropicana studio."
     ),
 }
-
-HOME_META_DESCRIPTION = (
-    "Open daily noon–midnight. Visit Work of Art in Las Vegas for custom tattoos, cover-ups and "
-    "professional piercings. Walk-ins welcome; book online."
-)
 
 ATF_ANSWER_BLOCKS: dict[str, str] = {
     "epidermis_skin_science_las_vegas_authority_guide": (
@@ -168,7 +165,7 @@ def patch_robots_noindex(html: str) -> str:
 
 def patch_homepage_piercing(html: str) -> str:
     html = patch_description(html, HOME_META_DESCRIPTION)
-    html = patch_title_and_social(html, "Tattoo & Piercing Shop Las Vegas | Work of Art")
+    html = patch_title_and_social(html, HOME_TITLE)
 
     marker = 'data-woa-home-piercing-ctr="1"'
     if marker in html:

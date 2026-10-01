@@ -13,11 +13,13 @@ from woa_healed_gallery import (
     CollectionId,
     HealedEntry,
     ImageRef,
+    cover_ref,
     entries_for,
     featured_entry,
     image_url,
     seo_alt,
 )
+from woa_healed_timeline_template import classify_stage, file_exists, timeline_html
 from woa_entity_schema import guide_article_graph, schema_script
 
 ROOT = Path(__file__).resolve().parent
@@ -37,61 +39,52 @@ def picture(ref: ImageRef, entry: HealedEntry, *, eager: bool = False) -> str:
     )
 
 
-def entry_card(entry: HealedEntry, *, eager: bool = False) -> str:
-    images = ""
-    if entry.fresh and entry.healed and entry.fresh.stem != entry.healed.stem:
-        images = f"""<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<figure class="border border-outline-variant/30 bg-surface overflow-hidden">
-{picture(entry.fresh, entry, eager=eager)}
-<figcaption class="p-3 font-label-caps text-[10px] uppercase tracking-widest text-secondary">{html.escape(entry.fresh.stage)}</figcaption>
-</figure>
-<figure class="border border-outline-variant/30 bg-surface overflow-hidden">
-{picture(entry.healed, entry)}
-<figcaption class="p-3 font-label-caps text-[10px] uppercase tracking-widest text-secondary">{html.escape(entry.healed.stage)}</figcaption>
-</figure>
-</div>"""
-    else:
-        images = f"""<figure class="border border-outline-variant/30 bg-surface overflow-hidden max-w-2xl">
-{picture(entry.healed, entry, eager=eager)}
-<figcaption class="p-3 font-label-caps text-[10px] uppercase tracking-widest text-secondary">{html.escape(entry.healed.stage)}</figcaption>
-</figure>"""
+def _stage_photos(entry: HealedEntry) -> tuple[list[tuple[str, str, str, str, str]], bool]:
+    """Return on-disk photos and whether a distinct healed file exists."""
+    refs: list[ImageRef] = []
+    if entry.fresh is not None:
+        refs.append(entry.fresh)
+    if entry.healed is not None and (entry.fresh is None or entry.healed.stem != entry.fresh.stem):
+        refs.append(entry.healed)
+    seen = {ref.stem for ref in refs}
+    for ref in entry.gallery:
+        if ref.stem not in seen:
+            refs.append(ref)
+            seen.add(ref.stem)
+    photos: list[tuple[str, str, str, str, str]] = []
+    has_healed = False
+    for ref in refs:
+        webp_ok, png_ok = file_exists(ref.folder, ref.stem)
+        if not webp_ok and not png_ok:
+            continue
+        bucket = classify_stage(ref.stage, ref.stem)
+        if bucket == "settled":
+            has_healed = True
+        label = ref.stage or ("Healed" if bucket == "settled" else "Fresh")
+        photos.append((bucket, ref.folder, ref.stem, label, seo_alt(entry, ref)))
+    return photos, has_healed
 
-    gallery_block = ""
-    if entry.gallery:
-        tiles = []
-        for i, ref in enumerate(entry.gallery):
-            tiles.append(
-                f"""<figure class="border border-outline-variant/30 bg-surface overflow-hidden">
-{picture(ref, entry, eager=eager and i == 0)}
-<figcaption class="p-2 font-label-caps text-[9px] uppercase tracking-widest text-secondary">{html.escape(ref.stage)}</figcaption>
-</figure>"""
-            )
-        gallery_block = f"""<div class="mt-8">
-<p class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-4">Healed photo set — {html.escape(entry.healed_age)} ({len(entry.gallery)} angles)</p>
-<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-{"".join(tiles)}
-</div>
-</div>"""
 
-    timeline = ""
-    if entry.timeline:
-        rows = "".join(
-            f'<li><strong class="text-on-surface">{html.escape(label)}</strong> — {html.escape(note)}</li>'
-            for label, note in entry.timeline
-        )
-        timeline = f"""<div class="mt-6">
-<p class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-3">Healing timeline</p>
-<ul class="font-body-md text-on-surface-variant space-y-2 list-disc pl-5">{rows}</ul>
-</div>"""
+def entry_heading(entry: HealedEntry, *, has_healed: bool) -> str:
+    if has_healed:
+        age = entry.healed_age
+        if "healed" in age.lower():
+            return f"{entry.title} — {age}"
+        return f"{entry.title} — {age} healed"
+    return f"{entry.title} — healed photo not on file"
 
+
+def entry_card(entry: HealedEntry, *, eager: bool = False, source_path: str = "") -> str:
+    photos, has_healed = _stage_photos(entry)
+    source = source_path or f"/{HUB_SLUG}/#{entry.entry_id}"
+    stages = timeline_html(photos, has_healed=has_healed, source_path=source, eager=eager)
     return f"""<article class="woa-healed-case py-12 border-b border-outline-variant/20 last:border-0" id="{html.escape(entry.entry_id)}">
 <div class="space-y-6">
 <div>
-<h2 class="font-headline-md text-on-surface text-2xl mb-2">{html.escape(entry.title)} — {html.escape(entry.healed_age)} healed</h2>
+<h2 class="font-headline-md text-on-surface text-2xl mb-2">{html.escape(entry_heading(entry, has_healed=has_healed))}</h2>
 <p class="font-body-md text-on-surface-variant max-w-3xl">{html.escape(entry.description)}</p>
 </div>
-{images}
-{gallery_block}
+{stages}
 <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 font-body-md text-on-surface-variant mt-6">
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Artist</dt><dd class="text-on-surface">{html.escape(entry.artist)}</dd></div>
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Placement</dt><dd>{html.escape(entry.placement)}</dd></div>
@@ -99,7 +92,6 @@ def entry_card(entry: HealedEntry, *, eager: bool = False) -> str:
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Touch-up</dt><dd>{html.escape(entry.touch_up)}</dd></div>
 <div class="sm:col-span-2"><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Aftercare notes</dt><dd>{html.escape(entry.aftercare_notes)}</dd></div>
 </dl>
-{timeline}
 </div>
 </article>"""
 
@@ -171,7 +163,7 @@ def collection_main(collection: CollectionId) -> str:
             f'<li><a class="text-secondary underline hover:no-underline" href="/{other_slug}/">{html.escape(other_title)}</a></li>'
         )
     siblings = "\n".join(other_links)
-    hero_img = items[0].healed if items else None
+    hero_img = cover_ref(items[0]) if items else None
     hero = ""
     if hero_img:
         hero = f"""<section class="relative min-h-[40vh] flex items-end px-margin-mobile md:px-margin-desktop pb-12 overflow-hidden">
@@ -315,7 +307,7 @@ def main() -> int:
     )
     featured = featured_entry()
     hub_og = (
-        image_url(featured.healed, webp=False).replace(".png", "")
+        image_url(cover_ref(featured), webp=False).replace(".png", "")
         if featured
         else "/home_work_of_art_tattoo_piercing/client-portfolio/steampunk-clock-gears-rose-forearm-healed-las-vegas"
     )
@@ -329,7 +321,7 @@ def main() -> int:
 
     for cid, (slug, title, intro) in COLLECTIONS.items():
         items = entries_for(cid)
-        og = image_url(items[0].healed, webp=False) if items else "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.png"
+        og = image_url(cover_ref(items[0]), webp=False) if items else "/home_work_of_art_tattoo_piercing/client-portfolio/black-grey-lion-thigh-realism-las-vegas.png"
         write_page(slug, collection_main(cid), title, intro[:155], og.replace(".png", ""))
 
     print(f"Done: hub + {len(COLLECTIONS)} collection page(s)")

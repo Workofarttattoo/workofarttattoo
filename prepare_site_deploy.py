@@ -279,6 +279,8 @@ def main() -> int:
     run_step(["python3", str(ROOT / "inject_entity_schema.py")])
     run_step(["python3", str(ROOT / "build_guide_downloads.py")])
     run_step(["python3", str(ROOT / "inject_guide_lead_capture.py")])
+    # Later head rewrites can drop the direct GA4 tag. GTM does not load this property.
+    run_step(["python3", str(ROOT / "inject_google_tag.py")])
     run_step(["python3", str(ROOT / "inject_ga4_conversions.py")])
     verify_homepage()
 
