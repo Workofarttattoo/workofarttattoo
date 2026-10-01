@@ -151,7 +151,7 @@ KNOWLEDGE_QA: list[tuple[str, str, str, str, str]] = [
         "how-much-does-tattoo-cost-las-vegas",
         "Pricing & booking",
         "How much do tattoos cost in Las Vegas?",
-        "Shop minimums often start around $100–$200; hourly rates for experienced artists commonly run $150–$250+ depending on size, style, and session length. Large realism and cover-ups are quoted after consult — not over the phone.",
+        "These figures are general Las Vegas estimates, not guaranteed Work of Art prices. Work of Art quotes each tattoo from size, detail, placement, style, existing ink, and session length. Elsewhere in Las Vegas, shop minimums often start around $100–$200 and hourly rates for experienced artists commonly run $150–$250+. Large realism and cover-ups are quoted after consult — not over the phone.",
         "how_much_do_tattoos_cost_in_las_vegas_authority_guide",
     ),
     (
