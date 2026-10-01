@@ -340,8 +340,8 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "One tattoo documented fresh to 1 year — cross, eye & skull forearm by Joshua Cole. Honest heal stages.",
     ),
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide": (
-        "Tattoo Prices Las Vegas: Rates & Deposits | Work of Art",
-        "Transparent breakdown of shop rates, artist tiers, size, and what affects your quote.",
+        "Tattoo Prices in Las Vegas | Rates & Quotes | Work of Art",
+        "What do tattoos cost in Las Vegas? See what affects tattoo pricing, session length and deposits, then request a personalized quote from Work of Art.",
     ),
     "how_to_choose_a_tattoo_artist_master_selection_guide_2": (
         "How to Choose a Tattoo Artist",

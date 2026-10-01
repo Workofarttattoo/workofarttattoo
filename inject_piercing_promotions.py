@@ -6,12 +6,17 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from woa_piercing_authority import OPEN_TODAY_HTML
 from woa_piercing_promotions import render_current_piercing_special, render_piercing_decision_module
 
 ROOT = Path(__file__).resolve().parent
 MARKER_START = "<!-- WOA_PIERCING_PROMO_START -->"
 MARKER_END = "<!-- WOA_PIERCING_PROMO_END -->"
 BLOCK_RE = re.compile(r"<!-- WOA_PIERCING_PROMO_START -->[\s\S]*?<!-- WOA_PIERCING_PROMO_END -->\s*")
+OPEN_TODAY_RE = re.compile(
+    r'<aside\b[^>]*data-woa-piercing-open-today="1"[\s\S]*?</aside>\s*',
+    re.I,
+)
 
 PROMO_TARGETS: dict[str, tuple[str, str]] = {
     "home_work_of_art_tattoo_piercing": ("compact", "homepage"),
@@ -36,6 +41,7 @@ def wrapped(block: str) -> str:
 
 def inject_after_first_section(raw: str, block: str) -> str:
     replacement = wrapped(block)
+    raw = OPEN_TODAY_RE.sub("", raw)
     raw = BLOCK_RE.sub("", raw)
     match = re.search(r"</section>", raw)
     if match:
@@ -80,6 +86,8 @@ def main() -> int:
             continue
         raw = path.read_text(encoding="utf-8")
         block = render_current_piercing_special(variant=variant, context=context)
+        if slug == "home_work_of_art_tattoo_piercing":
+            block = block.rstrip() + "\n" + OPEN_TODAY_HTML
         new = inject_after_first_section(raw, block)
         if new != raw:
             path.write_text(new, encoding="utf-8")

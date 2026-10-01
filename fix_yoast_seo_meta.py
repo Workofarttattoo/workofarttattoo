@@ -102,8 +102,8 @@ DESC_EXTRA: dict[str, str] = {
         "Work of Art on E. Tropicana, open daily 12 PM–12 AM."
     ),
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide": (
-        "Shop minimums, hourly rates, deposits, and what changes your quote — "
-        "honest tattoo pricing guidance from Work of Art Las Vegas."
+        "What do tattoos cost in Las Vegas? See what affects tattoo pricing, "
+        "session length and deposits, then request a personalized quote from Work of Art."
     ),
     "artists": (
         "Meet Joshua Cole, Katelyn Cole, and Teralyn at Work of Art in Las Vegas — "
