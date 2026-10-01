@@ -24,6 +24,8 @@ SKIP_DIRS = {
     "piercing_asset_chunks",
 }
 
+# Do not rewrite Python. The homepage path appears in validator source as a
+# quoted string, and collapsing it to "/" makes the sitemap check always fail.
 GLOB_PATTERNS = (
     "**/code.html",
     "**/index.html",
@@ -33,7 +35,6 @@ GLOB_PATTERNS = (
     "sitemap.xml",
     "sitemap-static-pages.xml",
     "**/index.html.md",
-    "**/*.py",
     "**/*.json",
 )
 
