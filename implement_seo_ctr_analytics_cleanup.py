@@ -223,10 +223,8 @@ def inject_atf_after_h1(html: str, h1_fragment: str, block: str) -> str:
 
 
 def strip_duplicate_gtag(html: str) -> str:
-    if "GTM-TZTQSQBB" not in html:
-        return html
-    cleaned, n = GTAG_BLOCK_RE.subn("", html)
-    return cleaned if n else html
+    # Leave the direct GA4 tag in place. GTM-TZTQSQBB does not initialize G-XLXNGGW7SX.
+    return html
 
 
 def main() -> int:
