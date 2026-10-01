@@ -266,6 +266,14 @@ def replace_public_email(text: str) -> str:
     return text
 
 
+def fix_known_broken_paths(text: str) -> str:
+    """Undo a prefix rewrite that produced a URL with no page."""
+    return text.replace(
+        "/how-to-choose-a-tattoo-artist_2/",
+        "/how-to-choose-a-tattoo-artist/",
+    )
+
+
 def rewrite_cover_hrefs(text: str) -> str:
     def keep_canonical(match: re.Match[str], replacement: str) -> str:
         tag_start = text.rfind("<", 0, match.start())
@@ -604,6 +612,7 @@ def main() -> int:
         text = fix_review_counts(text, path)
         text = fix_location_claims(text)
         text = replace_public_email(text)
+        text = fix_known_broken_paths(text)
         text = rewrite_cover_hrefs(text)
         text = strip_snhd_footer(text)
         text = neutralize_legacy_cover_page(path, text)
