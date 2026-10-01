@@ -250,6 +250,38 @@ def evidence_sections() -> str:
 """
 
 
+RETIRED_STEMS = (
+    "cover-up-tattoo-phoenix-hand-las-vegas-after",
+    "cover-up-tattoo-sunflower-over-black-ink-las-vegas",
+    "cover-up-tattoo-faded-butterflies-hand-before",
+    "cover-up-tattoo-faded-floral-leg-before",
+    "blue-butterfly-color-tattoo-rework-las-vegas",
+    "color-butterfly-back-tattoo-las-vegas",
+    "realism-tattoos-color-butterfly-and-floral-coverup",
+    "healed-realism-seraphim-eye-wings-tattoo",
+    "healed-black-grey-chain-heart-tattoo",
+    "black-grey-collarbone-thorns-wreath-tattoo",
+    "black-grey-realism-snake-sleeve-tattoo",
+)
+APPROVED_KEYS = ("wing", "skull", "hero", "dragon", "angel", "floral")
+
+
+def swap_retired_coverup_assets(text: str) -> str:
+    """Point leftover heal-strip frames at Joshua's current cover-up evidence."""
+
+    def repl_picture(match: re.Match[str]) -> str:
+        block = match.group(0)
+        for index, stem in enumerate(RETIRED_STEMS):
+            if stem in block:
+                return picture(APPROVED_KEYS[index % len(APPROVED_KEYS)], "w-full aspect-square object-cover")
+        return block
+
+    text = re.sub(r"<picture>.*?</picture>", repl_picture, text, flags=re.DOTALL)
+    for index, stem in enumerate(RETIRED_STEMS):
+        text = text.replace(stem, IMAGES[APPROVED_KEYS[index % len(APPROVED_KEYS)]]["slug"])
+    return text
+
+
 def patch_page(path: Path) -> bool:
     raw = path.read_text(encoding="utf-8")
     text = raw
@@ -290,6 +322,12 @@ def patch_page(path: Path) -> bool:
     text = re.sub(
         r'<a class="px-10 py-5 border border-outline text-on-surface font-label-caps text-label-caps tracking-widest hover:bg-on-surface hover:text-surface transition-all text-center" href="#studio-portfolio">VIEW STUDIO WORK</a>',
         '<a class="px-10 py-5 border border-outline text-on-surface font-label-caps text-label-caps tracking-widest hover:bg-on-surface hover:text-surface transition-all text-center" href="#studio-portfolio">VIEW REAL WORK</a>',
+        text,
+    )
+    text = swap_retired_coverup_assets(text)
+    text = re.sub(
+        r"<figure\b[^>]*>[\s\S]*?</figure>\s*",
+        lambda match: "" if OLD_COVERUP_IMAGE_RE.search(match.group(0)) else match.group(0),
         text,
     )
     if OLD_COVERUP_IMAGE_RE.search(text):
