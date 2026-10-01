@@ -80,7 +80,7 @@ Enterprise decision: MERGE_301. No concrete repository evidence was found provin
 - Unique modules: Studio-vs-Strip comparison content
 - Why it deserves indexing: This is a commercial decision-support page, not a doorway location variant.
 - Factual claims removed/softened: No geo-hour or geo-fare claims added.
-### `/vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison/`
+### `/vegas_tattoo_shop_vs_cheap_strip_tattoo_what_you_need_to_know/`
 - Target intent: Expanded Strip-vs-studio commercial comparison.
 - Unique problem: Visitors comparing studio quality against cheap Strip options need deeper appointment and quality-risk framing.
 - Unique modules: Expanded commercial comparison content
@@ -98,7 +98,7 @@ Removed or blocked exact taxi/rideshare prices, exact drive-time claims, stale H
 
 ## Redirects Created
 
-- `/tattoo_shop_near_the_strip_geo_seo_optimized/` -> `/tattoo_shop_near_the_strip_nap_corrected/`
+- `/tattoo_shop_near_the_strip_nap_corrected/` -> `/tattoo_shop_near_the_strip_nap_corrected/`
 - `/tattoo_shop_serving_summerlin_las_vegas/` -> `/tattoo_shop_spring_valley_las_vegas/`
 - `/tattoo_shop_serving_downtown_las_vegas/` -> `/tattoo_shop_near_the_strip_nap_corrected/`
 - `/tattoo_piercing_shop_near_unlv/` -> `/tattoo_shop_paradise_nevada/`

@@ -336,7 +336,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Needle depth, ink load, artist selection, and aftercare for fine line work in desert heat.",
     ),
     "real_client_tattoo_timeline_las_vegas": (
-        "Real Client Tattoo Timeline",
+        "Tattoo Healing Timeline: Real Client Results",
         "One tattoo documented fresh to 1 year — cross, eye & skull forearm by Joshua Cole. Honest heal stages.",
     ),
     "how_much_do_tattoos_cost_in_las_vegas_authority_guide": (
@@ -376,7 +376,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "How skin layers, immune cells, and collagen hold ink — plus conditions that change tattoo planning.",
     ),
     "epidermis_skin_science_las_vegas_authority_guide": (
-        "Epidermis & Tattoo Healing",
+        "Epidermis & Tattoo Healing: What Happens to Ink",
         "Outer skin layer turnover, peeling, and why surface ink does not stay.",
     ),
     "dermis_skin_science_las_vegas_authority_guide": (
@@ -428,7 +428,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Real studio photos — same color memorial tattoos fresh and months later. Why ink lightens and what is normal.",
     ),
     "healed_tattoo_gallery_las_vegas": (
-        "Healed Tattoo Gallery",
+        "Healed Tattoo Gallery | Real Las Vegas Results",
         "Fresh and healed documentation by style — black and grey, fine line, color, cover-ups, sleeves, and portraits.",
     ),
     "healed_black_grey_tattoos_las_vegas": (
@@ -464,7 +464,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Body-area sensitivity guide so you can plan size, placement, and session comfort.",
     ),
     "tattoo_shop_near_the_strip_nap_corrected": (
-        "Studio Location & Hours",
+        "Tattoo & Piercing Shop Near Las Vegas Strip",
         "Directions to Work of Art at 2375 E. Tropicana Ave, Suite 3 — easy access from the Strip and airport.",
     ),
     "vegas_tattoo_shop_vs_cheap_strip_tattoo_ultimate_comparison": (
@@ -524,7 +524,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "From Allegiant Stadium or Mandalay Bay, plan the Tropicana ride before event traffic and arrive sober with time for setup.",
     ),
     "tattoo_shop_near_las_vegas_airport": (
-        "Near Las Vegas Airport",
+        "Tattoo & Piercing Shop Near Las Vegas Airport",
         "From Harry Reid terminals, stay on the Tropicana route toward 2375 E. Tropicana Ave and leave room for flight timing.",
     ),
     "tattoo_shop_near_the_sphere_las_vegas": (
@@ -572,7 +572,7 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Scar camouflage, redesign consults, and healed cover-up proof from the studio.",
     ),
     "walk-in-tattoos-las-vegas": (
-        "Walk-In Tattoos Las Vegas",
+        "Walk-In Tattoos Las Vegas | Same-Day Availability",
         "Same-day chairs when available — text first for today's openings.",
     ),
     "piercing-guide-las-vegas": (
@@ -584,12 +584,16 @@ GUIDE_META: dict[str, tuple[str, str]] = {
         "Explore professional piercing in Las Vegas with Katelyn Cole. Compare placements, jewelry, healing and anatomy considerations, then check availability.",
     ),
     "tattoo-aftercare-desert-climate": (
-        "Desert Tattoo Aftercare",
+        "Tattoo Aftercare in Las Vegas Desert Heat",
         "Vegas-specific healing — sun, dryness, and step-by-step aftercare.",
     ),
     "las-vegas-tattoo-healing-guide": (
-        "Fresh vs Healed Healing",
+        "Fresh vs. Healed Tattoos: Las Vegas Healing Guide",
         "Real studio photos — same tattoos fresh and months later.",
+    ),
+    "how-to-choose-a-tattoo-artist": (
+        "How to Choose a Tattoo Artist in Las Vegas",
+        "Portfolio signals, hygiene standards, and matching the right artist to your vision.",
     ),
     "flash_art_deals_under_100": (
         "Flash Under $100",

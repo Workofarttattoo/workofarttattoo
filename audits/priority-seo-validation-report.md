@@ -1,12 +1,12 @@
 # Priority SEO Validation Report
 
-Generated: 2026-09-16 23:03 UTC
+Generated: 2026-09-18 01:02 UTC
 Canonical origin: https://www.workofarttattoo.com
 
 ## Summary
 
-- Sitemap URLs audited: **171**
-- Passing local checks: **171/171**
+- Sitemap URLs audited: **168**
+- Passing local checks: **168/168**
 - Duplicate titles: **0**
 - Duplicate descriptions: **0**
 
@@ -38,15 +38,15 @@ Cloudflare bulk import: `config/cloudflare-bulk-redirects.csv`
 
 | URL | Title | Description |
 |-----|-------|-------------|
-| `/piercing-guide-las-vegas/` | Piercing Las Vegas: Ear, Nose & Body | Work of Art | Explore professional piercing in Las Vegas with Katelyn Cole. Compare placements… |
+| `/piercing-guide-las-vegas/` | Piercing Las Vegas: Ear, Nose & Body | Work of Art | Ear, nose, and body piercing with anatomy-first placement and jewelry-fit planni… |
 | `/cover-up-tattoos-las-vegas/` | Cover-Up Tattoos Las Vegas | Scar camouflage, redesign consults, and healed cover-up proof from the studio. W… |
-| `/healed_tattoo_gallery_las_vegas/` | Healed Tattoo Gallery | Fresh and healed documentation by style — black and grey, fine line, color, cove… |
-| `/how-to-choose-a-tattoo-artist/` | How to Choose a Tattoo Artist | How to Choose a Tattoo Artist — Work of Art Tattoo & Piercing, Las Vegas. Custom… |
-| `/las-vegas-tattoo-healing-guide/` | Fresh vs Healed Healing | Real studio photos — same tattoos fresh and months later. Work of Art Tattoo & P… |
-| `/real_client_tattoo_timeline_las_vegas/` | Real Client Tattoo Timeline | One tattoo documented fresh to 1 year — cross, eye & skull forearm by Joshua Col… |
-| `/epidermis_skin_science_las_vegas_authority_guide/` | Epidermis & Tattoo Healing | Outer skin layer turnover, peeling, and why surface ink does not stay. Work of A… |
+| `/healed_tattoo_gallery_las_vegas/` | Healed Tattoo Gallery | Real Las Vegas Results | Fresh and healed documentation by style — black and grey, fine line, color, cove… |
+| `/how-to-choose-a-tattoo-artist/` | How to Choose a Tattoo Artist | Portfolio signals, hygiene standards, and matching the right artist to your visi… |
+| `/las-vegas-tattoo-healing-guide/` | Fresh vs Healed Healing | Real studio photos — same color memorial tattoos fresh and months later. Why ink… |
+| `/real_client_tattoo_timeline_las_vegas/` | Tattoo Healing Timeline: Real Client Results | One tattoo documented fresh to 1 year — cross, eye & skull forearm by Joshua Col… |
+| `/epidermis_skin_science_las_vegas_authority_guide/` | Epidermis & Tattoo Healing: What Happens to Ink | Outer skin layer turnover, peeling, and why surface ink does not stay. Work of A… |
 | `/knowledge/tattoo-on-ribs-recovery/` | Rib Tattoo Pain & Healing Time | Work of Art | Ribs are high-movement and often higher pain — expect 2–3 weeks of careful after… |
-| `/` | Tattoo & Piercing Shop Las Vegas | Work of Art | Walk-ins welcome at Work of Art Tattoo & Piercing in Las Vegas. Realism, cover-u… |
+| `/` | Tattoo & Piercing Shop Las Vegas | Work of Art | Open daily noon–midnight. Visit Work of Art in Las Vegas for custom tattoos, cov… |
 | `/artists/katelyn-cole/` | Female Piercer Las Vegas | Katelyn Cole | Work of Art | Katelyn Cole is a female piercer in Las Vegas at Work of Art near the Strip. Ear… |
 
 ## Failures
@@ -100,7 +100,6 @@ _None — all local checks passed._
 | `https://www.workofarttattoo.com/how-to-choose-a-tattoo-artist/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/how_much_do_tattoos_cost_in_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/hypodermis_skin_science_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |
-| `https://www.workofarttattoo.com/image-license/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/industrial_piercing_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/joshua_oil_painting_black_grey_tattoo_aging_las_vegas/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/katelyn_anatomy_matters_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |
@@ -140,7 +139,6 @@ _None — all local checks passed._
 | `https://www.workofarttattoo.com/piercing_aftercare_guide_las_vegas/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/piercing_healing_guide_las_vegas/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/piercing_jewelry_guide_las_vegas/` | 1 | ✓ | ✓ | — |
-| `https://www.workofarttattoo.com/privacy-policy/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/psoriasis_skin_science_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/real_client_tattoo_timeline_las_vegas/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/realism-tattoos-las-vegas/` | 1 | ✓ | ✓ | — |
@@ -168,7 +166,6 @@ _None — all local checks passed._
 | `https://www.workofarttattoo.com/tattoo_shop_paradise_nevada/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/tattoo_shop_serving_henderson_nevada/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/tattoo_shop_spring_valley_las_vegas/` | 1 | ✓ | ✓ | — |
-| `https://www.workofarttattoo.com/terms-of-service/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/tongue_piercing_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/tragus_piercing_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |
 | `https://www.workofarttattoo.com/upper_lobe_piercing_las_vegas_authority_guide/` | 1 | ✓ | ✓ | — |

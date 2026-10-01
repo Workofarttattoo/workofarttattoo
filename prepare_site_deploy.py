@@ -92,7 +92,6 @@ PIPELINE: list[list[str]] = [
     ["python3", str(ROOT / "implement_gsc_seo_sprint.py")],
     ["python3", str(ROOT / "build_favicon_assets.py")],
     ["python3", str(ROOT / "normalize_head_metadata.py")],
-    ["python3", str(ROOT / "build_home_duplicate_redirect.py")],
     ["python3", str(ROOT / "tools/validate_seo_canonical.py")],
 ]
 
@@ -274,6 +273,8 @@ def main() -> int:
     run_step(["python3", str(ROOT / "tools" / "production_parity_cleanup.py")])
     run_step(["python3", str(ROOT / "fix_obsolete_internal_links.py")])
     run_step(["python3", str(ROOT / "generate_cloudflare_bulk_redirects.py")])
+    run_step(["python3", str(ROOT / "implement_seo_ctr_analytics_cleanup.py")])
+    run_step(["python3", str(ROOT / "build_home_duplicate_redirect.py")])
     sync_root_home_copy()
     verify_homepage()
 

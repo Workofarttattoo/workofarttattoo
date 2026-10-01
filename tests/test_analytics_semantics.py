@@ -57,9 +57,14 @@ class AnalyticsSemanticsTests(unittest.TestCase):
     def test_case_5_success_handler_fires_booking_submit_once(self) -> None:
         block = record_success_block(ga_source())
         self.assertEqual(block.count('send("booking_submit"'), 1)
-        self.assertIn('send("generate_lead"', block)
-        self.assertIn("dedupeKey", block)
+        self.assertIn('"generate_lead"', block)
+        self.assertEqual(block.count('"generate_lead"'), 1)
+        self.assertIn("woa_generate_lead_", block)
+        self.assertIn("event_id", block)
+        self.assertIn("form_name", block)
+        self.assertIn("lead_type", block)
         self.assertNotIn("allowRepeat: true", block)
+        self.assertNotIn('send("form_submit_success"', block)
 
     def test_case_6_phone_click_once_pattern(self) -> None:
         source = ga_source()
@@ -86,6 +91,8 @@ class AnalyticsSemanticsTests(unittest.TestCase):
         booking = BOOKING_PATH.read_text(encoding="utf-8")
         self.assertIn("woa_booking_submit_success", booking)
         self.assertIn("dispatchBookingSuccess", booking)
+        self.assertIn("event_id", booking)
+        self.assertIn("form_name", booking)
 
     def test_no_pii_in_analytics_payloads(self) -> None:
         source = ga_source()

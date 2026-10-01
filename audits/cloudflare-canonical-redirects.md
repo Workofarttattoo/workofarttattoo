@@ -5,7 +5,29 @@ GitHub Pages cannot emit HTTP 301 responses. Configure these **Bulk Redirects** 
 **Import file:** `config/cloudflare-bulk-redirects.csv` (regenerate with `python3 generate_cloudflare_bulk_redirects.py`)
 
 **Validate locally:** `python3 tools/validate_gsc_redirects.py`  
-**Validate live redirects:** `python3 tools/validate_gsc_redirects.py --live --crawl-sitemap`
+**Validate live redirects:** `python3 tools/validate_gsc_redirects.py --live --crawl-sitemap`  
+**Check Cloudflare proxy (run first if live shows 0/N):** `python3 tools/check_cloudflare_proxy.py`
+
+## If live validation shows 0/N after CSV upload
+
+Bulk Redirects **do nothing** unless HTTP traffic passes through Cloudflare (orange-cloud DNS). If `dig www.workofarttattoo.com` returns GitHub Pages IPs (`185.199.x.x`) or responses lack a `cf-ray` header, the CSV import succeeded in the dashboard but **never runs on requests**.
+
+### Required Cloudflare setup (all three steps)
+
+1. **DNS (proxied)** — Cloudflare Dashboard → **DNS** → ensure `@` and `www` records are **Proxied** (orange cloud), pointing at GitHub Pages (`workofarttattoo.github.io` CNAME for `www`).
+2. **Redirect list** — **Rules** → **Bulk Redirects** → **Redirect Lists** → **Upload CSV** → import `config/cloudflare-bulk-redirects.csv` (or test with a smaller list first).
+3. **Redirect rule** — **Rules** → **Bulk Redirects** → **Redirect Rules** → **Create rule** → attach the list from step 2 → **Deploy**.
+
+SSL/TLS mode should be **Full (strict)** for GitHub Pages custom domains.
+
+Re-check:
+
+```bash
+python3 tools/check_cloudflare_proxy.py
+python3 tools/validate_gsc_redirects.py --live
+```
+
+A healthy obsolete URL returns **HTTP 301** with `cf-ray` present and `Location` pointing at the canonical path in one hop.
 
 ## Host canonicalization (listed last in CSV — path rules must import first)
 

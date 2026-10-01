@@ -1509,6 +1509,9 @@ html.woa-mnav-lock body {
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
+      try {
+        sessionStorage.removeItem("woa_generate_lead_formsubmit_redirect_" + serviceFromFormId(id));
+      } catch (e) {}
       send("booking_submit_attempt", bookingParamsFromForm(form, id, { conversion_origin: "submit_attempt" }));
     });
   });

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "gsc-wizard": {
+      "url": "https://mcp.gscwizard.com/mcp",
+      "headers": {
+        "Authorization": "Bearer REPLACE_WITH_GSCW_API_KEY"
+      }
+    }
+  }
+}

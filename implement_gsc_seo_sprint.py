@@ -19,8 +19,8 @@ META_PATCHES: dict[str, tuple[str, str]] = {
         "Cover-up tattoo artist in Las Vegas — Joshua Cole plans redesigns, scar work, and healed proof at Work of Art on E. Tropicana. Book a consult or send photos.",
     ),
     "tattoo_shop_near_the_strip_nap_corrected/code.html": (
-        "Tattoo & Piercing Shop Near Me — Las Vegas Strip | Work of Art",
-        "Tattoo and piercing shop minutes from the Las Vegas Strip — Work of Art on E. Tropicana. Custom tattoos, cover-ups, fine line, and professional piercing. Directions, artists, booking.",
+        "Tattoo & Piercing Shop Near Las Vegas Strip",
+        "Tattoo and piercing studio minutes from the Las Vegas Strip on E. Tropicana — custom tattoos, cover-ups, fine line, and professional piercing. Directions, artists, and booking.",
     ),
 }
 

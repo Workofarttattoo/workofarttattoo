@@ -66,6 +66,8 @@ def iter_html_files() -> list[Path]:
 
 
 def already_has_tag(html: str) -> bool:
+    if "GTM-TZTQSQBB" in html:
+        return True
     return GA_ID in html or "googletagmanager.com/gtag/js" in html
 
 

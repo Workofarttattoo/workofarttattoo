@@ -128,6 +128,9 @@ jobs:
       - name: Reapply production parity cleanup on generated tree
         run: python3 tools/production_parity_cleanup.py
 
+      - name: Restore duplicate homepage redirect stub
+        run: python3 build_home_duplicate_redirect.py
+
       - name: Audit final production tree
         run: |
           python3 - <<'PY'
