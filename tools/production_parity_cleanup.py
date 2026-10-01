@@ -267,10 +267,22 @@ def replace_public_email(text: str) -> str:
 
 
 def rewrite_cover_hrefs(text: str) -> str:
-    text = HREF_LEGACY_RE.sub(f'href="{CLEAN_COVER}"', text)
+    def keep_canonical(match: re.Match[str], replacement: str) -> str:
+        tag_start = text.rfind("<", 0, match.start())
+        tag_end = text.find(">", match.end())
+        tag = text[tag_start : tag_end + 1] if tag_start != -1 and tag_end != -1 else ""
+        if "canonical" in tag:
+            return match.group(0)
+        return replacement
+
+    text = HREF_LEGACY_RE.sub(lambda match: keep_canonical(match, f'href="{CLEAN_COVER}"'), text)
+
+    def repl(match: re.Match[str]) -> str:
+        return keep_canonical(match, f"{match.group(1)}{CLEAN_COVER}{match.group(2)}")
+
     text = re.sub(
         r'(href=["\'])(?:https://(?:www\.)?workofarttattoo\.com)?/cover-up-tattoos-las-vegas/?(["\'])',
-        rf"\1{CLEAN_COVER}\2",
+        repl,
         text,
     )
     return text
@@ -506,6 +518,12 @@ def protect_canonical_cover_page(path: Path, text: str) -> str:
         text,
         count=1,
         flags=re.I,
+    )
+    text = re.sub(
+        r'<link href="[^"]*" rel="canonical"/>',
+        '<link href="https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/" rel="canonical"/>',
+        text,
+        count=1,
     )
     return text
 
