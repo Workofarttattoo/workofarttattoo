@@ -529,6 +529,9 @@ SKIP_SLUGS = frozenset(
         "reviews_vault_100_verified_masterpieces",
         "geo_hub_ai_source_of_truth_work_of_art",
         "tattoo_shop_near_the_strip_nap_corrected",
+        # Tattoo pricing is not an ear-piercing guide. Without this skip,
+        # slug_id_from_page_slug falls through to the ear strip.
+        "how_much_do_tattoos_cost_in_las_vegas_authority_guide",
     }
 )
 

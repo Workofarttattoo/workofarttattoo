@@ -12,6 +12,13 @@ SECTION_RE = re.compile(
     r'<section\s+data-woa-guide-lead="1"[\s\S]*?</section>\s*',
     re.IGNORECASE,
 )
+# The published pricing form puts class before the marker, so SECTION_RE misses
+# it and a later inject appends a second First Tattoo Decision Guide form.
+ANY_LEAD_SECTION_RE = re.compile(
+    r'<section\b[^>]*\bdata-woa-guide-lead="1"[\s\S]*?</section>\s*',
+    re.IGNORECASE,
+)
+PRICING_FOLDER = "how_much_do_tattoos_cost_in_las_vegas_authority_guide"
 
 # Public folder, offer id. Alias folders are listed with their source so both HTML copies carry the form.
 PAGES: dict[str, str] = {
@@ -212,6 +219,17 @@ def lead_section(offer_id: str) -> str:
 """
 
 
+def ensure_single_pricing_lead(html: str, offer_id: str) -> str:
+    """Keep exactly one guide form on the tattoo pricing page."""
+    matches = list(ANY_LEAD_SECTION_RE.finditer(html))
+    if not matches:
+        return inject_html(html, offer_id)
+    if len(matches) == 1:
+        return html
+    first_end = matches[0].end()
+    return html[:first_end] + ANY_LEAD_SECTION_RE.sub("", html[first_end:])
+
+
 def inject_html(html: str, offer_id: str) -> str:
     block = lead_section(offer_id) + "\n"
     cleaned = SECTION_RE.sub("", html)
@@ -243,7 +261,10 @@ def main() -> int:
             print(f"[missing] {folder}")
     for path, offer_id in target_files():
         raw = path.read_text(encoding="utf-8")
-        updated = inject_html(raw, offer_id)
+        if PRICING_FOLDER in path.parts:
+            updated = ensure_single_pricing_lead(raw, offer_id)
+        else:
+            updated = inject_html(raw, offer_id)
         if updated != raw:
             path.write_text(updated, encoding="utf-8")
             changed += 1
