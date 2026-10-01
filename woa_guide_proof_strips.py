@@ -49,10 +49,10 @@ IMG = {
     "eagle_fresh": "eagle-memorial-calf-fresh-tattoo-las-vegas",
     "eagle_comparison": "eagle-memorial-calf-fresh-vs-healed-comparison-las-vegas",
     "skull_fresh": "skull-hourglass-forearm-realism-fresh-las-vegas",
-    "cover_sunflower_fresh": "cover-up-tattoo-sunflower-over-black-ink-las-vegas",
+    "cover_sunflower_fresh": "dark-pigment-black-grey-wing-eye-rework-las-vegas",
     "cover_before_hand": "floral-tattoo-cover-up-before-after-las-vegas",
-    "cover_healed_chain": "healed-black-grey-chain-heart-tattoo",
-    "cover_healed_wings": "healed-realism-seraphim-eye-wings-tattoo",
+    "cover_healed_chain": "black-grey-skull-crown-rose-rework-las-vegas",
+    "cover_healed_wings": "large-scale-arm-rework-praying-hands-rose-las-vegas",
 }
 
 
@@ -582,13 +582,15 @@ def strip_for_page(page_slug: str) -> GuideProofStrip | None:
 
 
 def picture(frame: ProofFrame, *, placement: str) -> str:
+    # Cover-up evidence ships as jpg/webp. Other proof frames still use png.
+    raster_ext = "jpg" if frame.folder == COVER else "png"
     webp = f"/{frame.folder}/{frame.stem}.webp"
-    png = f"/{frame.folder}/{frame.stem}.png"
+    raster = f"/{frame.folder}/{frame.stem}.{raster_ext}"
     alt = html.escape(f"{frame.label} — {placement} — Work of Art Las Vegas")
     return (
         f'<picture><source srcset="{webp}" type="image/webp"/>'
         f'<img alt="{alt}" class="w-full aspect-square object-cover" decoding="async" height="400" '
-        f'loading="lazy" src="{png}" width="400"/></picture>'
+        f'loading="lazy" src="{raster}" width="400"/></picture>'
     )
 
 

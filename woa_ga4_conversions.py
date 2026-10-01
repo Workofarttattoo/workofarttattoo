@@ -409,6 +409,7 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
       }}
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {{
         send("text_click", base);
+        send("text_us_click", base);
         send("piercing_text_click", attributionParams(assign({{ service_type: "piercing" }}, base)));
         send("piercing_cta_click", attributionParams(assign({{ service_type: "piercing", cta_type: "text" }}, base)));
         return;
@@ -490,6 +491,7 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
         cta_location: "appointments_page",
       }});
       send("booking_page_view", bookingViewParams);
+      send("appointment_page_view", bookingViewParams);
       send("booking_view", assign({{ legacy_event: true }}, bookingViewParams));
     }}
   }}

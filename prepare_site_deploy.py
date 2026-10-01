@@ -276,6 +276,10 @@ def main() -> int:
     run_step(["python3", str(ROOT / "implement_seo_ctr_analytics_cleanup.py")])
     run_step(["python3", str(ROOT / "build_home_duplicate_redirect.py")])
     sync_root_home_copy()
+    run_step(["python3", str(ROOT / "inject_entity_schema.py")])
+    run_step(["python3", str(ROOT / "build_guide_downloads.py")])
+    run_step(["python3", str(ROOT / "inject_guide_lead_capture.py")])
+    run_step(["python3", str(ROOT / "inject_ga4_conversions.py")])
     verify_homepage()
 
     print(

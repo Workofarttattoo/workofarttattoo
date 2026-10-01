@@ -42,7 +42,11 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
     """
     from deploy_stitch_site_root import SKIP_DEPLOY_SLUGS, gather_folders, resolve_home_slug
     from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
-    from woa_url_aliases import ALIASES_BY_SOURCE, NEVER_RETIRE_SOURCE_SLUGS
+    from woa_url_aliases import (
+        ALIASES_BY_SOURCE,
+        MUST_PUBLISH_ALIAS_SOURCES,
+        NEVER_RETIRE_SOURCE_SLUGS,
+    )
 
     repo_root = repo_root.resolve()
     merged = gather_folders()
@@ -63,7 +67,13 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
 
     add("/", "1.0", "weekly")
 
-    alias_sources = frozenset(ALIASES_BY_SOURCE.keys()) - NEVER_RETIRE_SOURCE_SLUGS
+    # Alias sources normally 301 to a short URL and stay out of the sitemap.
+    # MUST_PUBLISH_ALIAS_SOURCES (the GEO hub) must be listed at the live hub path.
+    alias_sources = (
+        frozenset(ALIASES_BY_SOURCE.keys())
+        - NEVER_RETIRE_SOURCE_SLUGS
+        - MUST_PUBLISH_ALIAS_SOURCES
+    )
 
     for slug in sorted(merged.keys()):
         if slug == "artists_build":
@@ -72,7 +82,9 @@ def discover_deploy_urls(repo_root: Path) -> list[tuple[str, str, str]]:
             continue
         if slug.startswith("home_work_of_art"):
             continue
-        if slug in SKIP_DEPLOY_SLUGS or slug in RETIRE_OVERLAP_SLUGS or slug in alias_sources:
+        if slug not in MUST_PUBLISH_ALIAS_SOURCES and (
+            slug in SKIP_DEPLOY_SLUGS or slug in RETIRE_OVERLAP_SLUGS or slug in alias_sources
+        ):
             continue
         if slug in NOINDEX_SITEMAP_SLUGS:
             continue

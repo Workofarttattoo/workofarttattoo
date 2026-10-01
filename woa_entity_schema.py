@@ -281,19 +281,101 @@ def _strip_html(text: str) -> str:
     return re.sub(r"\s+", " ", STRIP_TAGS_RE.sub("", text)).strip()
 
 
-def extract_faqs_from_html(html: str, *, limit: int = 8) -> list[tuple[str, str]]:
-    faqs: list[tuple[str, str]] = []
+def _faq_pair(summary, answer) -> tuple[str, str] | None:
+    q = re.sub(r"\s+", " ", summary.get_text(" ", strip=True)).strip()
+    a = re.sub(r"\s+", " ", answer.get_text(" ", strip=True)).strip()
+    if len(q) < 8 or len(a) < 20:
+        return None
+    return q, a
+
+
+def _details_in_chrome(details) -> bool:
+    for parent in details.parents:
+        name = getattr(parent, "name", None)
+        if name in {"nav", "header", "footer"}:
+            return True
+        classes = " ".join(parent.get("class") or [])
+        if any(
+            token in classes
+            for token in ("woa-desktop-dd", "mobile-guides-dd", "mobile-artists-dd", "woa-mnav")
+        ):
+            return True
+    return False
+
+
+def extract_faqs_from_html(html: str, *, limit: int = 20) -> list[tuple[str, str]]:
+    """Visible FAQ pairs only. Prefer details under an FAQ or Questions heading."""
     soup = BeautifulSoup(html, "html.parser")
-    for details in soup.find_all("details"):
+    scoped: list = []
+    for heading in soup.find_all(["h2", "h3"]):
+        label = heading.get_text(" ", strip=True).lower()
+        if "faq" not in label and not label.startswith("question"):
+            continue
+        section = heading.find_parent("section") or heading.parent
+        if section is None:
+            continue
+        scoped.extend(section.find_all("details"))
+    search = scoped or [
+        details for details in soup.find_all("details") if not _details_in_chrome(details)
+    ]
+    faqs: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for details in search:
+        if _details_in_chrome(details):
+            continue
         summary = details.find("summary")
         answer = details.find("p")
         if not summary or not answer:
             continue
-        q = re.sub(r"\s+", " ", summary.get_text(" ", strip=True)).strip()
-        a = re.sub(r"\s+", " ", answer.get_text(" ", strip=True)).strip()
-        if len(q) < 8 or len(a) < 20:
+        pair = _faq_pair(summary, answer)
+        if not pair or pair[0] in seen:
             continue
-        faqs.append((q, a))
+        seen.add(pair[0])
+        faqs.append(pair)
+        if len(faqs) >= limit:
+            break
+    return faqs
+
+
+def extract_knowledge_article_faq(html: str) -> tuple[str, str] | None:
+    """Knowledge articles show one question as the H1 and the answer in the lead paragraph."""
+    soup = BeautifulSoup(html, "html.parser")
+    main = soup.find("main")
+    if main is None:
+        return None
+    heading = main.find("h1")
+    if heading is None:
+        return None
+    answer = None
+    for paragraph in heading.find_all_next("p"):
+        if main not in paragraph.parents and paragraph is not main:
+            if paragraph.find_parent("main") is None:
+                break
+        classes = " ".join(paragraph.get("class") or [])
+        if "font-body-lg" in classes or len(paragraph.get_text(" ", strip=True)) >= 40:
+            answer = paragraph
+            break
+    if answer is None:
+        return None
+    return _faq_pair(heading, answer)
+
+
+def extract_knowledge_hub_faqs(html: str, *, limit: int = 60) -> list[tuple[str, str]]:
+    """Hub cards show the question and the visible answer snippet. Use that text only."""
+    soup = BeautifulSoup(html, "html.parser")
+    main = soup.find("main") or soup
+    faqs: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for card in main.find_all("li"):
+        heading = card.find("h3")
+        answer = card.find("p")
+        if not heading or not answer:
+            continue
+        pair = _faq_pair(heading, answer)
+        if not pair or pair[0] in seen:
+            continue
+        seen.add(pair[0])
+        faqs.append(pair)
         if len(faqs) >= limit:
             break
     return faqs
@@ -527,10 +609,41 @@ def guide_representative_image(slug: str, root: Path | None) -> str | None:
     return f"{SITE}/home_work_of_art_tattoo_piercing/work-of-art-studio-banner-las-vegas.webp"
 
 
+def core_service_nodes() -> list[dict]:
+    """Realism, cover-up, fine line, and piercing — no prices."""
+    nodes = [tattoo_service_node(), piercing_service_node()]
+    for slug in (
+        "realism_tattoos_las_vegas_master_authority_guide",
+        "cover-up-tattoos-las-vegas",
+        "fine_line_tattoos_las_vegas_master_authority_guide",
+    ):
+        name, description = SERVICE_BY_SLUG[slug]
+        nodes.append(service_node(slug=slug, name=name, description=description))
+    return nodes
+
+
+def append_unique_nodes(graph: list[dict], nodes: list[dict]) -> None:
+    seen = {node.get("@id") for node in graph if isinstance(node, dict) and node.get("@id")}
+    for node in nodes:
+        node_id = node.get("@id")
+        if node_id and node_id in seen:
+            continue
+        graph.append(node)
+        if node_id:
+            seen.add(node_id)
+
+
 def local_business_node() -> dict:
+    # TattooParlor is the schema.org LocalBusiness subtype Google accepts.
+    # TattooShop and BodyPiercing are not schema.org types. Piercing is a Service
+    # on this same business, not a second place.
     return {
-        "@type": "TattooParlor",
+        "@type": ["LocalBusiness", "TattooParlor"],
         "@id": ID_BUSINESS,
+        "description": (
+            "Work of Art Tattoo & Piercing is a tattoo and body piercing studio "
+            "at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119."
+        ),
         "name": STUDIO_LEGAL_NAME,
         "alternateName": "Work of Art",
         "url": f"{SITE}/",
@@ -552,10 +665,7 @@ def local_business_node() -> dict:
         ],
         "numberOfEmployees": RESIDENT_ARTIST_COUNT,
         "employee": [{"@id": ID_JOSHUA}, {"@id": ID_KATELYN}, {"@id": ID_TERALYN}],
-        "makesOffer": [
-            {"@id": ID_TATTOO_SERVICE},
-            {"@id": ID_PIERCING_SERVICE},
-        ],
+        "makesOffer": [{"@id": node["@id"]} for node in core_service_nodes()],
         "potentialAction": {
             "@type": "ReserveAction",
             "target": {
@@ -589,15 +699,17 @@ def website_node() -> dict:
 
 
 def sitewide_graph() -> dict:
+    graph = [
+        website_node(),
+        local_business_node(),
+        person_joshua(),
+        person_katelyn(),
+        person_teralyn(),
+    ]
+    append_unique_nodes(graph, core_service_nodes())
     return {
         "@context": "https://schema.org",
-        "@graph": [
-            website_node(),
-            local_business_node(),
-            person_joshua(),
-            person_katelyn(),
-            person_teralyn(),
-        ],
+        "@graph": graph,
     }
 
 
@@ -683,6 +795,7 @@ def artist_profile_graph(artist: str, *, root: Path | None = None) -> dict:
                 description="Fine line, floral fine line, small script, commissioned custom drawings, walk-in tattoos, flash tattoos, and piercing services by Teralyn.",
             )
         )
+    append_unique_nodes(graph, core_service_nodes())
     if root:
         graph.extend(load_studio_videos(root)[:2])
     return {
@@ -692,44 +805,43 @@ def artist_profile_graph(artist: str, *, root: Path | None = None) -> dict:
 
 
 def artists_index_graph() -> dict:
-    return {
-        "@context": "https://schema.org",
-        "@graph": [
-            website_node(),
-            local_business_node(),
-            person_joshua(),
-            person_katelyn(),
-            person_teralyn(),
-            {
-                "@type": "CollectionPage",
-                "@id": f"{SITE}/artists/#webpage",
-                "url": f"{SITE}/artists/",
-                "name": "Artists at Work of Art Tattoo Las Vegas",
-                "isPartOf": {"@id": ID_WEBSITE},
-                "about": {"@id": ID_BUSINESS},
-                "mainEntity": {
-                    "@type": "ItemList",
-                    "itemListElement": [
-                        {
-                            "@type": "ListItem",
-                            "position": 1,
-                            "item": {"@id": ID_JOSHUA},
-                        },
-                        {
-                            "@type": "ListItem",
-                            "position": 2,
-                            "item": {"@id": ID_KATELYN},
-                        },
-                        {
-                            "@type": "ListItem",
-                            "position": 3,
-                            "item": {"@id": ID_TERALYN},
-                        },
-                    ],
-                },
+    graph = [
+        website_node(),
+        local_business_node(),
+        person_joshua(),
+        person_katelyn(),
+        person_teralyn(),
+        {
+            "@type": "CollectionPage",
+            "@id": f"{SITE}/artists/#webpage",
+            "url": f"{SITE}/artists/",
+            "name": "Artists at Work of Art Tattoo Las Vegas",
+            "isPartOf": {"@id": ID_WEBSITE},
+            "about": {"@id": ID_BUSINESS},
+            "mainEntity": {
+                "@type": "ItemList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item": {"@id": ID_JOSHUA},
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item": {"@id": ID_KATELYN},
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "item": {"@id": ID_TERALYN},
+                    },
+                ],
             },
-        ],
-    }
+        },
+    ]
+    append_unique_nodes(graph, core_service_nodes())
+    return {"@context": "https://schema.org", "@graph": graph}
 
 
 def geo_source_graph() -> dict:
@@ -788,6 +900,11 @@ def geo_source_graph() -> dict:
             piercing_svc,
             realism_svc,
             fine_line_svc,
+            service_node(
+                slug="cover-up-tattoos-las-vegas",
+                name="Tattoo Cover-Up",
+                description="Cover-up consults and multi-session redesigns for old or faded tattoos in Las Vegas.",
+            ),
             {
                 "@type": "BreadcrumbList",
                 "@id": f"{GEO_HUB_PAGE}#breadcrumb",
@@ -829,10 +946,18 @@ def guide_article_graph(
         local_business_node(),
         person_joshua(),
         person_katelyn(),
+        person_teralyn(),
     ]
-    if slug in SERVICE_BY_SLUG:
-        svc_name, svc_desc = SERVICE_BY_SLUG[slug]
-        svc = service_node(slug=slug, name=svc_name, description=svc_desc)
+    service_slug = slug
+    if service_slug not in SERVICE_BY_SLUG:
+        from woa_url_aliases import ALIASES_BY_SHORT
+
+        alias = ALIASES_BY_SHORT.get(slug)
+        if alias and alias.source_slug in SERVICE_BY_SLUG:
+            service_slug = alias.source_slug
+    if service_slug in SERVICE_BY_SLUG:
+        svc_name, svc_desc = SERVICE_BY_SLUG[service_slug]
+        svc = service_node(slug=service_slug, name=svc_name, description=svc_desc)
         graph.append(svc)
         article_about.append({"@id": svc["@id"]})
 
@@ -1022,6 +1147,74 @@ def faq_page_graph(*, slug: str, title: str, faqs: list[tuple[str, str]]) -> dic
             },
         ],
     }
+
+
+def _faq_node(*, page_url: str, title: str, faqs: list[tuple[str, str]]) -> dict:
+    return {
+        "@type": "FAQPage",
+        "@id": f"{page_url}#faq",
+        "url": page_url,
+        "name": title,
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": q,
+                "acceptedAnswer": {"@type": "Answer", "text": a},
+            }
+            for q, a in faqs
+        ],
+    }
+
+
+def knowledge_hub_graph(html: str) -> dict:
+    page_url = f"{SITE}/knowledge/"
+    faqs = verified_schema_faqs(extract_knowledge_hub_faqs(html))
+    graph: list[dict] = [
+        website_node(),
+        local_business_node(),
+        person_joshua(),
+        person_katelyn(),
+        person_teralyn(),
+        {
+            "@type": "CollectionPage",
+            "@id": f"{page_url}#webpage",
+            "url": page_url,
+            "name": "Knowledge Base",
+            "isPartOf": {"@id": ID_WEBSITE},
+            "about": {"@id": ID_BUSINESS},
+        },
+    ]
+    append_unique_nodes(graph, core_service_nodes())
+    if faqs:
+        graph.append(_faq_node(page_url=page_url, title="Knowledge Base", faqs=faqs))
+    return {"@context": "https://schema.org", "@graph": graph}
+
+
+def knowledge_article_graph(slug: str, html: str) -> dict:
+    page_url = f"{SITE}/knowledge/{slug}/"
+    pair = extract_knowledge_article_faq(html)
+    faqs = verified_schema_faqs([pair] if pair else [])
+    title = faqs[0][0] if faqs else slug.replace("-", " ")
+    author = ID_KATELYN if "piercing" in slug or "ear-curation" in slug else ID_JOSHUA
+    graph: list[dict] = [
+        website_node(),
+        local_business_node(),
+        person_joshua(),
+        person_katelyn(),
+        person_teralyn(),
+        {
+            "@type": "WebPage",
+            "@id": f"{page_url}#webpage",
+            "url": page_url,
+            "name": title,
+            "isPartOf": {"@id": ID_WEBSITE},
+            "about": {"@id": ID_BUSINESS},
+            "author": {"@id": author},
+        },
+    ]
+    if faqs:
+        graph.append(_faq_node(page_url=page_url, title=title, faqs=faqs))
+    return {"@context": "https://schema.org", "@graph": graph}
 
 
 def schema_script(data: dict) -> str:

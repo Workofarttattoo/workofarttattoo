@@ -228,8 +228,12 @@ html.woa-mnav-lock body {
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -251,6 +255,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -273,8 +293,29 @@ html.woa-mnav-lock body {
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -297,17 +338,21 @@ html.woa-mnav-lock body {
       "name": "Joshua Cole",
       "url": "https://www.workofarttattoo.com/artists/joshua-cole/",
       "image": "https://www.workofarttattoo.com/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp",
-      "jobTitle": "Studio Lead — Tattoo & Piercing Artist",
-      "description": "Joshua Cole leads Work of Art Tattoo & Piercing in Las Vegas with black & grey realism, portrait work, sleeves, cover-ups, and piercing. He mentors the in-studio team and trained alumni.",
+      "jobTitle": "Studio Lead — Black & Grey Realism Tattoo Artist",
+      "description": "Joshua Cole is the studio lead and black-and-grey realism tattoo artist at Work of Art Tattoo & Piercing in Las Vegas. He specializes in black-and-grey realism, portraits, large-scale sleeves, and complex cover-up/rework projects. He is also known for color realism, surrealistic and illustrative work, floral work, and select fine-line tattooing.",
       "knowsAbout": [
         "Black and grey realism tattoo",
+        "Realism tattoo",
         "Portrait tattoo",
-        "Hyperrealism",
-        "Color realism tattoo",
-        "Color realistic imagery",
-        "Blackwork tattoo",
+        "Large-scale tattoo",
         "Sleeve tattoo",
         "Cover-up tattoo",
+        "Rework tattoo",
+        "Color realism tattoo",
+        "Surrealistic tattoo",
+        "Illustrative tattoo",
+        "Floral tattoo",
+        "Select fine line tattoo",
         "Las Vegas tattoo artist",
         "Custom tattoo design"
       ],
@@ -326,7 +371,7 @@ html.woa-mnav-lock body {
       "url": "https://www.workofarttattoo.com/artists/katelyn-cole/",
       "image": "https://www.workofarttattoo.com/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp",
       "jobTitle": "Professional Piercer",
-      "description": "Katelyn Cole is Work of Art's piercer in Las Vegas — ear curation, anatomy-first placement planning, jewelry fit, and piercing technique.",
+      "description": "Katelyn Cole is Work of Art Tattoo & Piercing's professional piercer in Las Vegas — ear curation, anatomy-first placement planning, facial and body piercing, and jewelry fit and styling.",
       "knowsAbout": [
         "Body piercing",
         "Ear curation",
@@ -347,8 +392,8 @@ html.woa-mnav-lock body {
       "name": "Teralyn",
       "url": "https://www.workofarttattoo.com/artists/teralyn/",
       "image": "https://www.workofarttattoo.com/artists/teralyn/teralyn-fine-line-tattoo-artist-las-vegas.webp",
-      "jobTitle": "Tattoo Artist and Piercer",
-      "description": "Teralyn is a tattoo artist and piercer at Work of Art Tattoo & Piercing in Las Vegas. She works in fine line floral tattoos, fine line, small script, commissioned custom drawings, high-detail smaller tattoos, walk-in requests, flash designs, and piercing services as part of the in-studio piercing team.",
+      "jobTitle": "Fine-Line Tattoo Artist and Piercer",
+      "description": "Teralyn is Work of Art Tattoo & Piercing's primary fine-line tattoo artist in Las Vegas. She focuses on fine-line floral work, script, small detailed tattoos, and custom drawings by commission. She also takes piercing appointments as part of the in-studio piercing team.",
       "knowsAbout": [
         "Body piercing",
         "Piercing",
@@ -371,6 +416,37 @@ html.woa-mnav-lock body {
       "worksFor": {
         "@id": "https://www.workofarttattoo.com/#business"
       }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.workofarttattoo.com/knowledge/how-long-piercing-heals/#webpage",
+      "url": "https://www.workofarttattoo.com/knowledge/how-long-piercing-heals/",
+      "name": "How long do ear piercings take to heal?",
+      "isPartOf": {
+        "@id": "https://www.workofarttattoo.com/#website"
+      },
+      "about": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "author": {
+        "@id": "https://www.workofarttattoo.com/artists/katelyn-cole/#person"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.workofarttattoo.com/knowledge/how-long-piercing-heals/#faq",
+      "url": "https://www.workofarttattoo.com/knowledge/how-long-piercing-heals/",
+      "name": "How long do ear piercings take to heal?",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long do ear piercings take to heal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lobe: often 6–8 weeks for basic healing. Cartilage (helix, conch, tragus): commonly 6–12 months. Healing varies by anatomy, aftercare, and sleep habits. Do not change jewelry early without piercer approval."
+          }
+        }
+      ]
     }
   ]
 }

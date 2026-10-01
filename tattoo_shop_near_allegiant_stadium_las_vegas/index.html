@@ -443,8 +443,12 @@ html.woa-mnav-lock body {
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -466,6 +470,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -488,8 +508,29 @@ html.woa-mnav-lock body {
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -512,17 +553,21 @@ html.woa-mnav-lock body {
       "name": "Joshua Cole",
       "url": "https://www.workofarttattoo.com/artists/joshua-cole/",
       "image": "https://www.workofarttattoo.com/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp",
-      "jobTitle": "Studio Lead — Tattoo & Piercing Artist",
-      "description": "Joshua Cole leads Work of Art Tattoo & Piercing in Las Vegas with black & grey realism, portrait work, sleeves, cover-ups, and piercing. He mentors the in-studio team and trained alumni.",
+      "jobTitle": "Studio Lead — Black & Grey Realism Tattoo Artist",
+      "description": "Joshua Cole is the studio lead and black-and-grey realism tattoo artist at Work of Art Tattoo & Piercing in Las Vegas. He specializes in black-and-grey realism, portraits, large-scale sleeves, and complex cover-up/rework projects. He is also known for color realism, surrealistic and illustrative work, floral work, and select fine-line tattooing.",
       "knowsAbout": [
         "Black and grey realism tattoo",
+        "Realism tattoo",
         "Portrait tattoo",
-        "Hyperrealism",
-        "Color realism tattoo",
-        "Color realistic imagery",
-        "Blackwork tattoo",
+        "Large-scale tattoo",
         "Sleeve tattoo",
         "Cover-up tattoo",
+        "Rework tattoo",
+        "Color realism tattoo",
+        "Surrealistic tattoo",
+        "Illustrative tattoo",
+        "Floral tattoo",
+        "Select fine line tattoo",
         "Las Vegas tattoo artist",
         "Custom tattoo design"
       ],
@@ -541,7 +586,7 @@ html.woa-mnav-lock body {
       "url": "https://www.workofarttattoo.com/artists/katelyn-cole/",
       "image": "https://www.workofarttattoo.com/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp",
       "jobTitle": "Professional Piercer",
-      "description": "Katelyn Cole is Work of Art's piercer in Las Vegas — ear curation, anatomy-first placement planning, jewelry fit, and piercing technique.",
+      "description": "Katelyn Cole is Work of Art Tattoo & Piercing's professional piercer in Las Vegas — ear curation, anatomy-first placement planning, facial and body piercing, and jewelry fit and styling.",
       "knowsAbout": [
         "Body piercing",
         "Ear curation",
@@ -557,12 +602,45 @@ html.woa-mnav-lock body {
       }
     },
     {
+      "@type": "Person",
+      "@id": "https://www.workofarttattoo.com/artists/teralyn/#person",
+      "name": "Teralyn",
+      "url": "https://www.workofarttattoo.com/artists/teralyn/",
+      "image": "https://www.workofarttattoo.com/artists/teralyn/teralyn-fine-line-tattoo-artist-las-vegas.webp",
+      "jobTitle": "Fine-Line Tattoo Artist and Piercer",
+      "description": "Teralyn is Work of Art Tattoo & Piercing's primary fine-line tattoo artist in Las Vegas. She focuses on fine-line floral work, script, small detailed tattoos, and custom drawings by commission. She also takes piercing appointments as part of the in-studio piercing team.",
+      "knowsAbout": [
+        "Body piercing",
+        "Piercing",
+        "Fine line tattoo",
+        "Fine line floral tattoo",
+        "Floral fine line tattoo",
+        "Small script tattoo",
+        "Fine line script tattoo",
+        "High-detail small tattoo",
+        "Custom tattoo drawings by commission",
+        "Commissioned custom tattoo drawings",
+        "Walk-in tattoo",
+        "Flash tattoo",
+        "Las Vegas tattoo artist",
+        "Las Vegas piercer"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/mischiefmodifies/"
+      ],
+      "worksFor": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      }
+    },
+    {
       "@type": "Article",
       "@id": "https://www.workofarttattoo.com/tattoo_shop_near_allegiant_stadium_las_vegas/#article",
       "headline": "Near Allegiant Stadium",
       "description": "From Allegiant Stadium or Mandalay Bay, plan the Tropicana ride before event traffic and arrive sober with time for setup.",
       "url": "https://www.workofarttattoo.com/tattoo_shop_near_allegiant_stadium_las_vegas/",
-      "mainEntityOfPage": "https://www.workofarttattoo.com/tattoo_shop_near_allegiant_stadium_las_vegas/#webpage",
+      "mainEntityOfPage": {
+        "@id": "https://www.workofarttattoo.com/tattoo_shop_near_allegiant_stadium_las_vegas/#webpage"
+      },
       "author": {
         "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person"
       },
@@ -575,7 +653,10 @@ html.woa-mnav-lock body {
       "about": {
         "@id": "https://www.workofarttattoo.com/#business"
       },
-      "inLanguage": "en-US"
+      "inLanguage": "en-US",
+      "image": "https://www.workofarttattoo.com/home_work_of_art_tattoo_piercing/work-of-art-studio-banner-las-vegas.webp",
+      "datePublished": "2026-10-01",
+      "dateModified": "2026-10-01"
     },
     {
       "@type": "WebPage",

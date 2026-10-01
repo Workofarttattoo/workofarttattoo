@@ -309,7 +309,7 @@ def patch_page(path: Path) -> bool:
         count=1,
     )
     text = re.sub(
-        r'<section[^>]*id="studio-portfolio"[\s\S]*?(?=<section[^>]*id="(?:scar-cover|pricing)")',
+        r'\n*<section[^>]*id="studio-portfolio"[\s\S]*?(?=<section[^>]*id="(?:scar-cover|pricing)")',
         evidence_sections(),
         text,
         count=1,

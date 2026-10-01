@@ -553,8 +553,12 @@ html.woa-mnav-lock body {
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -576,6 +580,22 @@ html.woa-mnav-lock body {
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -598,8 +618,29 @@ html.woa-mnav-lock body {
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -622,17 +663,21 @@ html.woa-mnav-lock body {
       "name": "Joshua Cole",
       "url": "https://www.workofarttattoo.com/artists/joshua-cole/",
       "image": "https://www.workofarttattoo.com/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp",
-      "jobTitle": "Studio Lead — Tattoo & Piercing Artist",
-      "description": "Joshua Cole leads Work of Art Tattoo & Piercing in Las Vegas with black & grey realism, portrait work, sleeves, cover-ups, and piercing. He mentors the in-studio team and trained alumni.",
+      "jobTitle": "Studio Lead — Black & Grey Realism Tattoo Artist",
+      "description": "Joshua Cole is the studio lead and black-and-grey realism tattoo artist at Work of Art Tattoo & Piercing in Las Vegas. He specializes in black-and-grey realism, portraits, large-scale sleeves, and complex cover-up/rework projects. He is also known for color realism, surrealistic and illustrative work, floral work, and select fine-line tattooing.",
       "knowsAbout": [
         "Black and grey realism tattoo",
+        "Realism tattoo",
         "Portrait tattoo",
-        "Hyperrealism",
-        "Color realism tattoo",
-        "Color realistic imagery",
-        "Blackwork tattoo",
+        "Large-scale tattoo",
         "Sleeve tattoo",
         "Cover-up tattoo",
+        "Rework tattoo",
+        "Color realism tattoo",
+        "Surrealistic tattoo",
+        "Illustrative tattoo",
+        "Floral tattoo",
+        "Select fine line tattoo",
         "Las Vegas tattoo artist",
         "Custom tattoo design"
       ],
@@ -651,7 +696,7 @@ html.woa-mnav-lock body {
       "url": "https://www.workofarttattoo.com/artists/katelyn-cole/",
       "image": "https://www.workofarttattoo.com/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp",
       "jobTitle": "Professional Piercer",
-      "description": "Katelyn Cole is Work of Art's piercer in Las Vegas — ear curation, anatomy-first placement planning, jewelry fit, and piercing technique.",
+      "description": "Katelyn Cole is Work of Art Tattoo & Piercing's professional piercer in Las Vegas — ear curation, anatomy-first placement planning, facial and body piercing, and jewelry fit and styling.",
       "knowsAbout": [
         "Body piercing",
         "Ear curation",
@@ -667,12 +712,45 @@ html.woa-mnav-lock body {
       }
     },
     {
+      "@type": "Person",
+      "@id": "https://www.workofarttattoo.com/artists/teralyn/#person",
+      "name": "Teralyn",
+      "url": "https://www.workofarttattoo.com/artists/teralyn/",
+      "image": "https://www.workofarttattoo.com/artists/teralyn/teralyn-fine-line-tattoo-artist-las-vegas.webp",
+      "jobTitle": "Fine-Line Tattoo Artist and Piercer",
+      "description": "Teralyn is Work of Art Tattoo & Piercing's primary fine-line tattoo artist in Las Vegas. She focuses on fine-line floral work, script, small detailed tattoos, and custom drawings by commission. She also takes piercing appointments as part of the in-studio piercing team.",
+      "knowsAbout": [
+        "Body piercing",
+        "Piercing",
+        "Fine line tattoo",
+        "Fine line floral tattoo",
+        "Floral fine line tattoo",
+        "Small script tattoo",
+        "Fine line script tattoo",
+        "High-detail small tattoo",
+        "Custom tattoo drawings by commission",
+        "Commissioned custom tattoo drawings",
+        "Walk-in tattoo",
+        "Flash tattoo",
+        "Las Vegas tattoo artist",
+        "Las Vegas piercer"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/mischiefmodifies/"
+      ],
+      "worksFor": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      }
+    },
+    {
       "@type": "Article",
       "@id": "https://www.workofarttattoo.com/start_here/#article",
       "headline": "Start Here",
       "description": "Pick your situation — first tattoo, Vegas visit, piercing, cover-up, healed proof, pricing, or meet the artists.",
       "url": "https://www.workofarttattoo.com/start_here/",
-      "mainEntityOfPage": "https://www.workofarttattoo.com/start_here/#webpage",
+      "mainEntityOfPage": {
+        "@id": "https://www.workofarttattoo.com/start_here/#webpage"
+      },
       "author": {
         "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person"
       },
@@ -685,7 +763,10 @@ html.woa-mnav-lock body {
       "about": {
         "@id": "https://www.workofarttattoo.com/#business"
       },
-      "inLanguage": "en-US"
+      "inLanguage": "en-US",
+      "image": "https://www.workofarttattoo.com/home_work_of_art_tattoo_piercing/work-of-art-studio-banner-las-vegas.webp",
+      "datePublished": "2026-10-01",
+      "dateModified": "2026-10-01"
     },
     {
       "@type": "WebPage",
@@ -814,6 +895,155 @@ Pick the situation closest to yours — or jump straight to booking. Each path l
 </div>
 </div>
 </section>
+<section class="my-12 mx-auto max-w-3xl border border-outline-variant/40 bg-surface-container-high p-6 md:p-8" data-woa-guide-lead="1" data-woa-guide-offer="first-tattoo" data-woa-guide-file="/downloads/first-tattoo-decision-guide.pdf" data-woa-guide-name="First Tattoo Decision Guide">
+<p class="font-label-caps text-secondary uppercase tracking-widest text-xs mb-2">Free studio guide</p>
+<h2 class="font-headline-md text-on-surface text-2xl md:text-3xl mb-3">First Tattoo Decision Guide</h2>
+<p class="font-body-md text-on-surface-variant leading-relaxed mb-6">Email the studio and unlock the first tattoo decision guide on this page. Add a mobile number if you want a text back. The request includes the page you sent it from.</p>
+<form action="https://formsubmit.co/booking@workofarttattoo.com" class="space-y-4" id="woa-guide-lead" method="POST">
+<input name="_captcha" type="hidden" value="false"/>
+<input name="_template" type="hidden" value="table"/>
+<input name="_subject" type="hidden" value="[Guide] First Tattoo Decision Guide"/>
+<input name="_next" type="hidden" value=""/>
+<input name="offer" type="hidden" value="First Tattoo Decision Guide"/>
+<input name="source_page" type="hidden" value=""/>
+<input autocomplete="off" class="hidden" name="_woa_hp" tabindex="-1" type="text"/>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Email *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="email" required="" type="email"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Mobile for a text back (optional)</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="phone" type="tel"/></label>
+<button class="bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest" type="submit">Send me the guide</button>
+</form>
+<p class="hidden mt-4 text-sm text-on-surface-variant" data-woa-guide-lead-status hidden=""></p>
+<div class="hidden mt-4" data-woa-guide-lead-thanks hidden="">
+<p class="font-body-md text-on-surface mb-4">Thanks. Your guide is ready.</p>
+<a class="inline-flex bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest" download="" href="/downloads/first-tattoo-decision-guide.pdf">Download First Tattoo Decision Guide</a>
+</div>
+<script data-woa-guide-lead-script="1">
+(function () {
+  var section = document.currentScript && document.currentScript.closest("[data-woa-guide-lead]");
+  if (!section || section.getAttribute("data-woa-guide-ready") === "1") return;
+  section.setAttribute("data-woa-guide-ready", "1");
+  var form = section.querySelector("form");
+  var thanks = section.querySelector("[data-woa-guide-lead-thanks]");
+  var offer = section.getAttribute("data-woa-guide-offer") || "";
+  var fileUrl = section.getAttribute("data-woa-guide-file") || "";
+  var guideName = section.getAttribute("data-woa-guide-name") || offer;
+  var sentThisView = false;
+
+  function trackAllowed() {
+    var query = location.search || "";
+    if (query.indexOf("debug_analytics=1") >= 0) return true;
+    if (navigator.webdriver) return false;
+    var ua = navigator.userAgent || "";
+    if (/HeadlessChrome|Lighthouse|PageSpeed|WOA-Deploy-Verifier|Google-InspectionTool/i.test(ua)) return false;
+    try {
+      if (window.sessionStorage && window.sessionStorage.getItem("woa_analytics_opt_out") === "1") return false;
+    } catch (e) {}
+    return true;
+  }
+
+  function send(name, params) {
+    if (!trackAllowed()) return;
+    var payload = {
+      event_source: "woa_site",
+      page_path: location.pathname || "/",
+      page_location: (location.href || "").split("#")[0],
+      page_title: document.title,
+      guide_offer: offer,
+      guide_name: guideName,
+      source_page: location.pathname || "/"
+    };
+    Object.keys(params || {}).forEach(function (key) { payload[key] = params[key]; });
+    if (typeof window.gtag === "function") window.gtag("event", name, payload);
+    window.dataLayer = window.dataLayer || [];
+    var layerEvent = { event: "woa_" + name };
+    Object.keys(payload).forEach(function (key) { layerEvent[key] = payload[key]; });
+    window.dataLayer.push(layerEvent);
+  }
+
+  send("guide_view", { guide_file: fileUrl });
+
+  function reveal() {
+    if (form) {
+      form.classList.add("hidden");
+      form.setAttribute("hidden", "");
+    }
+    if (thanks) {
+      thanks.hidden = false;
+      thanks.classList.remove("hidden");
+    }
+  }
+
+  try {
+    var params = new URLSearchParams(location.search || "");
+    if (params.get("guide_lead") === "1") {
+      reveal();
+      params.delete("guide_lead");
+      var rest = params.toString();
+      history.replaceState(null, "", location.pathname + (rest ? "?" + rest : "") + location.hash);
+    }
+  } catch (e) {}
+
+  if (!form) return;
+  var source = form.querySelector('[name="source_page"]');
+  var subject = form.querySelector('[name="_subject"]');
+  var nextField = form.querySelector('[name="_next"]');
+  var path = location.pathname || "/";
+  if (source) source.value = path;
+  if (subject) subject.value = "[Guide] " + guideName + " — " + path;
+  if (nextField) nextField.value = "https://www.workofarttattoo.com" + path + "?guide_lead=1";
+
+  form.addEventListener("submit", function (event) {
+    if (typeof form.checkValidity === "function" && !form.checkValidity()) return;
+    event.preventDefault();
+    var honey = form.querySelector('[name="_woa_hp"]');
+    if (honey && honey.value) return;
+    if (form.getAttribute("data-woa-lead-pending") === "1" || sentThisView) return;
+    form.setAttribute("data-woa-lead-pending", "1");
+
+    function succeed() {
+      if (sentThisView) return;
+      sentThisView = true;
+      form.setAttribute("data-woa-lead-pending", "0");
+      reveal();
+      send("guide_lead_submit", {
+        form_id: "woa-guide-lead",
+        form_destination: "formsubmit",
+        source_page: (source && source.value) || path
+      });
+    }
+
+    function fail() {
+      form.setAttribute("data-woa-lead-pending", "0");
+      var status = section.querySelector("[data-woa-guide-lead-status]");
+      if (!status) return;
+      status.hidden = false;
+      status.classList.remove("hidden");
+      status.textContent = "We could not send that just now. Call or text the studio at 725-224-1240.";
+    }
+
+    var host = location.hostname;
+    if (host === "localhost" || host === "127.0.0.1" || location.protocol === "file:") {
+      succeed();
+      return;
+    }
+
+    fetch("https://formsubmit.co/ajax/booking@workofarttattoo.com", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new FormData(form)
+    }).then(function (res) {
+      if (!res.ok) throw new Error("formsubmit");
+      return res.json();
+    }).then(function () {
+      succeed();
+    }).catch(function () {
+      fail();
+    });
+  });
+})();
+</script>
+
+</section>
+
 </main>
 <!-- Footer -->
 <!-- WOA_PAGE_SPOTLIGHT_VIDEO_START -->

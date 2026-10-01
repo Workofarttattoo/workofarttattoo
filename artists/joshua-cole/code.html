@@ -255,6 +255,72 @@ html.woa-mnav-lock body {
 
 </script>
 <link as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
+<style data-woa-sticky-book-css="1">
+[data-woa-sticky-book] {
+  position: fixed;
+  right: max(0.85rem, env(safe-area-inset-right, 0px));
+  bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
+  left: auto;
+  z-index: 880;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: min(16rem, calc(100vw - 1.75rem));
+  padding: 0.65rem 0.9rem;
+  background: rgba(12, 12, 12, 0.92);
+  color: #ffe088;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-decoration: none;
+  border: 1px solid rgba(233, 195, 73, 0.55);
+  border-radius: 2px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0.93;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.woa-sticky-book-icon {
+  font-family: "Material Symbols Outlined";
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #e9c349;
+  flex-shrink: 0;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+}
+.woa-sticky-book-text {
+  text-align: left;
+}
+@media (min-width: 768px) {
+  [data-woa-sticky-book] {
+    right: max(1.25rem, env(safe-area-inset-right, 0px));
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    max-width: 14rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.6875rem;
+  }
+}
+[data-woa-sticky-book]:hover,
+[data-woa-sticky-book]:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(233, 195, 73, 0.22);
+  outline: 2px solid rgba(233, 195, 73, 0.45);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-woa-sticky-book] {
+    transition: none;
+  }
+  [data-woa-sticky-book]:hover,
+  [data-woa-sticky-book]:focus-visible {
+    transform: none;
+  }
+}
+</style>
+
 <script data-woa-entity-schema="1" type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -270,8 +336,12 @@ html.woa-mnav-lock body {
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -331,6 +401,15 @@ html.woa-mnav-lock body {
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
       "potentialAction": {
@@ -445,77 +524,78 @@ html.woa-mnav-lock body {
       "worksFor": {
         "@id": "https://www.workofarttattoo.com/#business"
       }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/#tattoo-service",
+      "name": "Tattoo Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      },
+      "url": "https://www.workofarttattoo.com/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/#piercing-service",
+      "name": "Body Piercing Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      },
+      "url": "https://www.workofarttattoo.com/piercing-shop-standards/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service",
+      "name": "Black and Grey Realism Tattoo",
+      "description": "Custom black-and-grey realism tattoos — portraits, wildlife, and sleeves at Work of Art Las Vegas.",
+      "url": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service",
+      "name": "Tattoo Cover-Up",
+      "description": "Cover-up consults and multi-session redesigns for old or faded tattoos in Las Vegas.",
+      "url": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service",
+      "name": "Fine Line Tattoo",
+      "description": "Fine line and micro-detail tattoo work with longevity-focused planning.",
+      "url": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
     }
   ]
 }
 </script>
-
-<style data-woa-sticky-book-css="1">
-[data-woa-sticky-book] {
-  position: fixed;
-  right: max(0.85rem, env(safe-area-inset-right, 0px));
-  bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
-  left: auto;
-  z-index: 880;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  max-width: min(16rem, calc(100vw - 1.75rem));
-  padding: 0.65rem 0.9rem;
-  background: rgba(12, 12, 12, 0.92);
-  color: #ffe088;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.35;
-  text-decoration: none;
-  border: 1px solid rgba(233, 195, 73, 0.55);
-  border-radius: 2px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0.93;
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-.woa-sticky-book-icon {
-  font-family: "Material Symbols Outlined";
-  font-size: 1.15rem;
-  line-height: 1;
-  color: #e9c349;
-  flex-shrink: 0;
-  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
-}
-.woa-sticky-book-text {
-  text-align: left;
-}
-@media (min-width: 768px) {
-  [data-woa-sticky-book] {
-    right: max(1.25rem, env(safe-area-inset-right, 0px));
-    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
-    max-width: 14rem;
-    padding: 0.75rem 1rem;
-    font-size: 0.6875rem;
-  }
-}
-[data-woa-sticky-book]:hover,
-[data-woa-sticky-book]:focus-visible {
-  opacity: 1;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(233, 195, 73, 0.22);
-  outline: 2px solid rgba(233, 195, 73, 0.45);
-  outline-offset: 2px;
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-woa-sticky-book] {
-    transition: none;
-  }
-  [data-woa-sticky-book]:hover,
-  [data-woa-sticky-book]:focus-visible {
-    transform: none;
-  }
-}
-</style>
-
 </head>
 <body class="bg-background text-on-background font-body-md selection:bg-secondary selection:text-on-secondary cursor-none">
 <!-- Google Tag Manager (noscript) -->
@@ -576,7 +656,7 @@ html.woa-mnav-lock body {
 </div>
 <div class="lg:col-span-4 relative mt-12 lg:mt-0">
 <div class="aspect-[3/4] bg-surface-container overflow-hidden border-2 border-secondary/20 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
-<picture><source srcset="/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp" type="image/webp"/><img alt="Joshua cole portrait — Joshua Cole tattoo artist Las Vegas, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out transform hover:scale-110" decoding="async" fetchpriority="high" height="1067" src="/artists/joshua-cole/joshua-cole-portrait-las-vegas.png" width="800"/></picture>
+<picture><source srcset="/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp" type="image/webp"/><img alt="Joshua cole portrait — Joshua Cole tattoo artist Las Vegas, Work of Art Tattoo &amp; Piercing, Las Vegas" class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out transform hover:scale-110" decoding="async" fetchpriority="high" height="1067" loading="eager" src="/artists/joshua-cole/joshua-cole-portrait-las-vegas.png" width="800"/></picture>
 </div>
 </div>
 </section>
@@ -1916,7 +1996,7 @@ t.src=base+"?woa-retry="+Date.now();
 <div class="md:col-span-5">
 <picture>
 <source srcset="/home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas.webp" type="image/webp"/>
-<img alt="Healed forearm tattoo — Work of Art Las Vegas" class="w-full h-auto object-cover border border-outline-variant/30" decoding="async" loading="lazy" src="/home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas.png"/>
+<img alt="Fresh black and grey realism skull and hourglass forearm tattoo by Joshua Cole, Work of Art Las Vegas" class="w-full h-auto object-cover border border-outline-variant/30" decoding="async" loading="lazy" src="/home_work_of_art_tattoo_piercing/client-portfolio/skull-hourglass-forearm-realism-fresh-las-vegas.png"/>
 </picture>
 </div>
 <div class="md:col-span-7 space-y-3">

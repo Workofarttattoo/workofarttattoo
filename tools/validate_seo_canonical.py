@@ -161,7 +161,9 @@ def validate_sitemap(failures: list[str]) -> int:
         if path != "/" and not path.endswith("/"):
             failures.append(f"sitemap: non-trailing-slash URL {loc}")
         slug = path.strip("/").split("/")[0]
-        if slug in RETIRE_OVERLAP_SLUGS or slug in ALIASES_BY_SOURCE:
+        if slug in RETIRE_OVERLAP_SLUGS or (
+            slug in ALIASES_BY_SOURCE and slug not in MUST_PUBLISH_ALIAS_SOURCES
+        ):
             failures.append(f"sitemap: legacy/alias source URL {loc}")
         folder = ROOT / slug
         index = folder / "index.html"

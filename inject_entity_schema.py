@@ -12,6 +12,8 @@ from woa_entity_schema import (
     extract_faqs_from_html,
     geo_source_graph,
     guide_article_graph,
+    knowledge_article_graph,
+    knowledge_hub_graph,
     schema_script,
     sitewide_graph,
 )
@@ -41,7 +43,7 @@ def iter_targets() -> list[Path]:
 
 def pick_graph(path: Path, html: str) -> dict:
     rel = path.relative_to(ROOT)
-    if rel == Path("artists/code.html"):
+    if rel in {Path("artists/code.html"), Path("artists/index.html")}:
         return artists_index_graph()
     if rel.parts[0] == "artists_build":
         slug = path.stem
@@ -56,8 +58,17 @@ def pick_graph(path: Path, html: str) -> dict:
         return sitewide_graph()
     if slug == "geo_hub_ai_source_of_truth_work_of_art":
         return geo_source_graph()
-    if rel.parts[0] == "knowledge" and len(rel.parts) >= 3:
-        slug = rel.parts[1]
+    if rel.parts[0] == "knowledge" and path.name in {"code.html", "index.html"}:
+        if len(rel.parts) == 2:
+            return knowledge_hub_graph(html)
+        if len(rel.parts) >= 3:
+            return knowledge_article_graph(rel.parts[1], html)
+    if slug not in GUIDE_META:
+        from woa_url_aliases import ALIASES_BY_SHORT
+
+        alias = ALIASES_BY_SHORT.get(slug)
+        if alias and alias.source_slug in GUIDE_META:
+            slug = alias.source_slug
     if slug in GUIDE_META:
         title, desc = GUIDE_META[slug]
         author = None
@@ -114,6 +125,16 @@ def main() -> int:
             path.write_text(updated, encoding="utf-8")
             changed += 1
             print(f"[ok] {path.relative_to(ROOT)}")
+        if path.name == "code.html":
+            index_path = path.with_name("index.html")
+            if index_path.is_file():
+                index_raw = index_path.read_text(encoding="utf-8")
+                index_graph = pick_graph(index_path, index_raw)
+                index_updated = inject_schema(index_raw, index_graph, replace_all=True)
+                if index_updated != index_raw:
+                    index_path.write_text(index_updated, encoding="utf-8")
+                    changed += 1
+                    print(f"[ok] {index_path.relative_to(ROOT)}")
     print(f"Done: {changed} file(s) with entity schema")
     return 0
 

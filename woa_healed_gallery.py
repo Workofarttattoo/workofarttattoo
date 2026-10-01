@@ -43,7 +43,7 @@ class HealedEntry:
     aftercare_notes: str
     description: str
     fresh: ImageRef | None
-    healed: ImageRef
+    healed: ImageRef | None
     timeline: tuple[tuple[str, str], ...] = ()
     gallery: tuple[ImageRef, ...] = ()
     featured: bool = False
@@ -306,8 +306,7 @@ HEALED_CATALOG: tuple[HealedEntry, ...] = (
             "Eyelash detail, iris radial lines, and soft smoke shading documented before peel. "
             "Healed follow-up will be added to this entry when the client returns for comparison photos."
         ),
-        fresh=None,
-        healed=ImageRef(
+        fresh=ImageRef(
             "fresh-all-seeing-eye-triangle-forearm-joshua-cole-las-vegas",
             GALLERY,
             "Fresh (day 0)",
@@ -316,6 +315,7 @@ HEALED_CATALOG: tuple[HealedEntry, ...] = (
                 "by Joshua Cole, Work of Art Las Vegas"
             ),
         ),
+        healed=None,
         timeline=(
             ("Fresh (day 0)", "Eye and triangle mapped; grey wash and smoke ribbons set; highlights left open."),
         ),
@@ -349,28 +349,24 @@ HEALED_CATALOG: tuple[HealedEntry, ...] = (
     ),
     HealedEntry(
         entry_id="skull-hourglass-forearm",
-        title="Healed forearm tattoo",
+        title="Skull and hourglass forearm",
         collection="black_grey",
         artist="Joshua Cole",
         placement="Forearm",
         sessions="Single long session",
-        healed_age="3+ months",
-        touch_up="Touch-up consult only — no saturation pass required",
+        healed_age="Fresh — healed photo not on file",
+        touch_up="Not recorded — no separate healed photo on file",
         aftercare_notes="Standard desert aftercare; client kept lotion light so grey transitions did not scab thick.",
         description=(
-            "Fine grey transitions around the hourglass glass — the kind of piece that fails if values are too soft on day one. "
-            "Healed work keeps linework and grey steps separated."
+            "Fine grey transitions around the hourglass glass, photographed at bandage-off. "
+            "A separate healed photo of this piece is not on file."
         ),
         fresh=ImageRef(
             "skull-hourglass-forearm-realism-fresh-las-vegas",
             CLIENT,
             "Fresh (day 0)",
         ),
-        healed=ImageRef(
-            "skull-hourglass-forearm-realism-fresh-las-vegas",
-            CLIENT,
-            "Healed (3+ months — documented in-studio)",
-        ),
+        healed=None,
         timeline=(
             ("Fresh (day 0)", "Documented at bandage-off; glass highlights from negative space."),
             ("4 weeks", "Linework and grey steps still separated — no blowout."),
@@ -617,6 +613,15 @@ def seo_alt(entry: HealedEntry, ref: ImageRef) -> str:
         f"{stage} {slug_part} tattoo by {entry.artist}, "
         f"{entry.placement.lower()} — Work of Art Las Vegas"
     )
+
+
+def cover_ref(entry: HealedEntry) -> ImageRef:
+    """Image used for cards and social previews. Healed when one exists, otherwise fresh."""
+    if entry.healed is not None:
+        return entry.healed
+    if entry.fresh is not None:
+        return entry.fresh
+    raise ValueError(f"No image for {entry.entry_id}")
 
 
 def featured_entry() -> HealedEntry | None:

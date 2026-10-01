@@ -7,6 +7,72 @@
 <link href="https://www.workofarttattoo.com/knowledge/vegas-tattoo-aftercare-desert-climate/" rel="canonical"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-tailwind.min.css" rel="stylesheet"/>
 <link href="/home_work_of_art_tattoo_piercing/woa-typography.css" rel="stylesheet"/>
+<style data-woa-sticky-book-css="1">
+[data-woa-sticky-book] {
+  position: fixed;
+  right: max(0.85rem, env(safe-area-inset-right, 0px));
+  bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
+  left: auto;
+  z-index: 880;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: min(16rem, calc(100vw - 1.75rem));
+  padding: 0.65rem 0.9rem;
+  background: rgba(12, 12, 12, 0.92);
+  color: #ffe088;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-decoration: none;
+  border: 1px solid rgba(233, 195, 73, 0.55);
+  border-radius: 2px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0.93;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.woa-sticky-book-icon {
+  font-family: "Material Symbols Outlined";
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #e9c349;
+  flex-shrink: 0;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+}
+.woa-sticky-book-text {
+  text-align: left;
+}
+@media (min-width: 768px) {
+  [data-woa-sticky-book] {
+    right: max(1.25rem, env(safe-area-inset-right, 0px));
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    max-width: 14rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.6875rem;
+  }
+}
+[data-woa-sticky-book]:hover,
+[data-woa-sticky-book]:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(233, 195, 73, 0.22);
+  outline: 2px solid rgba(233, 195, 73, 0.45);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-woa-sticky-book] {
+    transition: none;
+  }
+  [data-woa-sticky-book]:hover,
+  [data-woa-sticky-book]:focus-visible {
+    transform: none;
+  }
+}
+</style>
+
 <script data-woa-entity-schema="1" type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -22,8 +88,12 @@
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -83,6 +153,15 @@
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
       "potentialAction": {
@@ -197,77 +276,41 @@
       "worksFor": {
         "@id": "https://www.workofarttattoo.com/#business"
       }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.workofarttattoo.com/knowledge/vegas-tattoo-aftercare-desert-climate/#webpage",
+      "url": "https://www.workofarttattoo.com/knowledge/vegas-tattoo-aftercare-desert-climate/",
+      "name": "Why is tattoo aftercare different in Las Vegas desert climate?",
+      "isPartOf": {
+        "@id": "https://www.workofarttattoo.com/#website"
+      },
+      "about": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "author": {
+        "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.workofarttattoo.com/knowledge/vegas-tattoo-aftercare-desert-climate/#faq",
+      "url": "https://www.workofarttattoo.com/knowledge/vegas-tattoo-aftercare-desert-climate/",
+      "name": "Why is tattoo aftercare different in Las Vegas desert climate?",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is tattoo aftercare different in Las Vegas desert climate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Low humidity and high UV dry skin faster and fade ink sooner. Drink water, use thin moisturizer, avoid sun, and follow artist instructions — generic advice from humid climates often fails in Nevada."
+          }
+        }
+      ]
     }
   ]
 }
 </script>
-
-<style data-woa-sticky-book-css="1">
-[data-woa-sticky-book] {
-  position: fixed;
-  right: max(0.85rem, env(safe-area-inset-right, 0px));
-  bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
-  left: auto;
-  z-index: 880;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  max-width: min(16rem, calc(100vw - 1.75rem));
-  padding: 0.65rem 0.9rem;
-  background: rgba(12, 12, 12, 0.92);
-  color: #ffe088;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1.35;
-  text-decoration: none;
-  border: 1px solid rgba(233, 195, 73, 0.55);
-  border-radius: 2px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0.93;
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-.woa-sticky-book-icon {
-  font-family: "Material Symbols Outlined";
-  font-size: 1.15rem;
-  line-height: 1;
-  color: #e9c349;
-  flex-shrink: 0;
-  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
-}
-.woa-sticky-book-text {
-  text-align: left;
-}
-@media (min-width: 768px) {
-  [data-woa-sticky-book] {
-    right: max(1.25rem, env(safe-area-inset-right, 0px));
-    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
-    max-width: 14rem;
-    padding: 0.75rem 1rem;
-    font-size: 0.6875rem;
-  }
-}
-[data-woa-sticky-book]:hover,
-[data-woa-sticky-book]:focus-visible {
-  opacity: 1;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(233, 195, 73, 0.22);
-  outline: 2px solid rgba(233, 195, 73, 0.45);
-  outline-offset: 2px;
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-woa-sticky-book] {
-    transition: none;
-  }
-  [data-woa-sticky-book]:hover,
-  [data-woa-sticky-book]:focus-visible {
-    transform: none;
-  }
-}
-</style>
-
 </head>
 <body class="bg-background text-on-surface antialiased">
 <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-background/90 backdrop-blur-md border-b border-outline-variant/30" data-woa-top-shell="1">
@@ -291,6 +334,155 @@
 <li><a class="text-secondary underline hover:no-underline" href="/real_client_tattoo_timeline_las_vegas/">Real client timeline — every stage</a></li></ul>
 </div>
 </nav>
+
+<section class="my-12 mx-auto max-w-3xl border border-outline-variant/40 bg-surface-container-high p-6 md:p-8" data-woa-guide-lead="1" data-woa-guide-offer="desert-aftercare" data-woa-guide-file="/downloads/vegas-desert-aftercare-checklist.pdf" data-woa-guide-name="Vegas Desert Aftercare Checklist">
+<p class="font-label-caps text-secondary uppercase tracking-widest text-xs mb-2">Free studio guide</p>
+<h2 class="font-headline-md text-on-surface text-2xl md:text-3xl mb-3">Vegas Desert Aftercare Checklist</h2>
+<p class="font-body-md text-on-surface-variant leading-relaxed mb-6">Email the studio and unlock the Vegas desert aftercare checklist on this page. Add a mobile number if you want a text back. The request includes the page you sent it from.</p>
+<form action="https://formsubmit.co/booking@workofarttattoo.com" class="space-y-4" id="woa-guide-lead" method="POST">
+<input name="_captcha" type="hidden" value="false"/>
+<input name="_template" type="hidden" value="table"/>
+<input name="_subject" type="hidden" value="[Guide] Vegas Desert Aftercare Checklist"/>
+<input name="_next" type="hidden" value=""/>
+<input name="offer" type="hidden" value="Vegas Desert Aftercare Checklist"/>
+<input name="source_page" type="hidden" value=""/>
+<input autocomplete="off" class="hidden" name="_woa_hp" tabindex="-1" type="text"/>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Email *</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="email" required="" type="email"/></label>
+<label class="block space-y-2"><span class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Mobile for a text back (optional)</span><input class="w-full bg-background border border-outline-variant px-4 py-3 text-on-surface rounded-sm focus:border-secondary outline-none" name="phone" type="tel"/></label>
+<button class="bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest" type="submit">Send me the guide</button>
+</form>
+<p class="hidden mt-4 text-sm text-on-surface-variant" data-woa-guide-lead-status hidden=""></p>
+<div class="hidden mt-4" data-woa-guide-lead-thanks hidden="">
+<p class="font-body-md text-on-surface mb-4">Thanks. Your guide is ready.</p>
+<a class="inline-flex bg-secondary text-on-secondary px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest" download="" href="/downloads/vegas-desert-aftercare-checklist.pdf">Download Vegas Desert Aftercare Checklist</a>
+</div>
+<script data-woa-guide-lead-script="1">
+(function () {
+  var section = document.currentScript && document.currentScript.closest("[data-woa-guide-lead]");
+  if (!section || section.getAttribute("data-woa-guide-ready") === "1") return;
+  section.setAttribute("data-woa-guide-ready", "1");
+  var form = section.querySelector("form");
+  var thanks = section.querySelector("[data-woa-guide-lead-thanks]");
+  var offer = section.getAttribute("data-woa-guide-offer") || "";
+  var fileUrl = section.getAttribute("data-woa-guide-file") || "";
+  var guideName = section.getAttribute("data-woa-guide-name") || offer;
+  var sentThisView = false;
+
+  function trackAllowed() {
+    var query = location.search || "";
+    if (query.indexOf("debug_analytics=1") >= 0) return true;
+    if (navigator.webdriver) return false;
+    var ua = navigator.userAgent || "";
+    if (/HeadlessChrome|Lighthouse|PageSpeed|WOA-Deploy-Verifier|Google-InspectionTool/i.test(ua)) return false;
+    try {
+      if (window.sessionStorage && window.sessionStorage.getItem("woa_analytics_opt_out") === "1") return false;
+    } catch (e) {}
+    return true;
+  }
+
+  function send(name, params) {
+    if (!trackAllowed()) return;
+    var payload = {
+      event_source: "woa_site",
+      page_path: location.pathname || "/",
+      page_location: (location.href || "").split("#")[0],
+      page_title: document.title,
+      guide_offer: offer,
+      guide_name: guideName,
+      source_page: location.pathname || "/"
+    };
+    Object.keys(params || {}).forEach(function (key) { payload[key] = params[key]; });
+    if (typeof window.gtag === "function") window.gtag("event", name, payload);
+    window.dataLayer = window.dataLayer || [];
+    var layerEvent = { event: "woa_" + name };
+    Object.keys(payload).forEach(function (key) { layerEvent[key] = payload[key]; });
+    window.dataLayer.push(layerEvent);
+  }
+
+  send("guide_view", { guide_file: fileUrl });
+
+  function reveal() {
+    if (form) {
+      form.classList.add("hidden");
+      form.setAttribute("hidden", "");
+    }
+    if (thanks) {
+      thanks.hidden = false;
+      thanks.classList.remove("hidden");
+    }
+  }
+
+  try {
+    var params = new URLSearchParams(location.search || "");
+    if (params.get("guide_lead") === "1") {
+      reveal();
+      params.delete("guide_lead");
+      var rest = params.toString();
+      history.replaceState(null, "", location.pathname + (rest ? "?" + rest : "") + location.hash);
+    }
+  } catch (e) {}
+
+  if (!form) return;
+  var source = form.querySelector('[name="source_page"]');
+  var subject = form.querySelector('[name="_subject"]');
+  var nextField = form.querySelector('[name="_next"]');
+  var path = location.pathname || "/";
+  if (source) source.value = path;
+  if (subject) subject.value = "[Guide] " + guideName + " — " + path;
+  if (nextField) nextField.value = "https://www.workofarttattoo.com" + path + "?guide_lead=1";
+
+  form.addEventListener("submit", function (event) {
+    if (typeof form.checkValidity === "function" && !form.checkValidity()) return;
+    event.preventDefault();
+    var honey = form.querySelector('[name="_woa_hp"]');
+    if (honey && honey.value) return;
+    if (form.getAttribute("data-woa-lead-pending") === "1" || sentThisView) return;
+    form.setAttribute("data-woa-lead-pending", "1");
+
+    function succeed() {
+      if (sentThisView) return;
+      sentThisView = true;
+      form.setAttribute("data-woa-lead-pending", "0");
+      reveal();
+      send("guide_lead_submit", {
+        form_id: "woa-guide-lead",
+        form_destination: "formsubmit",
+        source_page: (source && source.value) || path
+      });
+    }
+
+    function fail() {
+      form.setAttribute("data-woa-lead-pending", "0");
+      var status = section.querySelector("[data-woa-guide-lead-status]");
+      if (!status) return;
+      status.hidden = false;
+      status.classList.remove("hidden");
+      status.textContent = "We could not send that just now. Call or text the studio at 725-224-1240.";
+    }
+
+    var host = location.hostname;
+    if (host === "localhost" || host === "127.0.0.1" || location.protocol === "file:") {
+      succeed();
+      return;
+    }
+
+    fetch("https://formsubmit.co/ajax/booking@workofarttattoo.com", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new FormData(form)
+    }).then(function (res) {
+      if (!res.ok) throw new Error("formsubmit");
+      return res.json();
+    }).then(function () {
+      succeed();
+    }).catch(function () {
+      fail();
+    });
+  });
+})();
+</script>
+
+</section>
 
 </main>
 <a data-woa-sticky-book="1" href="/appointments/" aria-label="Book a Consultation"><span aria-hidden="true" class="woa-sticky-book-icon material-symbols-outlined">calendar_month</span><span class="woa-sticky-book-text">Book a Consultation</span></a>

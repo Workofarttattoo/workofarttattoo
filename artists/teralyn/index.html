@@ -131,8 +131,12 @@ gtag('config', 'G-XLXNGGW7SX');
       "inLanguage": "en-US"
     },
     {
-      "@type": "TattooParlor",
+      "@type": [
+        "LocalBusiness",
+        "TattooParlor"
+      ],
       "@id": "https://www.workofarttattoo.com/#business",
+      "description": "Work of Art Tattoo & Piercing is a tattoo and body piercing studio at 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119.",
       "name": "Work of Art Tattoo & Piercing",
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
@@ -154,6 +158,22 @@ gtag('config', 'G-XLXNGGW7SX');
         "latitude": 36.1008,
         "longitude": -115.1189
       },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "12:00",
+          "closes": "00:00"
+        }
+      ],
       "sameAs": [
         "https://www.instagram.com/workofarttattoo/",
         "https://www.facebook.com/workofarttattoo/"
@@ -176,8 +196,29 @@ gtag('config', 'G-XLXNGGW7SX');
         },
         {
           "@id": "https://www.workofarttattoo.com/#piercing-service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service"
+        },
+        {
+          "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service"
         }
       ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.workofarttattoo.com/appointments/",
+          "inLanguage": "en-US",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
       "award": "Best of Las Vegas 2025 & 2026 · BusinessRate.com",
       "areaServed": [
         {
@@ -196,12 +237,66 @@ gtag('config', 'G-XLXNGGW7SX');
     },
     {
       "@type": "Person",
+      "@id": "https://www.workofarttattoo.com/artists/joshua-cole/#person",
+      "name": "Joshua Cole",
+      "url": "https://www.workofarttattoo.com/artists/joshua-cole/",
+      "image": "https://www.workofarttattoo.com/artists/joshua-cole/joshua-cole-portrait-las-vegas.webp",
+      "jobTitle": "Studio Lead — Black & Grey Realism Tattoo Artist",
+      "description": "Joshua Cole is the studio lead and black-and-grey realism tattoo artist at Work of Art Tattoo & Piercing in Las Vegas. He specializes in black-and-grey realism, portraits, large-scale sleeves, and complex cover-up/rework projects. He is also known for color realism, surrealistic and illustrative work, floral work, and select fine-line tattooing.",
+      "knowsAbout": [
+        "Black and grey realism tattoo",
+        "Realism tattoo",
+        "Portrait tattoo",
+        "Large-scale tattoo",
+        "Sleeve tattoo",
+        "Cover-up tattoo",
+        "Rework tattoo",
+        "Color realism tattoo",
+        "Surrealistic tattoo",
+        "Illustrative tattoo",
+        "Floral tattoo",
+        "Select fine line tattoo",
+        "Las Vegas tattoo artist",
+        "Custom tattoo design"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/workofarttattoo/"
+      ],
+      "worksFor": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.workofarttattoo.com/artists/katelyn-cole/#person",
+      "name": "Katelyn Cole",
+      "alternateName": "Katie Cole",
+      "url": "https://www.workofarttattoo.com/artists/katelyn-cole/",
+      "image": "https://www.workofarttattoo.com/artists/katelyn-cole/katelyn-cole-professional-piercer-ear-curation-no-duplicates-las-vegas.webp",
+      "jobTitle": "Professional Piercer",
+      "description": "Katelyn Cole is Work of Art Tattoo & Piercing's professional piercer in Las Vegas — ear curation, anatomy-first placement planning, facial and body piercing, and jewelry fit and styling.",
+      "knowsAbout": [
+        "Body piercing",
+        "Ear curation",
+        "Anatomy-first piercing consults",
+        "Piercing jewelry fit",
+        "Las Vegas piercing"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/stabislifee/"
+      ],
+      "worksFor": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      }
+    },
+    {
+      "@type": "Person",
       "@id": "https://www.workofarttattoo.com/artists/teralyn/#person",
       "name": "Teralyn",
       "url": "https://www.workofarttattoo.com/artists/teralyn/",
       "image": "https://www.workofarttattoo.com/artists/teralyn/teralyn-fine-line-tattoo-artist-las-vegas.webp",
-      "jobTitle": "Tattoo Artist and Piercer",
-      "description": "Teralyn is a tattoo artist and piercer at Work of Art Tattoo & Piercing in Las Vegas. She works in fine line floral tattoos, fine line, small script, commissioned custom drawings, high-detail smaller tattoos, walk-in requests, flash designs, and piercing services as part of the in-studio piercing team.",
+      "jobTitle": "Fine-Line Tattoo Artist and Piercer",
+      "description": "Teralyn is Work of Art Tattoo & Piercing's primary fine-line tattoo artist in Las Vegas. She focuses on fine-line floral work, script, small detailed tattoos, and custom drawings by commission. She also takes piercing appointments as part of the in-studio piercing team.",
       "knowsAbout": [
         "Body piercing",
         "Piercing",
@@ -226,50 +321,65 @@ gtag('config', 'G-XLXNGGW7SX');
       }
     },
     {
-      "@type": "ProfilePage",
-      "@id": "https://www.workofarttattoo.com/artists/teralyn/#webpage",
-      "url": "https://www.workofarttattoo.com/artists/teralyn/",
-      "name": "Teralyn — Tattoo Artist and Piercer Las Vegas",
-      "mainEntity": {
-        "@id": "https://www.workofarttattoo.com/artists/teralyn/#person"
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/#tattoo-service",
+      "name": "Tattoo Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
       },
-      "isPartOf": {
-        "@id": "https://www.workofarttattoo.com/#website"
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
       },
-      "about": {
-        "@id": "https://www.workofarttattoo.com/artists/teralyn/#person"
-      }
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://www.workofarttattoo.com/artists/teralyn/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.workofarttattoo.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Artists",
-          "item": "https://www.workofarttattoo.com/artists/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Teralyn",
-          "item": "https://www.workofarttattoo.com/artists/teralyn/"
-        }
-      ]
+      "url": "https://www.workofarttattoo.com/"
     },
     {
       "@type": "Service",
-      "@id": "https://www.workofarttattoo.com/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/#service",
+      "@id": "https://www.workofarttattoo.com/#piercing-service",
+      "name": "Body Piercing Services",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      },
+      "url": "https://www.workofarttattoo.com/piercing-shop-standards/"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/#service",
+      "name": "Black and Grey Realism Tattoo",
+      "description": "Custom black-and-grey realism tattoos — portraits, wildlife, and sleeves at Work of Art Las Vegas.",
+      "url": "https://www.workofarttattoo.com/realism-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/#service",
+      "name": "Tattoo Cover-Up",
+      "description": "Cover-up consults and multi-session redesigns for old or faded tattoos in Las Vegas.",
+      "url": "https://www.workofarttattoo.com/cover-up-tattoos-las-vegas/",
+      "provider": {
+        "@id": "https://www.workofarttattoo.com/#business"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Las Vegas"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/#service",
       "name": "Fine Line Tattoo",
-      "description": "Fine line, floral fine line, small script, commissioned custom drawings, walk-in tattoos, flash tattoos, and piercing services by Teralyn.",
-      "url": "https://www.workofarttattoo.com/best_fine_line_tattoos_in_vegas_ultimate_authority_guide/",
+      "description": "Fine line and micro-detail tattoo work with longevity-focused planning.",
+      "url": "https://www.workofarttattoo.com/fine_line_tattoos_las_vegas_master_authority_guide/",
       "provider": {
         "@id": "https://www.workofarttattoo.com/#business"
       },
