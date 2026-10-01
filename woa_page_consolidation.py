@@ -216,12 +216,24 @@ ALL_HREF_REPLACEMENTS: tuple[tuple[str, str], ...] = HREF_REPLACEMENTS + _BLIND_
 
 
 def rewrite_internal_hrefs(text: str) -> str:
-    """Rewrite retired page links without stripping asset paths under those folders."""
+    """Rewrite retired page links without stripping asset paths under those folders.
+
+    Exact homepage redirects match only real hrefs and absolute URLs. A bare
+    substring replace would also edit Python checks such as
+    \"/home_work_of_art_tattoo_piercing/\" in loc.
+    """
     for old, new in ALL_HREF_REPLACEMENTS:
         text = text.replace(old, new)
     for old, new in EXACT_PAGE_REDIRECTS:
-        text = re.sub(re.escape(old) + r'(?=["\'\s<])', new, text)
-        bare_old = old.rstrip("/")
-        bare_new = new if new == "/" else new.rstrip("/")
-        text = re.sub(re.escape(bare_old) + r'(?=["\'\s<])', bare_new, text)
+        dest = new if new.endswith("/") or new == "/" else new + "/"
+        text = re.sub(
+            r'(https://(?:www\.)?workofarttattoo\.com)' + re.escape(old) + r'(?=["\'\s<])',
+            lambda match, dest=dest: match.group(1) + dest,
+            text,
+        )
+        text = re.sub(
+            r'(href=["\'])' + re.escape(old.rstrip("/")) + r'/?["\']',
+            lambda match, dest=dest: match.group(1) + dest + '"',
+            text,
+        )
     return text
