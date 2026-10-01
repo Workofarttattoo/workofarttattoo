@@ -66,13 +66,18 @@ def iter_files() -> list[Path]:
 
 def apply_replacements(text: str) -> str:
     text = rewrite_internal_hrefs(text)
-    for old, new in ALL_HREF_REPLACEMENTS:
+    # Replace slashless paths only at a real boundary. A shorter slug must not
+    # eat a longer one (guide + "_2" was becoming how-to-choose-a-tattoo-artist_2).
+    for old, new in sorted(ALL_HREF_REPLACEMENTS, key=lambda pair: len(pair[0]), reverse=True):
         bare_old = old.rstrip("/")
         bare_new = new.rstrip("/")
         if not bare_old or not bare_new or bare_old == old:
             continue
-        text = text.replace(bare_old, bare_new)
-        text = text.replace(f'href="{bare_old}"', f'href="{new}"')
+        text = re.sub(
+            re.escape(bare_old) + r'(?=/|["\'\s?#<]|$)',
+            lambda _match, repl=bare_new: repl,
+            text,
+        )
     return text
 
 
