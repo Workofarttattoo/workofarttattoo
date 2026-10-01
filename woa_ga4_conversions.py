@@ -75,6 +75,26 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
 
   storageSetOnce("woa_first_landing_page", location.pathname || "/");
 
+  function captureUtmParams() {{
+    try {{
+      var sp = new URLSearchParams(location.search || "");
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {{
+        var value = sp.get(key);
+        if (value) storageSet("woa_" + key, value);
+      }});
+    }} catch (e) {{}}
+  }}
+  captureUtmParams();
+
+  function utmAttribution() {{
+    var out = {{}};
+    ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {{
+      var value = storageGet("woa_" + key);
+      if (value) out[key] = value;
+    }});
+    return out;
+  }}
+
   function firstLandingPage() {{
     return storageGet("woa_first_landing_page") || location.pathname || "/";
   }}
@@ -94,11 +114,14 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
 
   function attributionParams(params) {{
     return assign(
-      {{
-        landing_page: firstLandingPage(),
-        origin_page: bookingOriginPage(),
-        service_interest: serviceInterestFromPath(bookingOriginPage()),
-      }},
+      assign(
+        {{
+          landing_page: firstLandingPage(),
+          origin_page: bookingOriginPage(),
+          service_interest: serviceInterestFromPath(bookingOriginPage()),
+        }},
+        utmAttribution()
+      ),
       params || {{}}
     );
   }}
@@ -149,25 +172,45 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
   }}
 
   function recordFormSubmitSuccess(params) {{
-    var service = params.service_category || params.service_type || "unknown";
-    var dedupeKey = "woa_form_submit_success_" + service;
+    var service = params.service_category === "piercing" ? "piercing" : "tattoo";
+    var formName = params.form_name || params.form_id || "unknown";
+    var submissionId =
+      params.event_id ||
+      params.submission_id ||
+      formName + "_" + String(params.conversion_origin || "success") + "_" + String(now());
+    var dedupeKey = "woa_generate_lead_" + submissionId;
     if (storageGet(dedupeKey)) return;
     storageSet(dedupeKey, String(now()));
-    var payload = attributionParams(assign({{
-      artist_name: params.artist || params.artist_name || "no_preference",
-    }}, params));
+
+    var payload = attributionParams(
+      assign(
+        {{
+          artist_name: params.artist || params.artist_name || "no_preference",
+          form_name: formName,
+          page_path: location.pathname || "/",
+          lead_type: service,
+          event_id: submissionId,
+          submission_id: submissionId,
+        }},
+        params
+      )
+    );
+
     send("booking_submit", payload);
-    send("generate_lead", assign({{
-      currency: "USD",
-      value: 1,
-      lead_type: service,
-    }}, payload));
-    pushDataLayer("verified_lead", payload);
-    send("form_submit_success", assign({{ legacy_event: true }}, payload));
-    send("booking_complete", assign({{ legacy_event: true }}, payload));
-    if (service === "piercing") {{
-      send("piercing_booking_submit", assign({{ legacy_event: true }}, payload));
-    }}
+    send(
+      "generate_lead",
+      assign(
+        {{
+          currency: "USD",
+          value: 1,
+          lead_type: service,
+          form_name: formName,
+          page_path: location.pathname || "/",
+          event_id: submissionId,
+        }},
+        payload
+      )
+    );
   }}
 
   function linkFromClick(target) {{
@@ -327,6 +370,7 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
       }};
       if (h.indexOf("/appointments") >= 0) {{
         storageSet("woa_booking_origin_page", location.pathname || "/");
+        captureUtmParams();
       }}
 
       if (link.hasAttribute("data-woa-promo-click")) {{
@@ -429,6 +473,9 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
       form.addEventListener(eventName, markStarted, true);
     }});
     form.addEventListener("submit", function () {{
+      try {{
+        sessionStorage.removeItem("woa_generate_lead_formsubmit_redirect_" + serviceFromFormId(id));
+      }} catch (e) {{}}
       send("booking_submit_attempt", bookingParamsFromForm(form, id, {{ conversion_origin: "submit_attempt" }}));
     }});
   }});
@@ -455,12 +502,20 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
     sent = q.indexOf("sent=piercing") >= 0 ? "piercing" : q.indexOf("sent=tattoo") >= 0 ? "tattoo" : "";
   }}
   if (sent === "tattoo" || sent === "piercing") {{
+    var redirectSubmissionId = "formsubmit_redirect_" + sent;
     recordFormSubmitSuccess(assign(storedPiercingAttribution(), {{
       conversion_origin: "formsubmit_redirect",
       service_category: sent,
       service_type: sent,
+      form_name: sent === "piercing" ? "woa-form-piercing" : "woa-form-tattoo",
+      form_id: sent === "piercing" ? "woa-form-piercing" : "woa-form-tattoo",
+      event_id: redirectSubmissionId,
+      submission_id: redirectSubmissionId,
       form_destination: "formsubmit",
     }}));
+    try {{
+      history.replaceState(null, "", location.pathname + location.hash);
+    }} catch (e) {{}}
   }}
 
   document.addEventListener("woa_booking_submit_success", function (e) {{
@@ -469,6 +524,9 @@ GA4_CONVERSION_SCRIPT = f"""<script {MARKER} type="text/javascript">
     recordFormSubmitSuccess(assign(storedPiercingAttribution(), {{
       conversion_origin: detail.conversion_origin || "ajax_success",
       form_id: detail.form_id || "",
+      form_name: detail.form_name || detail.form_id || "",
+      event_id: detail.event_id || detail.submission_id || "",
+      submission_id: detail.submission_id || detail.event_id || "",
       form_destination: detail.form_destination || "",
       service_category: service,
       service_type: safeSlug(detail.service_type || service),

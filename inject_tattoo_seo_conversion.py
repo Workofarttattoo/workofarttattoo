@@ -57,7 +57,12 @@ def strip_injected(html_text: str) -> str:
 def patch_meta(html_text: str, guide: TattooGuideSEO) -> str:
     title = page_title(guide)
     desc = meta_description(guide)
-    full_title = f"{html.escape(title)} | Work of Art"
+    # Pricing title already ends with the brand. Appending it again produced
+    # "… | Work of Art Las Vegas | Work of Art".
+    if title.endswith("| Work of Art"):
+        full_title = html.escape(title)
+    else:
+        full_title = f"{html.escape(title)} | Work of Art"
     esc_desc = html.escape(desc)
 
     html_text = re.sub(r"<title>.*?</title>", f"<title>{full_title}</title>", html_text, count=1)

@@ -67,11 +67,23 @@ def katelyn_cta_blurb(guide: "PiercingGuide") -> str:
     )
 
 
+PRICING_SLUG = "how_much_do_tattoos_cost_in_las_vegas_authority_guide"
+PRICING_TITLE = "Tattoo Prices in Las Vegas | Rates & Quotes | Work of Art"
+PRICING_DESCRIPTION = (
+    "What do tattoos cost in Las Vegas? See what affects tattoo pricing, session length and deposits, "
+    "then request a personalized quote from Work of Art."
+)
+
+
 def joshua_page_title(guide: "TattooGuideSEO") -> str:
+    if guide.slug == PRICING_SLUG:
+        return PRICING_TITLE
     return f"{guide.style_label} — Joshua Cole | Work of Art Las Vegas"
 
 
 def joshua_meta(guide: "TattooGuideSEO") -> str:
+    if guide.slug == PRICING_SLUG:
+        return PRICING_DESCRIPTION
     return _trim(
         f"{guide.style_label} with Joshua Cole at Work of Art on E. Tropicana — consult-first, "
         f"healed portfolio, desert aftercare coaching. {STUDIO_PHONE_PARENS}.",

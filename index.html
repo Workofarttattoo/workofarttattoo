@@ -845,6 +845,10 @@ Custom tattoos, ear and body piercing, and jewelry-fit consults with our in-stud
 <a class="inline-flex items-center justify-center border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest uppercase hover:border-secondary transition-colors" data-woa-piercing-text-click="1" data-woa-promo-click="text" data-woa-promo-context="homepage" href="sms:+17252241240">Text for today</a>
 </div>
 </aside>
+<aside class="border border-outline-variant/40 bg-surface-container-low p-4 md:p-5 space-y-2 max-w-3xl" data-woa-piercing-open-today="1" aria-label="Piercing shop hours">
+<p class="font-body-md text-on-surface leading-snug m-0"><strong>Looking for a <a class="text-secondary underline hover:no-underline" href="/piercing-shop-standards/">piercing shop</a> open today in Las Vegas?</strong></p>
+<p class="font-body-md text-on-surface-variant leading-relaxed m-0">Work of Art Tattoo &amp; Piercing is open daily <a class="text-secondary underline hover:no-underline" href="/official_location_hours_contact/">12 PM–12 AM at 2375 E. Tropicana Ave, Suite 3</a>. <a class="text-secondary underline hover:no-underline" href="/walk-in-tattoos-las-vegas/">Walk-ins</a> are welcome when availability allows. For today's piercer availability, text <a class="text-secondary underline hover:no-underline" href="sms:+17252241240">725-224-1240</a> before heading over.</p>
+</aside>
 <!-- WOA_PIERCING_PROMO_END -->
 <!-- WOA_HOME_WELCOME_END -->
 <!-- WOA_HOME_HEALED_PROOF_START -->
@@ -1807,6 +1811,9 @@ t.src=base+"?woa-retry="+Date.now();
       form.addEventListener(eventName, markStarted, true);
     });
     form.addEventListener("submit", function () {
+      try {
+        sessionStorage.removeItem("woa_generate_lead_formsubmit_redirect_" + serviceFromFormId(id));
+      } catch (e) {}
       send("booking_submit_attempt", bookingParamsFromForm(form, id, { conversion_origin: "submit_attempt" }));
     });
   });

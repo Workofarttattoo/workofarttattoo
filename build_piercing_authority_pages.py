@@ -15,6 +15,7 @@ from woa_piercing_authority import (
     HUB_INTRO,
     HUB_SLUG,
     HUB_TITLE,
+    OPEN_TODAY_HTML,
     KATELYN_PAGE,
     PIERCING_CATALOG as _BASE_CATALOG,
     PIERCING_HUB,
@@ -346,6 +347,7 @@ def hub_main() -> str:
 {reviewed_by_block(expert="katelyn")}
 <p class="font-body-lg text-on-surface-variant max-w-2xl">{html.escape(HUB_INTRO)}</p>
 <p class="font-body-md text-on-surface-variant">Quality over quantity — one definitive page per topic. Same structure on every guide so you know what to expect.</p>
+{OPEN_TODAY_HTML}
 </div>
 </section>
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low border-y border-outline-variant/20">

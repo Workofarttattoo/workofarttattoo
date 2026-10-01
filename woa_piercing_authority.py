@@ -19,6 +19,12 @@ PIERCING_HUB = "/best_piercing_shop_las_vegas_updated_jewelry_standards/"
 KATELYN_PAGE = "/artists/katelyn-cole/"
 BOOK = "/appointments/"
 
+# Static hours only. Do not claim "open now" unless a clock check is wired up.
+OPEN_TODAY_HTML = """<aside class="border border-outline-variant/40 bg-surface-container-low p-4 md:p-5 space-y-2 max-w-3xl" data-woa-piercing-open-today="1" aria-label="Piercing shop hours">
+<p class="font-body-md text-on-surface leading-snug m-0"><strong>Looking for a <a class="text-secondary underline hover:no-underline" href="/piercing-shop-standards/">piercing shop</a> open today in Las Vegas?</strong></p>
+<p class="font-body-md text-on-surface-variant leading-relaxed m-0">Work of Art Tattoo &amp; Piercing is open daily <a class="text-secondary underline hover:no-underline" href="/official_location_hours_contact/">12 PM–12 AM at 2375 E. Tropicana Ave, Suite 3</a>. <a class="text-secondary underline hover:no-underline" href="/walk-in-tattoos-las-vegas/">Walk-ins</a> are welcome when availability allows. For today's piercer availability, text <a class="text-secondary underline hover:no-underline" href="sms:+17252241240">725-224-1240</a> before heading over.</p>
+</aside>"""
+
 
 @dataclass(frozen=True)
 class PiercingGuide:
