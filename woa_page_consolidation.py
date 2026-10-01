@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 # GSC Wizard obsolete URLs (2026-09) — Cloudflare one-hop 301 targets.
 GSC_OBSOLETE_SLUG_REDIRECTS: tuple[tuple[str, str], ...] = (
     ("realism_tattoos_las_vegas_master_authority_guide", "/realism-tattoos-las-vegas/"),
@@ -200,4 +202,26 @@ _slug_href_map.update(gsc_obsolete_slug_redirects())
 HREF_REPLACEMENTS: tuple[tuple[str, str], ...] = tuple(
     (f"/{src}/", dest) for src, dest in sorted(_slug_href_map.items())
 )
-ALL_HREF_REPLACEMENTS: tuple[tuple[str, str], ...] = HREF_REPLACEMENTS + GSC_OBSOLETE_PATH_REDIRECTS
+# The duplicate homepage URL is also the on-disk asset directory. A blind
+# replace of "/home_work_of_art_tattoo_piercing/" -> "/" rewrites logo, CSS,
+# and portfolio image URLs. Keep the 301 in GSC_WIZARD_OBSOLETE_REDIRECTS and
+# only rewrite finished page links here.
+EXACT_PAGE_REDIRECTS: tuple[tuple[str, str], ...] = (
+    ("/home_work_of_art_tattoo_piercing/", "/"),
+)
+_BLIND_PATH_REDIRECTS: tuple[tuple[str, str], ...] = tuple(
+    pair for pair in GSC_OBSOLETE_PATH_REDIRECTS if pair not in EXACT_PAGE_REDIRECTS
+)
+ALL_HREF_REPLACEMENTS: tuple[tuple[str, str], ...] = HREF_REPLACEMENTS + _BLIND_PATH_REDIRECTS
+
+
+def rewrite_internal_hrefs(text: str) -> str:
+    """Rewrite retired page links without stripping asset paths under those folders."""
+    for old, new in ALL_HREF_REPLACEMENTS:
+        text = text.replace(old, new)
+    for old, new in EXACT_PAGE_REDIRECTS:
+        text = re.sub(re.escape(old) + r'(?=["\'\s<])', new, text)
+        bare_old = old.rstrip("/")
+        bare_new = new if new == "/" else new.rstrip("/")
+        text = re.sub(re.escape(bare_old) + r'(?=["\'\s<])', bare_new, text)
+    return text

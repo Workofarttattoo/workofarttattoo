@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from woa_page_consolidation import ALL_HREF_REPLACEMENTS
+from woa_page_consolidation import ALL_HREF_REPLACEMENTS, rewrite_internal_hrefs
 
 SKIP_DIRS = {
     ".git",
@@ -64,13 +64,13 @@ def iter_files() -> list[Path]:
 
 
 def apply_replacements(text: str) -> str:
+    text = rewrite_internal_hrefs(text)
     for old, new in ALL_HREF_REPLACEMENTS:
-        text = text.replace(old, new)
         bare_old = old.rstrip("/")
         bare_new = new.rstrip("/")
-        if bare_old != old:
-            text = text.replace(bare_old, bare_new)
-        # href without trailing slash in HTML attributes
+        if not bare_old or not bare_new or bare_old == old:
+            continue
+        text = text.replace(bare_old, bare_new)
         text = text.replace(f'href="{bare_old}"', f'href="{new}"')
     return text
 

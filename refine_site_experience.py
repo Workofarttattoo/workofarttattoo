@@ -19,7 +19,7 @@ from woa_location_copy import (
     WALK_IN_STUDIO_LOCATION,
     WALK_IN_STUDIO_LOCATION_STALE,
 )
-from woa_page_consolidation import ALL_HREF_REPLACEMENTS
+from woa_page_consolidation import rewrite_internal_hrefs
 
 ROOT = Path(__file__).resolve().parent
 WALK_IN_MARKERS = (
@@ -63,9 +63,7 @@ def iter_html() -> list[Path]:
 
 
 def consolidate_hrefs(html: str) -> str:
-    for old, new in ALL_HREF_REPLACEMENTS:
-        html = html.replace(old, new)
-    return html
+    return rewrite_internal_hrefs(html)
 
 
 def clean_citations(html: str) -> str:
