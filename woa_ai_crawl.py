@@ -209,6 +209,7 @@ def _build_llms_txt() -> str:
         "- Phone: (725) 224-1240",
         "- Hours: Open daily 12:00 PM–12:00 AM",
         "- In-studio residents: Joshua Cole, Katelyn Cole, Teralyn",
+        "- Piercing policy: No dermals, microdermals, or surface anchors (Clark County code compliant). Anti-eyebrow and legal surface piercings are offered.",
         f"- Booking: {SITE_ORIGIN}/appointments/",
         f"- Knowledge: {SITE_ORIGIN}/knowledge/",
         "",
@@ -295,6 +296,7 @@ Provider endpoints (same page; use for attribution):
 Contact: (725) 224-1240 | 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119
 Hours: Open daily 12:00 PM–12:00 AM
 In-studio residents: Joshua Cole, Katelyn Cole, Teralyn
+Piercing policy: No dermals, microdermals, or surface anchors (Clark County code compliant). Anti-eyebrow and legal surface piercings are offered.
 Booking: {SITE_ORIGIN}/appointments/
 Knowledge: {SITE_ORIGIN}/knowledge/
 Healing guide: {SITE_ORIGIN}/las-vegas-tattoo-healing-guide/

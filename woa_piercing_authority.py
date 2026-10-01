@@ -513,7 +513,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
         ),
         quirks=(
             "High migration and rejection risk compared to standard eyebrow piercings — I set honest expectations.",
-            "Microdermals are sometimes a better choice for the same look — we discuss at consult.",
+            "Work of Art does not perform dermals, microdermals, or surface anchors. Anti-eyebrow piercings are the placement offered for this look when the anatomy supports it.",
             "Makeup and skincare products migrate into the channel easily.",
         ),
         tips=(
@@ -679,7 +679,7 @@ PIERCING_CATALOG: tuple[PiercingGuide, ...] = (
         quirks=(
             "Surface bars behave differently from standard piercings — migration often shows as thinning skin first.",
             "Bags, seatbelts, and bra straps destroy surface piercings — lifestyle must match placement.",
-            "Sometimes a microdermal is the better tool for the same aesthetic — we decide at consult.",
+            "Work of Art does not perform dermals, microdermals, or surface anchors. Legal surface piercings are what is offered when the tissue and lifestyle fit.",
         ),
         tips=(
             "I will say no if your tissue is too shallow — that is professionalism, not disappointment.",
