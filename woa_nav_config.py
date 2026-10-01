@@ -126,10 +126,10 @@ STUDIO_PHONE_TEL = f"tel:{_BUSINESS.get('phoneE164', '+17252241240')}"
 STUDIO_PHONE_SCHEMA = STUDIO_PHONE_PARENS
 
 # Homepage SEO — evidence-led, not "Best Tattoo Shop" superlative stacking
-HOME_TITLE = "Work of Art Tattoo & Piercing | Las Vegas | Walk-Ins on E. Tropicana"
+HOME_TITLE = "Tattoo & Piercing Shop Las Vegas | Walk-Ins Welcome"
 HOME_META_DESCRIPTION = (
-    "Visit Work of Art Tattoo & Piercing in Las Vegas for custom tattoos, realism, "
-    "cover-ups and professional piercing. View healed work or book a consultation."
+    "Las Vegas tattoo and piercing studio open daily 12 PM–12 AM. Walk-ins welcome when availability allows. "
+    "Custom tattoos, professional piercing and friendly local service."
 )
 
 _HOURS = _BUSINESS.get("hours", {})

@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parent
 # --- Meta patches: (title, description) — surgical CTR/local intent only ---
 META_PATCHES: dict[str, tuple[str, str]] = {
     "home_work_of_art_tattoo_piercing/code.html": (
-        "Tattoo & Piercing Shop Las Vegas | Work of Art",
-        "Visit Work of Art Tattoo & Piercing in Las Vegas for custom tattoos, realism, cover-ups and professional piercing. View healed work or book a consultation.",
+        "Tattoo & Piercing Shop Las Vegas | Walk-Ins Welcome",
+        "Las Vegas tattoo and piercing studio open daily 12 PM–12 AM. Walk-ins welcome when availability allows. Custom tattoos, professional piercing and friendly local service.",
     ),
     "cover-up-tattoos-las-vegas/code.html": (
         "Cover-Up Tattoo Artist Las Vegas | Joshua Cole | Work of Art",
