@@ -125,9 +125,16 @@ def short_href(source_slug: str) -> str:
 
 
 def short_canonical(source_slug: str) -> str:
-    """Public canonical URL. The GEO hub stays canonical at its own path."""
+    """Public canonical URL. The GEO hub stays canonical at its own path.
+
+    The noindex resource-center alias must point at the hub too. Passing the
+    short slug into this function must not make that alias self-canonical.
+    """
     if source_slug in MUST_PUBLISH_ALIAS_SOURCES:
         return f"{SITE}/{source_slug}/"
+    short_alias = ALIASES_BY_SHORT.get(source_slug)
+    if short_alias and short_alias.source_slug in MUST_PUBLISH_ALIAS_SOURCES:
+        return f"{SITE}/{short_alias.source_slug}/"
     alias = ALIASES_BY_SOURCE.get(source_slug)
     slug = alias.short_slug if alias else source_slug
     return f"{SITE}/{slug}/"
