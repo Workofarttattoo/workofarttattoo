@@ -94,7 +94,6 @@ MASONRY_EXCLUDE_STEMS = frozenset(
         "hero-archangel-michael-demon-upper-arm-realism",
         "medusa-snake-hair-forearm-realism-las-vegas",
         "money-rose-black-grey-realism-upper-arm-las-vegas",
-        "lion-clock-realism-shoulder-tattoo-las-vegas",
         "roaring-lion-tiger-forearm-realism-las-vegas",
         "woman-skull-skeletal-hand-forearm-realism-las-vegas",
         "hundred-dollar-bill-forearm-realism-las-vegas",
