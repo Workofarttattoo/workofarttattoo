@@ -29,7 +29,27 @@ CATEGORY_LABELS = {
     "figure": "Figure / anatomy / portrait",
     "illustrative": "Illustrative + color",
     "artist": "Artist",
+    "tattoo": "Tattoo",
 }
+
+
+def category_keys(work: dict) -> list[str]:
+    raw = work.get("categories")
+    if isinstance(raw, list):
+        keys = [str(item) for item in raw if item]
+        if keys:
+            return keys
+    category = work.get("category")
+    return [str(category)] if category else []
+
+
+def category_label(work: dict) -> str:
+    labels: list[str] = []
+    for key in category_keys(work):
+        label = CATEGORY_LABELS.get(key, key)
+        if label not in labels:
+            labels.append(label)
+    return " / ".join(labels)
 
 ROOMS = (
     ("dark-surrealism", "Dark surrealism", None),
@@ -58,7 +78,8 @@ def make_derivatives(works: list[dict]) -> dict[str, list[tuple[int, str]]]:
         if work.get("type") != "image":
             continue
         width = int(work["width"])
-        if width < 1000:
+        page_master = str(work.get("src", "")).startswith("/black-as-cole/")
+        if width <= 640 or (width < 1000 and not page_master):
             continue
         source = ROOT / work["src"].lstrip("/")
         image = Image.open(source)
@@ -68,11 +89,12 @@ def make_derivatives(works: list[dict]) -> dict[str, list[tuple[int, str]]]:
         for target in (640, 960, 1280):
             if target >= width:
                 continue
-            height = round(int(work["height"]) * target / width)
             dest = DERIV / f"{work['id']}-{target}.webp"
-            resized = image.resize((target, height), Image.Resampling.LANCZOS)
-            frame = resized.convert("RGB")
-            frame.save(dest, "WEBP", quality=84, method=6)
+            if not dest.exists():
+                height = round(int(work["height"]) * target / width)
+                resized = image.resize((target, height), Image.Resampling.LANCZOS)
+                frame = resized.convert("RGB")
+                frame.save(dest, "WEBP", quality=84, method=6)
             entries.append((target, f"/black-as-cole/derivatives/{dest.name}"))
         entries.append((width, work["src"]))
         srcsets[work["id"]] = entries
@@ -106,7 +128,7 @@ def img_tag(work: dict, srcsets: dict[str, list[tuple[int, str]]], *, hero: bool
 def tile(work: dict, srcsets: dict[str, list[tuple[int, str]]]) -> str:
     title = work.get("title") or "Untitled"
     note = work.get("catalogNote") or ""
-    category = CATEGORY_LABELS.get(work["category"], work["category"])
+    category = category_label(work)
     return (
         f'<button type="button" class="bac-tile" data-bac-open data-bac-id="{esc(work["id"])}"'
         f' data-full="{esc(work["src"])}" data-alt="{esc(work["alt"])}"'
@@ -127,7 +149,7 @@ def gallery_main(works: list[dict], srcsets: dict[str, list[tuple[int, str]]]) -
     artist = next(work for work in works if work.get("placement") == "artist")
     rooms = []
     for key, label, _note in ROOMS:
-        group = [work for work in gallery if work["category"] == key]
+        group = [work for work in gallery if key in category_keys(work)]
         if not group:
             continue
         rooms.append(
@@ -138,6 +160,8 @@ def gallery_main(works: list[dict], srcsets: dict[str, list[tuple[int, str]]]) -
         )
     hero_img = img_tag(hero, srcsets, hero=True)
     artist_title = "Untitled"
+    skin = [work for work in works if work.get("placement") == "skin"]
+    skin_block = masonry(skin, srcsets) if skin else ""
     return f"""<main class="bac" id="black-as-cole">
 <section class="bac-hero" aria-labelledby="bac-title">
 <div class="bac-hero-copy">
@@ -150,7 +174,7 @@ def gallery_main(works: list[dict], srcsets: dict[str, list[tuple[int, str]]]) -
 </div>
 </div>
 <figure class="bac-hero-figure">
-<button type="button" class="bac-hero-open" data-bac-open data-bac-id="{esc(hero["id"])}" data-full="{esc(hero["src"])}" data-alt="{esc(hero["alt"])}" data-title="Untitled" data-category="Dark surrealism" data-note="{esc(hero.get("catalogNote") or "")}" data-width="{hero["width"]}" data-height="{hero["height"]}">
+<button type="button" class="bac-hero-open" data-bac-open data-bac-id="{esc(hero["id"])}" data-full="{esc(hero["src"])}" data-alt="{esc(hero["alt"])}" data-title="Untitled" data-category="{esc(category_label(hero))}" data-note="{esc(hero.get("catalogNote") or "")}" data-width="{hero["width"]}" data-height="{hero["height"]}">
 {hero_img}
 </button>
 </figure>
@@ -179,6 +203,7 @@ def gallery_main(works: list[dict], srcsets: dict[str, list[tuple[int, str]]]) -
 <p class="bac-section-kicker">Secondary</p>
 <h2 id="bac-skin">From canvas to skin</h2>
 </div>
+{skin_block}
 <p class="bac-footnote">The same study of light, anatomy, and edge shows up in Joshua’s tattoo work.</p>
 <p><a class="bac-link" href="/artists/joshua-cole/">View Joshua’s tattoo work</a></p>
 </section>
