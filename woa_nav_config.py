@@ -240,6 +240,7 @@ SKIP_GUIDE_SLUGS = frozenset(
         "skipped_pages_clipboard.html",
         "skipped_pages_clipboard",
         "appointments", "how_to_choose_a_tattoo_artist_master_selection_guide_1", "how_to_choose_a_tattoo_artist_master_selection_guide", "walk_in_tattoos_las_vegas_nap_corrected", "tattoo_shop_near_the_strip_geo_seo_optimized", "tattoo_shop_near_the_strip_nap_corrected", "jay_jay_artist_portfolio_authentic_masterpieces",
+        "black-as-cole",
     }
 )
 

@@ -65,6 +65,7 @@ OG_IMAGE: dict[str, str] = {
         f"{SITE}/how_much_do_tattoos_cost_in_las_vegas_authority_guide/"
         "custom-tattoos-las-vegas-flying-dove-realism.webp"
     ),
+    "black-as-cole": f"{SITE}/merchandise/prismacolor-bristol-6e3d8efa.webp",
 }
 
 DESC_EXTRA: dict[str, str] = {
@@ -112,6 +113,10 @@ DESC_EXTRA: dict[str, str] = {
     "piercing-specials-las-vegas": (
         "Current piercing specials at Work of Art Las Vegas with Katelyn Cole — "
         "same-day availability, booking, jewelry-fit planning, aftercare, and directions."
+    ),
+    "black-as-cole": (
+        "Black As Cole — original paintings, drawings, studies and dark surreal "
+        "artwork by Las Vegas artist Joshua Cole."
     ),
 }
 

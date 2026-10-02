@@ -91,6 +91,9 @@ def pick_graph(path: Path, html: str) -> dict:
 SKIP_SCHEMA_REPLACE = frozenset(
     {
         "cover_up_tattoos_las_vegas_master_authority_guide",
+        # Gallery page carries its own VisualArtist graph. Do not replace it
+        # with the sitewide tattoo-parlor schema.
+        "black-as-cole",
     }
 )
 

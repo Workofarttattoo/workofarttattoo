@@ -182,6 +182,8 @@ def iter_targets() -> list[Path]:
 def main() -> int:
     changed = 0
     for path in iter_targets():
+        if path.parent.name == "black-as-cole":
+            continue
         raw = path.read_text(encoding="utf-8")
         updated = inject(raw, path)
         if updated != raw:
