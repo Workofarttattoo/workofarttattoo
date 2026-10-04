@@ -116,7 +116,7 @@ if (!$ok) {
     http_response_code(500);
     echo json_encode([
         'ok' => false,
-        'error' => 'Could not send email from the server. Please call (725) 224-1240 or email thewhiteknight702@gmail.com directly.',
+        'error' => 'Could not send email from the server. Please call (725) 224-1240.',
         'fallback' => true,
     ]);
     exit;
