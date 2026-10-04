@@ -13,7 +13,6 @@ from woa_nav_config import (
     HOME_SLUG,
     HOME_TITLE,
     ROOT_A,
-    STUDIO_BOOKING_EMAIL,
     STUDIO_PHONE_DISPLAY,
     STUDIO_STREET_ADDRESS,
 )
@@ -27,7 +26,7 @@ CHECKS: tuple[tuple[str, str, str], ...] = (
     ("/", "Homepage title", HOME_TITLE),
     ("/", "Canonical phone", STUDIO_PHONE_DISPLAY),
     ("/", "Canonical address", STUDIO_STREET_ADDRESS),
-    ("/", "Business email", STUDIO_BOOKING_EMAIL),
+    ("/", "Business email", "Email us now"),
     ("/", "Grouped knowledge vault (woa-kb-group)", "present"),
     ("/", "No 'elite artistry' in FAQ", "absent"),
     ("/artists/joshua-cole/", "Joshua title contains 'Realism Tattoo Artist'", "present"),
@@ -66,10 +65,10 @@ def evaluate(path: str, check: str, expected: str, html: str) -> tuple[str, str,
         status = "PASS" if good and not bad else "FAIL"
         return status, "2375 present" if good else "missing/wrong", expected
     if check == "Business email":
-        bad = "gmail.com" in html.lower()
-        good = STUDIO_BOOKING_EMAIL in html
+        bad = "gmail.com" in html.lower() or "booking@workofarttattoo.com" in html.lower()
+        good = "Email us now" in html and "data-woa-email-us" in html
         status = "PASS" if good and not bad else "FAIL"
-        return status, STUDIO_BOOKING_EMAIL if good else "missing", expected
+        return status, "Email us now" if good else "missing", expected
     if expected == "present":
         ok = check.split(" (")[0].lower() in html.lower() or (
             check == "Grouped knowledge vault (woa-kb-group)" and 'class="woa-kb-group"' in html

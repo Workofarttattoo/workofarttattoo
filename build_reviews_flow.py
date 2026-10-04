@@ -24,8 +24,8 @@ FLOW = f"""
 <p class="font-body-md text-on-surface-variant">People compare studios before they book. A review in your own words tells them what the consult, the session, and the shop were like. If you also want the studio to keep a healed photo, say so below and send the image by text or email. This form does not upload files.</p>
 <p class="font-body-md text-on-surface-variant">The button and QR code open the Google Maps listing already published on this site: a search for Work of Art Tattoo &amp; Piercing, Las Vegas. The site files do not include a direct Google write-a-review link, so this is that same business listing. It is not a new place id.</p>
 <p><a class="inline-flex items-center justify-center bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps uppercase tracking-widest" href="{GOOGLE_HREF}" rel="noopener noreferrer" target="_blank">Open our Google listing</a></p>
-<p id="woa-review-thanks" class="hidden font-body-md text-secondary" hidden>Thank you — your note was sent to booking@workofarttattoo.com.</p>
-<form action="https://formsubmit.co/booking@workofarttattoo.com" class="space-y-5 text-left" method="POST">
+<p id="woa-review-thanks" class="hidden font-body-md text-secondary" hidden>Thank you — your note was sent.</p>
+<form action="https://formsubmit.co/thewhiteknight702@gmail.com" class="space-y-5 text-left" method="POST">
 <input name="_subject" type="hidden" value="Review follow-up — healed photo or text permission"/>
 <input name="_captcha" type="hidden" value="false"/>
 <input name="_template" type="hidden" value="table"/>

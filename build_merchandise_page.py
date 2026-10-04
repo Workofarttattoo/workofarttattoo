@@ -7,14 +7,12 @@ import html
 import re
 import shutil
 import subprocess
-import urllib.parse
 import urllib.request
 from pathlib import Path
 
 from woa_merchandise_manifest import CANON, MERCH_ITEMS, MerchItem, SLUG
 from woa_nav_config import (
     HREF_BOOKING_MAILTO,
-    STUDIO_BOOKING_EMAIL,
     STUDIO_BOOKING_LINK_LABEL,
     STUDIO_PHONE_PARENS,
     STUDIO_PHONE_TEL,
@@ -37,7 +35,7 @@ TEMPLATE = ROOT / "offsite_bookings" / "code.html"
 TITLE = "Merchandise & Original Art | Work of Art Tattoo Las Vegas"
 DESCRIPTION = (
     "Original drawings and fine art by Joshua Cole — graphite, Prismacolor, watercolor, and mixed media. "
-    f"Inquire in-studio or email {STUDIO_BOOKING_EMAIL}. Work of Art Tattoo & Piercing, Las Vegas."
+    "Inquire in-studio or email us from this page. Work of Art Tattoo & Piercing, Las Vegas."
 )
 
 OG_IMAGE_STEM = "colored-pencil-bridges-framed"
@@ -156,7 +154,8 @@ def picture(item: MerchItem) -> str:
 
 
 def merch_mailto(subject: str) -> str:
-    return f"{HREF_BOOKING_MAILTO}?subject={urllib.parse.quote(subject, safe='')}"
+    del subject
+    return HREF_BOOKING_MAILTO
 
 
 def merch_card(item: MerchItem) -> str:

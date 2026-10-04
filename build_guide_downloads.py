@@ -13,7 +13,7 @@ STUDIO = [
     "2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119",
     "Daily 12 PM-12 AM",
     "725-224-1240",
-    "booking@workofarttattoo.com",
+    "Email us from https://www.workofarttattoo.com/appointments/",
 ]
 
 

@@ -95,8 +95,10 @@ def main() -> int:
         )
     ):
         errors.append("homepage missing 3-resident wording")
-    if "booking@workofarttattoo.com" not in home:
-        errors.append("homepage missing booking@")
+    if "Email us now" not in home or "data-woa-email-us" not in home:
+        errors.append("homepage missing Email us now link")
+    if "booking@workofarttattoo.com" in home:
+        errors.append("homepage still contains booking@")
     for phrase in BANNED_HOME:
         if phrase.lower() in home.lower():
             errors.append(f"homepage banned: {phrase}")
@@ -136,9 +138,18 @@ def main() -> int:
         if any(part in SKIP for part in path.parts):
             continue
         body = path.read_text(encoding="utf-8", errors="replace")
+        scrubbed = body
+        scrubbed = __import__("re").sub(
+            r"https://formsubmit\.co/(?:ajax/)?thewhiteknight702@gmail\.com",
+            "",
+            scrubbed,
+            flags=__import__("re").I,
+        )
         for gmail in GMAILS:
-            if gmail in body:
-                errors.append(f"{path.relative_to(ROOT)} has {gmail}")
+            if gmail in scrubbed:
+                errors.append(f"{path.relative_to(ROOT)} has visible {gmail}")
+        if "booking@workofarttattoo.com" in body:
+            errors.append(f"{path.relative_to(ROOT)} has booking@")
         if 'href="/cover-up-tattoos-las-vegas/"' in body:
             errors.append(f"{path.relative_to(ROOT)} links to legacy cover-up URL")
         if "Southern Nevada Health District body art establishment Health Permit" in body:

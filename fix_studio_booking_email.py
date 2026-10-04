@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Standardize studio contact email from siteData/business.json sitewide.
+Hide public mailbox addresses and point FormSubmit at the booking recipient.
 
-- Replaces legacy booking/info addresses in HTML and Markdown
-- Adds schema.org email on LocalBusiness / TattooParlor blocks when missing
-- Injects footer mailto links labeled "Email us!" (not the raw address)
-- Keeps mailto href on booking@workofarttattoo.com
+- Form actions and ajax URLs post to the booking recipient
+- Visible contact becomes an obfuscated "Email us now" link
+- JSON-LD email properties are removed
+- Does not publish the recipient as page copy
 
   python3 fix_studio_booking_email.py
 """
@@ -16,11 +16,10 @@ import json
 import re
 from pathlib import Path
 
+from woa_email_link import apply_public_email_policy, email_us_anchor, write_email_script
 from woa_nav_config import (
-    HREF_BOOKING_MAILTO,
     ROOT_A,
     ROOT_B,
-    STUDIO_BOOKING_EMAIL,
     STUDIO_BOOKING_LINK_LABEL,
 )
 
@@ -38,23 +37,26 @@ LEGACY_EMAIL_PATTERNS = [
     re.compile(r"kmorgen14@gmail\.com", re.IGNORECASE),
 ]
 
-BOOKING_MARKER = HREF_BOOKING_MAILTO
+BOOKING_MARKER = "data-woa-email-us"
 
 FOOTER_EMAIL_LI = (
-    f'<li class=""><a class="hover:text-secondary transition-colors" '
-    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a></li>\n'
+    '<li class="">'
+    + email_us_anchor("hover:text-secondary transition-colors")
+    + "</li>\n"
 )
 
 FOOTER_EMAIL_NAV = (
-    f'<a class="font-body-md text-on-surface-variant hover:text-secondary '
-    f'hover:underline decoration-secondary transition-all" '
-    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a>\n'
+    email_us_anchor(
+        "font-body-md text-on-surface-variant hover:text-secondary "
+        "hover:underline decoration-secondary transition-all"
+    )
+    + "\n"
 )
 
 GEO_NAP_EMAIL_BLOCK = (
-    f'<a class="font-body-lg text-body-lg text-on-surface hover:text-secondary block mt-3" '
-    f'href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a>\n'
-    f'<div class="font-body-md text-body-md text-on-surface-variant">Booking &amp; consult inbox</div>\n'
+    email_us_anchor("font-body-lg text-body-lg text-on-surface hover:text-secondary block mt-3")
+    + "\n"
+    + '<div class="font-body-md text-body-md text-on-surface-variant">Booking &amp; consult inbox</div>\n'
 )
 
 VISIBLE_MAILTO_EMAIL = re.compile(
@@ -62,14 +64,6 @@ VISIBLE_MAILTO_EMAIL = re.compile(
     re.IGNORECASE,
 )
 
-# Appointment forms post here. Cleanup must not rewrite this URL back to booking@.
-APPOINTMENT_FORMSUBMIT = "https://formsubmit.co/thewhiteknight702@gmail.com"
-APPOINTMENT_FORMSUBMIT_TOKEN = "___WOA_APPOINTMENT_FORMSUBMIT___"
-
-FORMSUBMIT_LEGACY = re.compile(
-    r"https://formsubmit\.co/booking@workofarttattoo\.com",
-    re.IGNORECASE,
-)
 
 
 def site_roots() -> list[Path]:
@@ -98,71 +92,24 @@ def iter_text_files(root: Path) -> list[Path]:
 
 
 def replace_legacy_emails(text: str) -> str:
-    text = text.replace(APPOINTMENT_FORMSUBMIT, APPOINTMENT_FORMSUBMIT_TOKEN)
-    for pat in LEGACY_EMAIL_PATTERNS:
-        text = pat.sub(STUDIO_BOOKING_EMAIL, text)
-    text = FORMSUBMIT_LEGACY.sub(f"https://formsubmit.co/{STUDIO_BOOKING_EMAIL}", text)
-    return text.replace(APPOINTMENT_FORMSUBMIT_TOKEN, APPOINTMENT_FORMSUBMIT)
+    """Keep the import used by page builders. Policy hides addresses and fixes FormSubmit."""
+    return apply_public_email_policy(text)
 
 
 def humanize_visible_email_links(text: str) -> str:
-    def repl(match: re.Match[str]) -> str:
-        return f"{match.group(1)}{STUDIO_BOOKING_LINK_LABEL}{match.group(3)}"
-
-    return VISIBLE_MAILTO_EMAIL.sub(repl, text)
+    return apply_public_email_policy(text)
 
 
 def soften_form_confirmation_copy(text: str) -> str:
     return text.replace(
-        f"your request was sent to {STUDIO_BOOKING_EMAIL}. We will reply shortly.",
-        "your request was sent. We will reply shortly.",
-    ).replace(
-        f"your request was sent to booking@workofarttattoo.com. We will reply shortly.",
+        "your request was sent to " + STUDIO_BOOKING_LINK_LABEL + ". We will reply shortly.",
         "your request was sent. We will reply shortly.",
     )
 
 
 def inject_schema_email(text: str) -> str:
-    if '"email"' in text and STUDIO_BOOKING_EMAIL in text:
-        return text
-
-    def repl_ld_json(match: re.Match[str]) -> str:
-        raw = match.group(1)
-        try:
-            data = json.loads(raw)
-        except json.JSONDecodeError:
-            return match.group(0)
-
-        def walk(obj: object) -> None:
-            if isinstance(obj, dict):
-                t = obj.get("@type")
-                if t in (
-                    "LocalBusiness",
-                    "TattooParlor",
-                    "TattooShop",
-                    "HealthAndBeautyBusiness",
-                ):
-                    if "email" not in obj:
-                        obj["email"] = STUDIO_BOOKING_EMAIL
-                for v in obj.values():
-                    walk(v)
-            elif isinstance(obj, list):
-                for item in obj:
-                    walk(item)
-
-        walk(data)
-        return (
-            '<script type="application/ld+json">\n'
-            + json.dumps(data, indent=2, ensure_ascii=False)
-            + "\n    </script>"
-        )
-
-    return re.sub(
-        r'<script type="application/ld\+json">\s*(\{.*?\})\s*</script>',
-        repl_ld_json,
-        text,
-        flags=re.DOTALL,
-    )
+    """Schema must not publish a mailbox. Strip it instead of inserting one."""
+    return apply_public_email_policy(text)
 
 
 def inject_footer_contact_email(text: str) -> str:
@@ -193,8 +140,10 @@ def inject_footer_contact_email(text: str) -> str:
     )
     if book_footer.search(text):
         email_a = (
-            f'<a class="font-body-md text-on-surface-variant hover:text-secondary '
-            f'transition-colors" href="{HREF_BOOKING_MAILTO}">{STUDIO_BOOKING_LINK_LABEL}</a>\n'
+            email_us_anchor(
+                "font-body-md text-on-surface-variant hover:text-secondary transition-colors"
+            )
+            + "\n"
         )
         return book_footer.sub(r"\1" + email_a + r"\2", text, count=1)
 
@@ -223,7 +172,7 @@ def patch_markdown_geo(text: str, path: Path) -> str:
     if "**Phone:**" in text and "**Email:**" not in text:
         return text.replace(
             "**Phone:** (725) 224-1240\n",
-            f"**Phone:** (725) 224-1240\n- **Email:** [{STUDIO_BOOKING_LINK_LABEL}]({HREF_BOOKING_MAILTO})\n",
+            "**Phone:** (725) 224-1240\n- **Email:** [Email us now](https://www.workofarttattoo.com/appointments/)\n",
             1,
         )
     return text
@@ -233,13 +182,11 @@ def process_file(path: Path) -> bool:
     text = path.read_text(encoding="utf-8", errors="replace")
     original = text
 
-    text = replace_legacy_emails(text)
-    text = soften_form_confirmation_copy(text)
     if path.suffix.lower() == ".html":
-        text = inject_schema_email(text)
+        text = apply_public_email_policy(text)
         text = inject_footer_contact_email(text)
         text = inject_geo_hub_nap(text, path)
-        text = humanize_visible_email_links(text)
+        text = apply_public_email_policy(text)
     text = patch_markdown_geo(text, path)
 
     if text != original:
@@ -249,6 +196,7 @@ def process_file(path: Path) -> bool:
 
 
 def main() -> int:
+    write_email_script(ROOT_A)
     changed: list[str] = []
     for root in site_roots():
         for path in iter_text_files(root):

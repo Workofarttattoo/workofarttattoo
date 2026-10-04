@@ -9,13 +9,11 @@ from __future__ import annotations
 
 import html
 from pathlib import Path
-from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
 PHONE_DISPLAY = "(725) 224-1240"
 TEL = "tel:+17252241240"
 SMS = "sms:+17252241240"
-EMAIL = "booking@workofarttattoo.com"
 APPOINTMENTS = "/appointments/"
 
 STAGE_ORDER = ("fresh", "four_weeks", "settled")
@@ -68,9 +66,6 @@ def picture_html(folder: str, stem: str, alt: str, *, eager: bool = False) -> st
 
 
 def request_healed_aside(*, has_healed: bool, source_path: str) -> str:
-    subject = "Healed photo follow-up" if has_healed else "Request a healed photo"
-    body = f"Page: {source_path}\n\nI am following up about a healed photo."
-    mailto = f"mailto:{EMAIL}?subject={quote(subject)}&body={quote(body)}"
     if has_healed:
         title = "Send a later healed photo"
         lead = (
@@ -86,7 +81,7 @@ def request_healed_aside(*, has_healed: bool, source_path: str) -> str:
     return f"""<aside class="mt-6 border border-outline-variant/40 bg-surface-container-low p-6 space-y-3" data-woa-request-healed="1">
 <h3 class="font-headline-md text-on-surface text-xl">{html.escape(title)}</h3>
 <p class="font-body-md text-on-surface-variant">{html.escape(lead)}</p>
-<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline hover:no-underline" href="{SMS}">Text {PHONE_DISPLAY}</a> · <a class="text-secondary underline hover:no-underline" href="{TEL}">Call {PHONE_DISPLAY}</a> · <a class="text-secondary underline hover:no-underline" href="{mailto}">Email {EMAIL}</a> · <a class="text-secondary underline hover:no-underline" href="{APPOINTMENTS}">Appointments form</a></p>
+<p class="font-body-md text-on-surface-variant"><a class="text-secondary underline hover:no-underline" href="{SMS}">Text {PHONE_DISPLAY}</a> · <a class="text-secondary underline hover:no-underline" href="{TEL}">Call {PHONE_DISPLAY}</a> · <a class="text-secondary underline hover:no-underline" href="#" data-woa-email-us="1">Email us now</a> · <a class="text-secondary underline hover:no-underline" href="{APPOINTMENTS}">Appointments form</a></p>
 </aside>"""
 
 

@@ -23,10 +23,10 @@ from woa_location_copy import (
     WALK_IN_STUDIO_LOCATION,
     WALK_IN_STUDIO_LOCATION_STALE,
 )
+from woa_email_link import apply_public_email_policy
 from woa_page_consolidation import RETIRE_OVERLAP_SLUGS
 
 SKIP_DIRS = {".git", ".github", "node_modules", "__pycache__", "skipped_upload_build", "audits", "tools", "artists_raw"}
-PUBLIC_EMAIL = "booking@workofarttattoo.com"
 LEGACY_COVER = "/cover-up-tattoos-las-vegas/"
 CLEAN_COVER = "/cover-up-tattoos-las-vegas/"
 GMAILS = ("thewhiteknight702@gmail.com", "kmorgen14@gmail.com")
@@ -259,12 +259,7 @@ def iter_html() -> list[Path]:
 
 
 def replace_public_email(text: str) -> str:
-    appointment_formsubmit = "https://formsubmit.co/thewhiteknight702@gmail.com"
-    appointment_token = "___WOA_APPOINTMENT_FORMSUBMIT___"
-    text = text.replace(appointment_formsubmit, appointment_token)
-    for gmail in GMAILS:
-        text = text.replace(gmail, PUBLIC_EMAIL)
-    text = text.replace(appointment_token, appointment_formsubmit)
+    """Do not rewrite FormSubmit recipients. Structural cleanup runs first."""
     text = text.replace("Joshua Cole and Joshua Cole", "Joshua Cole")
     text = text.replace("Joshua Cole or Joshua Cole", "Joshua Cole")
     return text
@@ -312,7 +307,7 @@ BEST_OF_PLACEHOLDER_RE = re.compile(
 )
 NAP_SENTENCE = (
     "Work of Art Tattoo &amp; Piercing — 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119 "
-    "— (725) 224-1240 — booking@workofarttattoo.com — Daily 12 PM–12 AM."
+    "— (725) 224-1240 — Email us now — Daily 12 PM–12 AM."
 )
 
 
@@ -403,11 +398,11 @@ def ensure_homepage_deploy_audit(text: str) -> str:
                 "Three in-studio residents today — our in-studio team includes Joshua Cole",
                 1,
             )
-    if PUBLIC_EMAIL not in text:
+    if "data-woa-email-us" not in text and "mailto:" not in text:
         text = text.replace(
             'href="tel:+17252241240">(725) 224-1240</a></li>\n',
             'href="tel:+17252241240">(725) 224-1240</a></li>\n'
-            f'<li class=""><a class="hover:text-secondary transition-colors" href="mailto:{PUBLIC_EMAIL}">{PUBLIC_EMAIL}</a></li>\n',
+            '<li class=""><a class="hover:text-secondary transition-colors" href="#" data-woa-email-us="1">Email us now</a></li>\n',
             1,
         )
     return text
@@ -571,12 +566,15 @@ def neutralize_legacy_cover_page(path: Path, text: str) -> str:
 
 
 def patch_business_json() -> None:
-    path = ROOT / "siteData" / "business.json"
-    if not path.is_file():
-        return
-    data = json.loads(path.read_text(encoding="utf-8"))
-    if data.get("bookingEmail") != PUBLIC_EMAIL:
-        data["bookingEmail"] = PUBLIC_EMAIL
+    """Public JSON must not publish a mailbox. Form actions are generated separately."""
+    for name in ("business.json", "contact.json"):
+        path = ROOT / "siteData" / name
+        if not path.is_file():
+            continue
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if "bookingEmail" not in data:
+            continue
+        data.pop("bookingEmail", None)
         path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
         print(f"[ok] {path.relative_to(ROOT)}")
 
@@ -622,6 +620,7 @@ def main() -> int:
         text = neutralize_legacy_cover_page(path, text)
         text = protect_canonical_cover_page(path, text)
         text = dedupe_nap_footer_blocks(text)
+        text = apply_public_email_policy(text)
         if text != raw:
             path.write_text(text, encoding="utf-8")
             changed.append(path.relative_to(ROOT).as_posix())

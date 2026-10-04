@@ -11,7 +11,7 @@ from woa_entity_schema import faq_page_graph, schema_script
 from woa_nav_config import (
     STUDIO_ADDRESS_HTML,
     STUDIO_ADDRESS_SINGLE_LINE,
-    STUDIO_BOOKING_EMAIL,
+    STUDIO_BOOKING_LINK_LABEL,
     STUDIO_LEGAL_NAME,
     STUDIO_PHONE_DISPLAY,
     STUDIO_PHONE_PARENS,
@@ -69,7 +69,7 @@ def main_html() -> str:
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Business name</dt><dd class="text-on-surface">{html_lib.escape(STUDIO_LEGAL_NAME)}</dd></div>
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Phone</dt><dd><a class="text-secondary underline hover:no-underline" href="{STUDIO_PHONE_TEL}">{html_lib.escape(STUDIO_PHONE_PARENS)}</a></dd></div>
 <div class="sm:col-span-2"><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Address</dt><dd class="text-on-surface">{STUDIO_ADDRESS_HTML}</dd></div>
-<div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Email</dt><dd><a class="text-secondary underline hover:no-underline" href="mailto:{STUDIO_BOOKING_EMAIL}">{html_lib.escape(STUDIO_BOOKING_EMAIL)}</a></dd></div>
+<div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Email</dt><dd><a class="text-secondary underline hover:no-underline" href="#" data-woa-email-us="1">{html_lib.escape(STUDIO_BOOKING_LINK_LABEL)}</a></dd></div>
 <div><dt class="font-label-caps text-secondary uppercase tracking-widest text-[10px] mb-1">Website</dt><dd><a class="text-secondary underline hover:no-underline" href="{SITE_CANONICAL_URL}">www.workofarttattoo.com</a></dd></div>
 </dl>"""
 
@@ -99,7 +99,7 @@ def main_html() -> str:
 <div class="space-y-6">
 <h2 class="font-headline-md text-on-surface text-2xl">Name, address &amp; phone (NAP)</h2>
 {nap_table}
-<p class="font-body-md text-on-surface-variant text-sm">Copy for citations: {html_lib.escape(STUDIO_LEGAL_NAME)} · {html_lib.escape(STUDIO_ADDRESS_SINGLE_LINE)} · {html_lib.escape(STUDIO_PHONE_DISPLAY)} · {html_lib.escape(STUDIO_BOOKING_EMAIL)}</p>
+<p class="font-body-md text-on-surface-variant text-sm">Copy for citations: {html_lib.escape(STUDIO_LEGAL_NAME)} · {html_lib.escape(STUDIO_ADDRESS_SINGLE_LINE)} · {html_lib.escape(STUDIO_PHONE_DISPLAY)} · <a href="#" data-woa-email-us="1">{html_lib.escape(STUDIO_BOOKING_LINK_LABEL)}</a></p>
 </div>
 <div class="space-y-4">
 <h2 class="font-headline-md text-on-surface text-2xl">Current schedule</h2>
@@ -131,7 +131,7 @@ def main_html() -> str:
 </div>
 <div class="space-y-3">
 <h3 class="font-headline-md text-on-surface text-lg">Booking</h3>
-<p>Free consultations for custom tattoos. Send reference photos to {html_lib.escape(STUDIO_BOOKING_EMAIL)} with placement and size ideas.</p>
+<p>Free consultations for custom tattoos. Send reference photos with <a href="#" data-woa-email-us="1">{html_lib.escape(STUDIO_BOOKING_LINK_LABEL)}</a> and include placement and size ideas.</p>
 <p><a class="text-secondary underline hover:no-underline" href="/appointments/">Book online</a></p>
 </div>
 <div class="space-y-3">

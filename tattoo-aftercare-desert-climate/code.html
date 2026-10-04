@@ -554,7 +554,6 @@ html.woa-mnav-lock body {
       "alternateName": "Work of Art",
       "url": "https://www.workofarttattoo.com/",
       "telephone": "(725) 224-1240",
-      "email": "booking@workofarttattoo.com",
       "image": "https://www.workofarttattoo.com/home_work_of_art_tattoo_piercing/work-of-art-studio-banner-las-vegas.webp",
       "logo": "https://www.workofarttattoo.com/logo.png",
       "priceRange": "$$",
@@ -1094,7 +1093,7 @@ Reviewed by Joshua Cole, Tattoo Artist · Last updated: June 2026
 <p class="font-label-caps text-secondary uppercase tracking-widest text-xs mb-2">Free studio guide</p>
 <h2 class="font-headline-md text-on-surface text-2xl md:text-3xl mb-3">Vegas Desert Aftercare Checklist</h2>
 <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">Email the studio and unlock the Vegas desert aftercare checklist on this page. Add a mobile number if you want a text back. The request includes the page you sent it from.</p>
-<form action="https://formsubmit.co/booking@workofarttattoo.com" class="space-y-4" id="woa-guide-lead" method="POST">
+<form action="https://formsubmit.co/thewhiteknight702@gmail.com" class="space-y-4" id="woa-guide-lead" method="POST">
 <input name="_captcha" type="hidden" value="false"/>
 <input name="_template" type="hidden" value="table"/>
 <input name="_subject" type="hidden" value="[Guide] Vegas Desert Aftercare Checklist"/>
@@ -1221,7 +1220,7 @@ Reviewed by Joshua Cole, Tattoo Artist · Last updated: June 2026
       return;
     }
 
-    fetch("https://formsubmit.co/ajax/booking@workofarttattoo.com", {
+    fetch("https://formsubmit.co/ajax/thewhiteknight702@gmail.com", {
       method: "POST",
       headers: { Accept: "application/json" },
       body: new FormData(form)
@@ -1287,12 +1286,12 @@ Reviewed by Joshua Cole, Tattoo Artist · Last updated: June 2026
 <h2 class="font-headline-md text-on-surface text-xl md:text-2xl">Questions before you book?</h2>
 <ul class="font-body-md text-on-surface-variant space-y-2 list-disc pl-5">
 <li><strong class="text-on-surface">Text us now:</strong> <a class="text-secondary underline hover:no-underline" href="tel:+17252241240">(725) 224-1240</a> — fastest answer for tattoo consults, walk-in timing, and same-day openings.</li>
-<li><strong class="text-on-surface">Send reference image</strong> to <a class="text-secondary underline hover:no-underline" href="mailto:booking@workofarttattoo.com">Email us!</a> with placement, approximate size, concept, and timeline.</li>
+<li><strong class="text-on-surface">Send reference image</strong> to <a class="text-secondary underline hover:no-underline" href="#" data-woa-email-us="1">Email us now</a> with placement, approximate size, concept, and timeline.</li>
 <li><strong class="text-on-surface">Walk-ins welcome</strong> when the schedule allows — text first so we can tell you if a chair is open today.</li>
 </ul>
 <div class="flex flex-col sm:flex-row flex-wrap gap-3 pt-2">
 <a class="inline-flex bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center hover:bg-secondary-fixed transition-colors" href="tel:+17252241240">Text (725) 224-1240</a>
-<a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center hover:border-secondary transition-colors" href="mailto:booking@workofarttattoo.com">Email reference image</a>
+<a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center hover:border-secondary transition-colors" href="#" data-woa-email-us="1">Email us now</a>
 <a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center hover:border-secondary transition-colors" href="/appointments/">Book online</a>
 </div>
 </aside>
@@ -1303,7 +1302,7 @@ Reviewed by Joshua Cole, Tattoo Artist · Last updated: June 2026
 <p class="font-body-md text-on-surface-variant">A private Las Vegas studio for custom tattooing, professional piercing, and careful client planning.</p>
 <div class="mt-10 pt-8 border-t border-outline-variant/10 max-w-3xl" data-woa-footer-license="1">
 <h5 class="font-label-caps text-on-surface uppercase tracking-widest text-[11px]">Studio</h5>
-<p class="mt-3 text-on-surface-variant text-[13px] font-body-md leading-relaxed">Work of Art Tattoo &amp; Piercing — 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119 — (725) 224-1240 — booking@workofarttattoo.com — Daily 12 PM–12 AM.</p>
+<p class="mt-3 text-on-surface-variant text-[13px] font-body-md leading-relaxed">Work of Art Tattoo &amp; Piercing — 2375 E. Tropicana Ave, Suite 3, Las Vegas, NV 89119 — (725) 224-1240 — <a href="#" data-woa-email-us="1">Email us now</a> — Daily 12 PM–12 AM.</p>
 </div>
 <p class="font-label-caps text-label-caps text-on-surface-variant">© 2026 Work of Art Tattoo &amp; Piercing · Las Vegas</p>
 </div>
@@ -2000,4 +1999,5 @@ if (mq.addEventListener) mq.addEventListener('change', onWide);
 else mq.addListener(onWide);
 })();
 </script><a aria-label="Book a Consultation" data-woa-sticky-book="1" href="/appointments/"><span aria-hidden="true" class="woa-sticky-book-icon material-symbols-outlined">calendar_month</span><span class="woa-sticky-book-text">Book a Consultation</span></a>
+<script defer src="/woa-email-us.js"></script>
 </body></html>

@@ -213,8 +213,8 @@ def gallery_main(works: list[dict], srcsets: dict[str, list[tuple[int, str]]]) -
 <h2 id="bac-collect">Collect / commission / collaborate</h2>
 </div>
 <div class="bac-contact-links">
-<a class="bac-link" href="mailto:booking@workofarttattoo.com?subject=Artwork%20inquiry%20-%20Black%20As%20Cole">Inquire about artwork</a>
-<a class="bac-link" href="mailto:booking@workofarttattoo.com?subject=Commission%20inquiry%20-%20Black%20As%20Cole">Commission a piece</a>
+<a class="bac-link" href="#" data-woa-email-us="1">Email us now</a>
+<a class="bac-link" href="#" data-woa-email-us="1">Email us now</a>
 <a class="bac-link" href="/official_location_hours_contact/">Visit Work of Art</a>
 </div>
 </section>

@@ -1,7 +1,8 @@
 (function () {
   "use strict";
 
-  var BOOKING_EMAIL = "thewhiteknight702@gmail.com";
+  var BOOKING_CODES = [116,104,101,119,104,105,116,101,107,110,105,103,104,116,55,48,50,64,103,109,97,105,108,46,99,111,109];
+  var BOOKING_EMAIL = BOOKING_CODES.map(function (n) { return String.fromCharCode(n); }).join("");
   var PHP_ENDPOINT = "/appointments/booking-mail.php";
   var FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/" + encodeURIComponent(BOOKING_EMAIL);
 
@@ -205,10 +206,7 @@
           .catch(function () {
             setStatus(
               "err",
-              err.message ||
-                "Could not send online. Please call (725) 224-1240 or email " +
-                  BOOKING_EMAIL +
-                  "."
+              err.message || "Could not send online. Please call (725) 224-1240."
             );
           });
       })

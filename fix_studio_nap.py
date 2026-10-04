@@ -20,7 +20,6 @@ from woa_nav_config import (
     STUDIO_ADDRESS_HTML,
     STUDIO_ADDRESS_LOCALITY,
     STUDIO_ADDRESS_SINGLE_LINE,
-    STUDIO_BOOKING_EMAIL,
     STUDIO_HOURS_HTML_GRID,
     STUDIO_PHONE_DISPLAY,
     STUDIO_PHONE_E164,
@@ -263,8 +262,8 @@ def process_file(path: Path) -> bool:
 
     if path.name == "ai.txt" and "Contact:" in text:
         line = (
-            f"Contact: {STUDIO_PHONE_DISPLAY} | {STUDIO_BOOKING_EMAIL} | "
-            f"{STUDIO_ADDRESS_SINGLE_LINE}"
+            f"Contact: {STUDIO_PHONE_DISPLAY} | {STUDIO_ADDRESS_SINGLE_LINE} | "
+            "https://www.workofarttattoo.com/appointments/"
         )
         text = re.sub(r"^Contact:.*$", line, text, count=1, flags=re.MULTILINE)
 

@@ -154,7 +154,7 @@ def patch_real_client() -> None:
 <aside class="border border-outline-variant/40 bg-surface p-6 space-y-3" data-woa-request-healed="1">
 <h3 class="font-headline-md text-on-surface text-xl">Request a healed photo</h3>
 <p class="font-body-md text-on-surface-variant">The one-year photo is on file. About 4 weeks is not. Text or email a later photo — there is no upload form.</p>
-<p class="font-body-md"><a class="text-secondary underline" href="sms:+17252241240">Text (725) 224-1240</a> · <a class="text-secondary underline" href="mailto:booking@workofarttattoo.com?subject=Healed%20photo%20follow-up&amp;body=Page%3A%20%2Freal_client_tattoo_timeline_las_vegas%2F">Email booking@workofarttattoo.com</a> · <a class="text-secondary underline" href="/appointments/">Appointments form</a></p>
+<p class="font-body-md"><a class="text-secondary underline" href="sms:+17252241240">Text (725) 224-1240</a> · <a class="text-secondary underline" href="#" data-woa-email-us="1">Email us now</a> · <a class="text-secondary underline" href="/appointments/">Appointments form</a></p>
 </aside>"""
     updated = raw.replace(
         "Real Client Timeline — One Tattoo, Every Stage",

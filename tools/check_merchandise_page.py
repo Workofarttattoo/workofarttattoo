@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from woa_merchandise_manifest import SLUG
-from woa_nav_config import MERCH_HREF, STUDIO_BOOKING_EMAIL
+from woa_nav_config import MERCH_HREF
 
 MERCH_DIR = ROOT / SLUG
 CODE_HTML = MERCH_DIR / "code.html"
@@ -74,11 +74,14 @@ def check_page(html_path: Path) -> list[str]:
     if not canonical or canonical.get("href") != CANONICAL:
         failures.append(f"{html_path.name}: canonical must be {CANONICAL}")
 
-    if STUDIO_BOOKING_EMAIL not in text:
-        failures.append(f"{html_path.name}: missing inquiry email {STUDIO_BOOKING_EMAIL}")
+    if "Email us now" not in text or "data-woa-email-us" not in text:
+        failures.append(f"{html_path.name}: missing Email us now contact link")
 
-    if "thewhiteknight702@gmail.com" in text.lower():
-        failures.append(f"{html_path.name}: legacy personal Gmail still present")
+    if "booking@workofarttattoo.com" in text.lower():
+        failures.append(f"{html_path.name}: booking inbox is still visible")
+
+    if "thewhiteknight702@gmail.com" in text.lower() or "kmorgen14@gmail.com" in text.lower():
+        failures.append(f"{html_path.name}: personal Gmail is still visible")
 
     for tag in soup.find_all(["a", "link", "script", "img", "source"]):
         for attr in ("href", "src", "srcset"):
@@ -113,15 +116,11 @@ def check_page(html_path: Path) -> list[str]:
     if "legacy shop" in visible.lower():
         failures.append(f"{html_path.name}: references legacy shop")
 
-    mailtos = [
-        a.get("href", "")
-        for a in soup.find_all("a", href=True)
-        if a["href"].startswith("mailto:")
-    ]
-    if not mailtos:
-        failures.append(f"{html_path.name}: no mailto inquiry CTA")
-    elif not any(STUDIO_BOOKING_EMAIL in href for href in mailtos):
-        failures.append(f"{html_path.name}: mailto links do not use {STUDIO_BOOKING_EMAIL}")
+    email_links = soup.select("[data-woa-email-us]")
+    if not email_links:
+        failures.append(f"{html_path.name}: no Email us now inquiry CTA")
+    elif any("@" in email_link.get_text(" ", strip=True) for email_link in email_links):
+        failures.append(f"{html_path.name}: Email us now link shows an address")
 
     return failures
 

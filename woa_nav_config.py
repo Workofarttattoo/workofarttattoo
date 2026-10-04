@@ -88,10 +88,10 @@ HREF_INSTAGRAM_KATELYN_HANDLE = "stabislifee"
 HREF_INSTAGRAM_TERALYN_HANDLE = "mischiefmodifies"
 HREF_FACEBOOK_STUDIO = _SOCIAL.get("facebook", "https://www.facebook.com/workofarttattoo/")
 
-# Public booking inbox (sitewide NAP, footers, schema — not personal Gmail)
-STUDIO_BOOKING_EMAIL = _BUSINESS.get("bookingEmail", "booking@workofarttattoo.com")
-STUDIO_BOOKING_LINK_LABEL = "Email us!"
-HREF_BOOKING_MAILTO = f"mailto:{STUDIO_BOOKING_EMAIL}"
+# Visible contact is an obfuscated "Email us now" control, not a published mailbox.
+# Templates write href="{HREF_BOOKING_MAILTO}", which expands to the data attribute.
+STUDIO_BOOKING_LINK_LABEL = "Email us now"
+HREF_BOOKING_MAILTO = '#" data-woa-email-us="1'
 
 # Canonical NAP — must match Google Business Profile & every directory exactly
 SITE_CANONICAL_HOST = _BUSINESS.get("canonicalHost", "https://www.workofarttattoo.com")

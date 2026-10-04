@@ -189,8 +189,10 @@ jobs:
               raise SystemExit('Homepage missing Teralyn navigation link')
           if not all(name in home for name in ('Joshua Cole', 'Katelyn Cole', 'Teralyn')):
               raise SystemExit('Homepage missing 3-person roster copy')
-          if 'booking@workofarttattoo.com' not in home:
-              raise SystemExit('Homepage missing booking@workofarttattoo.com')
+          if 'Email us now' not in home or 'data-woa-email-us' not in home:
+              raise SystemExit('Homepage missing Email us now link')
+          if 'booking@workofarttattoo.com' in home:
+              raise SystemExit('Homepage still contains booking@workofarttattoo.com')
           if '<<<<<<<' in home or '=======' in home or '>>>>>>>' in home:
               raise SystemExit('Homepage contains merge conflict markers')
           if not any(s in home for s in ('3 In-Studio Residents', 'Three in-studio residents')):
@@ -247,6 +249,10 @@ jobs:
               raise SystemExit(f'Homepage has {nap_footer_count} duplicate Studio NAP footer blocks; expected 1')
           public_gmails = ('thewhiteknight702@gmail.com', 'kmorgen14@gmail.com')
           allowed_appointment_formsubmit = 'https://formsubmit.co/thewhiteknight702@gmail.com'
+          allowed_formsubmit_re = re.compile(
+              r'https://formsubmit\.co/(?:ajax/)?thewhiteknight702@gmail\.com',
+              re.I,
+          )
           appointment_action = 'action="' + allowed_appointment_formsubmit + '"'
           appointments_html = Path('appointments/index.html').read_text(encoding='utf-8', errors='replace')
           if appointments_html.count(appointment_action) != 2:
@@ -259,10 +265,12 @@ jobs:
               if any(part in path.parts for part in ('.git', '.github', 'tools', 'audits', 'skipped_upload_build', 'artists_raw')):
                   continue
               body = path.read_text(encoding='utf-8', errors='replace')
-              scrubbed = body.replace(allowed_appointment_formsubmit, '')
+              scrubbed = allowed_formsubmit_re.sub('', body)
               for gmail in public_gmails:
                   if gmail in scrubbed:
-                      raise SystemExit(f'Public HTML still contains {gmail}: {path}')
+                      raise SystemExit(f'Public HTML still contains {gmail} outside a FormSubmit URL: {path}')
+              if 'booking@workofarttattoo.com' in body:
+                  raise SystemExit(f'Public HTML still contains booking@: {path}')
               if 'Southern Nevada Health District body art establishment Health Permit' in body:
                   raise SystemExit(f'Unverified SNHD footer claim remains in {path}')
               if 'current Body Art Card' in body or 'OSHA bloodborne pathogens certification' in body:
@@ -385,7 +393,10 @@ jobs:
           git cat-file -e origin/gh-pages:cover-up-tattoos-las-vegas/index.html
           git show origin/gh-pages:merchandise/index.html > /tmp/woa-verify-merch.html
           grep -Eiq 'Merchandise|Original art' /tmp/woa-verify-merch.html
-          grep -q 'booking@workofarttattoo.com' /tmp/woa-verify-merch.html
+          grep -q 'Email us now' /tmp/woa-verify-merch.html
+          grep -q 'data-woa-email-us' /tmp/woa-verify-merch.html
+          ! grep -q 'booking@workofarttattoo.com' /tmp/woa-verify-merch.html
+          ! grep -q 'thewhiteknight702@gmail.com' /tmp/woa-verify-merch.html
           git cat-file -e origin/gh-pages:privacy-policy/index.html
           git cat-file -e origin/gh-pages:terms-of-service/index.html
           git cat-file -e origin/gh-pages:studio-rules/index.html
@@ -407,7 +418,7 @@ jobs:
           expected = os.environ['GITHUB_SHA']
           critical = {
               '/': 'woa-hero-banner',
-              '/appointments/': 'booking@workofarttattoo.com',
+              '/appointments/': 'https://formsubmit.co/thewhiteknight702@gmail.com',
               '/artists/katelyn-cole/': 'Professional',
               '/artists/joshua-cole/': None,
               '/artists/teralyn/': 'Teralyn',
@@ -454,8 +465,12 @@ jobs:
                       if path == '/':
                           if 'Teralyn' not in body:
                               failures.append('/ missing Teralyn')
-                          if 'booking@workofarttattoo.com' not in body:
-                              failures.append('/ missing booking@')
+                          if 'Email us now' not in body or 'data-woa-email-us' not in body:
+                              failures.append('/ missing Email us now')
+                          if 'booking@workofarttattoo.com' in body:
+                              failures.append('/ still has booking@')
+                          if 'thewhiteknight702@gmail.com' in body or 'kmorgen14@gmail.com' in body:
+                              failures.append('/ has a personal Gmail outside a form')
                           if not any(s in body for s in ('3 In-Studio Residents', 'Three in-studio residents')):
                               failures.append('/ missing 3-resident wording')
                           for bad in (
@@ -491,9 +506,11 @@ jobs:
                               failures.append('/appointments/ piercing redirect changed')
                       if path == '/merchandise/':
                           if 'thewhiteknight702@gmail.com' in body or 'kmorgen14@gmail.com' in body:
-                              failures.append('/merchandise/ has stale Gmail')
-                          if 'booking@workofarttattoo.com' not in body:
-                              failures.append('/merchandise/ missing booking@workofarttattoo.com')
+                              failures.append('/merchandise/ has a personal Gmail')
+                          if 'booking@workofarttattoo.com' in body:
+                              failures.append('/merchandise/ still has booking@')
+                          if 'Email us now' not in body or 'data-woa-email-us' not in body:
+                              failures.append('/merchandise/ missing Email us now')
                           if 'Southern Nevada Health District body art establishment Health Permit' in body:
                               failures.append('/merchandise/ has SNHD claim')
                   except Exception as exc:
