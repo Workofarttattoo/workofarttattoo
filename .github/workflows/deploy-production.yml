@@ -246,12 +246,22 @@ jobs:
           if nap_footer_count > 1:
               raise SystemExit(f'Homepage has {nap_footer_count} duplicate Studio NAP footer blocks; expected 1')
           public_gmails = ('thewhiteknight702@gmail.com', 'kmorgen14@gmail.com')
+          allowed_appointment_formsubmit = 'https://formsubmit.co/thewhiteknight702@gmail.com'
+          appointment_action = 'action="' + allowed_appointment_formsubmit + '"'
+          appointments_html = Path('appointments/index.html').read_text(encoding='utf-8', errors='replace')
+          if appointments_html.count(appointment_action) != 2:
+              raise SystemExit('appointments/index.html must post both booking forms to thewhiteknight702@gmail.com')
+          if 'id="woa-form-tattoo"' not in appointments_html or 'id="woa-form-piercing"' not in appointments_html:
+              raise SystemExit('appointments/index.html is missing a booking form')
+          if 'action="/appointments/booking-mail.php"' in appointments_html or 'action="booking-mail.php"' in appointments_html:
+              raise SystemExit('appointments page posts through booking-mail.php')
           for path in Path('.').rglob('*.html'):
               if any(part in path.parts for part in ('.git', '.github', 'tools', 'audits', 'skipped_upload_build', 'artists_raw')):
                   continue
               body = path.read_text(encoding='utf-8', errors='replace')
+              scrubbed = body.replace(allowed_appointment_formsubmit, '')
               for gmail in public_gmails:
-                  if gmail in body:
+                  if gmail in scrubbed:
                       raise SystemExit(f'Public HTML still contains {gmail}: {path}')
               if 'Southern Nevada Health District body art establishment Health Permit' in body:
                   raise SystemExit(f'Unverified SNHD footer claim remains in {path}')
@@ -465,6 +475,20 @@ jobs:
                           ):
                               if bad.lower() in body.lower():
                                   failures.append(f'/ still has {bad!r}')
+                      if path == '/appointments/':
+                          action = 'action="https://formsubmit.co/thewhiteknight702@gmail.com"'
+                          if body.count(action) != 2:
+                              failures.append('/appointments/ booking forms are not posting to thewhiteknight702@gmail.com')
+                          if 'action="/appointments/booking-mail.php"' in body or 'action="booking-mail.php"' in body:
+                              failures.append('/appointments/ posts through booking-mail.php')
+                          if '[Tattoo] Appointment request — Work of Art' not in body:
+                              failures.append('/appointments/ tattoo subject changed')
+                          if '[Piercing] Appointment request — Work of Art' not in body:
+                              failures.append('/appointments/ piercing subject changed')
+                          if 'https://www.workofarttattoo.com/appointments/?sent=tattoo' not in body:
+                              failures.append('/appointments/ tattoo redirect changed')
+                          if 'https://www.workofarttattoo.com/appointments/?sent=piercing' not in body:
+                              failures.append('/appointments/ piercing redirect changed')
                       if path == '/merchandise/':
                           if 'thewhiteknight702@gmail.com' in body or 'kmorgen14@gmail.com' in body:
                               failures.append('/merchandise/ has stale Gmail')

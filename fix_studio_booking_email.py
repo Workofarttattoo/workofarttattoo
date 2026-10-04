@@ -62,6 +62,10 @@ VISIBLE_MAILTO_EMAIL = re.compile(
     re.IGNORECASE,
 )
 
+# Appointment forms post here. Cleanup must not rewrite this URL back to booking@.
+APPOINTMENT_FORMSUBMIT = "https://formsubmit.co/thewhiteknight702@gmail.com"
+APPOINTMENT_FORMSUBMIT_TOKEN = "___WOA_APPOINTMENT_FORMSUBMIT___"
+
 FORMSUBMIT_LEGACY = re.compile(
     r"https://formsubmit\.co/booking@workofarttattoo\.com",
     re.IGNORECASE,
@@ -94,10 +98,11 @@ def iter_text_files(root: Path) -> list[Path]:
 
 
 def replace_legacy_emails(text: str) -> str:
+    text = text.replace(APPOINTMENT_FORMSUBMIT, APPOINTMENT_FORMSUBMIT_TOKEN)
     for pat in LEGACY_EMAIL_PATTERNS:
         text = pat.sub(STUDIO_BOOKING_EMAIL, text)
     text = FORMSUBMIT_LEGACY.sub(f"https://formsubmit.co/{STUDIO_BOOKING_EMAIL}", text)
-    return text
+    return text.replace(APPOINTMENT_FORMSUBMIT_TOKEN, APPOINTMENT_FORMSUBMIT)
 
 
 def humanize_visible_email_links(text: str) -> str:

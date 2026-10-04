@@ -259,8 +259,12 @@ def iter_html() -> list[Path]:
 
 
 def replace_public_email(text: str) -> str:
+    appointment_formsubmit = "https://formsubmit.co/thewhiteknight702@gmail.com"
+    appointment_token = "___WOA_APPOINTMENT_FORMSUBMIT___"
+    text = text.replace(appointment_formsubmit, appointment_token)
     for gmail in GMAILS:
         text = text.replace(gmail, PUBLIC_EMAIL)
+    text = text.replace(appointment_token, appointment_formsubmit)
     text = text.replace("Joshua Cole and Joshua Cole", "Joshua Cole")
     text = text.replace("Joshua Cole or Joshua Cole", "Joshua Cole")
     return text

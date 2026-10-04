@@ -80,8 +80,12 @@ def rewrite_file(path: Path) -> bool:
         s = re.sub(r'(?is)<section\b[^>]*>.*?ear piercing work[^<]*not stock photos.*?</section>', '', s)
 
     if path.suffix.lower() in {'.html', '.htm', '.json', '.xml', '.md', '.jsonld'} and 'tools' not in path.parts:
+        appointment_formsubmit = 'https://formsubmit.co/thewhiteknight702@gmail.com'
+        appointment_token = '___WOA_APPOINTMENT_FORMSUBMIT___'
+        s = s.replace(appointment_formsubmit, appointment_token)
         s = s.replace('kmorgen14@gmail.com', 'booking@workofarttattoo.com')
         s = s.replace('thewhiteknight702@gmail.com', 'booking@workofarttattoo.com')
+        s = s.replace(appointment_token, appointment_formsubmit)
 
     if s != old:
         path.write_text(s, encoding='utf-8')
