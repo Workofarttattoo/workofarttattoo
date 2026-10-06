@@ -972,6 +972,15 @@ def guide_article_graph(
         "publisher": {"@id": ID_BUSINESS},
         "isPartOf": {"@id": ID_WEBSITE},
         "about": article_about if len(article_about) > 1 else article_about[0],
+        "spatialCoverage": {
+            "@type": "City",
+            "name": "Las Vegas",
+            "containedInPlace": {"@type": "State", "name": "Nevada"},
+        },
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Tattoo and piercing clients researching services in Las Vegas, Nevada",
+        },
         "inLanguage": "en-US",
     }
     if image_url:
@@ -991,7 +1000,12 @@ def guide_article_graph(
                 "name": title,
                 "description": safe_description,
                 "isPartOf": {"@id": ID_WEBSITE},
-                "about": {"@id": ID_BUSINESS},
+                "about": article_about if len(article_about) > 1 else article_about[0],
+                "spatialCoverage": {
+                    "@type": "City",
+                    "name": "Las Vegas",
+                    "containedInPlace": {"@type": "State", "name": "Nevada"},
+                },
             },
             {
                 "@type": "BreadcrumbList",
