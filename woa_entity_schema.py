@@ -608,6 +608,78 @@ def guide_representative_image(slug: str, root: Path | None) -> str | None:
     return f"{SITE}/home_work_of_art_tattoo_piercing/work-of-art-studio-banner-las-vegas.webp"
 
 
+PRIORITY_MULTIMODAL_GUIDES: dict[str, int] = {
+    "cover-up-tattoos-las-vegas": 4,
+    "realism_tattoos_las_vegas_master_authority_guide": 4,
+    "fine_line_tattoos_las_vegas_master_authority_guide": 4,
+}
+
+
+def priority_guide_image_objects(
+    slug: str,
+    root: Path | None,
+    *,
+    creator_id: str | None = None,
+) -> list[dict]:
+    """Return a small set of visible, first-party images for commercial guides.
+
+    Google recommends high-quality images for Search/AI visibility. Keep this
+    deliberately narrow: only pages with existing commercial/image demand get
+    extra ImageObject metadata, and only for images already visible to users.
+    """
+    limit = PRIORITY_MULTIMODAL_GUIDES.get(slug, 0)
+    if root is None or not limit:
+        return []
+
+    from woa_url_aliases import ALIASES_BY_SOURCE
+
+    candidates = [slug]
+    alias = ALIASES_BY_SOURCE.get(slug)
+    if alias:
+        candidates.append(alias.short_slug)
+
+    code_path: Path | None = None
+    page_folder = slug
+    for candidate in candidates:
+        candidate_path = root / candidate / "code.html"
+        if candidate_path.is_file():
+            code_path = candidate_path
+            page_folder = candidate
+            break
+    if code_path is None:
+        return []
+
+    soup = BeautifulSoup(code_path.read_text(encoding="utf-8"), "html.parser")
+    nodes: list[dict] = []
+    seen: set[str] = set()
+    for image in soup.find_all("img"):
+        src = (image.get("src") or "").strip()
+        alt = " ".join((image.get("alt") or "").split()).strip()
+        if not src or len(alt) < 12:
+            continue
+        if src.startswith("data:") or src.startswith("blob:"):
+            continue
+        if any(token in src.lower() for token in ("logo", "favicon", "icon")):
+            continue
+
+        if src.startswith("/"):
+            url = f"{SITE}{src}"
+        elif src.startswith("https://www.workofarttattoo.com/"):
+            url = src
+        elif src.startswith("http://") or src.startswith("https://"):
+            continue
+        else:
+            url = f"{SITE}/{page_folder}/{src.lstrip('/')}"
+
+        if url in seen:
+            continue
+        seen.add(url)
+        nodes.append(image_object(url=url, caption=alt, creator_id=creator_id))
+        if len(nodes) >= limit:
+            break
+    return nodes
+
+
 def core_service_nodes() -> list[dict]:
     """Realism, cover-up, fine line, and piercing — no prices."""
     nodes = [tattoo_service_node(), piercing_service_node()]
@@ -1100,6 +1172,21 @@ def guide_article_graph(
                 creator_id=ID_JOSHUA,
             )
         )
+
+    priority_images = priority_guide_image_objects(
+        slug,
+        root,
+        creator_id=author_id or ID_JOSHUA,
+    )
+    existing_image_urls = {
+        node.get("contentUrl")
+        for node in graph
+        if isinstance(node, dict) and node.get("@type") == "ImageObject"
+    }
+    for node in priority_images:
+        if node.get("contentUrl") not in existing_image_urls:
+            graph.append(node)
+            existing_image_urls.add(node.get("contentUrl"))
 
     safe_faqs = verified_schema_faqs(faqs or [])
     if safe_faqs:
