@@ -23,8 +23,8 @@ SECTIONS: dict[str, dict] = {
             ("/offsite_bookings/", "Private event and offsite tattoo bookings"),
         ],
     },
-    "artists/joshua-cole/code.html": {
-        "id": "joshua-healed-proof",
+    "realism-tattoos-las-vegas/code.html": {
+        "id": "realism-healed-proof",
         "heading": "More healed-work proof",
         "intro": "Compare finished work by style before choosing a direction for your piece.",
         "links": [
@@ -50,8 +50,8 @@ SECTIONS: dict[str, dict] = {
             ("/knowledge/fine-line-tattoo-longevity/", "How fine-line tattoos age"),
         ],
     },
-    "artists/katelyn-cole/code.html": {
-        "id": "katelyn-planning-guides",
+    "piercing-shop-standards/code.html": {
+        "id": "piercing-standards-planning-guides",
         "heading": "Piercing planning guides from Katelyn's specialty areas",
         "intro": "Use these guides to narrow placement, healing, jewelry, and anatomy questions before booking.",
         "links": [
