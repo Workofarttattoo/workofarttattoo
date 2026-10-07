@@ -21,9 +21,9 @@ Source of truth for client-side GA4/GTM events. Implementation: `woa_ga4_convers
 | `booking_submit_attempt` | Native form submit event (before server response) | Page load; CTA click alone | No | Diagnostic / drop-off |
 | `booking_submit` | Verified successful submission only | Page load; view; start; failed validation; attempt | **Yes (primary)** | True completed lead |
 | `generate_lead` | Same trigger as `booking_submit` | Any pre-success action | Optional primary | GA4 recommended lead event |
-| `phone_click` | `tel:` link click | — | Optional primary | Call intent |
+| `phone_click` | `tel:` link click | — | Optional primary | Call intent with first-touch + origin attribution |
 | `email_click` | `mailto:` link click | — | Optional primary | Email intent |
-| `directions_click` | Google Maps / g.page link click | — | Optional secondary | Visit intent |
+| `directions_click` | Google Maps / g.page link click | — | Optional secondary | Visit intent |\n| `appointment_cta_click` | Any appointment-link click | Page load | No | Booking intent with landing/origin/source context |\n| `cover_up_cta_click` | Book/call/text/email CTA from a cover-up route | Non-cover-up pages | No | Cover-up funnel intent |\n| `artist_appointment_click` | Appointment CTA from `/artists/...` | Other pages | No | Artist → booking funnel |
 | `instagram_click` | Instagram profile/post link click | — | No | Social outbound |
 | `woa_verified_lead` (dataLayer) | Successful submission | All other triggers | GTM → Ads only | Google Ads conversion hook |
 
@@ -47,6 +47,10 @@ Append `?debug_analytics=1` to any URL for GA4 DebugView (`debug_mode: true` on 
 ## Automated traffic
 
 Events suppressed for headless QA, Lighthouse, `navigator.webdriver`, `?woa_qa=1`, and `sessionStorage.woa_analytics_opt_out=1`.
+
+## Attribution fields
+
+Funnel events carry session-safe attribution fields: `landing_page`, `origin_page`, `first_touch_source`, `first_touch_medium`, `first_referrer_host`, plus any UTM fields. These are non-PII routing fields used to answer questions like “Google organic → Joshua page → appointment click → booking submit.”
 
 ## Privacy
 

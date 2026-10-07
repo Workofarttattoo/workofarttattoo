@@ -16,7 +16,7 @@ In [GA4 Admin](https://analytics.google.com/) → **Data display** → **Events*
 | `directions_click` | Maps / visit intent |
 | `appointment_cta_click` | Book CTA clicks |
 
-**Leave OFF as key events:** `page_view`, `session_start`, `scroll_depth`, `booking_view`, `booking_start`, `booking_submit_attempt`, `book_click`, `form_start`, `call_click`, `ads_conversion_Submit_lead_form_1` (fix GTM first).
+**Important:** if GA4 currently shows `page_view` as a key event, turn it off; page views inflate conversion reporting.\n\n**Leave OFF as key events:** `page_view`, `session_start`, `scroll_depth`, `booking_view`, `booking_start`, `booking_submit_attempt`, `book_click`, `form_start`, `call_click`, `appointment_cta_click`, `cover_up_cta_click`, `artist_appointment_click`, `ads_conversion_Submit_lead_form_1` (fix GTM first).
 
 Source of truth: `docs/analytics-event-contract.md` and `siteData/analytics.json`.
 
@@ -64,7 +64,7 @@ Container **`GTM-TZTQSQBB`**:
 | User action | GA4 event | GTM / gtag |
 |-----------|-----------|------------|
 | Successful booking form | `booking_submit`, `generate_lead` | gtag via `woa_ga4_conversions.py` |
-| Book link click | `booking_start`, `appointment_cta_click`, `book_click` | same |
+| Book link click | `booking_start`, `appointment_cta_click`, `book_click` | same |\n| Cover-up CTA | `cover_up_cta_click` | same |\n| Artist → appointment CTA | `artist_appointment_click` | same |
 | Phone tap | `phone_click` (+ legacy `call_click`) | same |
 | SMS tap | `text_click` | same |
 | Email tap | `email_click` | same |

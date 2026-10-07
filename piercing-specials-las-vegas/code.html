@@ -1109,6 +1109,58 @@ t.src=base+"?woa-retry="+Date.now();
   }
   captureUtmParams();
 
+  function referrerHost() {
+    try {
+      if (!document.referrer) return "";
+      var u = new URL(document.referrer);
+      var host = (u.hostname || "").toLowerCase();
+      var current = (location.hostname || "").toLowerCase();
+      if (!host || host.replace(/^www\./, "") === current.replace(/^www\./, "")) return "";
+      return host.slice(0, 120);
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function classifyFirstTouch(host) {
+    var h = String(host || "").toLowerCase();
+    if (!h) return { source: "direct", medium: "none" };
+    if (/google\./i.test(h)) return { source: "google", medium: "organic" };
+    if (/bing\.com/i.test(h)) return { source: "bing", medium: "organic" };
+    if (/search\.yahoo\.com/i.test(h)) return { source: "yahoo", medium: "organic" };
+    if (/duckduckgo\.com/i.test(h)) return { source: "duckduckgo", medium: "organic" };
+    if (/ecosia\.org/i.test(h)) return { source: "ecosia", medium: "organic" };
+    if (/chatgpt\.com|openai\.com/i.test(h)) return { source: "chatgpt", medium: "referral" };
+    if (/copilot\.microsoft\.com/i.test(h)) return { source: "copilot", medium: "referral" };
+    if (/instagram\.com/i.test(h)) return { source: "instagram", medium: "social" };
+    if (/facebook\.com/i.test(h)) return { source: "facebook", medium: "social" };
+    if (/tiktok\.com/i.test(h)) return { source: "tiktok", medium: "social" };
+    if (/(^|\.)x\.com$|twitter\.com/i.test(h)) return { source: "x", medium: "social" };
+    return { source: h.replace(/^www\./, ""), medium: "referral" };
+  }
+
+  function captureFirstTouch() {
+    if (storageGet("woa_first_touch_source")) return;
+    var utmSource = storageGet("woa_utm_source");
+    var utmMedium = storageGet("woa_utm_medium");
+    var host = referrerHost();
+    var touch = utmSource
+      ? { source: safeSlug(utmSource) || "campaign", medium: safeSlug(utmMedium) || "campaign" }
+      : classifyFirstTouch(host);
+    storageSetOnce("woa_first_touch_source", touch.source);
+    storageSetOnce("woa_first_touch_medium", touch.medium);
+    storageSetOnce("woa_first_referrer_host", host || "direct");
+  }
+  captureFirstTouch();
+
+  function firstTouchAttribution() {
+    return {
+      first_touch_source: storageGet("woa_first_touch_source") || "direct",
+      first_touch_medium: storageGet("woa_first_touch_medium") || "none",
+      first_referrer_host: storageGet("woa_first_referrer_host") || "direct",
+    };
+  }
+
   function utmAttribution() {
     var out = {};
     ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (key) {
@@ -1129,20 +1181,24 @@ t.src=base+"?woa-retry="+Date.now();
   function serviceInterestFromPath(path) {
     var value = String(path || location.pathname || "");
     if (PIERCING_ROUTE_RE.test(value)) return "piercing";
+    if (/(cover[-_]?up|scar[-_]?cover)/i.test(value)) return "cover_up";
     if (/(fine[-_]?line|script|floral|small[-_]?tattoo|teralyn)/i.test(value)) return "fine_line_tattoo";
     if (/(realism|portrait|black[-_]?grey|blackwork|joshua)/i.test(value)) return "tattoo";
-    if (/(cover[-_]?up|flash|walk[-_]?in|tattoo)/i.test(value)) return "tattoo";
+    if (/(flash|walk[-_]?in|tattoo)/i.test(value)) return "tattoo";
     return "unknown";
   }
 
   function attributionParams(params) {
     return assign(
       assign(
-        {
-          landing_page: firstLandingPage(),
-          origin_page: bookingOriginPage(),
-          service_interest: serviceInterestFromPath(bookingOriginPage()),
-        },
+        assign(
+          {
+            landing_page: firstLandingPage(),
+            origin_page: bookingOriginPage(),
+            service_interest: serviceInterestFromPath(bookingOriginPage()),
+          },
+          firstTouchAttribution()
+        ),
         utmAttribution()
       ),
       params || {}
@@ -1253,6 +1309,30 @@ t.src=base+"?woa-retry="+Date.now();
     if (el.closest("footer")) return "footer";
     if (el.closest(".woa-hero, .hero, #hero, [data-woa-hero]")) return "hero";
     return "content";
+  }
+
+  function isCoverUpPath(path) {
+    return /(cover[-_]?up|scar[-_]?cover)/i.test(String(path || location.pathname || ""));
+  }
+
+  function artistSlugFromPath(path) {
+    var match = String(path || location.pathname || "").match(/^\/artists\/([^/?#]+)/i);
+    return match && match[1] ? safeSlug(match[1]) : "";
+  }
+
+  function clickAttribution(base, extras) {
+    return attributionParams(
+      assign(
+        assign(
+          {
+            origin_page: location.pathname || "/",
+            service_interest: serviceInterestFromPath(location.pathname),
+          },
+          base || {}
+        ),
+        extras || {}
+      )
+    );
   }
 
   function serviceFromFormId(id) {
@@ -1391,6 +1471,7 @@ t.src=base+"?woa-retry="+Date.now();
         click_text: linkText(link),
         click_location: clickLocation(link),
       };
+      var attributedBase = clickAttribution(base);
       if (h.indexOf("/appointments") >= 0) {
         storageSet("woa_booking_origin_page", location.pathname || "/");
         captureUtmParams();
@@ -1423,22 +1504,43 @@ t.src=base+"?woa-retry="+Date.now();
 
       if (h.indexOf("tel:") === 0) {
         if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link)) {
-          send("piercing_call_click", attributionParams(assign({ service_type: "piercing" }, base)));
-          send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "call" }, base)));
+          send("piercing_call_click", clickAttribution(base, { service_type: "piercing" }));
+          send("piercing_cta_click", clickAttribution(base, { service_type: "piercing", cta_type: "call" }));
         }
-        send("call_click", base);
-        send("phone_click", assign({ legacy_alias: true }, base));
+        if (isCoverUpPath(location.pathname)) {
+          send("cover_up_cta_click", clickAttribution(base, {
+            service_category: "tattoo",
+            service_type: "cover_up",
+            cta_type: "call",
+          }));
+        }
+        send("call_click", attributedBase);
+        send("phone_click", assign({ legacy_alias: true }, attributedBase));
         return;
       }
       if (h.indexOf("sms:") === 0 || link.hasAttribute("data-woa-piercing-text-click")) {
-        send("text_click", base);
-        send("text_us_click", base);
-        send("piercing_text_click", attributionParams(assign({ service_type: "piercing" }, base)));
-        send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "text" }, base)));
+        if (isCoverUpPath(location.pathname)) {
+          send("cover_up_cta_click", clickAttribution(base, {
+            service_category: "tattoo",
+            service_type: "cover_up",
+            cta_type: "text",
+          }));
+        }
+        send("text_click", attributedBase);
+        send("text_us_click", attributedBase);
+        send("piercing_text_click", clickAttribution(base, { service_type: "piercing" }));
+        send("piercing_cta_click", clickAttribution(base, { service_type: "piercing", cta_type: "text" }));
         return;
       }
       if (h.indexOf("mailto:") === 0) {
-        send("email_click", base);
+        if (isCoverUpPath(location.pathname)) {
+          send("cover_up_cta_click", clickAttribution(base, {
+            service_category: "tattoo",
+            service_type: "cover_up",
+            cta_type: "email",
+          }));
+        }
+        send("email_click", attributedBase);
         return;
       }
       if (h.indexOf("instagram.com") >= 0 || h.indexOf("instagr.am") >= 0) {
@@ -1446,16 +1548,38 @@ t.src=base+"?woa-retry="+Date.now();
         return;
       }
       if (h.indexOf("/appointments") >= 0) {
+        var interest = serviceInterestFromPath(location.pathname);
+        var category = interest === "piercing" ? "piercing" : interest === "unknown" ? "unknown" : "tattoo";
         if (PIERCING_ROUTE_RE.test(location.pathname) || closestPromo(link) || link.hasAttribute("data-woa-piercing-booking-start")) {
-          send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "book" }, base)));
+          send("piercing_cta_click", clickAttribution(base, { service_type: "piercing", cta_type: "book" }));
         }
-        send("booking_start", attributionParams(assign({
-          service_category: serviceInterestFromPath(location.pathname) === "piercing" ? "piercing" : "unknown",
-          service_type: serviceInterestFromPath(location.pathname),
+        if (isCoverUpPath(location.pathname)) {
+          send("cover_up_cta_click", clickAttribution(base, {
+            service_category: "tattoo",
+            service_type: "cover_up",
+            cta_type: "book",
+          }));
+        }
+        var artistSlug = artistSlugFromPath(location.pathname);
+        if (artistSlug) {
+          send("artist_appointment_click", clickAttribution(base, {
+            artist_name: artistSlug,
+            service_category: category,
+            service_type: interest,
+            cta_type: "book",
+          }));
+        }
+        send("booking_start", clickAttribution(base, {
+          service_category: category,
+          service_type: interest,
           source_action: "appointment_link_click",
-        }, base)));
-        send("appointment_cta_click", assign({ cta_location: clickLocation(link) }, base));
-        send("book_click", base);
+        }));
+        send("appointment_cta_click", clickAttribution(base, {
+          cta_location: clickLocation(link),
+          service_category: category,
+          service_type: interest,
+        }));
+        send("book_click", attributedBase);
         return;
       }
       if (
@@ -1468,7 +1592,7 @@ t.src=base+"?woa-retry="+Date.now();
           send("piercing_directions_click", attributionParams(assign({ service_type: "piercing" }, base)));
           send("piercing_cta_click", attributionParams(assign({ service_type: "piercing", cta_type: "directions" }, base)));
         }
-        send("directions_click", base);
+        send("directions_click", attributedBase);
         return;
       }
       if (
