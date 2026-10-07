@@ -24,8 +24,8 @@ jobs:
       - name: Install build dependencies
         run: python3 -m pip install --quiet Pillow beautifulsoup4
 
-      - name: Verify analytics, booking semantics, and multimodal metadata
-        run: python3 -m unittest tests/test_analytics_semantics.py tests/test_booking_accessibility.py tests/test_multimodal_schema.py
+      - name: Verify analytics, booking, multimodal, and indexing-link semantics
+        run: python3 -m unittest tests/test_analytics_semantics.py tests/test_booking_accessibility.py tests/test_multimodal_schema.py tests/test_indexing_priority_links.py
 
       - name: Prepare generated site
         run: python3 prepare_site_deploy.py
