@@ -15,7 +15,7 @@ class MultimodalSchemaTests(unittest.TestCase):
     def test_priority_guides_have_small_visible_image_sets(self) -> None:
         for slug in (
             "cover-up-tattoos-las-vegas",
-            "realism_tattoos_las_vegas_master_authority_guide",
+            "realism-tattoos-las-vegas",
             "fine_line_tattoos_las_vegas_master_authority_guide",
         ):
             nodes = priority_guide_image_objects(slug, ROOT, creator_id=ID_JOSHUA)

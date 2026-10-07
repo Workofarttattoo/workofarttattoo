@@ -610,6 +610,7 @@ def guide_representative_image(slug: str, root: Path | None) -> str | None:
 
 PRIORITY_MULTIMODAL_GUIDES: dict[str, int] = {
     "cover-up-tattoos-las-vegas": 4,
+    "realism-tattoos-las-vegas": 4,
     "realism_tattoos_las_vegas_master_authority_guide": 4,
     "fine_line_tattoos_las_vegas_master_authority_guide": 4,
 }
