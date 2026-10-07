@@ -94,6 +94,30 @@ class AnalyticsSemanticsTests(unittest.TestCase):
         self.assertIn("event_id", booking)
         self.assertIn("form_name", booking)
 
+    def test_attribution_fields_persist_across_funnel(self) -> None:
+        source = ga_source()
+        for field in ("first_touch_source", "first_touch_medium", "first_referrer_host", "landing_page", "origin_page"):
+            self.assertIn(field, source)
+        self.assertIn("captureFirstTouch", source)
+        self.assertIn("clickAttribution", source)
+
+    def test_cover_up_cta_event_exists(self) -> None:
+        source = ga_source()
+        self.assertIn('send("cover_up_cta_click"', source)
+        self.assertIn('service_type: "cover_up"', source)
+        self.assertIn('cta_type: "book"', source)
+        self.assertIn('cta_type: "call"', source)
+
+    def test_artist_to_appointment_event_exists(self) -> None:
+        source = ga_source()
+        self.assertIn('send("artist_appointment_click"', source)
+        self.assertIn("artistSlugFromPath", source)
+
+    def test_phone_and_appointment_clicks_use_attribution(self) -> None:
+        source = ga_source()
+        self.assertIn('send("phone_click", assign({{ legacy_alias: true }}, attributedBase))', source)
+        self.assertIn('send("appointment_cta_click", clickAttribution(', source)
+
     def test_no_pii_in_analytics_payloads(self) -> None:
         source = ga_source()
         forbidden = ("full_name", "data.email", "data.phone", "tattoo_description", "piercing_notes")

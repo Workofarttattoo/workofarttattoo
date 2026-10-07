@@ -19,8 +19,7 @@
       "phone_click",
       "text_click",
       "email_click",
-      "directions_click",
-      "appointment_cta_click"
+      "directions_click"
     ],
     "diagnosticNotKeyEvents": [
       "booking_start",
@@ -34,7 +33,10 @@
       "call_click",
       "piercing_booking_start",
       "piercing_booking_submit",
-      "ads_conversion_Submit_lead_form_1"
+      "ads_conversion_Submit_lead_form_1",
+      "appointment_cta_click",
+      "cover_up_cta_click",
+      "artist_appointment_click"
     ]
   },
   "gscWizardBlendedReports": {
@@ -55,5 +57,24 @@
     ]
   },
   "implementationSource": "woa_ga4_conversions.py",
-  "eventContractDoc": "docs/analytics-event-contract.md"
+  "eventContractDoc": "docs/analytics-event-contract.md",
+  "attributionFields": [
+    "landing_page",
+    "origin_page",
+    "first_touch_source",
+    "first_touch_medium",
+    "first_referrer_host",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content"
+  ],
+  "funnelEvents": {
+    "phoneIntent": "phone_click",
+    "appointmentIntent": "appointment_cta_click",
+    "coverUpIntent": "cover_up_cta_click",
+    "artistToAppointment": "artist_appointment_click",
+    "verifiedLead": "booking_submit"
+  }
 }

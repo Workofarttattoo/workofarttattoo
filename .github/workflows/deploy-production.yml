@@ -24,6 +24,9 @@ jobs:
       - name: Install build dependencies
         run: python3 -m pip install --quiet Pillow beautifulsoup4
 
+      - name: Verify analytics event semantics
+        run: python3 -m unittest tests/test_analytics_semantics.py
+
       - name: Prepare generated site
         run: python3 prepare_site_deploy.py
 
