@@ -137,6 +137,9 @@ jobs:
       - name: Apply angel numbers after generated HTML
         run: python3 inject_angel_numbers.py
 
+      - name: Preserve and verify surgical discovery links in final HTML
+        run: python3 tools/preserve_surgical_discovery_links.py
+
       - name: Audit final production tree
         run: |
           python3 - <<'PY'
