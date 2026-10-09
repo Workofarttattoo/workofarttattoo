@@ -24,6 +24,10 @@ def apply(path, links):
     if not missing:
         return
     anchor = '<nav data-woa-guide-links="1"'
+    # The site build can remove the guide nav before this preservation step.
+    # Fall back to the end of <main> while keeping links inside page content.
+    if anchor not in body:
+        anchor = "</main>"
     if anchor not in body:
         raise SystemExit(f"Cannot find safe insertion point in {path}")
     items = "".join(f'<li><a class="text-secondary underline hover:no-underline" href="{href}">{label}</a></li>' for href, label in missing)
