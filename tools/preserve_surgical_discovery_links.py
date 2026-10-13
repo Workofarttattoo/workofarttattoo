@@ -25,6 +25,8 @@ def apply(path, links):
         return
     anchor = '<nav data-woa-guide-links="1"'
     if anchor not in body:
+        anchor = '</main>'
+    if anchor not in body:
         raise SystemExit(f"Cannot find safe insertion point in {path}")
     items = "".join(f'<li><a class="text-secondary underline hover:no-underline" href="{href}">{label}</a></li>' for href, label in missing)
     block = f'<section {MARKER} class="py-6 px-margin-mobile md:px-margin-desktop bg-surface-container-low" aria-label="Related reading"><div class="max-w-4xl mx-auto"><h2 class="font-headline-md text-on-surface text-xl mb-3">Related reading</h2><ul class="font-body-md text-on-surface-variant space-y-2">{items}</ul></div></section>\n'
