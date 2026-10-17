@@ -283,6 +283,8 @@ def main() -> int:
     # Later head rewrites can drop the direct GA4 tag. GTM does not load this property.
     run_step(["python3", str(ROOT / "inject_google_tag.py")])
     run_step(["python3", str(ROOT / "inject_ga4_conversions.py")])
+    run_step(["python3", str(ROOT / "build_second_chance_ink.py")])
+    run_step(["python3", str(ROOT / "submit_google_recrawl.py")])
     verify_homepage()
     # Re-apply after generators. The production workflow runs this again after
     # code.html → index.html and the final parity cleanup.
