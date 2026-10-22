@@ -32,9 +32,9 @@ def main_html() -> str:
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background">
 <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
 <div class="space-y-6">
-<p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-xs">This week at Work of Art</p>
+<p class="font-label-caps text-secondary uppercase tracking-[0.2em] text-xs">Daily deals at Work of Art</p>
 <h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface leading-tight">Piercing Specials in Las Vegas</h1>
-<p class="font-body-lg text-on-surface-variant leading-relaxed">See the current Work of Art piercing special, what's included, and how to book with Katelyn. Text or book online for eligible placements, jewelry-fit options, and same-day openings.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">Stay tuned for daily deals as we post them on the website. Text or book online for piercing appointments with Katelyn.</p>
 <div class="flex flex-col sm:flex-row gap-3">
 <a class="inline-flex bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase" href="/appointments/" data-woa-piercing-booking-start="1">Book piercing</a>
 <a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase hover:border-secondary" href="{STUDIO_PHONE_TEL.replace('tel:', 'sms:')}" data-woa-piercing-text-click="1">Text for today</a>
@@ -87,7 +87,7 @@ def main_html() -> str:
 <details class="border border-outline-variant/30 bg-surface-container-high p-5"><summary class="font-headline-md text-on-surface cursor-pointer">Can I upgrade or change jewelry?</summary><p class="font-body-md text-on-surface-variant mt-4">Ask during the consult. Fresh-piercing jewelry choices depend on fit, swelling, placement, and what is appropriate for the stage of healing.</p></details>
 </section>
 <section class="space-y-4">
-<h2 class="font-headline-md text-on-surface text-2xl">Book the current piercing special</h2>
+<h2 class="font-headline-md text-on-surface text-2xl">Book a piercing</h2>
 <div class="flex flex-col sm:flex-row gap-3">
 <a class="inline-flex bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase" href="/appointments/" data-woa-piercing-booking-start="1">Book piercing</a>
 <a class="inline-flex border border-outline px-8 py-4 font-label-caps text-label-caps tracking-widest justify-center uppercase hover:border-secondary" href="{STUDIO_PHONE_TEL.replace('tel:', 'sms:')}" data-woa-piercing-text-click="1">Text for today</a>
@@ -100,7 +100,7 @@ def main_html() -> str:
 
 def patch_meta(page: str) -> str:
     title = "Piercing Specials in Las Vegas"
-    desc = "Current piercing specials at Work of Art Las Vegas with Katelyn Cole, same-day availability, booking, jewelry-fit planning, aftercare, and directions."
+    desc = "Stay tuned for daily piercing deals at Work of Art Las Vegas. Book with Katelyn Cole and find piercing information, aftercare, and directions."
     canon = f"{SITE}/{SPECIALS_SLUG}/"
     page = re.sub(r"<title>.*?</title>", f"<title>{title} | Work of Art</title>", page, count=1)
     page = re.sub(r'<meta content="[^"]*" name="description"/>', f'<meta content="{desc}" name="description"/>', page, count=1)
