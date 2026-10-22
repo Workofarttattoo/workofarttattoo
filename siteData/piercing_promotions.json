@@ -1,16 +1,16 @@
 [
   {
-    "id": "two-for-85-piercing-special-2026-09",
-    "name": "2 for $85 Piercing Special",
+    "id": "daily-piercing-deals",
+    "name": "Daily Piercing Deals",
     "slug": "piercing-specials-las-vegas",
-    "headline": "2 for $85 on any piercing",
-    "description": "Work of Art is running a 2-for-$85 piercing special on eligible placements. Book or text ahead to confirm same-day availability, anatomy fit, and piercer schedule before heading in.",
+    "headline": "Daily piercing deals",
+    "description": "Stay tuned for daily deals as we post them on the website.",
     "startDate": "",
     "endDate": "",
-    "status": "ACTIVE",
-    "discountType": "bundle_price",
-    "discountValue": "85",
-    "displayPrice": "2 for $85",
+    "status": "ANNOUNCEMENT",
+    "discountType": "",
+    "discountValue": "",
+    "displayPrice": "",
     "eligiblePiercings": [
       "ear piercings (lobe, helix, conch, tragus, daith, industrial, and ear curation)",
       "nostril piercings",
@@ -20,12 +20,12 @@
       "nipple piercings",
       "most body piercings except tongue and lip placements"
     ],
-    "jewelryTerms": "Starter jewelry is included for both piercings; upgrades or anatomy-specific fit changes are confirmed during the consult.",
-    "exclusions": "Not valid on tongue or lip piercings (including labret, philtrum, snake bites, and similar oral/lip placements). Offer depends on anatomy, applicable age policy, healing history, piercer availability, and jewelry fit.",
-    "ctaText": "See the 2 for $85 piercing special",
+    "jewelryTerms": "",
+    "exclusions": "",
+    "ctaText": "See daily piercing deals",
     "bookingUrl": "/appointments/",
     "image": "/studio_gallery/curated-helix-tragus-lobe-piercings-88475d3e.webp",
     "altText": "Curated helix, tragus, and lobe piercings at Work of Art Tattoo and Piercing in Las Vegas",
-    "analyticsCampaign": "two_for_85_piercing_special_2026_09"
+    "analyticsCampaign": "daily_piercing_deals"
   }
 ]
