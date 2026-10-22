@@ -86,6 +86,12 @@ def _cta(href: str, label: str, *, primary: bool = False, extra: str = "") -> st
 
 def render_current_piercing_special(*, variant: str = "standard", context: str = "content") -> str:
     promo = current_promotion()
+    if promo.get("status") == "ANNOUNCEMENT":
+        return f"""<aside class="border border-secondary/40 bg-surface-container-low p-6 md:p-8 space-y-5" {_attrs(promo)} data-woa-promo-variant="{html.escape(variant)}">
+<h2 class="font-headline-md text-on-surface text-2xl">{html.escape(str(promo["headline"]))}</h2>
+<p class="font-body-md text-on-surface-variant leading-relaxed">{html.escape(str(promo["description"]))}</p>
+{_cta(SPECIALS_URL, str(promo["ctaText"]), primary=True)}
+</aside>"""
     price = str(promo.get("displayPrice") or "").strip()
     price_line = (
         f'<p class="font-headline-md text-secondary text-2xl">{html.escape(price)}</p>'
