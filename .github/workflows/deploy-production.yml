@@ -140,6 +140,27 @@ jobs:
       - name: Preserve approved low-CTR title and description rewrites
         run: python3 tools/apply_ctr_metadata.py
 
+      - name: Set fresh lion tattoo as homepage sharing image
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          image = "https://www.workofarttattoo.com/healed_tattoo_gallery_las_vegas/fresh-roaring-lion-thigh-black-grey-joshua-cole-las-vegas.png"
+          alt = "Fresh roaring lion thigh tattoo by Joshua Cole at Work of Art Tattoo & Piercing in Las Vegas"
+          for path in [Path("code.html"), Path("index.html"), Path("home_work_of_art_tattoo_piercing/code.html")]:
+              if not path.exists():
+                  continue
+              html = path.read_text(encoding="utf-8")
+              for attribute, key, value in [("property", "og:image", image), ("name", "twitter:image", image), ("property", "og:image:alt", alt), ("name", "twitter:image:alt", alt)]:
+                  tag = f'<meta content="{value}" {attribute}="{key}"/>'
+                  pattern = r'<meta\b(?=[^>]*\b' + attribute + r'=["\x27]' + re.escape(key) + r'["\x27])[^>]*>'
+                  if re.search(pattern, html, flags=re.I):
+                      html = re.sub(pattern, lambda _: tag, html, count=1, flags=re.I)
+                  else:
+                      html = html.replace("</head>", tag + "\n</head>", 1)
+              path.write_text(html, encoding="utf-8")
+          PY
+
       - name: Preserve and verify surgical discovery links in final HTML
         run: python3 tools/preserve_surgical_discovery_links.py
 
