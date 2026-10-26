@@ -137,7 +137,10 @@ jobs:
       - name: Apply angel numbers after generated HTML
         run: python3 inject_angel_numbers.py
 
-      - name: Preserve approved low-CTR title and description rewrites\n        run: python3 tools/apply_ctr_metadata.py\n\n      - name: Preserve and verify surgical discovery links in final HTML
+      - name: Preserve approved low-CTR title and description rewrites
+        run: python3 tools/apply_ctr_metadata.py
+
+      - name: Preserve and verify surgical discovery links in final HTML
         run: python3 tools/preserve_surgical_discovery_links.py
 
       - name: Audit final production tree
