@@ -53,9 +53,9 @@ PAGES = {
     ),
 }
 
-TITLE_RE = re.compile(r"<title\\b[^>]*>[\\s\\S]*?</title>", re.I)
-META_RE = re.compile(r"<meta\\b[^>]*>", re.I)
-CONTENT_RE = re.compile(r'\\bcontent\\s*=\\s*(["\\\']).*?\\1', re.I | re.S)
+TITLE_RE = re.compile(r"<title\b[^>]*>[\s\S]*?</title>", re.I)
+META_RE = re.compile(r"<meta\b[^>]*>", re.I)
+CONTENT_RE = re.compile(r'\bcontent\s*=\s*(["\\']).*?\1', re.I | re.S)
 
 def update_head(raw: str, title: str, description: str) -> str:
     safe_title, safe_desc = html.escape(title, quote=True), html.escape(description, quote=True)
@@ -68,12 +68,12 @@ def update_head(raw: str, title: str, description: str) -> str:
         tag = match.group(0)
         lowered = tag.lower()
         kind = None
-        if re.search(r'\\bname\\s*=\\s*["\\\']description["\\\']', lowered):
+        if re.search(r'\bname\s*=\s*["\\']description["\\']', lowered):
             kind = "description"
             found_description += 1
-        elif re.search(r'\\bproperty\\s*=\\s*["\\\']og:title["\\\']', lowered) or re.search(r'\\bname\\s*=\\s*["\\\']twitter:title["\\\']', lowered):
+        elif re.search(r'\bproperty\s*=\s*["\\']og:title["\\']', lowered) or re.search(r'\bname\s*=\s*["\\']twitter:title["\\']', lowered):
             kind = "title"
-        elif re.search(r'\\bproperty\\s*=\\s*["\\\']og:description["\\\']', lowered) or re.search(r'\\bname\\s*=\\s*["\\\']twitter:description["\\\']', lowered):
+        elif re.search(r'\bproperty\s*=\s*["\\']og:description["\\']', lowered) or re.search(r'\bname\s*=\s*["\\']twitter:description["\\']', lowered):
             kind = "description"
         if kind is None:
             return tag
