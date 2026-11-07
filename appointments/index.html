@@ -733,7 +733,10 @@ function show(s){tabs.forEach(function(b){var on=b.getAttribute("data-woa-servic
 tabs.forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-woa-service-tab"));});});
 show("tattoo");
 var q=location.search||"";var thanks=document.getElementById("woa-booking-thanks");
-if(thanks&&(q.indexOf("sent=tattoo")>=0||q.indexOf("sent=piercing")>=0)){thanks.hidden=false;thanks.classList.remove("hidden");thanks.textContent="Thank you — your request was sent. We will reply shortly.";if(q.indexOf("sent=piercing")>=0)show("piercing");}
+var confirmed=(q.indexOf("sent=tattoo")>=0||q.indexOf("sent=piercing")>=0);
+if(thanks&&confirmed){thanks.hidden=false;thanks.classList.remove("hidden");thanks.textContent="Your request was submitted. Our team will review it and reply shortly. This is a request, not a confirmed appointment.";if(q.indexOf("sent=piercing")>=0)show("piercing");try{sessionStorage.removeItem("woa_booking_pending");}catch(e){}}
+else if(thanks){try{if(sessionStorage.getItem("woa_booking_pending")==="1"){thanks.hidden=false;thanks.classList.remove("hidden");thanks.setAttribute("role","alert");thanks.textContent="We could not confirm that your request was submitted. Please try again or contact the studio directly.";sessionStorage.removeItem("woa_booking_pending");}}catch(e){}}
+["woa-form-tattoo","woa-form-piercing"].forEach(function(id){var form=document.getElementById(id);if(form){form.addEventListener("submit",function(){try{sessionStorage.setItem("woa_booking_pending","1");}catch(e){};});}});
 })();</script>
 <!-- WOA_BOOKING_FORMS_END -->
 </section>
